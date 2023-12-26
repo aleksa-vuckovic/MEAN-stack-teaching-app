@@ -24,4 +24,16 @@ export class PrijavaService {
   promenaLozinke(podaci: any) {
     return this.http.post(this.baseUrl + "promenalozinke", podaci);
   }
+
+  sigurnosnoPitanje(kime: string) {
+    return this.http.get(this.baseUrl + "sigurnosnopitanje?kime=" + kime);
+  }
+
+  sigurnosniOdgovor(podaci: any) {
+    return this.http.post(this.baseUrl + "sigurnosniodgovor", podaci);
+  }
+
+  zaboravljenaLozinka(podaci: any) {
+    return this.http.post(this.baseUrl + "zaboravljenalozinka", podaci);
+  }
 }

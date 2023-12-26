@@ -83,4 +83,37 @@ export class PrijavaController {
             }
         })
     }
+
+    sigurnosnoPitanje = (req: express.Request, res: express.Response) => {
+        let kime = req.query.kime as string
+        if (!kime) res.json({message: "Nedostaje korisnicko ime."})
+        else DB.korisnikPoKime(kime).then((ret: any) => {
+            if (ret == null) res.json({message: "Korisnik ne postoji u bazi."})
+            else res.json({message: "ok", data: ret.pitanje})
+        })
+    }
+
+    sigurnosniOdgovor = (req: express.Request, res: express.Response) => {
+        if (!req.body || !req.body.kime || !req.body.odgovor) res.json({message: "Nedostaju polja."})
+        else DB.korisnikPoKime(req.body.kime).then((ret: any) => {
+            if (ret == null) res.json({message: "Korisnik ne postoji."})
+            else if (ret.odgovor == req.body.odgovor) res.json({message: "ok"})
+            else res.json({message: "Odgovor nije tacan."})
+        })
+    }
+
+    zaboravljenaLozinka = (req: express.Request, res: express.Response) => {
+        if (!req.body || !req.body.kime || !req.body.odgovor || !req.body.nova || !req.body.nova2) res.json({message: "Nedostaju polja."})
+        else if (Validacija.lozinkaValidacija(req.body.nova) != "ok") res.json({message: Validacija.lozinkaValidacija(req.body.nova)});
+        else if (req.body.nova != req.body.nova2) res.json({message: "Nepodudaranje ponovljene lozinke."});
+        else DB.korisnikPoKime(req.body.kime).then((ret: any) => {
+            if (ret == null) res.json({message: "Neispravni kredencijali."})
+            else if (ret.odgovor != req.body.odgovor) res.json({message: "Netacan odgovor."})
+            else {
+                DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
+                    res.json({message: ret})
+                })
+            }
+        })
+    }
 }

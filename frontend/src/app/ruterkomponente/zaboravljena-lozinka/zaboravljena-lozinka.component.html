@@ -6,7 +6,39 @@
     </div>
     <div class="row my-3">
         <div class="offset-4 col-4 border-end">
-            Sadrzaj
+            <div class="alert alert-success" role="alert" *ngIf="alertUspeh!=''">
+                {{alertUspeh}}
+            </div>
+            <form [formGroup]="zaboravljenaForm">
+                <div *ngIf="korak==1">
+                    <div class="mb-3">
+                        <label for="kime" class="form-label">Unesite korisnicko ime</label>
+                        <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                        <div class="form-text text-danger">{{greska}}</div>
+                    </div>
+                    <button class = "btn btn-primary" (click)="korak1()">Ok</button>
+                </div>
+                <div *ngIf="korak==2">
+                    <div class="mb-3">
+                        <label for="odgovor" class="form-label">Unesite odgovor na sigurnosno pitanje: {{pitanje}}</label>
+                        <input type="text" class="form-control" id="odgovor" formControlName="odgovor" required>
+                        <div class="form-text text-danger">{{greska}}</div>
+                    </div>
+                    <button class = "btn btn-primary" (click)="korak2()">Ok</button>
+                </div>
+                <div *ngIf="korak==3">
+                    <div class="mb-3">
+                        <label for="nova" class="form-label">Nova lozinka</label>
+                        <input type="password" class="form-control" id="nova" formControlName="nova" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nova2" class="form-label">Nova lozinka (ponovljena)</label>
+                        <input type="password" class="form-control" id="nova2" formControlName="nova2" required>
+                    </div>
+                    <div class="form-text text-danger">{{greska}}</div>
+                    <button class = "btn btn-primary" (click)="korak3()">Ok</button>
+                </div>
+            </form>
         </div>
         <div class="col-3">
             <prijava-navigacija trenutni="zaboravljenaLozinka"></prijava-navigacija>

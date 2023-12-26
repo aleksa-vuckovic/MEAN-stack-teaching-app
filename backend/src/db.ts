@@ -7,7 +7,7 @@ export class DB {
             korisnikModel.findOne({kime: kime}).then(res => {
                 resolve(res) //null ako ne postoji
             }).catch((err) => {
-                resolve(err)
+                resolve(null)
             })
         })   
     }
@@ -17,7 +17,7 @@ export class DB {
             korisnikModel.findOne({mejl: mejl}).then(res => {
                 resolve(res) //null ako ne postoji
             }).catch((err) => {
-                resolve(err)
+                resolve(null)
             })
         })  
     }

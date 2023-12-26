@@ -11,7 +11,7 @@ class DB {
             Korisnik_1.default.findOne({ kime: kime }).then(res => {
                 resolve(res); //null ako ne postoji
             }).catch((err) => {
-                resolve(err);
+                resolve(null);
             });
         });
     }
@@ -20,7 +20,7 @@ class DB {
             Korisnik_1.default.findOne({ mejl: mejl }).then(res => {
                 resolve(res); //null ako ne postoji
             }).catch((err) => {
-                resolve(err);
+                resolve(null);
             });
         });
     }

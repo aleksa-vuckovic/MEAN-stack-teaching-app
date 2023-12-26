@@ -26,4 +26,13 @@ prijavaRuter.route("/prijava").post((req, res) => {
 prijavaRuter.route("/promenalozinke").post((req, res) => {
     new PrijavaKontroler_1.PrijavaController().promenaLozinke(req, res);
 });
+prijavaRuter.route("/sigurnosnopitanje").get((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().sigurnosnoPitanje(req, res);
+});
+prijavaRuter.route("/sigurnosniodgovor").post((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().sigurnosniOdgovor(req, res);
+});
+prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().zaboravljenaLozinka(req, res);
+});
 exports.default = prijavaRuter;

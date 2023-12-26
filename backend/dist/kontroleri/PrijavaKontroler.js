@@ -106,6 +106,51 @@ class PrijavaController {
                     }
                 });
         };
+        this.sigurnosnoPitanje = (req, res) => {
+            let kime = req.query.kime;
+            if (!kime)
+                res.json({ message: "Nedostaje korisnicko ime." });
+            else
+                db_1.DB.korisnikPoKime(kime).then((ret) => {
+                    if (ret == null)
+                        res.json({ message: "Korisnik ne postoji u bazi." });
+                    else
+                        res.json({ message: "ok", data: ret.pitanje });
+                });
+        };
+        this.sigurnosniOdgovor = (req, res) => {
+            if (!req.body || !req.body.kime || !req.body.odgovor)
+                res.json({ message: "Nedostaju polja." });
+            else
+                db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
+                    if (ret == null)
+                        res.json({ message: "Korisnik ne postoji." });
+                    else if (ret.odgovor == req.body.odgovor)
+                        res.json({ message: "ok" });
+                    else
+                        res.json({ message: "Odgovor nije tacan." });
+                });
+        };
+        this.zaboravljenaLozinka = (req, res) => {
+            if (!req.body || !req.body.kime || !req.body.odgovor || !req.body.nova || !req.body.nova2)
+                res.json({ message: "Nedostaju polja." });
+            else if (validacija_1.Validacija.lozinkaValidacija(req.body.nova) != "ok")
+                res.json({ message: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
+            else if (req.body.nova != req.body.nova2)
+                res.json({ message: "Nepodudaranje ponovljene lozinke." });
+            else
+                db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
+                    if (ret == null)
+                        res.json({ message: "Neispravni kredencijali." });
+                    else if (ret.odgovor != req.body.odgovor)
+                        res.json({ message: "Netacan odgovor." });
+                    else {
+                        db_1.DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
+                            res.json({ message: ret });
+                        });
+                    }
+                });
+        };
     }
 }
 exports.PrijavaController = PrijavaController;

@@ -29,7 +29,7 @@ export class PromenaLozinkeComponent {
   promena() {
     this.greska = this.alertUspeh = ""
     if (this.promenaForm.get('nova')?.hasError('pattern')) {
-      this.greska = "Lozinka mora da ima 6-10 karaktera, 3 mala slova, 1 veliko, 1 broj i 1 specijalan karakter, i mora poceti slovom."
+      this.greska = Utils.lozinkaZahtevi();
     }
     else if (this.promenaForm.invalid) {
       this.greska = "Sva polja su obavezna."
