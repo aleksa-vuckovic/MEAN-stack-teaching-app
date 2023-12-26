@@ -38,4 +38,8 @@ prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
     new PrijavaController().zaboravljenaLozinka(req, res);
 })
 
+prijavaRuter.route("/svipredmeti").get((req, res) => {
+    new PrijavaController().sviPredmeti(req, res);
+})
+
 export default prijavaRuter

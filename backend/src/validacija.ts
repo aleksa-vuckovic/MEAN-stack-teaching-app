@@ -68,6 +68,10 @@ export class Validacija {
         return "ok";
     }
     static nastavnikValidacija(kor: any) {
+        if (!kor.predmeti) kor.predmeti = []
+        else if (!Array.isArray(kor.predmeti)) kor.predmeti = [kor.predmeti];
+        if (!kor.uzrasti) kor.uzrasti = []
+        else if (!Array.isArray(kor.uzrasti)) kor.uzrasti = [kor.uzrasti];
         return "ok";
     }
     static cvValidacija(fajl: any) {

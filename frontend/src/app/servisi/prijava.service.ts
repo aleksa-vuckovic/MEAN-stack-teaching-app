@@ -36,4 +36,8 @@ export class PrijavaService {
   zaboravljenaLozinka(podaci: any) {
     return this.http.post(this.baseUrl + "zaboravljenalozinka", podaci);
   }
+
+  sviPredmeti() {
+    return this.http.get(this.baseUrl + "svipredmeti");
+  }
 }

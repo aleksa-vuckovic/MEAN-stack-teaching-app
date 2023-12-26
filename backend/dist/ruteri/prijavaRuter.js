@@ -35,4 +35,7 @@ prijavaRuter.route("/sigurnosniodgovor").post((req, res) => {
 prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
     new PrijavaKontroler_1.PrijavaController().zaboravljenaLozinka(req, res);
 });
+prijavaRuter.route("/svipredmeti").get((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().sviPredmeti(req, res);
+});
 exports.default = prijavaRuter;

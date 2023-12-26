@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DB = void 0;
 const Korisnik_1 = __importDefault(require("./modeli/Korisnik"));
+const Podatak_1 = __importDefault(require("./modeli/Podatak"));
 class DB {
     static korisnikPoKime(kime) {
         return new Promise((resolve, reject) => {
@@ -42,6 +43,15 @@ class DB {
                     resolve("Nije pronadjen korisnik.");
             }).catch(err => {
                 resolve("Greska u bazi.");
+            });
+        });
+    }
+    static sviPredmeti() {
+        return new Promise((resolve, reject) => {
+            Podatak_1.default.findOne({ podatak: "predmeti" }).then((res) => {
+                resolve(res.vrednosti);
+            }).catch(err => {
+                resolve([]);
             });
         });
     }

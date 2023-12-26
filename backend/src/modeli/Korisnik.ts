@@ -22,7 +22,7 @@ let korisnikSchema = new mongoose.Schema({
     predmeti: Array<String>,
     uzrasti: Array<String>,
     saznao: String,
-    biografija: String,
+    cv: String,
 })
 
 export default mongoose.model("korisnikModel", korisnikSchema, "korisnici")

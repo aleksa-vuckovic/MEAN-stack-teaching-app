@@ -116,4 +116,10 @@ export class PrijavaController {
             }
         })
     }
+
+    sviPredmeti = (req: express.Request, res: express.Response) => {
+        DB.sviPredmeti().then(ret => {
+            res.json({message: "ok", data: ret})
+        })
+    }
 }

@@ -23,6 +23,9 @@ export class RegistracijaComponent {
   predmeti = ["Matematika", "Fizika", "Hemija"];
 
   constructor(private fb: FormBuilder, private servis: PrijavaService) {
+    this.servis.sviPredmeti().subscribe((res: any) => {
+      if (res.message == "ok") this.predmeti = res.data;
+    })
     this.registracijaForm = this.fb.group({
       kime: ['', Validators.required],
       lozinka: [
@@ -60,7 +63,7 @@ export class RegistracijaComponent {
       drugiPredmet: [''],
       uzrasti: [[]],
       saznao: [''],
-      cv: [null, [Validators.required, fajlTipValidator(['pdf'])], [fajlVelicinaValidator(3*1024)]]
+      cv: [null, [Validators.required, fajlTipValidator(['pdf']), fajlVelicinaValidator(3*1024)]]
     });
   }
 
@@ -167,8 +170,17 @@ export class RegistracijaComponent {
         //submit data
         let forma = new FormData();
         Utils.dodajUFormu(forma, this.registracijaForm.value)
-        Utils.dodajUFormu(forma, this.korak2NastavnikForm.value)
 
+        let tmp = this.korak2NastavnikForm.value;
+        //predmeti, uzrasti, saznao, cv
+        console.log(tmp)
+        console.log(tmp.cv)
+        console.log(tmp['cv'])
+        forma.append('saznao', tmp.saznao);
+        forma.append('cv', tmp['cv']);
+        for (let predmet of tmp.predmeti) forma.append('predmeti', predmet);
+        if (tmp.drugiPredmet != "") forma.append('predmeti', tmp.drugiPredmet);
+        for (let uzrast of tmp.uzrasti) forma.append('uzrasti', uzrast);
 
         this.servis.registracija(forma).subscribe((res: any) => {
           if (res.message == "ok") this.alertUspeh = "Registracija je uspela! Admin mora da je odobri."

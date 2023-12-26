@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import korisnikModel from './modeli/Korisnik';
+import podatakModel from './modeli/Podatak';
 
 export class DB {
     static korisnikPoKime(kime: string) {
@@ -41,5 +42,24 @@ export class DB {
                 resolve("Greska u bazi.")
             })
         })
+    }
+
+    static sviPredmeti() {
+        return new Promise((resolve, reject) => {
+            podatakModel.findOne({podatak: "predmeti"}).then((res:any) => {
+                resolve(res.vrednosti);
+            }).catch(err => {
+                resolve([])
+            })
+        })
+    }
+
+    /* Vraca {
+        brojNastavnika: 
+        brojUcenika: 
+    }
+    */
+    static statistika() {
+        
     }
 }

@@ -151,6 +151,11 @@ class PrijavaController {
                     }
                 });
         };
+        this.sviPredmeti = (req, res) => {
+            db_1.DB.sviPredmeti().then(ret => {
+                res.json({ message: "ok", data: ret });
+            });
+        };
     }
 }
 exports.PrijavaController = PrijavaController;

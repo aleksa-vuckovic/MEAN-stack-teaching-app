@@ -24,6 +24,6 @@ let korisnikSchema = new mongoose_1.default.Schema({
     predmeti: (Array),
     uzrasti: (Array),
     saznao: String,
-    biografija: String,
+    cv: String,
 });
 exports.default = mongoose_1.default.model("korisnikModel", korisnikSchema, "korisnici");
