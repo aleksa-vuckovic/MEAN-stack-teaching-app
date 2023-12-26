@@ -1,0 +1,5 @@
+/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+
+/* You can also use the Bootstrap CSS file directly from the node_modules folder */
+@import "~bootstrap/dist/css/bootstrap.min.css";

@@ -1,0 +1,120 @@
+<!-- app.component.html -->
+<div class="container">
+    <div class = "row border-bottom">
+        <div class="col-12 text-center my-3">
+            <h2>Registracija</h2>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="offset-4 col-4 border-end">
+            <form [formGroup]="registracijaForm" (ngSubmit)="registracija()">
+                <div class="mb-3">
+                    <label for="kime" class="form-label">Korisnicko ime *</label>
+                    <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lozinka" class="form-label">Lozinka *</label>
+                    <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required>
+                    <div class="form-text text-danger">{{greskaLozinka}}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="pitanje" class="form-label">Sigurnosno pitanje *</label>
+                    <input type="text" class="form-control" id="pitanje" formControlName="pitanje" required>
+                </div>
+                <div class="mb-3">
+                    <label for="odgovor" class="form-label">Sigurnosni odgovor *</label>
+                    <input type="text" class="form-control" id="odgovor" formControlName="odgovor" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ime" class="form-label">Ime *</label>
+                    <input type="text" class="form-control" id="ime" formControlName="ime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="prezime" class="form-label">Prezime *</label>
+                    <input type="text" class="form-control" id="prezime" formControlName="prezime" required>
+                </div>
+                <div class="mb-3">
+                    <div>Pol *</div>
+                    <label for="pol-M" class="form-label">M</label>
+                    <input type="radio" name = "pol" class="form-check-input" id="pol-M" formControlName="pol" value="M">
+                    &nbsp;&nbsp;
+                    <label for="pol-Z" class="form-label">Z</label>
+                    <input type="radio" name = "pol" class="form-check-input" id="pol-Z" formControlName="pol" value="Z">
+                </div>
+                <div class="mb-3">
+                    <label for="adresa" class="form-label">Adresa *</label>
+                    <input type="text" class="form-control" id="adresa" formControlName="adresa" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefon" class="form-label">Telefon *</label>
+                    <input type="text" class="form-control" id="telefon" formControlName="telefon" required>
+                    <div class="form-text text-danger">{{greskaTelefon}}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="mejl" class="form-label">Mejl *</label>
+                    <input type="text" class="form-control" id="mejl" formControlName="mejl" required>
+                    <div class="form-text text-danger">{{greskaMejl}}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="profil" class="form-label">Profilna slika</label>
+                    <fajl-input formControlName="profil" id = "profil"></fajl-input>
+                    <div class="form-text text-danger">{{greskaProfil}}</div>
+                </div>
+                <div class="mb-3">
+                    <div>Registrujem se kao *</div>
+                    <label for="ucenik" class="form-label">Ucenik</label>
+                    <input type="radio" name = "tip" class="form-check-input" id="ucenik" formControlName="tip" value="Ucenik" (change)="promenaTipa()">
+                    &nbsp;&nbsp;
+                    <label for="nastavnik" class="form-label">Nastavnik</label>
+                    <input type="radio" name = "tip" class="form-check-input" id="nastavnik" formControlName="tip" value="Nastavnik" (change)="promenaTipa()">
+                </div>
+            </form>
+            <form [formGroup]="korak2UcenikForm" (ngSubmit)="registracijaUcenik()" *ngIf="tip=='Ucenik'">
+                <div class="mb-3">
+                    <label for="skola" class="form-label">Tip skole</label>
+                    <select id="skola" formControlName="skola" class="form-control" required>
+                        <option value="Osnovna" selected>Osnovna</option>
+                        <option value="Gimnazija">Gimnazija</option>
+                        <option value="Srednja strucna">Srednja strucna</option>
+                        <option value="Srednja umetnicka">Srednja umetnicka</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="razred" class="form-label">Razred</label>
+                    <input type="number" class = "form-control" id = "razred" formControlName="razred" min="1" max="8" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registruj se</button>
+            </form>
+            <form [formGroup]="korak2NastavnikForm" (ngSubmit)="registracijaNastavnik()" *ngIf="tip=='Nastavnik'">
+                <div class="mb-3">
+                    <label for="predmeti" class="form-label">Koje predmete zelite da poducavate?</label>
+                    <select id="predmeti" formControlName="predmeti" class="form-control" multiple>
+                        <option *ngFor="let elem of predmeti" [value]="elem">{{elem}}</option>
+                    </select>
+                    <span>Nesto drugo: <input type="text" class="form-control" formControlName="drugiPredmet"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="uzrasti" class="form-label">Koje uzraste zelite da poducavate?</label>
+                    <select id="uzrasti" formControlName="uzrasti" class="form-control" multiple>
+                        <option value="Osnovna 1-4" selected>Osnovna 1-4</option>
+                        <option value="Osnovna 5-8">Osnovna 5-8</option>
+                        <option value="Srednja">Srednja</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="saznao" class="form-label">Kako ste saznali za nas?</label>
+                    <textarea id="saznao" formControlName="saznao" class="form-control"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="cv" class="form-label">CV *</label>
+                    <fajl-input formControlName="cv" id = "cv"></fajl-input>
+                    <div class="form-text text-danger">{{greskaCV}}</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Registruj se</button>
+            </form>
+            <div class="form-text text-danger">{{greska}}</div>
+        </div>
+    </div>
+</div>
+
+  
