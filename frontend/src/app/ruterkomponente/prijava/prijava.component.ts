@@ -24,27 +24,20 @@ export class PrijavaComponent implements OnInit {
 
   prijava() {
     this.greska = ""
-    const kime = this.prijavaForm.get('kime');
-    if (kime?.hasError('required')) {
-      this.greska = 'Unesi korisnicko ime pobogu.';
+    if (this.prijavaForm.invalid) {
+      this.greska = "Sva polja su obavezna."
     }
-
-    const lozinka = this.prijavaForm.get('lozinka');
-    if (lozinka?.hasError('required')) {
-      this.greska = 'Unesi lozinku.';
-    }
-
-    if (this.prijavaForm.valid) {
+    else if (this.prijavaForm.valid) {
       this.servis.prijava(this.prijavaForm.value).subscribe((res: any) => {
         if (res.message != "ok") this.greska = res.message;
         else {
           let data = res.data;
           if (data.tip == "Administrator") {
             //Pristup administratorima je sa druge putanje
-            this.greska = "Administratori pristupaj sa posebne stranice."
+            this.greska = "Administratori pristupaju sa posebne stranice."
             return;
           }
-          localStorage.setItem("korisnik", data);
+          localStorage.setItem("korisnik", JSON.stringify(data));
           alert(JSON.stringify(data));
           if (data.tip == "Ucenik") {
             //login ucenik

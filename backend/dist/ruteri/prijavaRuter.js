@@ -23,4 +23,7 @@ prijavaRuter.route("/registracija").post(upload.fields([
 prijavaRuter.route("/prijava").post((req, res) => {
     new PrijavaKontroler_1.PrijavaController().prijava(req, res);
 });
+prijavaRuter.route("/promenalozinke").post((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().promenaLozinke(req, res);
+});
 exports.default = prijavaRuter;

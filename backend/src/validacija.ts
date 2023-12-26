@@ -11,6 +11,11 @@ let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja strucna", "Srednja umetnicka
 let uzrasti = ["Osnovna 1-4", "Osnovna 5-8", "Srednja"]
 
 export class Validacija {
+    static lozinkaValidacija(lozinka: string) {
+        if (!lozinkaRegex.test(lozinka)) return "Lozinka ne uspunjava uslove.";
+        else return "ok";
+    }
+
     static registracijaValidacija(kor: any): Promise<string> {
         let ret = "";
         if (!kor.kime || kor.kime == "" ||
@@ -25,7 +30,7 @@ export class Validacija {
             !kor.telefon || kor.telefon == "" ||
             !kor.mejl || kor.mejl == "" ||
             !kor.tip || kor.tip == "") ret = "Nedostaju informacije.";
-        else if (!lozinkaRegex.test(kor.lozinka)) ret = "Lozinka ne ispunjava uslove." + JSON.stringify(kor);
+        else if (this.lozinkaValidacija(kor.lozinka) != "ok") ret = this.lozinkaValidacija(kor.lozinka);
         else if (!telefonRegex.test(kor.telefon)) ret = "Telefon ne ispunjava uslove.";
         else if (!mejlRegex.test(kor.mejl)) ret = "Mejl ne ispunjava uslove.";
         else if (kor.tip != "Ucenik" && kor.tip != "Nastavnik") ret = "Tip ne postoji.";

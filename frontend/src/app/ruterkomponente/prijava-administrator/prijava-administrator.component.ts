@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PrijavaService } from 'src/app/servisi/prijava.service';
 
 @Component({
   selector: 'app-prijava-administrator',
@@ -6,5 +8,40 @@ import { Component } from '@angular/core';
   styleUrls: ['./prijava-administrator.component.css']
 })
 export class PrijavaAdministratorComponent {
+  prijavaForm: FormGroup;
 
+  constructor(private fb: FormBuilder, private servis: PrijavaService) {
+    this.prijavaForm = this.fb.group({
+      kime: ['', Validators.required],
+      lozinka: ['', [ Validators.required ] ]
+    });
+  }
+
+  greska: string = ""
+
+  ngOnInit(): void {
+  }
+
+  prijava() {
+    this.greska = ""
+    if (this.prijavaForm.invalid) {
+      this.greska = "Sva polja su obavezna"
+    }
+    else if (this.prijavaForm.valid) {
+      this.servis.prijava(this.prijavaForm.value).subscribe((res: any) => {
+        if (res.message != "ok") this.greska = res.message;
+        else {
+          let data = res.data;
+          if (data.tip == "Administrator") {
+            //login admin
+            localStorage.setItem("korisnik", JSON.stringify(data))
+            alert(JSON.stringify(data))
+          }
+          else {
+            this.greska = "Niste administrator."
+          }
+        }
+      })
+    }
+  }
 }

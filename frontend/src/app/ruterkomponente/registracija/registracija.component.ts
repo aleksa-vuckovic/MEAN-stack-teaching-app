@@ -10,7 +10,7 @@ import { PrijavaService } from '../../servisi/prijava.service';
   styleUrls: ['./registracija.component.css']
 })
 export class RegistracijaComponent {
-  private lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
+  private lozinkaRegex = Utils.lozinkaRegex();
   private telefonRegex = /^\+381(\d){8,9}$/;
   private mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
 

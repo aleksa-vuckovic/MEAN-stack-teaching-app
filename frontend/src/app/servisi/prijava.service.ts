@@ -20,4 +20,8 @@ export class PrijavaService {
   prijava(podaci: any) {
     return this.http.post(this.baseUrl + "prijava", podaci);
   }
+
+  promenaLozinke(podaci: any) {
+    return this.http.post(this.baseUrl + "promenalozinke", podaci);
+  }
 }

@@ -6,7 +6,29 @@
     </div>
     <div class="row my-3">
         <div class="offset-4 col-4 border-end">
-            Sadrzaj
+            <div class="alert alert-success" role="alert" *ngIf="alertUspeh!=''">
+                {{alertUspeh}}
+            </div>
+            <form [formGroup]="promenaForm" (ngSubmit)="promena()">
+                <div class="mb-3">
+                    <label for="kime" class="form-label">Korisnicko ime</label>
+                    <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="stara" class="form-label">Stara lozinka</label>
+                    <input type="password" class="form-control" id="stara" formControlName="stara" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nova" class="form-label">Nova lozinka</label>
+                    <input type="password" class="form-control" id="nova" formControlName="nova" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nova2" class="form-label">Nova lozinka (ponovljena)</label>
+                    <input type="password" class="form-control" id="nova2" formControlName="nova2" required>
+                </div>
+                <div class="form-text text-danger">{{greska}}</div>
+                <button type="submit" class="btn btn-primary">Promeni lozinku</button>
+            </form>
         </div>
         <div class="col-3">
             <prijava-navigacija trenutni="promenaLozinke"></prijava-navigacija>

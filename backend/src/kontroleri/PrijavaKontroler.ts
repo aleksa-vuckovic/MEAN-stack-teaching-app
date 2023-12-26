@@ -47,7 +47,7 @@ export class PrijavaController {
             }
         })
     }
-
+ 
     prijava = (req: express.Request, res: express.Response) => {
         if (!req.body || !req.body.lozinka || !req.body.kime) { res.json({message: "Nedostaju polja"})}
 
@@ -64,6 +64,21 @@ export class PrijavaController {
                         kime: ret.kime,
                         tip: ret.tip
                     }
+                })
+            }
+        })
+    }
+
+    promenaLozinke = (req: express.Request, res: express.Response) => {
+        if (!req.body || !req.body.kime || !req.body.stara || !req.body.nova || !req.body.nova2) { res.json({message: "Nedostaju polja"})}
+        else if (Validacija.lozinkaValidacija(req.body.nova) != "ok") res.json({message: Validacija.lozinkaValidacija(req.body.nova)});
+        else if (req.body.nova != req.body.nova2) res.json({message: "Nepodudaranje ponovljene lozinke."});
+        else DB.korisnikPoKime(req.body.kime).then((ret: any) => {
+            if (ret == null) res.json({message: "Neispravni kredencijali."})
+            else if (ret.lozinka != req.body.stara) res.json({message: "Neispravni kredencijali."})
+            else {
+                DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
+                    res.json({message: ret})
                 })
             }
         })

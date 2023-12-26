@@ -33,5 +33,17 @@ class DB {
             });
         });
     }
+    static promeniLozinku(kime, nova) {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.updateOne({ kime: kime }, { $set: { lozinka: nova } }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Nije pronadjen korisnik.");
+            }).catch(err => {
+                resolve("Greska u bazi.");
+            });
+        });
+    }
 }
 exports.DB = DB;

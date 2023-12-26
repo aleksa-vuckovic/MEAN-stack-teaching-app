@@ -6,7 +6,18 @@
     </div>
     <div class="row my-3">
         <div class="offset-4 col-4 border-end">
-            Sadrzaj
+            <form [formGroup]="prijavaForm" (ngSubmit)="prijava()">
+                <div class="mb-3">
+                    <label for="kime" class="form-label">Korisnicko ime</label>
+                    <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lozinka" class="form-label">Lozinka</label>
+                    <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required>
+                </div>
+                <div class="form-text text-danger">{{greska}}</div>
+                <button type="submit" class="btn btn-primary">Prijavi se</button>
+            </form>
         </div>
         <div class="col-3">
             <prijava-navigacija trenutni="prijavaAdministrator"></prijava-navigacija>

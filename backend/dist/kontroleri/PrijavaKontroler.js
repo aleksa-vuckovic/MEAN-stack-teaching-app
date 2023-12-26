@@ -85,6 +85,27 @@ class PrijavaController {
                 }
             });
         };
+        this.promenaLozinke = (req, res) => {
+            if (!req.body || !req.body.kime || !req.body.stara || !req.body.nova || !req.body.nova2) {
+                res.json({ message: "Nedostaju polja" });
+            }
+            else if (validacija_1.Validacija.lozinkaValidacija(req.body.nova) != "ok")
+                res.json({ message: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
+            else if (req.body.nova != req.body.nova2)
+                res.json({ message: "Nepodudaranje ponovljene lozinke." });
+            else
+                db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
+                    if (ret == null)
+                        res.json({ message: "Neispravni kredencijali." });
+                    else if (ret.lozinka != req.body.stara)
+                        res.json({ message: "Neispravni kredencijali." });
+                    else {
+                        db_1.DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
+                            res.json({ message: ret });
+                        });
+                    }
+                });
+        };
     }
 }
 exports.PrijavaController = PrijavaController;

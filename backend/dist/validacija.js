@@ -12,6 +12,12 @@ let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
 let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja strucna", "Srednja umetnicka"];
 let uzrasti = ["Osnovna 1-4", "Osnovna 5-8", "Srednja"];
 class Validacija {
+    static lozinkaValidacija(lozinka) {
+        if (!lozinkaRegex.test(lozinka))
+            return "Lozinka ne uspunjava uslove.";
+        else
+            return "ok";
+    }
     static registracijaValidacija(kor) {
         let ret = "";
         if (!kor.kime || kor.kime == "" ||
@@ -27,8 +33,8 @@ class Validacija {
             !kor.mejl || kor.mejl == "" ||
             !kor.tip || kor.tip == "")
             ret = "Nedostaju informacije.";
-        else if (!lozinkaRegex.test(kor.lozinka))
-            ret = "Lozinka ne ispunjava uslove." + JSON.stringify(kor);
+        else if (this.lozinkaValidacija(kor.lozinka) != "ok")
+            ret = this.lozinkaValidacija(kor.lozinka);
         else if (!telefonRegex.test(kor.telefon))
             ret = "Telefon ne ispunjava uslove.";
         else if (!mejlRegex.test(kor.mejl))

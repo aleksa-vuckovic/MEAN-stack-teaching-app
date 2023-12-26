@@ -31,4 +31,15 @@ export class DB {
             })
         })
     }
+
+    static promeniLozinku(kime: string, nova: string) {
+        return new Promise((resolve, reject) => {
+            korisnikModel.updateOne({kime: kime}, {$set: {lozinka: nova}}).then(res => {
+                if (res.modifiedCount > 0) resolve("ok")
+                else resolve("Nije pronadjen korisnik.")
+            }).catch(err => {
+                resolve("Greska u bazi.")
+            })
+        })
+    }
 }

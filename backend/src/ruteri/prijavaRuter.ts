@@ -22,4 +22,8 @@ prijavaRuter.route("/prijava").post((req, res) => {
     new PrijavaController().prijava(req, res);
 })
 
+prijavaRuter.route("/promenalozinke").post((req, res) => {
+    new PrijavaController().promenaLozinke(req, res);
+})
+
 export default prijavaRuter
