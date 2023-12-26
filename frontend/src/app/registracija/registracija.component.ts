@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fajlTipValidator, fajlVelicinaValidator, fajlVisinaSirinaValidator } from '../validators';
+import { Utils } from '../utils';
+import { PrijavaService } from '../servisi/prijava.service';
 
 @Component({
   selector: 'registracija',
@@ -8,6 +10,9 @@ import { fajlTipValidator, fajlVelicinaValidator, fajlVisinaSirinaValidator } fr
   styleUrls: ['./registracija.component.css']
 })
 export class RegistracijaComponent {
+  private lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
+  private telefonRegex = /^\+381(\d){8,9}$/;
+  private mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
 
   registracijaForm: FormGroup;
 
@@ -17,7 +22,7 @@ export class RegistracijaComponent {
   profilFajlTipovi = ['png', 'jpg', 'jpeg'];
   predmeti = ["Matematika", "Fizika", "Hemija"];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private servis: PrijavaService) {
     this.registracijaForm = this.fb.group({
       kime: ['', Validators.required],
       lozinka: [
@@ -26,7 +31,7 @@ export class RegistracijaComponent {
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(10),
-          Validators.pattern(/^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/)
+          Validators.pattern(this.lozinkaRegex)
         ]
       ],
       pitanje: ['',Validators.required ],
@@ -37,11 +42,11 @@ export class RegistracijaComponent {
       adresa: ['',Validators.required ],
       telefon: ['',[
         Validators.required,
-        Validators.pattern(/^\+381(\d){8,9}$/)
+        Validators.pattern(this.telefonRegex)
       ] ],
       mejl: ['', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/)
+        Validators.pattern(this.mejlRegex)
        ] ],
       profil: [null, [ fajlTipValidator(this.profilFajlTipovi) ], [fajlVisinaSirinaValidator(300, 300)]],
       tip: ['', Validators.required]
@@ -70,13 +75,16 @@ export class RegistracijaComponent {
 
   tip: string = ""
 
+  alertUspeh:string = ""
+  alertNeuspeh:string = ""
+
   promenaTipa() {
     let tip = this.registracijaForm.get('tip')?.value;
     this.tip = tip
   }
 
   registracija() {
-    this.greskaLozinka = this.greskaTelefon = this.greskaMejl = this.greskaProfil = this.greskaCV = this.greska = "";
+    this.greskaLozinka = this.greskaTelefon = this.greskaMejl = this.greskaProfil = this.greskaCV = this.greska = this.alertNeuspeh = this.alertUspeh = "";
     //provera zajednickih polja
     const lozinka = this.registracijaForm.get('lozinka');
     if (lozinka?.hasError('minLength')) {
@@ -112,7 +120,7 @@ export class RegistracijaComponent {
     if (this.registracijaForm.valid) {
       return true;
     }
-    return false;
+    else return false;
   }
 
   registracijaUcenik() {
@@ -129,6 +137,15 @@ export class RegistracijaComponent {
         }
         else {
           //submit 
+          let forma = new FormData();
+          Utils.dodajUFormu(forma, this.registracijaForm.value)
+          Utils.dodajUFormu(forma, this.korak2UcenikForm.value)
+
+          this.servis.registracija(forma).subscribe((res: any) => {
+            if (res.message == "ok") this.alertUspeh = "Registracija je uspela! Mozete da se ulogujete."
+            else this.alertNeuspeh = res.message;
+            Utils.skrolDoVrha();
+          })
         }
       }
     }
@@ -148,6 +165,16 @@ export class RegistracijaComponent {
       }
       else {
         //submit data
+        let forma = new FormData();
+        Utils.dodajUFormu(forma, this.registracijaForm.value)
+        Utils.dodajUFormu(forma, this.korak2NastavnikForm.value)
+
+
+        this.servis.registracija(forma).subscribe((res: any) => {
+          if (res.message == "ok") this.alertUspeh = "Registracija je uspela! Admin mora da je odobri."
+          else this.alertNeuspeh = res.message;
+          Utils.skrolDoVrha();
+        })
       }
     }
   }

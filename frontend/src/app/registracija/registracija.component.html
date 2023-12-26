@@ -7,6 +7,12 @@
     </div>
     <div class="row my-3">
         <div class="offset-4 col-4 border-end">
+            <div class="alert alert-success" role="alert" *ngIf="alertUspeh!=''">
+                {{alertUspeh}}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="alertNeuspeh!=''">
+                {{alertNeuspeh}}
+            </div>
             <form [formGroup]="registracijaForm" (ngSubmit)="registracija()">
                 <div class="mb-3">
                     <label for="kime" class="form-label">Korisnicko ime *</label>
@@ -84,6 +90,7 @@
                     <label for="razred" class="form-label">Razred</label>
                     <input type="number" class = "form-control" id = "razred" formControlName="razred" min="1" max="8" required>
                 </div>
+                <div class="form-text text-danger">{{greska}}</div>
                 <button type="submit" class="btn btn-primary">Registruj se</button>
             </form>
             <form [formGroup]="korak2NastavnikForm" (ngSubmit)="registracijaNastavnik()" *ngIf="tip=='Nastavnik'">
@@ -111,9 +118,10 @@
                     <fajl-input formControlName="cv" id = "cv"></fajl-input>
                     <div class="form-text text-danger">{{greskaCV}}</div>
                 </div>
+                <div class="form-text text-danger">{{greska}}</div>
                 <button type="submit" class="btn btn-primary">Registruj se</button>
             </form>
-            <div class="form-text text-danger">{{greska}}</div>
+            
         </div>
     </div>
 </div>
