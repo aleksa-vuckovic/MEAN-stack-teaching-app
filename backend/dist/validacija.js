@@ -72,7 +72,6 @@ class Validacija {
         if (!kor.skola || kor.skola == "" ||
             !kor.razred)
             return "Nedostaju podaci.";
-        console.log(kor);
         kor.razred = parseInt(kor.razred);
         if (tipoviSkola.indexOf(kor.skola) == -1)
             return "Tip skole ne postoji.";

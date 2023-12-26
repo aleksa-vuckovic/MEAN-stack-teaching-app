@@ -47,4 +47,25 @@ export class PrijavaController {
             }
         })
     }
+
+    prijava = (req: express.Request, res: express.Response) => {
+        if (!req.body || !req.body.lozinka || !req.body.kime) { res.json({message: "Nedostaju polja"})}
+
+        DB.korisnikPoKime(req.body.kime).then((ret: any) => {
+            if (ret == null) res.json({message: "Neispravni kredencijali."})
+            else if (ret.lozinka != req.body.lozinka) res.json({message: "Neispravni kredencijali."})
+            else {
+                let session = req.session as any
+                session.korisnik = ret;
+
+                res.json({
+                    message: "ok",
+                    data: {
+                        kime: ret.kime,
+                        tip: ret.tip
+                    }
+                })
+            }
+        })
+    }
 }

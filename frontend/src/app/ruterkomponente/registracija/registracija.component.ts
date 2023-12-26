@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { fajlTipValidator, fajlVelicinaValidator, fajlVisinaSirinaValidator } from '../validators';
-import { Utils } from '../utils';
-import { PrijavaService } from '../servisi/prijava.service';
+import { fajlTipValidator, fajlVelicinaValidator, fajlVisinaSirinaValidator } from '../../validators';
+import { Utils } from '../../utils';
+import { PrijavaService } from '../../servisi/prijava.service';
 
 @Component({
   selector: 'registracija',

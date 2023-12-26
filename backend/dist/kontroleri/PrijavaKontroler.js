@@ -63,6 +63,28 @@ class PrijavaController {
                 }
             });
         };
+        this.prijava = (req, res) => {
+            if (!req.body || !req.body.lozinka || !req.body.kime) {
+                res.json({ message: "Nedostaju polja" });
+            }
+            db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
+                if (ret == null)
+                    res.json({ message: "Neispravni kredencijali." });
+                else if (ret.lozinka != req.body.lozinka)
+                    res.json({ message: "Neispravni kredencijali." });
+                else {
+                    let session = req.session;
+                    session.korisnik = ret;
+                    res.json({
+                        message: "ok",
+                        data: {
+                            kime: ret.kime,
+                            tip: ret.tip
+                        }
+                    });
+                }
+            });
+        };
     }
 }
 exports.PrijavaController = PrijavaController;

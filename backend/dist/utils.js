@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Utils = void 0;
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 class Utils {
     static jedinstvenoFajlIme(fajl) {
         let tip = fajl.mimetype.split('/')[1];
@@ -12,13 +13,13 @@ class Utils {
     }
     static sacuvajFajl(fajl) {
         let ime = this.jedinstvenoFajlIme(fajl);
-        let putanja = "D:\\7\\PIA\\Projekat\\backend\\uploads\\" + ime;
+        let putanja = path_1.default.join(__dirname, "..", "uploads", ime);
         let baza = "/uploads/" + ime;
         fs_1.default.writeFileSync(putanja, fajl.buffer);
         return baza;
     }
     static podrazumevanaProfilna() {
-        return "/uploads/default-profile";
+        return "/uploads/default-profile.jpeg";
     }
 }
 exports.Utils = Utils;

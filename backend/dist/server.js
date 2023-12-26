@@ -8,6 +8,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const prijavaRuter_1 = __importDefault(require("./ruteri/prijavaRuter"));
+const express_session_1 = __importDefault(require("express-session"));
+const connect_mongo_1 = __importDefault(require("connect-mongo"));
 /*
 Svi odgovori su u json formatu
     {
@@ -23,5 +25,12 @@ mongoose_1.default.connect("mongodb://127.0.0.1:27017/piaprojekat");
 mongoose_1.default.connection.once('open', () => {
     console.log('db ok');
 });
+app.use((0, express_session_1.default)({
+    secret: 'some-key',
+    resave: false,
+    saveUninitialized: false,
+    store: connect_mongo_1.default.create({ client: mongoose_1.default.connection.getClient() }),
+    cookie: { maxAge: 1000 * 60 * 60 * 2 }, // Sesija istice za 2 sata
+}));
 app.use("/", prijavaRuter_1.default);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

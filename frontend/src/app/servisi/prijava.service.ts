@@ -16,4 +16,8 @@ export class PrijavaService {
     });
     return this.http.post(this.baseUrl+"registracija", korisnik, {headers: headers});
   }
+
+  prijava(podaci: any) {
+    return this.http.post(this.baseUrl + "prijava", podaci);
+  }
 }
