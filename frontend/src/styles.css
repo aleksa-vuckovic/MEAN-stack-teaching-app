@@ -3,3 +3,11 @@
 
 /* You can also use the Bootstrap CSS file directly from the node_modules folder */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+.header, .footer {
+    background-color: #f0d4cf;
+}
+.footer {
+    font-size: small;
+    text-align: center;
+}
