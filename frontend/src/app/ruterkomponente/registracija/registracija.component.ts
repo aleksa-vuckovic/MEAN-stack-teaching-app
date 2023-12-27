@@ -11,20 +11,19 @@ import { PrijavaService } from '../../servisi/prijava.service';
 })
 export class RegistracijaComponent {
   private lozinkaRegex = Utils.lozinkaRegex();
-  private telefonRegex = /^\+381(\d){8,9}$/;
-  private mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
+  private telefonRegex = Utils.telefonRegex();
+  private mejlRegex = Utils.mejlRegex();
 
   registracijaForm: FormGroup;
-
   korak2UcenikForm: FormGroup;
   korak2NastavnikForm: FormGroup;
 
-  profilFajlTipovi = ['png', 'jpg', 'jpeg'];
+  private profilFajlTipovi = Utils.profilFajlTipovi();
   predmeti = ["Matematika", "Fizika", "Hemija"];
 
   constructor(private fb: FormBuilder, private servis: PrijavaService) {
     this.servis.sviPredmeti().subscribe((res: any) => {
-      if (res.message == "ok") this.predmeti = res.data;
+      if (res.poruka == "ok") this.predmeti = res.podaci;
     })
     this.registracijaForm = this.fb.group({
       kime: ['', Validators.required],
@@ -95,17 +94,17 @@ export class RegistracijaComponent {
     } else if (lozinka?.hasError('maxLength')) {
       this.greskaLozinka = 'Lozinka mora biti najvece duzine 10 karaktera.';
     } else if (lozinka?.hasError('pattern')) {
-      this.greskaLozinka = 'Lozinka mora imati: 1 veliko slovo, 3 mala slova, 1 specijalan karakter, 1 cifru i mora poceti slovom.'
+      this.greskaLozinka = Utils.lozinkaZahtevi();
     }
 
     const telefon = this.registracijaForm.get('telefon');
     if (telefon?.hasError('pattern')) {
-      this.greskaTelefon = "Telefon mora biti u formatu +381xx xxx xxx(x)";
+      this.greskaTelefon = Utils.telefonZahtevi();
     }
 
     const mejl = this.registracijaForm.get('mejl');
     if (mejl?.hasError('pattern')) {
-      this.greskaMejl = 'Mejl mora biti u standardnom formatu za mejl.';
+      this.greskaMejl = Utils.mejlZahtevi();
     }
 
     const profil = this.registracijaForm.get('profil');
@@ -145,8 +144,8 @@ export class RegistracijaComponent {
           Utils.dodajUFormu(forma, this.korak2UcenikForm.value)
 
           this.servis.registracija(forma).subscribe((res: any) => {
-            if (res.message == "ok") this.alertUspeh = "Registracija je uspela! Mozete da se ulogujete."
-            else this.alertNeuspeh = res.message;
+            if (res.poruka == "ok") this.alertUspeh = "Registracija je uspela! Mozete da se ulogujete."
+            else this.alertNeuspeh = res.poruka;
             Utils.skrolDoVrha();
           })
         }
@@ -183,8 +182,8 @@ export class RegistracijaComponent {
         for (let uzrast of tmp.uzrasti) forma.append('uzrasti', uzrast);
 
         this.servis.registracija(forma).subscribe((res: any) => {
-          if (res.message == "ok") this.alertUspeh = "Registracija je uspela! Admin mora da je odobri."
-          else this.alertNeuspeh = res.message;
+          if (res.poruka == "ok") this.alertUspeh = "Registracija je uspela! Admin mora da je odobri."
+          else this.alertNeuspeh = res.poruka;
           Utils.skrolDoVrha();
         })
       }

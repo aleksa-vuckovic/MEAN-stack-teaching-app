@@ -9,19 +9,19 @@ class PrijavaController {
         this.registracija = (req, res) => {
             let body = req.body;
             if (!body) {
-                res.json({ message: "Nedostaju polja." });
+                res.json({ poruka: "Nedostaju polja." });
                 return;
             }
             validacija_1.Validacija.registracijaValidacija(body).then(ret => {
                 if (ret != "ok") {
-                    res.json({ message: ret });
+                    res.json({ poruka: ret });
                     return;
                 }
                 const files = req.files;
                 let profil = files["profil"] ? files["profil"][0] : null;
                 ret = validacija_1.Validacija.profilValidacija(profil);
                 if (ret != "ok") {
-                    res.json({ message: ret });
+                    res.json({ poruka: ret });
                     return;
                 }
                 let profilBaza = utils_1.Utils.podrazumevanaProfilna();
@@ -31,25 +31,25 @@ class PrijavaController {
                 if (req.body.tip == "Ucenik") {
                     ret = validacija_1.Validacija.ucenikValidacija(body);
                     if (ret != "ok") {
-                        res.json({ message: ret });
+                        res.json({ poruka: ret });
                         return;
                     }
                     body["odobren"] = true;
                     body["aktivan"] = true;
                     db_1.DB.dodajKorisnika(body).then(ret => {
-                        res.json({ message: ret });
+                        res.json({ poruka: ret });
                     });
                 }
                 else {
                     ret = validacija_1.Validacija.nastavnikValidacija(body);
                     if (ret != "ok") {
-                        res.json({ message: ret });
+                        res.json({ poruka: ret });
                         return;
                     }
                     let cv = files["cv"] ? files["cv"][0] : null;
                     ret = validacija_1.Validacija.cvValidacija(cv);
                     if (ret != "ok") {
-                        res.json({ message: ret });
+                        res.json({ poruka: ret });
                         return;
                     }
                     let cvBaza = utils_1.Utils.sacuvajFajl(cv);
@@ -58,25 +58,25 @@ class PrijavaController {
                     body["aktivan"] = true;
                     //insert into database
                     db_1.DB.dodajKorisnika(body).then(ret => {
-                        res.json({ message: ret });
+                        res.json({ poruka: ret });
                     });
                 }
             });
         };
         this.prijava = (req, res) => {
             if (!req.body || !req.body.lozinka || !req.body.kime) {
-                res.json({ message: "Nedostaju polja" });
+                res.json({ poruka: "Nedostaju polja" });
             }
             db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
                 if (ret == null)
-                    res.json({ message: "Neispravni kredencijali." });
+                    res.json({ poruka: "Neispravni kredencijali." });
                 else if (ret.lozinka != req.body.lozinka)
-                    res.json({ message: "Neispravni kredencijali." });
+                    res.json({ poruka: "Neispravni kredencijali." });
                 else {
                     let session = req.session;
                     session.korisnik = ret;
                     res.json({
-                        message: "ok",
+                        poruka: "ok",
                         data: {
                             kime: ret.kime,
                             tip: ret.tip
@@ -87,21 +87,21 @@ class PrijavaController {
         };
         this.promenaLozinke = (req, res) => {
             if (!req.body || !req.body.kime || !req.body.stara || !req.body.nova || !req.body.nova2) {
-                res.json({ message: "Nedostaju polja" });
+                res.json({ poruka: "Nedostaju polja" });
             }
             else if (validacija_1.Validacija.lozinkaValidacija(req.body.nova) != "ok")
-                res.json({ message: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
+                res.json({ poruka: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
             else if (req.body.nova != req.body.nova2)
-                res.json({ message: "Nepodudaranje ponovljene lozinke." });
+                res.json({ poruka: "Nepodudaranje ponovljene lozinke." });
             else
                 db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
                     if (ret == null)
-                        res.json({ message: "Neispravni kredencijali." });
+                        res.json({ poruka: "Neispravni kredencijali." });
                     else if (ret.lozinka != req.body.stara)
-                        res.json({ message: "Neispravni kredencijali." });
+                        res.json({ poruka: "Neispravni kredencijali." });
                     else {
                         db_1.DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
-                            res.json({ message: ret });
+                            res.json({ poruka: ret });
                         });
                     }
                 });
@@ -109,66 +109,66 @@ class PrijavaController {
         this.sigurnosnoPitanje = (req, res) => {
             let kime = req.query.kime;
             if (!kime)
-                res.json({ message: "Nedostaje korisnicko ime." });
+                res.json({ poruka: "Nedostaje korisnicko ime." });
             else
                 db_1.DB.korisnikPoKime(kime).then((ret) => {
                     if (ret == null)
-                        res.json({ message: "Korisnik ne postoji u bazi." });
+                        res.json({ poruka: "Korisnik ne postoji u bazi." });
                     else
-                        res.json({ message: "ok", data: ret.pitanje });
+                        res.json({ poruka: "ok", data: ret.pitanje });
                 });
         };
         this.sigurnosniOdgovor = (req, res) => {
             if (!req.body || !req.body.kime || !req.body.odgovor)
-                res.json({ message: "Nedostaju polja." });
+                res.json({ poruka: "Nedostaju polja." });
             else
                 db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
                     if (ret == null)
-                        res.json({ message: "Korisnik ne postoji." });
+                        res.json({ poruka: "Korisnik ne postoji." });
                     else if (ret.odgovor == req.body.odgovor)
-                        res.json({ message: "ok" });
+                        res.json({ poruka: "ok" });
                     else
-                        res.json({ message: "Odgovor nije tacan." });
+                        res.json({ poruka: "Odgovor nije tacan." });
                 });
         };
         this.zaboravljenaLozinka = (req, res) => {
             if (!req.body || !req.body.kime || !req.body.odgovor || !req.body.nova || !req.body.nova2)
-                res.json({ message: "Nedostaju polja." });
+                res.json({ poruka: "Nedostaju polja." });
             else if (validacija_1.Validacija.lozinkaValidacija(req.body.nova) != "ok")
-                res.json({ message: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
+                res.json({ poruka: validacija_1.Validacija.lozinkaValidacija(req.body.nova) });
             else if (req.body.nova != req.body.nova2)
-                res.json({ message: "Nepodudaranje ponovljene lozinke." });
+                res.json({ poruka: "Nepodudaranje ponovljene lozinke." });
             else
                 db_1.DB.korisnikPoKime(req.body.kime).then((ret) => {
                     if (ret == null)
-                        res.json({ message: "Neispravni kredencijali." });
+                        res.json({ poruka: "Neispravni kredencijali." });
                     else if (ret.odgovor != req.body.odgovor)
-                        res.json({ message: "Netacan odgovor." });
+                        res.json({ poruka: "Netacan odgovor." });
                     else {
                         db_1.DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
-                            res.json({ message: ret });
+                            res.json({ poruka: ret });
                         });
                     }
                 });
         };
         this.sviPredmeti = (req, res) => {
             db_1.DB.sviPredmeti().then(ret => {
-                res.json({ message: "ok", data: ret });
+                res.json({ poruka: "ok", data: ret });
             });
         };
         this.statistika = (req, res) => {
             db_1.DB.statistika().then((ret) => {
                 if (ret)
-                    res.json({ message: "ok", data: ret });
+                    res.json({ poruka: "ok", data: ret });
                 else
-                    res.json({ message: "Greska u bazi.", data: { brojNastavnika: 0, brojUcenika: 0 } });
+                    res.json({ poruka: "Greska u bazi.", data: { brojNastavnika: 0, brojUcenika: 0 } });
             });
         };
         this.sviNastavnici = (req, res) => {
             if (!req.body)
                 req.body = {};
             db_1.DB.sviNastavnici(req.body).then(ret => {
-                res.json({ message: "ok", data: ret });
+                res.json({ poruka: "ok", data: ret });
             });
         };
     }

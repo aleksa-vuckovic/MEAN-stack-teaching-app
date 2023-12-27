@@ -25,14 +25,14 @@ export class OsajtuComponent implements OnInit {
   osvezi() {
     console.log(this.pretraga);
     this.servis.sviNastavnici(this.pretraga).subscribe((res: any) => {
-      if (res.message == "ok") this.nastavnici = res.data;
+      if (res.poruka == "ok") this.nastavnici = res.podaci;
     })
   }
 
   constructor (private servis: PrijavaService) {}
   ngOnInit(): void {
     this.servis.statistika().subscribe((res:any) => {
-      if (res.message == "ok") this.statistika = res.data;
+      if (res.poruka == "ok") this.statistika = res.podaci;
     })
     this.osvezi();
   }

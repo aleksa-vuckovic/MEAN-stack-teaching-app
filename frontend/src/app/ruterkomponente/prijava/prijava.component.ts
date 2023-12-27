@@ -29,9 +29,9 @@ export class PrijavaComponent implements OnInit {
     }
     else if (this.prijavaForm.valid) {
       this.servis.prijava(this.prijavaForm.value).subscribe((res: any) => {
-        if (res.message != "ok") this.greska = res.message;
+        if (res.poruka != "ok") this.greska = res.poruka;
         else {
-          let data = res.data;
+          let data = res.podaci;
           if (data.tip == "Administrator") {
             //Pristup administratorima je sa druge putanje
             this.greska = "Administratori pristupaju sa posebne stranice."

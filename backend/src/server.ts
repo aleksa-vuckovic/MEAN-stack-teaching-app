@@ -9,7 +9,7 @@ import MongoStore from 'connect-mongo'
 /*
 Svi odgovori su u json formatu 
     {
-        message: "ok" / "Greska...",
+        poruka: "ok" / "Greska...",
         data?: {...}
     }
 */

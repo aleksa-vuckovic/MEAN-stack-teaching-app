@@ -41,8 +41,8 @@ export class PromenaLozinkeComponent {
       }
       else {
         this.servis.promenaLozinke(data).subscribe((res:any) => {
-          if (res.message != "ok") {
-            this.greska = res.message;
+          if (res.poruka != "ok") {
+            this.greska = res.poruka;
           }
           else {
             this.alertUspeh = "Lozinka je uspesno promenjena!";

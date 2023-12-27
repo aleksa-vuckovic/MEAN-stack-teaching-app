@@ -3,7 +3,7 @@ import korisnikModel from './modeli/Korisnik';
 import podatakModel from './modeli/Podatak';
 
 export class DB {
-    static korisnikPoKime(kime: string) {
+    static korisnikPoKime(kime: string): Promise<any> {
         return new Promise((resolve, reject) => {
             korisnikModel.findOne({kime: kime}).then(res => {
                 resolve(res) //null ako ne postoji
@@ -13,7 +13,7 @@ export class DB {
         })   
     }
 
-    static korisnikPoMejlu(mejl: String) {
+    static korisnikPoMejlu(mejl: String): Promise<any> {
         return new Promise((resolve, reject) => {
             korisnikModel.findOne({mejl: mejl}).then(res => {
                 resolve(res) //null ako ne postoji
@@ -23,7 +23,7 @@ export class DB {
         })  
     }
 
-    static dodajKorisnika(kor: any) {
+    static dodajKorisnika(kor: any): Promise<string> {
         return new Promise((resolve, reject) => {
             korisnikModel.insertMany([kor]).then(res => {
                 resolve("ok")
@@ -33,7 +33,7 @@ export class DB {
         })
     }
 
-    static promeniLozinku(kime: string, nova: string) {
+    static promeniLozinku(kime: string, nova: string): Promise<string> {
         return new Promise((resolve, reject) => {
             korisnikModel.updateOne({kime: kime}, {$set: {lozinka: nova}}).then(res => {
                 if (res.modifiedCount > 0) resolve("ok")
@@ -44,7 +44,7 @@ export class DB {
         })
     }
 
-    static sviPredmeti() {
+    static sviPredmeti(): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             podatakModel.findOne({podatak: "predmeti"}).then((res:any) => {
                 resolve(res.vrednosti);
@@ -59,7 +59,7 @@ export class DB {
         brojUcenika: y
     }
     */
-    static statistika() {
+    static statistika(): Promise<any> {
         return new Promise((resolve, reject) => {
             korisnikModel.aggregate([
                 {
@@ -95,7 +95,7 @@ export class DB {
         })
     }
 
-    static sviNastavnici(pretraga: any) {
+    static sviNastavnici(pretraga: any): Promise<Array<any>> {
         let upit: any = {}
         if (pretraga.ime && pretraga.ime != "") upit.ime = {$regex: new RegExp(pretraga.ime, 'i')}
         if (pretraga.prezime && pretraga.prezime != "") upit.prezime = {$regex: new RegExp(pretraga.prezime, 'i')}
@@ -134,6 +134,36 @@ export class DB {
                 resolve(res);
             }).catch(err => {
                 resolve([]);
+            })
+        })
+    }
+
+    static azurirajProfil(kime: string, podaci: any): Promise<string> {
+        podaci = {$set: podaci};
+        return new Promise((resolve, reject) => {
+            korisnikModel.updateOne({kime: kime}, podaci).then(res => {
+                if (res.modifiedCount > 0) resolve("ok");
+                else resolve("Korisnik nije pronadjen u bazi.")
+            }).catch(err => {
+                resolve("Greska u bazi.")
+            })
+        })
+    }
+
+    static ucenikProfilPodaci(kime: string): Promise<any> {
+        //ime, prezime, skola, razred, mejl, adresa, telefon
+        return new Promise((resolve, reject) => {
+            this.korisnikPoKime(kime).then((res: any) => {
+                if (res == null) resolve(null);
+                else resolve({
+                    ime: res.ime,
+                    prezime: res.prezime,
+                    skola: res.skola,
+                    razred: res.razred,
+                    mejl: res.mejl,
+                    adresa: res.adresa,
+                    telefon: res.telefon
+                })
             })
         })
     }

@@ -38,9 +38,9 @@ export class ZaboravljenaLozinkaComponent {
     }
     else {
       this.servis.sigurnosnoPitanje(kime?.value).subscribe((res:any) => {
-        if (res.message != "ok") this.greska = res.message;
+        if (res.poruka != "ok") this.greska = res.poruka;
         else {
-          this.pitanje = res.data;
+          this.pitanje = res.podaci;
           this.korak = 2;
         }
       })
@@ -54,7 +54,7 @@ export class ZaboravljenaLozinkaComponent {
     }
     else {
       this.servis.sigurnosniOdgovor(this.zaboravljenaForm.value).subscribe((res:any) => {
-        if (res.message != "ok") this.greska = res.message;
+        if (res.poruka != "ok") this.greska = res.poruka;
         else {
           this.korak = 3;
         }
@@ -76,7 +76,7 @@ export class ZaboravljenaLozinkaComponent {
     }
     else {
       this.servis.zaboravljenaLozinka(this.zaboravljenaForm.value).subscribe((res: any) => {
-        if (res.message != "ok") this.greska = res.message;
+        if (res.poruka != "ok") this.greska = res.poruka;
         else {
           this.alertUspeh = "Lozinka je uspesno promenjena. Preusmeravanje za 6.";
           let cnt = 6;
