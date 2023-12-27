@@ -22,8 +22,10 @@ class UcenikKontroler {
             let ulaz = req.body;
             let izlaz = {};
             validacija_1.Validacija.profilAzuriranjeValidacija(ulaz, izlaz, kor).then(ret => {
-                if (ret != "ok")
+                if (ret != "ok") {
                     res.json({ poruka: ret });
+                    return;
+                }
                 let profil = req.file;
                 if (profil) {
                     ret = validacija_1.Validacija.profilValidacija(profil);

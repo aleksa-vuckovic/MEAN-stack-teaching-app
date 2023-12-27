@@ -7,7 +7,7 @@ exports.Validacija = void 0;
 const db_1 = require("./db");
 const image_size_1 = __importDefault(require("image-size"));
 let lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
-let telefonRegex = /^\+381(\d){8,9}$/;
+let telefonRegex = /^\+381( *\d){8,9}$/;
 let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
 let lozinkaPoruka = "Lozinka ne ispunjava uslove.";
 let telefonPoruka = "Telefon ne ispunjava uslove.";
@@ -147,7 +147,7 @@ class Validacija {
         if (ulaz.adresa && ulaz.adresa != "")
             izlaz.adresa = ulaz.adresa;
         if (ulaz.telefon && ulaz.telefon != "") {
-            if (telefonRegex.test(ulaz.telefon))
+            if (!telefonRegex.test(ulaz.telefon))
                 greska += telefonPoruka;
             else
                 izlaz.telefon = ulaz.telefon;
@@ -161,7 +161,7 @@ class Validacija {
         else
             izlaz.mejl = kor.mejl;
         if (greska == "" && kor.tip == "Ucenik") {
-            //skola, razred
+            //skola, prelazak
             if (ulaz.skola && ulaz.skola != "") {
                 if (tipoviSkola.indexOf(ulaz.skola) == -1) {
                     greska += "Tip skole ne postoji. ";
@@ -172,19 +172,16 @@ class Validacija {
             }
             else
                 izlaz.skola = kor.skola;
-            if (ulaz.razred && ulaz.razred != "") {
-                izlaz.razred = parseInt(ulaz.razred);
-                if (isNaN(izlaz.razred))
-                    greska += "Razred nije ispravan. ";
-                else if (izlaz.razred < 1 || izlaz.razred > 8)
-                    greska += "Razred izvan opsega. ";
-                else if (izlaz.skola != "Osnovna" && izlaz.razred > 4)
-                    greska += "Razred izvan opsega za osnovnu skolu.";
-                else
-                    izlaz.razred = ulaz.razred;
+            if (izlaz.skola != kor.skola) {
+                if (izlaz.skola == "Osnovna")
+                    greska += "Nedozvoljena promena tipa skole.";
+                else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak))
+                    greska += "Nedozvoljena promena tipa skole.";
             }
-            else
-                izlaz.razred = kor.razred;
+            if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4)
+                greska += "Nedozvoljen prelazak u sledeci razred.";
+            if (ulaz.prelazak)
+                izlaz.razred = kor.razred % 8 + 1;
         }
         if (greska == "" && kor.tip == "Nastavnik") {
             //...

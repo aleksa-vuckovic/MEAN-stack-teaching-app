@@ -129,7 +129,6 @@ export class DB {
             }
           ];
         if (sort) tmp.push({$sort: sort});
-        console.log(tmp);
         return new Promise((resolve, reject) => {
             korisnikModel.aggregate(tmp).then(res => {
                 resolve(res);
@@ -155,7 +154,6 @@ export class DB {
         //ime, prezime, skola, razred, mejl, adresa, telefon
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res: any) => {
-                console.log(res);
                 if (res == null) resolve(null);
                 else resolve({
                     ime: res.ime,

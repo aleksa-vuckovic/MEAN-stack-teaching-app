@@ -23,7 +23,6 @@ export class OsajtuComponent implements OnInit {
   }
 
   osvezi() {
-    console.log(this.pretraga);
     this.servis.sviNastavnici(this.pretraga).subscribe((res: any) => {
       if (res.poruka == "ok") this.nastavnici = res.podaci;
     })

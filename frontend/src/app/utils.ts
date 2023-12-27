@@ -6,7 +6,7 @@ export class Utils {
         return "Lozinka mora da ima 6-10 karaktera, 3 mala slova, 1 veliko, 1 broj i 1 specijalan karakter, i mora poceti slovom.";
     }
     static telefonRegex(): RegExp {
-        return /^\+381(\d){8,9}$/;
+        return /^\+381( *\d){8,9}$/;
     }
     static telefonZahtevi(): string {
         return "Telefon mora biti u formatu +381xx xxx xxx(x)";

@@ -172,9 +172,6 @@ export class RegistracijaComponent {
 
         let tmp = this.korak2NastavnikForm.value;
         //predmeti, uzrasti, saznao, cv
-        console.log(tmp)
-        console.log(tmp.cv)
-        console.log(tmp['cv'])
         forma.append('saznao', tmp.saznao);
         forma.append('cv', tmp['cv']);
         for (let predmet of tmp.predmeti) forma.append('predmeti', predmet);

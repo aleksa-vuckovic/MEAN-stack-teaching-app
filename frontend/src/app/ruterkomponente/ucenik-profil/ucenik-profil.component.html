@@ -12,13 +12,56 @@
             <div class="col-2">
                 <img [src]="podaci.profil" width="100%" class="rounded-1">
             </div>
-            <div class="col-10">
+            <div class="col-10" *ngIf="prikaz2==false">
                 <h2>{{podaci.ime}} {{podaci.prezime}}</h2>
                 <p>{{podaci.skola}}, {{podaci.razred}}. razred</p>
                 <br>
                 <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.adresa}} <br> {{podaci.telefon}}</p>
                 <br>
                 <i class="material-icons" (click)="azuriranje()">edit</i>
+            </div>
+            <div class="col-10" *ngIf="prikaz2==true">
+                <form [formGroup]="azuriranjeForma" (ngSubmit)="azuriraj()">
+                    <div class="mb-3">
+                        <label for="ime" class="form-label">Ime</label>
+                        <input type="text" class="form-control" id="ime" formControlName="ime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prezime" class="form-label">Lozinka</label>
+                        <input type="text" class="form-control" id="prezime" formControlName="prezime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mejl" class="form-label">Mejl</label>
+                        <input type="text" class="form-control" id="mejl" formControlName="mejl" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adresa" class="form-label">Adresa</label>
+                        <input type="text" class="form-control" id="adresa" formControlName="adresa" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefon" class="form-label">Telefon</label>
+                        <input type="text" class="form-control" id="telefon" formControlName="telefon" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="skola" class="form-label">Tip skole</label>
+                        <select id="skola" class="form-control" [disabled] = "dozvoljenaSrednja==false" formControlName="skola">
+                            <option value="Osnovna" *ngIf="dozvoljenaOsnovna">Osnovna</option>
+                            <option value="Gimnazija" *ngIf="dozvoljenaSrednja">Gimnazija</option>
+                            <option value="Srednja strucna" *ngIf="dozvoljenaSrednja">Srednja strucna</option>
+                            <option value="Srednja umetnicka" *ngIf="dozvoljenaSrednja">Srednja umetnicka</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="checkbox" name = "razred" class="form-check-input" formControlName="prelazak" id="razred" (change)="azurirajDozvoljene()" [disabled]="!dozvoljenPrelazak">
+                        <label for="nastavnik" class="form-label">Prelazim u sledeci razred.</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profil" class="form-label">Profilna slika</label>
+                        <fajl-input formControlName="profil" id = "profil"></fajl-input>
+                    </div>
+                    <div class="form-text text-danger">{{greska}}</div>
+                    <button type="submit" class="btn btn-primary">Azuriraj</button> &nbsp; &nbsp; <button class = "btn btn-secondary" (click)="odustani()">Odustani</button>
+                </form>
             </div>
         </div>
         <div class="row px-3 py-1">
