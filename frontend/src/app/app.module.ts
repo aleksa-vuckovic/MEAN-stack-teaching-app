@@ -17,6 +17,7 @@ import { PromenaLozinkeComponent } from './ruterkomponente/promena-lozinke/prome
 import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
 import { UcenikNavigacijaComponent } from './subkomponente/ucenik-navigacija/ucenik-navigacija.component';
 import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
+import { ZvezdeComponent } from './subkomponente/zvezde/zvezde.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-pr
     PromenaLozinkeComponent,
     OsajtuComponent,
     UcenikNavigacijaComponent,
-    UcenikProfilComponent
+    UcenikProfilComponent,
+    ZvezdeComponent
   ],
   imports: [
     BrowserModule,
