@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PrijavaService } from 'src/app/servisi/prijava.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { PrijavaService } from 'src/app/servisi/prijava.service';
 export class PrijavaComponent implements OnInit {
   prijavaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private servis: PrijavaService) {
+  constructor(private fb: FormBuilder, private servis: PrijavaService, private ruter: Router) {
     this.prijavaForm = this.fb.group({
       kime: ['', Validators.required],
       lozinka: ['', [ Validators.required ] ]
@@ -38,9 +39,8 @@ export class PrijavaComponent implements OnInit {
             return;
           }
           localStorage.setItem("korisnik", JSON.stringify(data));
-          alert(JSON.stringify(data));
           if (data.tip == "Ucenik") {
-            //login ucenik
+            this.ruter.navigate(["ucenikProfil"])
           } else if (data.tip == "Nastavnik") {
             //login nastavnik
           }

@@ -18,30 +18,33 @@ prijavaRuter.route("/registracija").post(upload.fields([
     { name: "profil", maxCount: 1 },
     { name: "cv", maxCount: 1 }
 ]), (req, res) => {
-    new PrijavaKontroler_1.PrijavaController().registracija(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().registracija(req, res);
 });
 prijavaRuter.route("/prijava").post((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().prijava(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().prijava(req, res);
 });
 prijavaRuter.route("/promenalozinke").post((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().promenaLozinke(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().promenaLozinke(req, res);
 });
 prijavaRuter.route("/sigurnosnopitanje").get((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().sigurnosnoPitanje(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().sigurnosnoPitanje(req, res);
 });
 prijavaRuter.route("/sigurnosniodgovor").post((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().sigurnosniOdgovor(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().sigurnosniOdgovor(req, res);
 });
 prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().zaboravljenaLozinka(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().zaboravljenaLozinka(req, res);
 });
 prijavaRuter.route("/svipredmeti").get((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().sviPredmeti(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().sviPredmeti(req, res);
 });
 prijavaRuter.route("/statistika").get((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().statistika(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().statistika(req, res);
 });
 prijavaRuter.route("/svinastavnici").post((req, res) => {
-    new PrijavaKontroler_1.PrijavaController().sviNastavnici(req, res);
+    new PrijavaKontroler_1.PrijavaKontroler().sviNastavnici(req, res);
+});
+prijavaRuter.route("/odjava").get((req, res) => {
+    new PrijavaKontroler_1.PrijavaKontroler().odjava(req, res);
 });
 exports.default = prijavaRuter;

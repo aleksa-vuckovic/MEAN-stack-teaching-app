@@ -6,6 +6,7 @@ import { ZaboravljenaLozinkaComponent } from './ruterkomponente/zaboravljena-loz
 import { PrijavaAdministratorComponent } from './ruterkomponente/prijava-administrator/prijava-administrator.component';
 import { PromenaLozinkeComponent } from './ruterkomponente/promena-lozinke/promena-lozinke.component';
 import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
+import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: "prijavaAdministrator", component: PrijavaAdministratorComponent},
   { path: "zaboravljenaLozinka", component: ZaboravljenaLozinkaComponent},
   { path: "promenaLozinke", component: PromenaLozinkeComponent},
-  { path: "", component: OsajtuComponent}
+  { path: "", component: OsajtuComponent},
+
+  { path: "ucenikProfil", component: UcenikProfilComponent}
 ]
 
 @NgModule({

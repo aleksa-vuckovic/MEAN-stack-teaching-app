@@ -48,4 +48,8 @@ export class PrijavaService {
   sviNastavnici(pretraga: any) {
     return this.http.post(this.baseUrl + "svinastavnici", pretraga);
   }
+
+  odjava() {
+    return this.http.get(this.baseUrl + "odjava");
+  }
 }

@@ -1,18 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PrijavaController = void 0;
+exports.PrijavaKontroler = void 0;
 const validacija_1 = require("../validacija");
 const utils_1 = require("../utils");
 const db_1 = require("../db");
-class PrijavaController {
+class PrijavaKontroler {
     constructor() {
         this.registracija = (req, res) => {
-            let body = req.body;
-            if (!body) {
-                res.json({ poruka: "Nedostaju polja." });
-                return;
-            }
-            validacija_1.Validacija.registracijaValidacija(body).then(ret => {
+            let ulaz = req.body;
+            let izlaz = {};
+            validacija_1.Validacija.registracijaValidacija(ulaz, izlaz).then(ret => {
                 if (ret != "ok") {
                     res.json({ poruka: ret });
                     return;
@@ -27,25 +24,10 @@ class PrijavaController {
                 let profilBaza = utils_1.Utils.podrazumevanaProfilna();
                 if (profil != null)
                     profilBaza = utils_1.Utils.sacuvajFajl(profil);
-                body["profil"] = profilBaza;
-                if (req.body.tip == "Ucenik") {
-                    ret = validacija_1.Validacija.ucenikValidacija(body);
-                    if (ret != "ok") {
-                        res.json({ poruka: ret });
-                        return;
-                    }
-                    body["odobren"] = true;
-                    body["aktivan"] = true;
-                    db_1.DB.dodajKorisnika(body).then(ret => {
-                        res.json({ poruka: ret });
-                    });
-                }
-                else {
-                    ret = validacija_1.Validacija.nastavnikValidacija(body);
-                    if (ret != "ok") {
-                        res.json({ poruka: ret });
-                        return;
-                    }
+                izlaz.profil = profilBaza;
+                izlaz.odobren = false;
+                izlaz.aktivan = true;
+                if (izlaz.tip == "Nastavnik") {
                     let cv = files["cv"] ? files["cv"][0] : null;
                     ret = validacija_1.Validacija.cvValidacija(cv);
                     if (ret != "ok") {
@@ -53,14 +35,14 @@ class PrijavaController {
                         return;
                     }
                     let cvBaza = utils_1.Utils.sacuvajFajl(cv);
-                    body["cv"] = cvBaza;
-                    body["odobren"] = false;
-                    body["aktivan"] = true;
-                    //insert into database
-                    db_1.DB.dodajKorisnika(body).then(ret => {
-                        res.json({ poruka: ret });
-                    });
+                    izlaz.cv = cvBaza;
                 }
+                else {
+                    izlaz.odobren = true;
+                }
+                db_1.DB.dodajKorisnika(izlaz).then(ret => {
+                    res.json({ poruka: ret });
+                });
             });
         };
         this.prijava = (req, res) => {
@@ -77,7 +59,7 @@ class PrijavaController {
                     session.korisnik = ret;
                     res.json({
                         poruka: "ok",
-                        data: {
+                        podaci: {
                             kime: ret.kime,
                             tip: ret.tip
                         }
@@ -100,7 +82,7 @@ class PrijavaController {
                     else if (ret.lozinka != req.body.stara)
                         res.json({ poruka: "Neispravni kredencijali." });
                     else {
-                        db_1.DB.promeniLozinku(ret.kime, req.body.nova).then(ret => {
+                        db_1.DB.promeniLozinku(req.body.kime, req.body.nova).then(ret => {
                             res.json({ poruka: ret });
                         });
                     }
@@ -115,7 +97,7 @@ class PrijavaController {
                     if (ret == null)
                         res.json({ poruka: "Korisnik ne postoji u bazi." });
                     else
-                        res.json({ poruka: "ok", data: ret.pitanje });
+                        res.json({ poruka: "ok", podaci: ret.pitanje });
                 });
         };
         this.sigurnosniOdgovor = (req, res) => {
@@ -153,24 +135,30 @@ class PrijavaController {
         };
         this.sviPredmeti = (req, res) => {
             db_1.DB.sviPredmeti().then(ret => {
-                res.json({ poruka: "ok", data: ret });
+                res.json({ poruka: "ok", podaci: ret });
             });
         };
         this.statistika = (req, res) => {
             db_1.DB.statistika().then((ret) => {
                 if (ret)
-                    res.json({ poruka: "ok", data: ret });
+                    res.json({ poruka: "ok", podaci: ret });
                 else
-                    res.json({ poruka: "Greska u bazi.", data: { brojNastavnika: 0, brojUcenika: 0 } });
+                    res.json({ poruka: "Greska u bazi.", podaci: { brojNastavnika: 0, brojUcenika: 0 } });
             });
         };
         this.sviNastavnici = (req, res) => {
             if (!req.body)
                 req.body = {};
             db_1.DB.sviNastavnici(req.body).then(ret => {
-                res.json({ poruka: "ok", data: ret });
+                res.json({ poruka: "ok", podaci: ret });
             });
+        };
+        this.odjava = (req, res) => {
+            if (req.session)
+                req.session.destroy(err => {
+                });
+            res.json({ poruka: "ok" });
         };
     }
 }
-exports.PrijavaController = PrijavaController;
+exports.PrijavaKontroler = PrijavaKontroler;

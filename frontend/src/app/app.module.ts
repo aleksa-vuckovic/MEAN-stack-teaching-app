@@ -15,6 +15,8 @@ import { PrijavaAdministratorComponent } from './ruterkomponente/prijava-adminis
 import { ZaboravljenaLozinkaComponent } from './ruterkomponente/zaboravljena-lozinka/zaboravljena-lozinka.component';
 import { PromenaLozinkeComponent } from './ruterkomponente/promena-lozinke/promena-lozinke.component';
 import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
+import { UcenikNavigacijaComponent } from './subkomponente/ucenik-navigacija/ucenik-navigacija.component';
+import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
     PrijavaAdministratorComponent,
     ZaboravljenaLozinkaComponent,
     PromenaLozinkeComponent,
-    OsajtuComponent
+    OsajtuComponent,
+    UcenikNavigacijaComponent,
+    UcenikProfilComponent
   ],
   imports: [
     BrowserModule,

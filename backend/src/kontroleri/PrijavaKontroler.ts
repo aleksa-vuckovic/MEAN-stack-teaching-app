@@ -128,4 +128,11 @@ export class PrijavaKontroler {
             res.json({poruka: "ok", podaci: ret})
         })
     }
+
+    odjava = (req: express.Request, res: express.Response) => {
+        if (req.session) req.session.destroy(err => {
+
+        })
+        res.json({poruka: "ok"})
+    }
 }

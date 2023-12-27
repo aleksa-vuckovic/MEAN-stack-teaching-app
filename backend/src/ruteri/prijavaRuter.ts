@@ -50,4 +50,8 @@ prijavaRuter.route("/svinastavnici").post((req, res) => {
     new PrijavaKontroler().sviNastavnici(req, res);
 })
 
+prijavaRuter.route("/odjava").get((req, res) => {
+    new PrijavaKontroler().odjava(req, res);
+})
+
 export default prijavaRuter

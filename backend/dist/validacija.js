@@ -9,49 +9,102 @@ const image_size_1 = __importDefault(require("image-size"));
 let lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
 let telefonRegex = /^\+381(\d){8,9}$/;
 let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
+let lozinkaPoruka = "Lozinka ne ispunjava uslove.";
+let telefonPoruka = "Telefon ne ispunjava uslove.";
+let mejlPoruka = "Mejl ne ispunjava uslove.";
 let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja strucna", "Srednja umetnicka"];
 let uzrasti = ["Osnovna 1-4", "Osnovna 5-8", "Srednja"];
 class Validacija {
     static lozinkaValidacija(lozinka) {
         if (!lozinkaRegex.test(lozinka))
-            return "Lozinka ne uspunjava uslove.";
+            return lozinkaPoruka;
         else
             return "ok";
     }
-    static registracijaValidacija(kor) {
-        let ret = "";
-        if (!kor.kime || kor.kime == "" ||
-            !kor.lozinka ||
-            !kor.pitanje || kor.pitanje == "" ||
-            !kor.odgovor || kor.odogovor == "" ||
-            !kor.ime || kor.ime == "" ||
-            !kor.prezime || kor.prezime == "" ||
-            !kor.tip || kor.tip == "" ||
-            !kor.pol || kor.pol == "" ||
-            !kor.adresa || kor.adresa == "" ||
-            !kor.telefon || kor.telefon == "" ||
-            !kor.mejl || kor.mejl == "" ||
-            !kor.tip || kor.tip == "")
-            ret = "Nedostaju informacije.";
-        else if (this.lozinkaValidacija(kor.lozinka) != "ok")
-            ret = this.lozinkaValidacija(kor.lozinka);
-        else if (!telefonRegex.test(kor.telefon))
-            ret = "Telefon ne ispunjava uslove.";
-        else if (!mejlRegex.test(kor.mejl))
-            ret = "Mejl ne ispunjava uslove.";
-        else if (kor.tip != "Ucenik" && kor.tip != "Nastavnik")
-            ret = "Tip ne postoji.";
-        else if (kor.pol != "M" && kor.pol != "Z")
-            ret = "Pol ne postoji.";
-        return new Promise((resolve, reject) => {
-            if (ret != "")
-                resolve(ret);
+    //Proverava sva polja u registraciji OSIM fajlova, i upisuje u izlaz
+    static registracijaValidacija(ulaz, izlaz) {
+        let greska = "";
+        //Zajednicka polja
+        if (!ulaz || !ulaz.kime || ulaz.kime == "" ||
+            !ulaz.lozinka ||
+            !ulaz.pitanje || ulaz.pitanje == "" ||
+            !ulaz.odgovor || ulaz.odogovor == "" ||
+            !ulaz.ime || ulaz.ime == "" ||
+            !ulaz.prezime || ulaz.prezime == "" ||
+            !ulaz.tip || ulaz.tip == "" ||
+            !ulaz.pol || ulaz.pol == "" ||
+            !ulaz.adresa || ulaz.adresa == "" ||
+            !ulaz.telefon || ulaz.telefon == "" ||
+            !ulaz.mejl || ulaz.mejl == "" ||
+            !ulaz.tip || ulaz.tip == "")
+            greska = "Nedostaju informacije.";
+        else if (!lozinkaRegex.test(ulaz.lozinka))
+            greska = lozinkaPoruka;
+        else if (!telefonRegex.test(ulaz.telefon))
+            greska = telefonPoruka;
+        else if (!mejlRegex.test(ulaz.mejl))
+            greska = mejlPoruka;
+        else if (ulaz.tip != "Ucenik" && ulaz.tip != "Nastavnik")
+            greska = "Tip ne postoji.";
+        else if (ulaz.pol != "M" && ulaz.pol != "Z")
+            greska = "Pol ne postoji.";
+        else {
+            izlaz.kime = ulaz.kime;
+            izlaz.lozinka = ulaz.lozinka;
+            izlaz.pitanje = ulaz.pitanje;
+            izlaz.odgovor = ulaz.odgovor;
+            izlaz.ime = ulaz.ime;
+            izlaz.prezime = ulaz.prezime;
+            izlaz.tip = ulaz.tip;
+            izlaz.pol = ulaz.pol;
+            izlaz.adresa = ulaz.adresa;
+            izlaz.telefon = ulaz.telefon;
+            izlaz.telefon = ulaz.telefon;
+            izlaz.mejl = ulaz.mejl;
+            izlaz.tip = ulaz.tip;
+        }
+        if (greska == "" && izlaz.tip == "Ucenik") {
+            //Provera polja za ucenika
+            ulaz.razred = parseInt(ulaz.razred);
+            if (!ulaz.skola || ulaz.skola == "" ||
+                !ulaz.razred || isNaN(ulaz.razred))
+                greska = "Nedostaju podaci za ucenika.";
+            else if (tipoviSkola.indexOf(ulaz.skola) == -1)
+                greska = "Tip skole ne postoji.";
+            else if (ulaz.razred < 1 || ulaz.razred > 8 || ulaz.skola != "Osnovna" && ulaz.razred > 4)
+                greska = "Razred izvan opsega.";
+            else {
+                izlaz.skola = ulaz.skola;
+                izlaz.razred = ulaz.razred;
+            }
+        }
+        else if (greska == "" && izlaz.tip == "Nastavnik") {
+            if (!ulaz.predmeti)
+                izlaz.predmeti = [];
+            else if (!Array.isArray(ulaz.predmeti))
+                izlaz.predmeti = [ulaz.predmeti];
             else
-                db_1.DB.korisnikPoKime(kor.kime).then(res => {
+                izlaz.predmeti = ulaz.predmeti;
+            if (!ulaz.uzrasti)
+                izlaz.uzrasti = [];
+            else if (!Array.isArray(ulaz.uzrasti))
+                izlaz.uzrasti = [ulaz.uzrasti];
+            else
+                izlaz.uzrasti = ulaz.uzrasti;
+            if (!ulaz.saznao)
+                izlaz.saznao = "";
+            else
+                izlaz.saznao = ulaz.saznao;
+        }
+        return new Promise((resolve, reject) => {
+            if (greska != "")
+                resolve(greska);
+            else
+                db_1.DB.korisnikPoKime(izlaz.kime).then(res => {
                     if (res)
                         resolve("Korisnicko ime vec postoji.");
                     else
-                        db_1.DB.korisnikPoMejlu(kor.mejl).then(res => {
+                        db_1.DB.korisnikPoMejlu(izlaz.mejl).then(res => {
                             if (res)
                                 resolve("Mejl je zauzet.");
                             else
@@ -74,28 +127,6 @@ class Validacija {
             return "Prevelika slika.";
         return "ok";
     }
-    static ucenikValidacija(kor) {
-        if (!kor.skola || kor.skola == "" ||
-            !kor.razred)
-            return "Nedostaju podaci.";
-        kor.razred = parseInt(kor.razred);
-        if (tipoviSkola.indexOf(kor.skola) == -1)
-            return "Tip skole ne postoji.";
-        if (kor.razred < 1 || kor.razred > 8 || kor.skola != "Osnovna" && kor.razred > 4)
-            return "Razred izvan opsega.";
-        return "ok";
-    }
-    static nastavnikValidacija(kor) {
-        if (!kor.predmeti)
-            kor.predmeti = [];
-        else if (!Array.isArray(kor.predmeti))
-            kor.predmeti = [kor.predmeti];
-        if (!kor.uzrasti)
-            kor.uzrasti = [];
-        else if (!Array.isArray(kor.uzrasti))
-            kor.uzrasti = [kor.uzrasti];
-        return "ok";
-    }
     static cvValidacija(fajl) {
         if (!fajl)
             return "Fajl je obavezan.";
@@ -105,6 +136,71 @@ class Validacija {
         if (fajl.size > 3 * 1024 * 1024)
             return "Velicina fajla je maksimalno 3MB.";
         return "ok";
+    }
+    static profilAzuriranjeValidacija(ulaz, izlaz, kor) {
+        //ime, prezime, mejl, adresa, telefon
+        let greska = "";
+        if (ulaz.ime && ulaz.ime != "")
+            izlaz.ime = ulaz.ime;
+        if (ulaz.prezime && ulaz.prezime != "")
+            izlaz.prezime = ulaz.prezime;
+        if (ulaz.adresa && ulaz.adresa != "")
+            izlaz.adresa = ulaz.adresa;
+        if (ulaz.telefon && ulaz.telefon != "") {
+            if (telefonRegex.test(ulaz.telefon))
+                greska += telefonPoruka;
+            else
+                izlaz.telefon = ulaz.telefon;
+        }
+        if (ulaz.mejl && ulaz.mejl == "") {
+            if (!mejlRegex.test(ulaz.mejl))
+                greska += mejlPoruka;
+            else
+                izlaz.mejl = ulaz.mejl;
+        }
+        else
+            izlaz.mejl = kor.mejl;
+        if (greska == "" && kor.tip == "Ucenik") {
+            //skola, razred
+            if (ulaz.skola && ulaz.skola != "") {
+                if (tipoviSkola.indexOf(ulaz.skola) == -1) {
+                    greska += "Tip skole ne postoji. ";
+                    izlaz.skola = kor.skola;
+                }
+                else
+                    izlaz.skola = ulaz.skola;
+            }
+            else
+                izlaz.skola = kor.skola;
+            if (ulaz.razred && ulaz.razred != "") {
+                izlaz.razred = parseInt(ulaz.razred);
+                if (isNaN(izlaz.razred))
+                    greska += "Razred nije ispravan. ";
+                else if (izlaz.razred < 1 || izlaz.razred > 8)
+                    greska += "Razred izvan opsega. ";
+                else if (izlaz.skola != "Osnovna" && izlaz.razred > 4)
+                    greska += "Razred izvan opsega za osnovnu skolu.";
+                else
+                    izlaz.razred = ulaz.razred;
+            }
+            else
+                izlaz.razred = kor.razred;
+        }
+        if (greska == "" && kor.tip == "Nastavnik") {
+            //...
+        }
+        return new Promise((resolve, reject) => {
+            if (greska != "")
+                resolve(greska);
+            else {
+                db_1.DB.korisnikPoMejlu(izlaz.mejl).then((res) => {
+                    if (res != null && res.kime != kor.kime)
+                        resolve("Mejl je zauzet");
+                    else
+                        resolve("ok");
+                });
+            }
+        });
     }
 }
 exports.Validacija = Validacija;

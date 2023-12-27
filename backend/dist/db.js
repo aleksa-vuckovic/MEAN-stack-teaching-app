@@ -140,5 +140,37 @@ class DB {
             });
         });
     }
+    static azurirajProfil(kime, podaci) {
+        podaci = { $set: podaci };
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.updateOne({ kime: kime }, podaci).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Korisnik nije pronadjen u bazi.");
+            }).catch(err => {
+                resolve("Greska u bazi.");
+            });
+        });
+    }
+    static ucenikProfilPodaci(kime) {
+        //ime, prezime, skola, razred, mejl, adresa, telefon
+        return new Promise((resolve, reject) => {
+            this.korisnikPoKime(kime).then((res) => {
+                if (res == null)
+                    resolve(null);
+                else
+                    resolve({
+                        ime: res.ime,
+                        prezime: res.prezime,
+                        skola: res.skola,
+                        razred: res.razred,
+                        mejl: res.mejl,
+                        adresa: res.adresa,
+                        telefon: res.telefon
+                    });
+            });
+        });
+    }
 }
 exports.DB = DB;
