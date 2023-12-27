@@ -20,7 +20,7 @@ let korisnikSchema = new mongoose_1.default.Schema({
     odobren: Boolean,
     aktivan: Boolean,
     skola: String,
-    grade: Number,
+    razred: Number,
     predmeti: (Array),
     uzrasti: (Array),
     saznao: String,

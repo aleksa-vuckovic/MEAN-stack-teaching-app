@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DB = void 0;
 const Korisnik_1 = __importDefault(require("./modeli/Korisnik"));
 const Podatak_1 = __importDefault(require("./modeli/Podatak"));
+const utils_1 = require("./utils");
 class DB {
     static korisnikPoKime(kime) {
         return new Promise((resolve, reject) => {
@@ -157,6 +158,7 @@ class DB {
         //ime, prezime, skola, razred, mejl, adresa, telefon
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res) => {
+                console.log(res);
                 if (res == null)
                     resolve(null);
                 else
@@ -167,7 +169,8 @@ class DB {
                         razred: res.razred,
                         mejl: res.mejl,
                         adresa: res.adresa,
-                        telefon: res.telefon
+                        telefon: res.telefon,
+                        profil: utils_1.Utils.slikaUrl(res.profil)
                     });
             });
         });

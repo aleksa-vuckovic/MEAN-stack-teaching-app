@@ -21,5 +21,8 @@ class Utils {
     static podrazumevanaProfilna() {
         return "/uploads/default-profile.jpeg";
     }
+    static slikaUrl(slika) {
+        return "http://localhost:4000" + slika;
+    }
 }
 exports.Utils = Utils;

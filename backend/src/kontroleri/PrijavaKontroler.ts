@@ -49,7 +49,6 @@ export class PrijavaKontroler {
             else {
                 let session = req.session as any
                 session.korisnik = ret;
-
                 res.json({
                     poruka: "ok",
                     podaci: {

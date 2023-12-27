@@ -1,5 +1,4 @@
 import express from 'express';
-import Korisnik from '../modeli/Korisnik';
 import { Validacija } from "../validacija";
 import { Utils } from "../utils"
 import { DB } from "../db";

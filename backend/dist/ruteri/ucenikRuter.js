@@ -17,7 +17,7 @@ let ucenikRuter = express_1.default.Router();
 ucenikRuter.route("/profilazuriranje").post(upload.single("profil"), (req, res) => {
     new UcenikKontroler_1.UcenikKontroler().profilAzuriranje(req, res);
 });
-ucenikRuter.route("/profilpodaci").post((req, res) => {
+ucenikRuter.route("/profilpodaci").get((req, res) => {
     new UcenikKontroler_1.UcenikKontroler().profilPodaci(req, res);
 });
 exports.default = ucenikRuter;

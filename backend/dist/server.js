@@ -18,21 +18,29 @@ Svi odgovori su u json formatu
         data?: {...}
     }
 */
-const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, "..", "uploads")));
 mongoose_1.default.connect("mongodb://127.0.0.1:27017/piaprojekat");
 mongoose_1.default.connection.once('open', () => {
     console.log('db ok');
 });
+const app = (0, express_1.default)();
 app.use((0, express_session_1.default)({
-    secret: 'some-key',
-    resave: false,
-    saveUninitialized: false,
+    secret: "1234567890QWERTY",
+    resave: true,
+    saveUninitialized: true,
     store: connect_mongo_1.default.create({ client: mongoose_1.default.connection.getClient() }),
-    cookie: { maxAge: 1000 * 60 * 60 * 2 }, // Sesija istice za 2 sata
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 2,
+        httpOnly: false,
+        secure: false,
+        //sameSite: 'none'
+    }, // Sesija istice za 2 sata
 }));
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:4200', // Specify your frontend's origin
+    credentials: true,
+}));
+app.use(express_1.default.json());
+app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, "..", "uploads")));
 app.use("/", prijavaRuter_1.default);
 app.use("/ucenik", ucenikRuter_1.default);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

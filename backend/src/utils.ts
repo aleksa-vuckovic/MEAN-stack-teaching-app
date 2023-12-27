@@ -16,4 +16,7 @@ export class Utils {
     static podrazumevanaProfilna() {
         return "/uploads/default-profile.jpeg"; 
     }
+    static slikaUrl(slika: string) {
+        return "http://localhost:4000" + slika;
+    }
 }

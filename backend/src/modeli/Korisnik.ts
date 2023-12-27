@@ -17,7 +17,7 @@ let korisnikSchema = new mongoose.Schema({
     aktivan: Boolean,
 
     skola: String,
-    grade: Number,
+    razred: Number,
 
     predmeti: Array<String>,
     uzrasti: Array<String>,

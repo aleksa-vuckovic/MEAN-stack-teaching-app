@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import korisnikModel from './modeli/Korisnik';
 import podatakModel from './modeli/Podatak';
+import { Utils } from './utils';
 
 export class DB {
     static korisnikPoKime(kime: string): Promise<any> {
@@ -154,6 +155,7 @@ export class DB {
         //ime, prezime, skola, razred, mejl, adresa, telefon
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res: any) => {
+                console.log(res);
                 if (res == null) resolve(null);
                 else resolve({
                     ime: res.ime,
@@ -162,7 +164,8 @@ export class DB {
                     razred: res.razred,
                     mejl: res.mejl,
                     adresa: res.adresa,
-                    telefon: res.telefon
+                    telefon: res.telefon,
+                    profil: Utils.slikaUrl(res.profil)
                 })
             })
         })

@@ -16,7 +16,7 @@ ucenikRuter.route("/profilazuriranje").post(upload.single("profil"), (req, res) 
     new UcenikKontroler().profilAzuriranje(req, res);
 })
 
-ucenikRuter.route("/profilpodaci").post((req, res) => {
+ucenikRuter.route("/profilpodaci").get((req, res) => {
     new UcenikKontroler().profilPodaci(req, res);
 })
 
