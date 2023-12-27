@@ -156,6 +156,21 @@ class PrijavaController {
                 res.json({ message: "ok", data: ret });
             });
         };
+        this.statistika = (req, res) => {
+            db_1.DB.statistika().then((ret) => {
+                if (ret)
+                    res.json({ message: "ok", data: ret });
+                else
+                    res.json({ message: "Greska u bazi.", data: { brojNastavnika: 0, brojUcenika: 0 } });
+            });
+        };
+        this.sviNastavnici = (req, res) => {
+            if (!req.body)
+                req.body = {};
+            db_1.DB.sviNastavnici(req.body).then(ret => {
+                res.json({ message: "ok", data: ret });
+            });
+        };
     }
 }
 exports.PrijavaController = PrijavaController;

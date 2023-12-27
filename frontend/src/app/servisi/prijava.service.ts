@@ -40,4 +40,12 @@ export class PrijavaService {
   sviPredmeti() {
     return this.http.get(this.baseUrl + "svipredmeti");
   }
+
+  statistika() {
+    return this.http.get(this.baseUrl + "statistika");
+  }
+
+  sviNastavnici(pretraga: any) {
+    return this.http.post(this.baseUrl + "svinastavnici", pretraga);
+  }
 }

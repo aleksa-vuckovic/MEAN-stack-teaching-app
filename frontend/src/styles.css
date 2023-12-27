@@ -5,7 +5,10 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
 .header, .footer {
-    background-color: #f0d4cf;
+    background-color: #cfe3f0;
+}
+.bg-blue {
+    background-color: #cfe3f0;
 }
 .footer {
     font-size: small;
@@ -13,4 +16,33 @@
 }
 html, body {
     scroll-behavior: smooth !important;
+}
+.statistika {
+    font-size:xx-large;
+}
+th input {
+    height: 100%;
+}
+
+/*navbar*/
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+}
+.nav-item {
+    background-color: #cfe3f0;
+    padding: 15px;
+}
+.nav-item.inactive:hover {
+    background-color: #ccd5db;
+    cursor: pointer;
+}
+.nav-item.active {
+    background-color: #ccd5db;
+}
+.navbar {
+    padding: 0px;
+}
+.navbar-toggler {
+    border-width: 1px !important;
 }

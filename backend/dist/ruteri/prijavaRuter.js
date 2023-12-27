@@ -38,4 +38,10 @@ prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
 prijavaRuter.route("/svipredmeti").get((req, res) => {
     new PrijavaKontroler_1.PrijavaController().sviPredmeti(req, res);
 });
+prijavaRuter.route("/statistika").get((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().statistika(req, res);
+});
+prijavaRuter.route("/svinastavnici").post((req, res) => {
+    new PrijavaKontroler_1.PrijavaController().sviNastavnici(req, res);
+});
 exports.default = prijavaRuter;

@@ -55,11 +55,86 @@ export class DB {
     }
 
     /* Vraca {
-        brojNastavnika: 
-        brojUcenika: 
+        brojNastavnika: x
+        brojUcenika: y
     }
     */
     static statistika() {
-        
+        return new Promise((resolve, reject) => {
+            korisnikModel.aggregate([
+                {
+                  $match: {
+                    tip: 'Nastavnik', 
+                    odobren: true, 
+                    aktivan: true
+                  }
+                }, {
+                  $count: 'broj'
+                }
+              ]).then((res: any) => {
+                let brojNastavnika = res[0].broj;
+
+                korisnikModel.aggregate([
+                    {
+                      $match: {
+                        tip: 'Ucenik', 
+                        odobren: true, 
+                        aktivan: true
+                      }
+                    }, {
+                      $count: 'broj'
+                    }
+                  ]).then((res: any) => {
+                    let brojUcenika = res[0].broj;
+                    resolve({
+                        brojNastavnika: brojNastavnika,
+                        brojUcenika: brojUcenika
+                    })
+                  }).catch(err => {resolve(null);})
+              }).catch(err => { resolve(null); })
+        })
+    }
+
+    static sviNastavnici(pretraga: any) {
+        let upit: any = {}
+        if (pretraga.ime && pretraga.ime != "") upit.ime = {$regex: new RegExp(pretraga.ime, 'i')}
+        if (pretraga.prezime && pretraga.prezime != "") upit.prezime = {$regex: new RegExp(pretraga.prezime, 'i')}
+        if (pretraga.predmet && pretraga.predmet != "") upit.predmet = {$regex: new RegExp(pretraga.predmet, 'i')}
+        let sort: any = null
+        if (pretraga.sort) {
+            sort = {}
+            sort[pretraga.sort] = pretraga.opadajuce ? -1 : 1;
+        }
+        let tmp: Array<any> = [
+            {
+              $match: {
+                tip: 'Nastavnik', 
+                odobren: true, 
+                aktivan: true
+              }
+            }, {
+              $unwind: {
+                path: '$predmeti'
+              }
+            }, {
+              $project: {
+                ime: 1, 
+                prezime: 1, 
+                predmet: '$predmeti', 
+                _id: 0
+              }
+            }, {
+                $match: upit
+            }
+          ];
+        if (sort) tmp.push({$sort: sort});
+        console.log(tmp);
+        return new Promise((resolve, reject) => {
+            korisnikModel.aggregate(tmp).then(res => {
+                resolve(res);
+            }).catch(err => {
+                resolve([]);
+            })
+        })
     }
 }

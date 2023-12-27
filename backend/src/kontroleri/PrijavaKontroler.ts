@@ -122,4 +122,18 @@ export class PrijavaController {
             res.json({message: "ok", data: ret})
         })
     }
+
+    statistika = (req: express.Request, res:express.Response) => {
+        DB.statistika().then((ret: any) => {
+            if (ret) res.json({message: "ok", data: ret})
+            else res.json({message: "Greska u bazi.", data: {brojNastavnika: 0, brojUcenika: 0}})
+        })
+    }
+
+    sviNastavnici = (req: express.Request, res: express.Response) => {
+        if (!req.body) req.body = {};
+        DB.sviNastavnici(req.body).then(ret => {
+            res.json({message: "ok", data: ret})
+        })
+    }
 }

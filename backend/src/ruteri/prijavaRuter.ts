@@ -42,4 +42,12 @@ prijavaRuter.route("/svipredmeti").get((req, res) => {
     new PrijavaController().sviPredmeti(req, res);
 })
 
+prijavaRuter.route("/statistika").get((req, res) => {
+    new PrijavaController().statistika(req, res);
+})
+
+prijavaRuter.route("/svinastavnici").post((req, res) => {
+    new PrijavaController().sviNastavnici(req, res);
+})
+
 export default prijavaRuter

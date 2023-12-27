@@ -1,26 +1,29 @@
-<div class="container">
-    <div class = "row border-bottom">
-        <div class="col-12 text-center my-3">
-            <h2>Prijava administratora</h2>
-        </div>
+<div class="row">
+    <div class ="col-md-2 col-sm-12 bg-blue p-0">
+        <prijava-navigacija trenutni="prijavaAdministrator"></prijava-navigacija>
     </div>
-    <div class="row my-3">
-        <div class="offset-4 col-4 border-end">
-            <form [formGroup]="prijavaForm" (ngSubmit)="prijava()">
-                <div class="mb-3">
-                    <label for="kime" class="form-label">Korisnicko ime</label>
-                    <input type="text" class="form-control" id="kime" formControlName="kime" required>
-                </div>
-                <div class="mb-3">
-                    <label for="lozinka" class="form-label">Lozinka</label>
-                    <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required>
-                </div>
-                <div class="form-text text-danger">{{greska}}</div>
-                <button type="submit" class="btn btn-primary">Prijavi se</button>
-            </form>
+    <div class="col-md-10 col-sm-12">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Prijava administratora</h2>
+            </div>
         </div>
-        <div class="col-3">
-            <prijava-navigacija trenutni="prijavaAdministrator"></prijava-navigacija>
+        <div class="row px-3 py-1">
+            <div class="col-4">
+                <form [formGroup]="prijavaForm" (ngSubmit)="prijava()">
+                    <div class="mb-3">
+                        <label for="kime" class="form-label">Korisnicko ime</label>
+                        <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lozinka" class="form-label">Lozinka</label>
+                        <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required>
+                    </div>
+                    <div class="form-text text-danger">{{greska}}</div>
+                    <button type="submit" class="btn btn-primary">Prijavi se</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+  

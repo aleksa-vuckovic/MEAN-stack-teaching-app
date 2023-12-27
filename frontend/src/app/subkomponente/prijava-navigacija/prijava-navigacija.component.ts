@@ -12,9 +12,13 @@ export class PrijavaNavigacijaComponent {
   constructor(private ruter: Router) {
   }
 
-  @Input() trenutni:string = "prijava"
+  @Input() trenutni:string = "osajtu"
 
 
+  osajtu() {
+    if (this.trenutni == "osajtu") return;
+    this.ruter.navigate(["osajtu"]);
+  }
   prijava() {
     if (this.trenutni == "prijava") return;
     this.ruter.navigate(["prijava"]);
@@ -27,12 +31,13 @@ export class PrijavaNavigacijaComponent {
     if (this.trenutni == "registracija") return;
     this.ruter.navigate(["registracija"]);
   }
-  zaboravljenaLozinka() {
-    if (this.trenutni == "zaboravljenaLozinka") return;
-    this.ruter.navigate(["zaboravljenaLozinka"]);
-  }
   promenaLozinke() {
     if (this.trenutni == "promenaLozinke") return;
     this.ruter.navigate(["promenaLozinke"]);
   }
+  zaboravljenaLozinka() {
+    if (this.trenutni == "zaboravljenaLozinka") return;
+    this.ruter.navigate(["zaboravljenaLozinka"]);
+  }
+  
 }

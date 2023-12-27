@@ -1,7 +1,27 @@
-<div class="d-flex flex-column">
-<button class = "btn btn-secondary d-block my-3" (click)="prijava()" [disabled]="trenutni=='prijava'">Prijava</button>
-<button class = "btn btn-secondary d-block my-3" (click)="prijavaAdministrator()" [disabled]="trenutni=='prijavaAdministrator'">Administrator</button>
-<button class = "btn btn-secondary d-block my-3" (click)="registracija()" [disabled]="trenutni=='registracija'">Registacija</button>
-<button class = "btn btn-secondary d-block my-3" (click)="zaboravljenaLozinka()" [disabled]="trenutni=='zaboravljenaLozinka'">Zaboravljena lozinka</button>
-<button class = "btn btn-secondary d-block my-3" (click)="promenaLozinke()" [disabled]="trenutni=='promenaLozinke'">Promena lozinke</button>
-</div>
+<nav class ="navbar navbar-expand-md bg-blue">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class ="nav navbar-nav">
+            <li class ="nav-item w-100" (click)="osajtu()" [class.active]="trenutni=='osajtu'" [class.inactive]="trenutni!='osajtu'">
+                O sajtu
+            </li>
+            <li class ="nav-item w-100" (click)="prijava()" [class.active]="trenutni=='prijava'" [class.inactive]="trenutni!='prijava'">
+                Prijava
+            </li>
+            <li class ="nav-item w-100" (click)="prijavaAdministrator()" [class.active]="trenutni=='prijavaAdministrator'" [class.inactive]="trenutni!='prijavaAdministrator'">
+                Administracija
+            </li>
+            <li class ="nav-item w-100" (click)="registracija()" [class.active]="trenutni=='registracija'" [class.inactive]="trenutni!='registracija'">
+                Registracija
+            </li>
+            <li class ="nav-item w-100" (click)="promenaLozinke()" [class.active]="trenutni=='promenaLozinke'" [class.inactive]="trenutni!='promenaLozinke'">
+                Promena lozinke
+            </li>
+            <li class ="nav-item w-100" (click)="zaboravljenaLozinka()" [class.active]="trenutni=='zaboravljenaLozinka'" [class.inactive]="trenutni!='zaboravljenaLozinka'">
+                Zaboravljena lozinka
+            </li>
+        </ul>
+    </div>
+</nav>
