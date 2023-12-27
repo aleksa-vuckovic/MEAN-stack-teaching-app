@@ -96,38 +96,55 @@ export class DB {
         })
     }
 
-    static sviNastavnici(pretraga: any): Promise<Array<any>> {
+    private static prosecnaOcenaPipeline = [
+        {
+            $lookup: {
+              from: 'casovi', 
+              localField: 'kime', 
+              foreignField: 'nastavnik', 
+              as: 'casovi'
+            }
+        },
+        {
+            $addFields: {
+              ocena: {
+                $avg: '$casovi.ocenaUcenik'
+              }
+            }
+        }
+        ];
+    static nastavniciPretraga(pretraga: any, ocene: boolean = false, kime: boolean = false): Promise<Array<any>> {
         let upit: any = {}
         if (pretraga.ime && pretraga.ime != "") upit.ime = {$regex: new RegExp(pretraga.ime, 'i')}
         if (pretraga.prezime && pretraga.prezime != "") upit.prezime = {$regex: new RegExp(pretraga.prezime, 'i')}
-        if (pretraga.predmet && pretraga.predmet != "") upit.predmet = {$regex: new RegExp(pretraga.predmet, 'i')}
+        if (pretraga.predmet && pretraga.predmet != "") upit.predmeti = {$regex: new RegExp(pretraga.predmet, 'i')}
+        if (pretraga.uzrast && pretraga.uzrast != "") upit.uzrasti = pretraga.uzrast;
         let sort: any = null
         if (pretraga.sort) {
             sort = {}
             sort[pretraga.sort] = pretraga.opadajuce ? -1 : 1;
         }
+        let projekcija: any = {
+            ime: 1, 
+            prezime: 1, 
+            predmet: '$predmeti', 
+            _id: 0
+        }
+        if (ocene) projekcija.ocena = 1;
+        if (kime) projekcija.kime = 1;
         let tmp: Array<any> = [
             {
-              $match: {
-                tip: 'Nastavnik', 
-                odobren: true, 
-                aktivan: true
-              }
-            }, {
-              $unwind: {
-                path: '$predmeti'
-              }
-            }, {
-              $project: {
-                ime: 1, 
-                prezime: 1, 
-                predmet: '$predmeti', 
-                _id: 0
-              }
-            }, {
-                $match: upit
+                $match: {
+                  tip: 'Nastavnik', 
+                  odobren: true, 
+                  aktivan: true
+                }
             }
-          ];
+        ];
+        if (ocene) tmp.push(...this.prosecnaOcenaPipeline);
+        tmp.push({ $unwind: { path: '$predmeti' } });
+        tmp.push({ $match: upit });
+        tmp.push({ $project: projekcija });
         if (sort) tmp.push({$sort: sort});
         return new Promise((resolve, reject) => {
             korisnikModel.aggregate(tmp).then(res => {

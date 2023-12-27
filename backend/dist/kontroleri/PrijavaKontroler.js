@@ -146,10 +146,11 @@ class PrijavaKontroler {
                     res.json({ poruka: "Greska u bazi.", podaci: { brojNastavnika: 0, brojUcenika: 0 } });
             });
         };
-        this.sviNastavnici = (req, res) => {
-            if (!req.body)
-                req.body = {};
-            db_1.DB.sviNastavnici(req.body).then(ret => {
+        this.nastavniciPretraga = (req, res) => {
+            let pretraga = {};
+            if (req.body)
+                pretraga = req.body;
+            db_1.DB.nastavniciPretraga(pretraga, false).then(ret => {
                 res.json({ poruka: "ok", podaci: ret });
             });
         };

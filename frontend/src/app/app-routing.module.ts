@@ -7,6 +7,8 @@ import { PrijavaAdministratorComponent } from './ruterkomponente/prijava-adminis
 import { PromenaLozinkeComponent } from './ruterkomponente/promena-lozinke/promena-lozinke.component';
 import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
 import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
+import { UcenikNastavniciComponent } from './ruterkomponente/ucenik-nastavnici/ucenik-nastavnici.component';
+import { UcenikNastavnikComponent } from './ruterkomponente/ucenik-nastavnik/ucenik-nastavnik.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: "promenaLozinke", component: PromenaLozinkeComponent},
   { path: "", component: OsajtuComponent},
 
-  { path: "ucenikProfil", component: UcenikProfilComponent}
+  { path: "ucenikProfil", component: UcenikProfilComponent},
+  { path: "ucenikNastavnici", component: UcenikNastavniciComponent},
+  { path: "ucenikNastavnik", component: UcenikNastavnikComponent}
 ]
 
 @NgModule({

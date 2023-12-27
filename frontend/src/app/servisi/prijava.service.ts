@@ -52,8 +52,8 @@ export class PrijavaService {
     return this.http.get(this.url + "statistika", this.opcije);
   }
 
-  sviNastavnici(pretraga: any) {
-    return this.http.post(this.url + "svinastavnici", pretraga, this.opcije);
+  nastavniciPretraga(pretraga: any) {
+    return this.http.post(this.url + "nastavnicipretraga", pretraga, this.opcije);
   }
 
   odjava() {

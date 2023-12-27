@@ -20,4 +20,8 @@ ucenikRuter.route("/profilpodaci").get((req, res) => {
     new UcenikKontroler().profilPodaci(req, res);
 })
 
+ucenikRuter.route("/nastavnicipretraga").post((req, res) => {
+    new UcenikKontroler().nastavniciPretraga(req, res);
+})
+
 export default ucenikRuter;

@@ -46,8 +46,8 @@ prijavaRuter.route("/statistika").get((req, res) => {
     new PrijavaKontroler().statistika(req, res);
 })
 
-prijavaRuter.route("/svinastavnici").post((req, res) => {
-    new PrijavaKontroler().sviNastavnici(req, res);
+prijavaRuter.route("/nastavnicipretraga").post((req, res) => {
+    new PrijavaKontroler().nastavniciPretraga(req, res);
 })
 
 prijavaRuter.route("/odjava").get((req, res) => {

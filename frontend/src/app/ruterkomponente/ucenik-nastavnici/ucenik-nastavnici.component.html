@@ -1,0 +1,66 @@
+<div class="row">
+    <div class ="col-md-2 col-sm-12 bg-blue p-0">
+        <ucenik-navigacija trenutni="ucenikNastavnici"></ucenik-navigacija>
+    </div>
+    <div class="col-md-10 col-sm-12">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Nastavnici</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12">
+                <table class = "table table-striped border border-top-1">
+                    <thead>
+                        <tr>
+                            <th scope = "col">
+                                Ime
+                            </th>
+                            <th scope = "col">
+                                Prezime
+                            </th>
+                            <th scope = "col">
+                                Predmet
+                            </th>
+                            <th scope = "col">
+                                Ocena
+                            </th>
+                            <th scope = "col">
+                                
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope = "col">
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.ime" (change)="osvezi()" placeholder = "Pretraga po imenu." >
+                                <i class="material-icons" (click)="klikSort('ime')">{{sort['ime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                            <th scope = "col">
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.prezime" (change)="osvezi()" placeholder = "Pretraga po prezimenu." >
+                                <i class="material-icons" (click)="klikSort('prezime')">{{sort['prezime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                            <th scope = "col">
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.predmet" (change)="osvezi()" placeholder = "Pretraga po predmetu." >
+                                <i class="material-icons" (click)="klikSort('predmet')">{{sort['predmet'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                            <th scope = "col">
+
+                            </th>
+                            <th scope = "col">
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let elem of nastavnici" class="link-red" (click)="nastavnik(elem.kime)">
+                            <td scope = "row"> {{elem.ime}} </td>
+                            <td scope = "row"> {{elem.prezime}} </td>
+                            <td scope = "row"> {{elem.predmet}} </td>
+                            <td scope = "row"> {{elem.ocena}} </td>
+                            <td scope = "row"> <zvezde [broj]="zaokruzi(elem.ocena)" visina="20px"></zvezde> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

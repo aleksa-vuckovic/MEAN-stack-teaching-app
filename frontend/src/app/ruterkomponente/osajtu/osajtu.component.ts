@@ -25,7 +25,7 @@ export class OsajtuComponent implements OnInit {
   nesto() { return "Nesto"} 
 
   osvezi() {
-    this.servis.sviNastavnici(this.pretraga).subscribe((res: any) => {
+    this.servis.nastavniciPretraga(this.pretraga).subscribe((res: any) => {
       if (res.poruka == "ok") this.nastavnici = res.podaci;
     })
   }

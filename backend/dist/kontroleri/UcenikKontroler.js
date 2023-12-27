@@ -58,6 +58,17 @@ class UcenikKontroler {
                     res.json({ poruka: "ok", podaci: ret });
             });
         };
+        this.nastavniciPretraga = (req, res) => {
+            let pretraga = req.body;
+            if (!pretraga)
+                pretraga = {};
+            db_1.DB.nastavniciPretraga(pretraga, true, true).then(ret => {
+                if (ret)
+                    res.json({ poruka: "ok", podaci: ret });
+                else
+                    res.json({ poruka: "Greska u bazi." });
+            });
+        };
     }
 }
 exports.UcenikKontroler = UcenikKontroler;

@@ -20,4 +20,7 @@ ucenikRuter.route("/profilazuriranje").post(upload.single("profil"), (req, res) 
 ucenikRuter.route("/profilpodaci").get((req, res) => {
     new UcenikKontroler_1.UcenikKontroler().profilPodaci(req, res);
 });
+ucenikRuter.route("/nastavnicipretraga").post((req, res) => {
+    new UcenikKontroler_1.UcenikKontroler().nastavniciPretraga(req, res);
+});
 exports.default = ucenikRuter;

@@ -48,4 +48,13 @@ export class UcenikKontroler {
             else res.json({poruka: "ok", podaci: ret})
         })
     }
+
+    nastavniciPretraga = (req: express.Request, res: express.Response) => {
+        let pretraga = req.body;
+        if (!pretraga) pretraga = {};
+        DB.nastavniciPretraga(pretraga, true, true).then(ret => {
+            if (ret) res.json({poruka: "ok", podaci: ret});
+            else res.json({poruka: "Greska u bazi."});
+        })
+    }
 }

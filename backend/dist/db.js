@@ -95,19 +95,31 @@ class DB {
             }).catch(err => { resolve(null); });
         });
     }
-    static sviNastavnici(pretraga) {
+    static nastavniciPretraga(pretraga, ocene = false, kime = false) {
         let upit = {};
         if (pretraga.ime && pretraga.ime != "")
             upit.ime = { $regex: new RegExp(pretraga.ime, 'i') };
         if (pretraga.prezime && pretraga.prezime != "")
             upit.prezime = { $regex: new RegExp(pretraga.prezime, 'i') };
         if (pretraga.predmet && pretraga.predmet != "")
-            upit.predmet = { $regex: new RegExp(pretraga.predmet, 'i') };
+            upit.predmeti = { $regex: new RegExp(pretraga.predmet, 'i') };
+        if (pretraga.uzrast && pretraga.uzrast != "")
+            upit.uzrasti = pretraga.uzrast;
         let sort = null;
         if (pretraga.sort) {
             sort = {};
             sort[pretraga.sort] = pretraga.opadajuce ? -1 : 1;
         }
+        let projekcija = {
+            ime: 1,
+            prezime: 1,
+            predmet: '$predmeti',
+            _id: 0
+        };
+        if (ocene)
+            projekcija.ocena = 1;
+        if (kime)
+            projekcija.kime = 1;
         let tmp = [
             {
                 $match: {
@@ -115,24 +127,15 @@ class DB {
                     odobren: true,
                     aktivan: true
                 }
-            }, {
-                $unwind: {
-                    path: '$predmeti'
-                }
-            }, {
-                $project: {
-                    ime: 1,
-                    prezime: 1,
-                    predmet: '$predmeti',
-                    _id: 0
-                }
-            }, {
-                $match: upit
             }
         ];
+        if (ocene)
+            tmp.push(...this.prosecnaOcenaPipeline);
+        tmp.push({ $unwind: { path: '$predmeti' } });
+        tmp.push({ $match: upit });
+        tmp.push({ $project: projekcija });
         if (sort)
             tmp.push({ $sort: sort });
-        console.log(tmp);
         return new Promise((resolve, reject) => {
             Korisnik_1.default.aggregate(tmp).then(res => {
                 resolve(res);
@@ -158,7 +161,6 @@ class DB {
         //ime, prezime, skola, razred, mejl, adresa, telefon
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res) => {
-                console.log(res);
                 if (res == null)
                     resolve(null);
                 else
@@ -177,3 +179,20 @@ class DB {
     }
 }
 exports.DB = DB;
+DB.prosecnaOcenaPipeline = [
+    {
+        $lookup: {
+            from: 'casovi',
+            localField: 'kime',
+            foreignField: 'nastavnik',
+            as: 'casovi'
+        }
+    },
+    {
+        $addFields: {
+            ocena: {
+                $avg: '$casovi.ocenaUcenik'
+            }
+        }
+    }
+];

@@ -26,8 +26,11 @@ export class UcenikService {
     return this.http.post(this.url+"profilazuriranje", podaci, this.opcijeMultipart);
   }
 
-
   profilPodaci() {
     return this.http.get(this.url + "profilpodaci", this.opcije);
+  }
+
+  nastavniciPretraga(pretraga: any) {
+    return this.http.post(this.url + "nastavnicipretraga", pretraga, this.opcije);
   }
 }

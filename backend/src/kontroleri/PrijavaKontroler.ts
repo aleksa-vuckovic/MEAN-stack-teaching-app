@@ -121,9 +121,10 @@ export class PrijavaKontroler {
         })
     }
 
-    sviNastavnici = (req: express.Request, res: express.Response) => {
-        if (!req.body) req.body = {};
-        DB.sviNastavnici(req.body).then(ret => {
+    nastavniciPretraga = (req: express.Request, res: express.Response) => {
+        let pretraga = {}
+        if (req.body) pretraga = req.body;
+        DB.nastavniciPretraga(pretraga, false).then(ret => {
             res.json({poruka: "ok", podaci: ret})
         })
     }

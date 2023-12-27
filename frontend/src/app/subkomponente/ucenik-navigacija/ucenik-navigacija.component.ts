@@ -19,6 +19,10 @@ export class UcenikNavigacijaComponent {
     if (this.trenutni == "ucenikProfil") return;
     this.ruter.navigate(["ucenikProfil"]);
   }
+  ucenikNastavnici() {
+    if (this.trenutni == "ucenikNastavnici") return;
+    this.ruter.navigate(["ucenikNastavnici"]);
+  }
   odjava() {
     if (this.trenutni == "odjava") return;
     this.servis.odjava().subscribe((res: any) => {

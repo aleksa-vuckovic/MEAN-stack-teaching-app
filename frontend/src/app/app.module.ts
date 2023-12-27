@@ -18,6 +18,8 @@ import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
 import { UcenikNavigacijaComponent } from './subkomponente/ucenik-navigacija/ucenik-navigacija.component';
 import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
 import { ZvezdeComponent } from './subkomponente/zvezde/zvezde.component';
+import { UcenikNastavniciComponent } from './ruterkomponente/ucenik-nastavnici/ucenik-nastavnici.component';
+import { UcenikNastavnikComponent } from './ruterkomponente/ucenik-nastavnik/ucenik-nastavnik.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ZvezdeComponent } from './subkomponente/zvezde/zvezde.component';
     OsajtuComponent,
     UcenikNavigacijaComponent,
     UcenikProfilComponent,
-    ZvezdeComponent
+    ZvezdeComponent,
+    UcenikNastavniciComponent,
+    UcenikNastavnikComponent
   ],
   imports: [
     BrowserModule,
