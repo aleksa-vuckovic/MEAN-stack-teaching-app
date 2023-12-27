@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { PrijavaController } from '../kontroleri/PrijavaKontroler';
+import { PrijavaKontroler } from '../kontroleri/PrijavaKontroler';
 
 const upload = multer({
     storage: multer.memoryStorage(),
@@ -15,39 +15,39 @@ prijavaRuter.route("/registracija").post(upload.fields([
     {name: "profil", maxCount: 1},
     {name : "cv", maxCount: 1}
 ]), (req, res) => {
-    new PrijavaController().registracija(req, res);
+    new PrijavaKontroler().registracija(req, res);
 })
 
 prijavaRuter.route("/prijava").post((req, res) => {
-    new PrijavaController().prijava(req, res);
+    new PrijavaKontroler().prijava(req, res);
 })
 
 prijavaRuter.route("/promenalozinke").post((req, res) => {
-    new PrijavaController().promenaLozinke(req, res);
+    new PrijavaKontroler().promenaLozinke(req, res);
 })
 
 prijavaRuter.route("/sigurnosnopitanje").get((req, res) => {
-    new PrijavaController().sigurnosnoPitanje(req, res)
+    new PrijavaKontroler().sigurnosnoPitanje(req, res)
 })
 
 prijavaRuter.route("/sigurnosniodgovor").post((req, res) => {
-    new PrijavaController().sigurnosniOdgovor(req, res)
+    new PrijavaKontroler().sigurnosniOdgovor(req, res)
 })
 
 prijavaRuter.route("/zaboravljenalozinka").post((req, res) => {
-    new PrijavaController().zaboravljenaLozinka(req, res);
+    new PrijavaKontroler().zaboravljenaLozinka(req, res);
 })
 
 prijavaRuter.route("/svipredmeti").get((req, res) => {
-    new PrijavaController().sviPredmeti(req, res);
+    new PrijavaKontroler().sviPredmeti(req, res);
 })
 
 prijavaRuter.route("/statistika").get((req, res) => {
-    new PrijavaController().statistika(req, res);
+    new PrijavaKontroler().statistika(req, res);
 })
 
 prijavaRuter.route("/svinastavnici").post((req, res) => {
-    new PrijavaController().sviNastavnici(req, res);
+    new PrijavaKontroler().sviNastavnici(req, res);
 })
 
 export default prijavaRuter

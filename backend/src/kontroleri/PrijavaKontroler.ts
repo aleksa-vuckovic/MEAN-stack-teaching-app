@@ -4,7 +4,7 @@ import { Validacija } from "../validacija";
 import { Utils } from "../utils"
 import { DB } from "../db";
 
-export class PrijavaController {
+export class PrijavaKontroler {
 
     registracija = (req: express.Request, res: express.Response) => {
         let ulaz = req.body;

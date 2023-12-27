@@ -5,6 +5,7 @@ import path from 'path';
 import prijavaRuter from './ruteri/prijavaRuter';
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import ucenikRuter from './ruteri/ucenikRuter';
 
 /*
 Svi odgovori su u json formatu 
@@ -37,4 +38,5 @@ app.use(session({
 
 
 app.use("/", prijavaRuter);
+app.use("/ucenik", ucenikRuter);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
