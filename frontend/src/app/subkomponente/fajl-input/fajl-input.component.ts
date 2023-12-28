@@ -14,13 +14,24 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class FajlInputComponent implements ControlValueAccessor {
-  
-  private fajl: File | null = null;
   private onChange = (file: File | null) => {}
   private onTouched = () => {}
   private disabled = false;
   private touched = false;
+  writeValue(obj: any): void {
+    this.fajl = obj;
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 
+  private fajl: File | null = null;
 
   promena( event: any ) {
     if (this.disabled) return;
@@ -35,17 +46,5 @@ export class FajlInputComponent implements ControlValueAccessor {
   }
 
   constructor( private host: ElementRef<HTMLInputElement> ) {
-  }
-  writeValue(obj: any): void {
-    this.fajl = obj;
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
   }
 }

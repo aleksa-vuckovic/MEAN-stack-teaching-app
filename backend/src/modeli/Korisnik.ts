@@ -16,13 +16,31 @@ let korisnikSchema = new mongoose.Schema({
     odobren: Boolean,
     aktivan: Boolean,
 
-    skola: String,
-    razred: Number,
+    skola: {
+        type: String,
+        default: null
+    },
+    razred: {
+        type: Number,
+        default: null
+    },
 
-    predmeti: Array<String>,
-    uzrasti: Array<String>,
-    saznao: String,
-    cv: String,
+    predmeti: {
+        type: Array<String>,
+        default: null
+    },
+    uzrasti: {
+        type: Array<String>,
+        default: null
+    },
+    saznao: {
+        type: String,
+        default: null
+    },
+    cv: {
+        type: String,
+        default: null
+    }
 })
 
 export default mongoose.model("korisnikModel", korisnikSchema, "korisnici")

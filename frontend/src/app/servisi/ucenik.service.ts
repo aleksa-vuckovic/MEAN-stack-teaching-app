@@ -33,4 +33,8 @@ export class UcenikService {
   nastavniciPretraga(pretraga: any) {
     return this.http.post(this.url + "nastavnicipretraga", pretraga, this.opcije);
   }
+
+  nastavnikProfilPodaci(kime: string) {
+    return this.http.get(this.url + "nastavnikprofilpodaci?kime=" + kime, this.opcije);
+  }
 }

@@ -19,4 +19,7 @@ export class Utils {
     static slikaUrl(slika: string) {
         return "http://localhost:4000" + slika;
     }
+    static slikaPrefiks() {
+        return "http://localhost:4000";
+    }
 }

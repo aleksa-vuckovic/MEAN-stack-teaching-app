@@ -30,4 +30,5 @@ export class Utils {
     static skrolDoVrha(): void {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
 }

@@ -50,9 +50,21 @@ export class UcenikKontroler {
     }
 
     nastavniciPretraga = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
         let pretraga = req.body;
         if (!pretraga) pretraga = {};
         DB.nastavniciPretraga(pretraga, true, true).then(ret => {
+            if (ret) res.json({poruka: "ok", podaci: ret});
+            else res.json({poruka: "Greska u bazi."});
+        })
+    }
+
+    nastavnikProfilPodaci = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.query.kime) res.json({poruka: "Nedostaje argument."})
+        else DB.nastavnikProfilPodaci(req.query.kime as string).then((ret: any) => {
             if (ret) res.json({poruka: "ok", podaci: ret});
             else res.json({poruka: "Greska u bazi."});
         })

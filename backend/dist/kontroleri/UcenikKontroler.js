@@ -59,6 +59,9 @@ class UcenikKontroler {
             });
         };
         this.nastavniciPretraga = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
             let pretraga = req.body;
             if (!pretraga)
                 pretraga = {};
@@ -68,6 +71,20 @@ class UcenikKontroler {
                 else
                     res.json({ poruka: "Greska u bazi." });
             });
+        };
+        this.nastavnikProfilPodaci = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.query.kime)
+                res.json({ poruka: "Nedostaje argument." });
+            else
+                db_1.DB.nastavnikProfilPodaci(req.query.kime).then((ret) => {
+                    if (ret)
+                        res.json({ poruka: "ok", podaci: ret });
+                    else
+                        res.json({ poruka: "Greska u bazi." });
+                });
         };
     }
 }

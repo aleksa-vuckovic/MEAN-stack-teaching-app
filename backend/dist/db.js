@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DB = void 0;
 const Korisnik_1 = __importDefault(require("./modeli/Korisnik"));
 const Podatak_1 = __importDefault(require("./modeli/Podatak"));
+const Cas_1 = __importDefault(require("./modeli/Cas"));
 const utils_1 = require("./utils");
 class DB {
     static korisnikPoKime(kime) {
@@ -174,6 +175,60 @@ class DB {
                         telefon: res.telefon,
                         profil: utils_1.Utils.slikaUrl(res.profil)
                     });
+            });
+        });
+    }
+    static nastavnikProfilPodaci(kime) {
+        //ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.findOne({ kime: kime }).then(res => {
+                if (!res)
+                    resolve(null);
+                else {
+                    Cas_1.default.aggregate([
+                        {
+                            $match: {
+                                nastavnik: kime,
+                                ocenaUcenik: { $ne: null }
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: "korisnici",
+                                localField: "ucenik",
+                                foreignField: "kime",
+                                as: "ostalo"
+                            }
+                        },
+                        {
+                            $unwind: { path: "$ostalo" }
+                        },
+                        {
+                            $project: {
+                                _id: 0,
+                                ocena: "$ocenaUcenik",
+                                komentar: "$komentarUcenik",
+                                kime: "$ostalo.kime",
+                                profil: { $concat: [utils_1.Utils.slikaPrefiks(), "$ostalo.profil"] },
+                                ime: "$ostalo.ime",
+                                prezime: "$ostalo.prezime"
+                            }
+                        }
+                    ]).then((res2) => {
+                        if (!res2)
+                            resolve(null);
+                        else
+                            resolve({
+                                ime: res.ime,
+                                prezime: res.prezime,
+                                profil: utils_1.Utils.slikaUrl(res.profil),
+                                mejl: res.mejl,
+                                telefon: res.telefon,
+                                predmeti: res.predmeti,
+                                komentari: res2
+                            });
+                    });
+                }
             });
         });
     }

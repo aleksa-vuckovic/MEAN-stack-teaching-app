@@ -1,0 +1,13 @@
+<div class="border border-1 rounded-start p-2 my-4 shadow-sm">
+    <div class="border-bottom border-bottom-1 bg-light align-items-end d-flex">
+        <img [src]="slika" height="100px" class="rounded me-2">
+        <span class = "naslov">{{naslov}}</span>
+    </div>
+    <div class = "p-2">
+        <zvezde visina="30px" [broj]="ocena"></zvezde>
+    </div>
+    
+    <div class="p-2">
+        <p class="mb-0">{{sadrzaj}}!</p>
+    </div>
+</div>

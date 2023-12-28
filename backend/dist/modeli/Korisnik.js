@@ -19,11 +19,29 @@ let korisnikSchema = new mongoose_1.default.Schema({
     profil: String,
     odobren: Boolean,
     aktivan: Boolean,
-    skola: String,
-    razred: Number,
-    predmeti: (Array),
-    uzrasti: (Array),
-    saznao: String,
-    cv: String,
+    skola: {
+        type: String,
+        default: null
+    },
+    razred: {
+        type: Number,
+        default: null
+    },
+    predmeti: {
+        type: (Array),
+        default: null
+    },
+    uzrasti: {
+        type: (Array),
+        default: null
+    },
+    saznao: {
+        type: String,
+        default: null
+    },
+    cv: {
+        type: String,
+        default: null
+    }
 });
 exports.default = mongoose_1.default.model("korisnikModel", korisnikSchema, "korisnici");

@@ -20,6 +20,7 @@ import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-pr
 import { ZvezdeComponent } from './subkomponente/zvezde/zvezde.component';
 import { UcenikNastavniciComponent } from './ruterkomponente/ucenik-nastavnici/ucenik-nastavnici.component';
 import { UcenikNastavnikComponent } from './ruterkomponente/ucenik-nastavnik/ucenik-nastavnik.component';
+import { KomentarComponent } from './subkomponente/komentar/komentar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UcenikNastavnikComponent } from './ruterkomponente/ucenik-nastavnik/uce
     UcenikProfilComponent,
     ZvezdeComponent,
     UcenikNastavniciComponent,
-    UcenikNastavnikComponent
+    UcenikNastavnikComponent,
+    KomentarComponent
   ],
   imports: [
     BrowserModule,

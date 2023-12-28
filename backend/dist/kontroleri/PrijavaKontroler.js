@@ -61,7 +61,9 @@ class PrijavaKontroler {
                         poruka: "ok",
                         podaci: {
                             kime: ret.kime,
-                            tip: ret.tip
+                            tip: ret.tip,
+                            skola: ret.skola,
+                            razred: ret.razred
                         }
                     });
                 }

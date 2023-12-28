@@ -24,5 +24,8 @@ class Utils {
     static slikaUrl(slika) {
         return "http://localhost:4000" + slika;
     }
+    static slikaPrefiks() {
+        return "http://localhost:4000";
+    }
 }
 exports.Utils = Utils;

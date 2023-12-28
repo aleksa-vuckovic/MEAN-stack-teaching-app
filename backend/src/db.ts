@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import korisnikModel from './modeli/Korisnik';
 import podatakModel from './modeli/Podatak';
+import casModel from "./modeli/Cas";
 import { Utils } from './utils';
 
 export class DB {
@@ -182,6 +183,59 @@ export class DB {
                     telefon: res.telefon,
                     profil: Utils.slikaUrl(res.profil)
                 })
+            })
+        })
+    }
+
+    static nastavnikProfilPodaci(kime: string): Promise<any> {
+        //ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari
+        return new Promise((resolve, reject) => { 
+            korisnikModel.findOne({kime: kime}).then(res => {
+                if (!res) resolve(null);
+                else {
+                    casModel.aggregate([
+                        {
+                            $match: {
+                                nastavnik: kime,
+                                ocenaUcenik: {$ne: null}
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: "korisnici",
+                                localField: "ucenik",
+                                foreignField: "kime",
+                                as: "ostalo"
+                            }
+                        },
+                        {
+                            $unwind: {path: "$ostalo"}
+                        }
+                        ,
+                        {
+                            $project: {
+                                _id: 0,
+                                ocena: "$ocenaUcenik",
+                                komentar: "$komentarUcenik",
+                                kime: "$ostalo.kime",
+                                profil: {$concat: [Utils.slikaPrefiks(), "$ostalo.profil"]},
+                                ime: "$ostalo.ime",
+                                prezime: "$ostalo.prezime"
+                            }
+                        }
+                    ]).then((res2: any) => {
+                        if (!res2) resolve(null);
+                        else resolve({
+                            ime: res.ime,
+                            prezime: res.prezime,
+                            profil: Utils.slikaUrl(res.profil as string),
+                            mejl: res.mejl,
+                            telefon: res.telefon,
+                            predmeti: res.predmeti,
+                            komentari: res2
+                        });
+                    })
+                }
             })
         })
     }

@@ -11,7 +11,7 @@ export class UcenikNastavniciComponent {
 
   nastavnici: Array<{ime: string, prezime: string, predmet: string, ocena: number, kime: string}> = []
 
-  pretraga =  {
+  pretraga: any =  {
     ime: "",
     prezime: "",
     predmet: "",
@@ -27,6 +27,10 @@ export class UcenikNastavniciComponent {
 
   constructor (private servis: UcenikService, private ruter: Router) {}
   ngOnInit(): void {
+    let korisnik = JSON.parse(localStorage.getItem("korisnik") ?? "{}");
+    let uzrast = "Srednja";
+    if (korisnik.skola == "Osnovna") uzrast = korisnik.razred <= 4 ? "Osnovna 1-4" : "Osnovna 5-8";
+    this.pretraga.uzrast = uzrast;
     this.osvezi();
   }
 
