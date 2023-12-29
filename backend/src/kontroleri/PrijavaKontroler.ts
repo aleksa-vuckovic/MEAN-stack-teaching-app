@@ -4,6 +4,37 @@ import { Validacija } from "../validacija";
 import { Utils } from "../utils"
 import { DB } from "../db";
 
+let podrazumevanoRadnoVreme = {
+    "0": {
+        od: 600,
+        do: 18*60
+    },
+    "1": {
+        od: 600,
+        do: 18*60
+    },
+    "2": {
+        od: 600,
+        do: 18*60
+    },
+    "3": {
+        od: 600,
+        do: 18*60
+    },
+    "4": {
+        od: 600,
+        do: 18*60
+    },
+    "5": {
+        od: 0,
+        do: 0
+    },
+    "6": {
+        od: 0,
+        do: 0
+    }
+}
+
 export class PrijavaKontroler {
 
     registracija = (req: express.Request, res: express.Response) => {
@@ -29,6 +60,9 @@ export class PrijavaKontroler {
                 if (ret != "ok") { res.json({poruka: ret}); return; }
                 let cvBaza = Utils.sacuvajFajl(cv)
                 izlaz.cv = cvBaza;
+
+                izlaz.radnovreme = podrazumevanoRadnoVreme;
+                izlaz.nedostupnost = []
             }
             else {
                 izlaz.odobren = true;

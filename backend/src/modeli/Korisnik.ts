@@ -40,6 +40,14 @@ let korisnikSchema = new mongoose.Schema({
     cv: {
         type: String,
         default: null
+    },
+    radnovreme: {
+        type: Object,
+        default: null
+    },
+    nedostupnost: {
+        type: Array<Object>,
+        default: null
     }
 })
 

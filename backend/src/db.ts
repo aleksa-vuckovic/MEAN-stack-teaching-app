@@ -3,6 +3,9 @@ import korisnikModel from './modeli/Korisnik';
 import podatakModel from './modeli/Podatak';
 import casModel from "./modeli/Cas";
 import { Utils } from './utils';
+import { DatumVreme } from './DatumVreme';
+
+
 
 export class DB {
     static korisnikPoKime(kime: string): Promise<any> {
@@ -237,6 +240,181 @@ export class DB {
                     })
                 }
             })
+        })
+    }
+
+
+    /*
+    Ako postoji nedostupnost vraca je u obliku 
+    {
+        od: DatumVreme,
+        do: DatumVreme
+    }
+    */
+    static nastavnikNedostupan(kime: string, od: DatumVreme, do_: DatumVreme): Promise<any> {
+        return new Promise((resolve, reject) => {
+            korisnikModel.aggregate([
+                {
+                    $match: { kime: kime, tip: "Nastavnik", nedostupnost: {$exists: true} }
+                },
+                {
+                    $unwind: { path: "$nedostupnost" }
+                },
+                {
+                    $match: { $expr: {$or: [
+                        {
+                            $and: [{$gte: ["$nedostupnost.od", od.broj()]}, {$lt: ["$nedostupnost.od", do_.broj()]}]
+                        },
+                        {
+                            $and: [{$gt: ["$nedostupnost.do", od.broj()]}, {$lte: ["$nedostupnost.do", do_.broj()]}]
+                        }
+                    ]}}
+                }
+            ]).then((res: Array<any>) => {
+                if (res.length > 0) resolve({
+                    od: new DatumVreme(res[0].nedostupnost.od),
+                    do: new DatumVreme(res[0].nedostupnost.do)
+                })
+                else resolve(null)
+            })
+        })
+    }
+    /*
+        Ako se interval ne preklapa sa radnim vremenom, vraca radno vreme za taj dan u obliku
+        {
+            od: DatumVreme,
+            do: DatumVreme
+        }
+    */
+    static nastavnikRadi(kime: string, od: DatumVreme, do_: DatumVreme): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!od.istiDan(do_)) {
+                this.nastavnikRadi(kime, od, od.krajDana()).then((res:any) => {
+                    if (res) resolve(res);
+                    else this.nastavnikRadi(kime, do_.vreme(0), do_).then((res: any) => {
+                        if (res) resolve(res);
+                        else resolve(null);
+                    })
+                })
+            }
+            else {
+                korisnikModel.findOne({kime: kime, tip: "Nastavnik", radnovreme: {$exists: true}}).then((res: any) => {
+                    if (!res) resolve(null);
+                    else {
+                        let radnovreme = res.radnovreme[od.danUNedelji()];
+                        if (od.sirovoVreme() >= radnovreme.od && do_.sirovoVreme() <= radnovreme.do) resolve(null);
+                        else resolve({
+                            od: new DatumVreme(radnovreme.od),
+                            do: new DatumVreme(radnovreme.do)
+                        });
+                    }
+                })
+            }
+        })
+    }
+
+    /*
+        Ako nastavnik ima neotkazan i neodbijen cas u zadatom intervalu, vraca objekat:
+        {
+            ucenik: string
+            od: DatumVreme
+            do: DatumVreme
+            predmet: string
+            potvrdjen: number
+        }
+    */
+    static nastavnikImaCas(kime: string, od: DatumVreme, do_: DatumVreme) {
+        return new Promise((resolve, reject) => {
+            casModel.findOne(
+                { nastavnik: kime, odbijen: null, $expr: {$or: [
+                        {
+                            $and: [{$gte: ["$od", od.broj()]}, {$lt: ["$od", do_.broj()]}]
+                        },
+                        {
+                            $and: [{$gt: ["$do", od.broj()]}, {$lte: ["$do", do_.broj()]}]
+                        }
+                ]}}
+            ).then((res: any) => {
+                resolve({
+                    ucenik: res.ucenik,
+                    od: new DatumVreme(res.od),
+                    do: new DatumVreme(res.do),
+                    predmet: res.predmet,
+                    potvrdjen: res.potvrdjen
+                })
+            })
+        })
+    }
+
+    static nastavnikTerminStatus(kime: string, od: DatumVreme, detaljno: boolean) {
+        let do_ = od.dodajVreme(30);
+
+        return new Promise((resolve, reject) => {
+            this.nastavnikNedostupan(kime, od, do_).then((res: any) => {
+                if (res) {
+                    resolve({
+                        status: 1, //Nedostupan
+                        rb: 1,
+                        duzina: 1,
+                        tekst: ""
+                    })
+                }
+                else {
+                    this.nastavnikRadi(kime, od, do_).then((res: any) => {
+                        if (res) {
+                            resolve({
+                                status: 2,
+                                rb: 1,
+                                duzina: 1,
+                                tekst: ""
+                            })
+                        }
+                        else {
+                            this.nastavnikImaCas(kime, od, do_).then((res: any) => {
+                                if (res) {
+                                    let casOd = new DatumVreme(res.od);
+                                    let casDo = new DatumVreme(res.do);
+                                    let trajanje = casDo.razlikaUMinutima(casOd);
+                                    let t = od.razlikaUMinutima(casOd);
+                                    let predmet = res.predmet;
+                                    let ret = {
+                                        status: (res.potvrdjen ? 3 : 4),
+                                        rb: (t + 30) / 30,
+                                        duzina: (trajanje + 30) / 30,
+                                        tekst: ""
+                                    };
+                                    if (detaljno) DB.korisnikPoKime(res.ucenik).then((res: any) => {
+                                        ret.tekst = `${res.ime} ${res.prezime} (${predmet})`;
+                                        resolve(ret);
+                                    })
+                                    else resolve(ret);
+                                }
+                                else {
+                                    resolve({
+                                        status: 0,
+                                        rb: 1,
+                                        duzina: 1,
+                                        tekst: ""
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    static nastavnikTerminStatusZaDan(kime: string, dan: DatumVreme, detaljno: boolean): Promise<any> {
+        let ret: Array<any> = Array(48);
+        let complete = 0;
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < 48; i++) {
+                this.nastavnikTerminStatus(kime, dan.vreme(30*i), detaljno).then((res: any) => {
+                    ret[i] = res;
+                    if (++complete == 48) resolve(ret);
+                })
+            } 
         })
     }
 }

@@ -1,3 +1,5 @@
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+
 export class Utils {
     static lozinkaRegex(): RegExp {
         return /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
@@ -30,5 +32,4 @@ export class Utils {
     static skrolDoVrha(): void {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
 }

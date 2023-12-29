@@ -6,7 +6,21 @@ let casSchema = new mongoose.Schema({
     vreme: Number,
     datum: Number,
     trajanje: Number,
-    potvrdjen: Boolean,
+    opis: String,
+    predmet: String,
+
+    potvrdjen: {
+        type: Number,
+        default: null
+    },
+    odbijen: {
+        type: Number,
+        default: null
+    },
+    otkazan: {
+        type: Number,
+        default: null
+    },
 
     ocenaUcenik: {
         type: Number,

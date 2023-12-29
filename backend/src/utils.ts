@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { DatumVreme } from './DatumVreme';
 
 export class Utils {
     static jedinstvenoFajlIme(fajl: any) {
@@ -22,4 +23,5 @@ export class Utils {
     static slikaPrefiks() {
         return "http://localhost:4000";
     }
+
 }
