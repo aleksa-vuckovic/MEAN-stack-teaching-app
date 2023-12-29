@@ -8,23 +8,11 @@ import { DatumVreme } from './DatumVreme';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  model: NgbDateStruct = inject(NgbCalendar).getToday();
+  title = 'frontend';
+  
+  datumvreme: DatumVreme = DatumVreme.sada();
 
-  odabranDatum(datum: any) {
-    console.log(datum);
-    console.log(this.model);
+  promena() {
+    console.log(this.datumvreme.vremeString());
   }
-
-  proba: DatumVreme = DatumVreme.sada();
-
-  range(i: number) {
-    let res = [];
-    for (let j = 0; j < i; j++) res.push(j);
-    return res;
-  }
-
-  promena(i: number) {
-    console.log(i)
-  }
-
 }
