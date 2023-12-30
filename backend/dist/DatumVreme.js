@@ -84,6 +84,9 @@ class DatumVreme {
     jednako(dv) {
         return this.broj() == dv.broj();
     }
+    proslost() {
+        return DatumVreme.sada().broj() > this.broj();
+    }
     //Konverzija
     ngbDatum() {
         let datumvreme = (this.vrednost >> DatumVreme.vremeShift) - 1;
@@ -214,9 +217,13 @@ class DatumVreme {
         res = `${tmp.day}. (${res})`;
         return res;
     }
+    datumVremeString() {
+        let vreme = this.ngbVreme();
+        return this.datumString() + " " + this.vremeString();
+    }
     vremeString() {
         let vreme = this.ngbVreme();
-        return this.datumString() + ` ${this.pad(vreme.hour)}:${this.pad(vreme.minute)}`;
+        return `${this.pad(vreme.hour)}:${this.pad(vreme.minute)}`;
     }
 }
 exports.DatumVreme = DatumVreme;

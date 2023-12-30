@@ -1,13 +1,13 @@
-<table [class.enabled]="disabled==false" *ngIf="podaci!=null">
+<table [class.enabled]="disabled==false" *ngIf="podaci!=null" class="kalendar">
     <tr>
-        <td class="kontrola">
-            <i class="material-icons" (click)="levoDesno(true)">keyboard_arrow_left</i>
+        <td class="kontrola" (click)="levoDesno(true)">
+            <i class="material-icons">keyboard_arrow_left</i>
         </td>
-        <td [attr.colspan]="velicina-1" class="kontrola">
-            <i class="material-icons" (click)="goreDole(true)">keyboard_arrow_up</i>
+        <td [attr.colspan]="velicina-1" class="kontrola" (click)="goreDole(true)">
+            <i class="material-icons" >keyboard_arrow_up</i>
         </td>
-        <td class="kontrola">
-            <i class="material-icons" (click)="levoDesno(false)">keyboard_arrow_right</i>
+        <td class="kontrola" (click)="levoDesno(false)">
+            <i class="material-icons" >keyboard_arrow_right</i>
         </td>
     </tr>
     <tr>
@@ -28,6 +28,7 @@
             [class.vanradnog]="podaci[i][j].status==2"
             [class.zakazancas]="podaci[i][j].status==3"
             [class.potvrdjencas]="podaci[i][j].status==4"
+            [class.proslost]="podaci[i][j].status==5"
             [class.odabran]="datumvreme.jednako(datum.dodajDan(i).vreme(j*30))"
             [attr.colspan]="
                 pomeraj == j ? min(podaci[i][j].duzina - podaci[i][j].rb + 1, velicina) :
@@ -41,8 +42,28 @@
             
     </tr>
     <tr>
-        <td [attr.colspan]="velicina+1" class="kontrola">
-            <i class="material-icons" (click)="goreDole(false)">keyboard_arrow_down</i>
+        <td [attr.colspan]="velicina+1" class="kontrola" (click)="goreDole(false)">
+            <i class="material-icons" >keyboard_arrow_down</i>
         </td>
     </tr>
 </table>
+<ul class="nedostupan">
+    <li>
+        Nedostupan
+    </li>
+</ul>
+<ul class="vanradnog">
+    <li>
+        Van radnog vremena
+    </li>
+</ul>
+<ul class="zakazancas">
+    <li>
+        Zakazan cas
+    </li>
+</ul>
+<ul class="potvrdjencas">
+    <li>
+        Potvrdjen cas
+    </li>
+</ul>

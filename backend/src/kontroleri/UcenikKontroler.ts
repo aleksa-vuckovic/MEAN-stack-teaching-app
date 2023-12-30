@@ -82,4 +82,38 @@ export class UcenikKontroler {
             })
         })  
     }
+
+    zakazi = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let t = req.body;
+        if (!t || !t.predmet || !t.datumvreme || !t.nastavnik || !t.trajanje) res.json({poruka: "Nedostaju argumenti."})
+        else {
+            let od = new DatumVreme(t.datumvreme);
+            let do_ = od.dodajVreme(t.trajanje);
+            if (od.proslost()) res.json({poruka: "Ne mozete zakazivati prosle termine."})
+            else DB.korisnikPoKime(t.nastavnik).then((ret: any) => {
+                if (!ret) res.json({poruka: "Nastavnik ne postoji."})
+                else DB.nastavnikNedostupan(t.nastavnik, od, do_).then((ret: any) => {
+                    if (ret) res.json({poruka: "Nastavnik nije dostupan u periodu od " + ret.od.vremeString() + " do " + ret.do.vremeString()})
+                    else DB.nastavnikRadi(t.nastavnik, od, do_).then((ret: any) => {
+                        if (ret) {
+                            if (ret.od.sirovoVreme() != ret.do.sirovoVreme()) res.json({poruka: "Radno vreme nastavnika je od " + ret.od.vremeString() + " do " + ret.do.vremeString()})
+                            else res.json({poruka: "Odabrali ste neradan dan."})
+                        }
+                        else DB.nastavnikImaCas(t.nastavnik, od, do_).then((ret: any) => {
+                            if (ret) res.json({poruka: "Nastavnik ima " + (ret.potvrdjen ? "potvrdjen" : "zakazan") + " cas u odabranom terminu."})
+                            else {
+                                //zakazi cas
+                                DB.zakazi(t.nastavnik, kor.kime, od, do_, t.predmet, t.opis ? t.opis : "").then((ret:string) => {
+                                    if (ret == "ok") res.json({poruka: "ok"})
+                                    else res.json({poruka: ret})
+                                })
+                            }
+                        })
+                    })
+                })
+            })
+        }
+    }
 }

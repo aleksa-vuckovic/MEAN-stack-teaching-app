@@ -85,6 +85,9 @@ export class DatumVreme {
     jednako(dv: DatumVreme): boolean {
         return this.broj() == dv.broj();
     }
+    proslost(): boolean {
+        return DatumVreme.sada().broj() > this.broj();
+    }
 
     
     
@@ -183,8 +186,12 @@ export class DatumVreme {
         res = `${tmp.day}. (${res})`;
         return res;
     }
+    datumVremeString(): string {
+        let vreme = this.ngbVreme();
+        return this.datumString() + " " + this.vremeString();
+    }
     vremeString(): string {
         let vreme = this.ngbVreme();
-        return this.datumString() + ` ${this.pad(vreme.hour)}:${this.pad(vreme.minute)}`;
+        return `${this.pad(vreme.hour)}:${this.pad(vreme.minute)}`
     }
 }

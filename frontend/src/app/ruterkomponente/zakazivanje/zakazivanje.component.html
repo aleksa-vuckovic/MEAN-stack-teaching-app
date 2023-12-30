@@ -10,12 +10,50 @@
         </div>
         <div class="row px-3 py-1">
             <div class="mb-3" *ngIf="kalendar==false">
-                <label for="datumvreme1" class="form-label">Odaberite datum i vreme:</label>
+                <label for="datumvreme1" class="form-label">Odaberite datum i vreme</label>
+                &nbsp; &nbsp;<button (click)="kalendar = true" class = "btn btn-secondary m-1">Predji na detaljan pregled</button>
                 <datum-vreme-input id="datumvreme1" [(ngModel)]="datumvreme1"/>
             </div>
             <div class="mb-3" *ngIf="kalendar">
                 <label for="saznao" class="form-label">Izaberite termin na kalendaru</label>
+                &nbsp; &nbsp;<button (click)="kalendar = false" class="btn btn-secondary m-1">Nazad</button>
                 <kalendar id="saznao" [(ngModel)]="datumvreme2" [podaci]="termini" [datum]="datum" [period]="period" [velicina]="velicina" (strelica)="kalendarStrelica($event)"/>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col col-4">
+                <div class="mb-3">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="duplicas" id="duplicas">
+                    &nbsp;<label for="duplicas" class="form-label">Zelim dupli cas.</label>
+                </div>
+                <div class="mb-3">
+                    <label for="predmet" class="form-label">Odaberite predmet</label>
+                    <select id="predmet" [(ngModel)]="predmet" [disabled]="podaci.predmeti.length==1" class="form-select">
+                        <option *ngFor="let elem of podaci.predmeti" [value]="elem">{{elem}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="opis" class="form-label">Poruka ili dodatno pojasnjenje nastavniku</label>
+                    <textarea id="opis" [(ngModel)]="opis" class="form-control"></textarea>
+                </div>
+                <div class="form-text text-danger mb-3">{{greska}}</div>
+                <button (click)="zakazi()" class="btn btn-primary">Zakazi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Zakazivanje</h5>
+            </div>
+            <div class="modal-body">
+                {{poruka}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="kraj()" data-bs-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>

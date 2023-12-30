@@ -45,5 +45,9 @@ export class UcenikService {
       datum: datum.broj()
     }, this.opcije)
   }
+
+  zakazi(podaci: any) {
+    return this.http.post(this.url + "zakazi", podaci, this.opcije);
+  } 
 }
 

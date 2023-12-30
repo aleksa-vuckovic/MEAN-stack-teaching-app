@@ -263,10 +263,10 @@ export class DB {
                 {
                     $match: { $expr: {$or: [
                         {
-                            $and: [{$gte: ["$nedostupnost.od", od.broj()]}, {$lt: ["$nedostupnost.od", do_.broj()]}]
+                            $and: [{$gte: [od.broj(), "$nedostupnost.od"]}, {$lt: [od.broj(), "$nedostupnost.do"]}]
                         },
                         {
-                            $and: [{$gt: ["$nedostupnost.do", od.broj()]}, {$lte: ["$nedostupnost.do", do_.broj()]}]
+                            $and: [{$lte: [do_.broj(), "$nedostupnost.do"]}, {$gt: [do_.broj(), "$nedostupnost.od"]}]
                         }
                     ]}}
                 }
@@ -328,10 +328,10 @@ export class DB {
             casModel.findOne(
                 { nastavnik: kime, odbijen: null, otkazan: null, $expr: {$or: [
                         {
-                            $and: [{$gte: ["$od", od.broj()]}, {$lt: ["$od", do_.broj()]}]
+                            $and: [{$gte: [od.broj(), "$od"]}, {$lt: [od.broj(), "$do"]}]
                         },
                         {
-                            $and: [{$gt: ["$do", od.broj()]}, {$lte: ["$do", do_.broj()]}]
+                            $and: [{$lte: [do_.broj(), "$do"]}, {$gt: [do_.broj(), "$od"]}]
                         }
                 ]}}
             ).then((res: any) => {
@@ -352,7 +352,8 @@ export class DB {
         let do_ = od.dodajVreme(30);
 
         return new Promise((resolve, reject) => {
-            this.nastavnikNedostupan(kime, od, do_).then((res: any) => {
+            if (od.proslost()) resolve({status: 5, rb: 1, duzina: 1, tekst: ""})
+            else this.nastavnikNedostupan(kime, od, do_).then((res: any) => {
                 if (res) {
                     resolve({
                         status: 1, //Nedostupan
@@ -378,7 +379,7 @@ export class DB {
                                     let slotDo = res.do.slotDo();
                                     if (!res.od.istiDan(res.do)) slotDo += 24;
                                     let ret = {
-                                        status: (res.potvrdjen ? 3 : 4),
+                                        status: (res.potvrdjen ? 4 : 3),
                                         rb: slot - slotOd + 1,
                                         duzina: slotDo - slotOd + 1,
                                         tekst: ""
@@ -416,6 +417,25 @@ export class DB {
                     if (++complete == 48) resolve(ret);
                 })
             } 
+        })
+    }
+
+    static zakazi(nastavnik: string, ucenik: string, od: DatumVreme, do_: DatumVreme, predmet: String, opis: String): Promise<string> {
+        return new Promise((resolve, reject) => {
+            casModel.insertMany([
+                {
+                    ucenik: ucenik,
+                    nastavnik: nastavnik,
+                    od: od.broj(),
+                    do: do_.broj(),
+                    predmet: predmet,
+                    opis: opis
+                }
+            ]).then(res => {
+                resolve("ok");
+            }).catch(err => {
+                resolve("Greska u bazi.")
+            })
         })
     }
 }

@@ -2,42 +2,77 @@ i.material-icons:hover {
     cursor:pointer
 }
 
-table, td {
+table.kalendar, table.kalendar td {
     border: 1px solid black;
     border-collapse: collapse;
 }
-td {
+table.kalendar td {
     min-width: 50px;
     height: 50px;
 }
-td.kontrola {
+table.kalendar td.kontrola {
     vertical-align: middle;
     text-align: center;
 }
-td.sat {
+table.kalendar td.sat {
     vertical-align: bottom;
     text-align: start;
 }
-td.slobodan {
+table.kalendar td.slobodan {
     background-color: white;
 }
-td.nedostupan {
+table.kalendar td.nedostupan {
     background-color: rgb(130, 58, 58);
 }
-td.vanradnog {
+table.kalendar td.vanradnog {
     background-color: rgb(199, 114, 114);
 }
-td.zakazancas {
+table.kalendar td.zakazancas {
     background-color: aquamarine;
 }
-td.potvrdjencas {
+table.kalendar td.potvrdjencas {
     background-color: rgb(227, 227, 175);
 }
+table.kalendar td.proslost {
+    background-color: rgb(134, 134, 133);
+}
 
-table.enabled td.odabran {
+table.kalendar.enabled td.odabran {
     border-width: 5px;
 }
-table.enabled td.slot:hover, table.enabled td.kontrola:hover {
+table.kalendar.enabled td.slot:hover, table.kalendar.enabled td.kontrola:hover {
     border-width: 2px;
     cursor: pointer;
+}
+
+table.legenda td {
+    padding: 15px
+}
+ul {
+    list-style: none;
+    display: inline;
+}
+ul.nedostupan li::before {
+    content: "\2022";
+    color: rgb(130, 58, 58);
+    font-size: 40px;
+}
+ul.vanradnog li::before {
+    content: "\2022";
+    color: rgb(199, 114, 114);
+    font-size: 40px;
+}
+ul.zakazancas li::before {
+    content: "\2022";
+    color: aquamarine;
+    font-size: 40px;
+}
+ul.potvrdjencas li::before {
+    content: "\2022";
+    color: rgb(227, 227, 175);
+    font-size: 40px;
+}
+ul li {
+    font-size: 15px;
+    display: inline;
 }

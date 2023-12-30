@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { UcenikService } from 'src/app/servisi/ucenik.service';
 
 @Component({
@@ -26,11 +27,15 @@ export class UcenikNastavnikComponent {
     ]
   }
 
-  constructor (private servis: UcenikService) {
+  constructor (private servis: UcenikService, private ruter: Router) {
     let kime = localStorage.getItem("nastavnik") ?? "";
     this.servis.nastavnikProfilPodaci(kime).subscribe((res: any) => {
       console.log(res);
       if (res.poruka == "ok") this.podaci = res.podaci;
     })
+  }
+
+  zakazi() {
+    this.ruter.navigate(["zakazivanje"]);
   }
 }

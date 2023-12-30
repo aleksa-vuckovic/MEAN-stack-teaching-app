@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { UcenikService } from 'src/app/servisi/ucenik.service';
 
@@ -46,7 +47,7 @@ export class ZakazivanjeComponent implements OnInit {
       })
     }
   }
-  kalendar:boolean = true;
+  kalendar:boolean = false;
 
   //kalendar
   termini: Array<any> | null = null;
@@ -63,6 +64,7 @@ export class ZakazivanjeComponent implements OnInit {
 
     this.servis.nastavnikTermini(this.nastavniKime, datumZaPretragu).subscribe((res: any) => {
       if (gore) {
+        console.log(res)
         this.termini?.unshift(res.podaci);
         this.termini?.pop();
       }
@@ -82,5 +84,30 @@ export class ZakazivanjeComponent implements OnInit {
   opis: string = "";
 
 
+  greska: string = ""
+  poruka: string = ""
+  modal() {
+    new bootstrap.Modal(document.getElementById('modal') as Element).show();
+  }
+  kraj() {
+    this.ruter.navigate(["ucenikNastavnik"]);
+  }
+
+  zakazi() {
+    this.greska = ""
+    let dv = this.kalendar ? this.datumvreme2 : this.datumvreme1;
+    this.servis.zakazi({
+      nastavnik: this.nastavniKime,
+      datumvreme: dv.broj(),
+      trajanje: this.duplicas ? 120 : 60,
+      opis: this.opis,
+      predmet: this.predmet
+    }).subscribe((res: any) => {
+      if (res.poruka == "ok") {
+        this.poruka = "Zakazali ste cas za " + dv.datumVremeString() + " u trajanju od " + (this.duplicas ? "120" : "60") + " minuta, iz predmeta " + this.predmet + "."
+        this.modal();
+      } else this.greska = res.poruka;
+    })
+  }
 
 }
