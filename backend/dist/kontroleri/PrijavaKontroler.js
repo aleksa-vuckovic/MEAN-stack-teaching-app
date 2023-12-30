@@ -4,6 +4,36 @@ exports.PrijavaKontroler = void 0;
 const validacija_1 = require("../validacija");
 const utils_1 = require("../utils");
 const db_1 = require("../db");
+let podrazumevanoRadnoVreme = {
+    "0": {
+        od: 600,
+        do: 18 * 60
+    },
+    "1": {
+        od: 600,
+        do: 18 * 60
+    },
+    "2": {
+        od: 600,
+        do: 18 * 60
+    },
+    "3": {
+        od: 600,
+        do: 18 * 60
+    },
+    "4": {
+        od: 600,
+        do: 18 * 60
+    },
+    "5": {
+        od: 0,
+        do: 0
+    },
+    "6": {
+        od: 0,
+        do: 0
+    }
+};
 class PrijavaKontroler {
     constructor() {
         this.registracija = (req, res) => {
@@ -36,6 +66,8 @@ class PrijavaKontroler {
                     }
                     let cvBaza = utils_1.Utils.sacuvajFajl(cv);
                     izlaz.cv = cvBaza;
+                    izlaz.radnovreme = podrazumevanoRadnoVreme;
+                    izlaz.nedostupnost = [];
                 }
                 else {
                     izlaz.odobren = true;

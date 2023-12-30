@@ -1,0 +1,48 @@
+<table [class.enabled]="disabled==false" *ngIf="podaci!=null">
+    <tr>
+        <td class="kontrola">
+            <i class="material-icons" (click)="levoDesno(true)">keyboard_arrow_left</i>
+        </td>
+        <td [attr.colspan]="velicina-1" class="kontrola">
+            <i class="material-icons" (click)="goreDole(true)">keyboard_arrow_up</i>
+        </td>
+        <td class="kontrola">
+            <i class="material-icons" (click)="levoDesno(false)">keyboard_arrow_right</i>
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+        <td *ngFor="let i of opseg(pomeraj, pomeraj+velicina)" class="sat">{{satZaglavlje(i)}}</td>
+    </tr>
+    <tr *ngFor="let i of opseg(0, period)">
+        <td class="dan">
+           {{datum.dodajDan(i).danString()}} 
+        </td>
+        <ng-container *ngFor="let j of opseg(pomeraj, pomeraj+velicina)">
+            <td class="slot"
+                *ngIf="(podaci[i][j].rb == 1) || (j == pomeraj)"
+            [class.slobodan]="podaci[i][j].status==0"
+            [class.nedostupan]="podaci[i][j].status==1"
+            [class.vanradnog]="podaci[i][j].status==2"
+            [class.zakazancas]="podaci[i][j].status==3"
+            [class.potvrdjencas]="podaci[i][j].status==4"
+            [class.odabran]="datumvreme.jednako(datum.dodajDan(i).vreme(j*30))"
+            [attr.colspan]="
+                pomeraj == j ? min(podaci[i][j].duzina - podaci[i][j].rb + 1, velicina) :
+                min(podaci[i][j].duzina, pomeraj + velicina - j)
+                "
+            (click)="klik(datum.dodajDan(i).vreme(j*30))"
+            >
+                {{podaci[i][j].tekst}}
+            </td>
+        </ng-container>
+            
+    </tr>
+    <tr>
+        <td [attr.colspan]="velicina+1" class="kontrola">
+            <i class="material-icons" (click)="goreDole(false)">keyboard_arrow_down</i>
+        </td>
+    </tr>
+</table>

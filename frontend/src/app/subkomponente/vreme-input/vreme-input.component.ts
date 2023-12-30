@@ -20,6 +20,7 @@ export class VremeInputComponent implements ControlValueAccessor {
   private disabled = false;
   private touched = false;
   writeValue(vreme: number): void {
+    vreme = vreme - vreme%30;
     this.vreme = vreme;
     this.model = {
       hour: Math.floor(vreme/60),

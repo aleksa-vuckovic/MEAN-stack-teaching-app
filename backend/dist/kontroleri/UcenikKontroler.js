@@ -4,6 +4,7 @@ exports.UcenikKontroler = void 0;
 const validacija_1 = require("../validacija");
 const utils_1 = require("../utils");
 const db_1 = require("../db");
+const DatumVreme_1 = require("../DatumVreme");
 class UcenikKontroler {
     constructor() {
         this.autorizacija = (req, res) => {
@@ -59,9 +60,8 @@ class UcenikKontroler {
             });
         };
         this.nastavniciPretraga = (req, res) => {
-            let kor = this.autorizacija(req, res);
-            if (!kor)
-                return;
+            //let kor = this.autorizacija(req, res);
+            //if (!kor) return;
             let pretraga = req.body;
             if (!pretraga)
                 pretraga = {};
@@ -73,9 +73,8 @@ class UcenikKontroler {
             });
         };
         this.nastavnikProfilPodaci = (req, res) => {
-            let kor = this.autorizacija(req, res);
-            if (!kor)
-                return;
+            //let kor = this.autorizacija(req, res);
+            //if (!kor) return;
             if (!req.query.kime)
                 res.json({ poruka: "Nedostaje argument." });
             else
@@ -84,6 +83,21 @@ class UcenikKontroler {
                         res.json({ poruka: "ok", podaci: ret });
                     else
                         res.json({ poruka: "Greska u bazi." });
+                });
+        };
+        this.nastavnikTermini = (req, res) => {
+            //let kor = this.autorizacija(req, res);
+            //if (!kor) return;
+            if (!req.body || !req.body.nastavnik || !req.body.datum)
+                res.json({ poruka: "Nedostaju argumenti." });
+            else
+                db_1.DB.korisnikPoKime(req.body.nastavnik).then((ret) => {
+                    if (!ret)
+                        res.json({ poruka: "Nastavnik ne postoji." });
+                    else
+                        db_1.DB.nastavnikTerminStatusZaDan(req.body.nastavnik, new DatumVreme_1.DatumVreme(req.body.datum), false).then((ret) => {
+                            res.json({ poruka: "ok", podaci: ret });
+                        });
                 });
         };
     }

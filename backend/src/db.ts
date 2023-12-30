@@ -326,7 +326,7 @@ export class DB {
     static nastavnikImaCas(kime: string, od: DatumVreme, do_: DatumVreme) {
         return new Promise((resolve, reject) => {
             casModel.findOne(
-                { nastavnik: kime, odbijen: null, $expr: {$or: [
+                { nastavnik: kime, odbijen: null, otkazan: null, $expr: {$or: [
                         {
                             $and: [{$gte: ["$od", od.broj()]}, {$lt: ["$od", do_.broj()]}]
                         },
@@ -335,18 +335,20 @@ export class DB {
                         }
                 ]}}
             ).then((res: any) => {
-                resolve({
+                if (res) resolve({
                     ucenik: res.ucenik,
                     od: new DatumVreme(res.od),
                     do: new DatumVreme(res.do),
                     predmet: res.predmet,
                     potvrdjen: res.potvrdjen
                 })
+                else resolve(null);
             })
         })
     }
 
-    static nastavnikTerminStatus(kime: string, od: DatumVreme, detaljno: boolean) {
+    static nastavnikTerminStatus(kime: string, datum: DatumVreme, slot: number, detaljno: boolean) {
+        let od = datum.dodajVreme(slot*30);
         let do_ = od.dodajVreme(30);
 
         return new Promise((resolve, reject) => {
@@ -372,19 +374,17 @@ export class DB {
                         else {
                             this.nastavnikImaCas(kime, od, do_).then((res: any) => {
                                 if (res) {
-                                    let casOd = new DatumVreme(res.od);
-                                    let casDo = new DatumVreme(res.do);
-                                    let trajanje = casDo.razlikaUMinutima(casOd);
-                                    let t = od.razlikaUMinutima(casOd);
-                                    let predmet = res.predmet;
+                                    let slotOd = res.od.slotOd();
+                                    let slotDo = res.do.slotDo();
+                                    if (!res.od.istiDan(res.do)) slotDo += 24;
                                     let ret = {
                                         status: (res.potvrdjen ? 3 : 4),
-                                        rb: (t + 30) / 30,
-                                        duzina: (trajanje + 30) / 30,
+                                        rb: slot - slotOd + 1,
+                                        duzina: slotDo - slotOd + 1,
                                         tekst: ""
                                     };
                                     if (detaljno) DB.korisnikPoKime(res.ucenik).then((res: any) => {
-                                        ret.tekst = `${res.ime} ${res.prezime} (${predmet})`;
+                                        ret.tekst = `${res.ime} ${res.prezime} (${res.predmet})`;
                                         resolve(ret);
                                     })
                                     else resolve(ret);
@@ -408,9 +408,10 @@ export class DB {
     static nastavnikTerminStatusZaDan(kime: string, dan: DatumVreme, detaljno: boolean): Promise<any> {
         let ret: Array<any> = Array(48);
         let complete = 0;
+        dan = dan.vreme(0);
         return new Promise((resolve, reject) => {
             for (let i = 0; i < 48; i++) {
-                this.nastavnikTerminStatus(kime, dan.vreme(30*i), detaljno).then((res: any) => {
+                this.nastavnikTerminStatus(kime, dan, i, detaljno).then((res: any) => {
                     ret[i] = res;
                     if (++complete == 48) resolve(ret);
                 })

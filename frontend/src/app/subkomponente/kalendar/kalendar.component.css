@@ -1,0 +1,43 @@
+i.material-icons:hover {
+    cursor:pointer
+}
+
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td {
+    min-width: 50px;
+    height: 50px;
+}
+td.kontrola {
+    vertical-align: middle;
+    text-align: center;
+}
+td.sat {
+    vertical-align: bottom;
+    text-align: start;
+}
+td.slobodan {
+    background-color: white;
+}
+td.nedostupan {
+    background-color: rgb(130, 58, 58);
+}
+td.vanradnog {
+    background-color: rgb(199, 114, 114);
+}
+td.zakazancas {
+    background-color: aquamarine;
+}
+td.potvrdjencas {
+    background-color: rgb(227, 227, 175);
+}
+
+table.enabled td.odabran {
+    border-width: 5px;
+}
+table.enabled td.slot:hover, table.enabled td.kontrola:hover {
+    border-width: 2px;
+    cursor: pointer;
+}

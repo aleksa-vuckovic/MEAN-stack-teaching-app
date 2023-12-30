@@ -3,11 +3,10 @@ import mongoose from 'mongoose';
 let casSchema = new mongoose.Schema({
     ucenik: String,
     nastavnik: String,
-    vreme: Number,
-    datum: Number,
-    trajanje: Number,
     opis: String,
     predmet: String,
+    od: Number,
+    do: Number,
 
     potvrdjen: {
         type: Number,

@@ -2,6 +2,7 @@ import express from 'express';
 import { Validacija } from "../validacija";
 import { Utils } from "../utils"
 import { DB } from "../db";
+import { DatumVreme } from '../DatumVreme';
 
 export class UcenikKontroler {
 
@@ -50,8 +51,8 @@ export class UcenikKontroler {
     }
 
     nastavniciPretraga = (req: express.Request, res: express.Response) => {
-        let kor = this.autorizacija(req, res);
-        if (!kor) return;
+        //let kor = this.autorizacija(req, res);
+        //if (!kor) return;
         let pretraga = req.body;
         if (!pretraga) pretraga = {};
         DB.nastavniciPretraga(pretraga, true, true).then(ret => {
@@ -61,12 +62,24 @@ export class UcenikKontroler {
     }
 
     nastavnikProfilPodaci = (req: express.Request, res: express.Response) => {
-        let kor = this.autorizacija(req, res);
-        if (!kor) return;
+        //let kor = this.autorizacija(req, res);
+        //if (!kor) return;
         if (!req.query.kime) res.json({poruka: "Nedostaje argument."})
         else DB.nastavnikProfilPodaci(req.query.kime as string).then((ret: any) => {
             if (ret) res.json({poruka: "ok", podaci: ret});
             else res.json({poruka: "Greska u bazi."});
         })
+    }
+
+    nastavnikTermini = (req: express.Request, res: express.Response) => {
+        //let kor = this.autorizacija(req, res);
+        //if (!kor) return;
+        if (!req.body || !req.body.nastavnik || !req.body.datum) res.json({poruka: "Nedostaju argumenti."})
+        else DB.korisnikPoKime(req.body.nastavnik).then((ret:any) => {
+            if (!ret) res.json({poruka: "Nastavnik ne postoji."})
+            else  DB.nastavnikTerminStatusZaDan(req.body.nastavnik, new DatumVreme(req.body.datum), false).then((ret:any) => {
+                res.json({poruka: "ok", podaci: ret})
+            })
+        })  
     }
 }

@@ -1,0 +1,22 @@
+<div class="row">
+    <div class ="col-md-2 col-sm-12 bg-blue p-0">
+        <ucenik-navigacija trenutni="ucenikNastavnik"></ucenik-navigacija>
+    </div>
+    <div class="col-md-10 col-sm-12">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Zakazivanje kod nastavnika: {{podaci.ime}} {{podaci.prezime}}</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="mb-3" *ngIf="kalendar==false">
+                <label for="datumvreme1" class="form-label">Odaberite datum i vreme:</label>
+                <datum-vreme-input id="datumvreme1" [(ngModel)]="datumvreme1"/>
+            </div>
+            <div class="mb-3" *ngIf="kalendar">
+                <label for="saznao" class="form-label">Izaberite termin na kalendaru</label>
+                <kalendar id="saznao" [(ngModel)]="datumvreme2" [podaci]="termini" [datum]="datum" [period]="period" [velicina]="velicina" (strelica)="kalendarStrelica($event)"/>
+            </div>
+        </div>
+    </div>
+</div>

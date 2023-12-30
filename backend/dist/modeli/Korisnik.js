@@ -42,6 +42,14 @@ let korisnikSchema = new mongoose_1.default.Schema({
     cv: {
         type: String,
         default: null
+    },
+    radnovreme: {
+        type: Object,
+        default: null
+    },
+    nedostupnost: {
+        type: (Array),
+        default: null
     }
 });
 exports.default = mongoose_1.default.model("korisnikModel", korisnikSchema, "korisnici");

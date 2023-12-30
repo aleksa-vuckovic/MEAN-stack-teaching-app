@@ -59,7 +59,9 @@ export class DatumVreme {
 
     //Operacije
     dodajDan(dana: number) {
-        let tmp = this.vrednost + (dana<<DatumVreme.vremeShift);
+        let tmp = this.vrednost;
+        if (dana < 0) tmp -= ((-dana)) << DatumVreme.vremeShift;
+        else tmp += (dana<<DatumVreme.vremeShift);
         return new DatumVreme(tmp);
     }
     dodajVreme(broj: number) {
@@ -79,6 +81,9 @@ export class DatumVreme {
     }
     razlikaUMinutima(dv: DatumVreme) {
         return this.minuti() - dv.minuti();
+    }
+    jednako(dv: DatumVreme): boolean {
+        return this.broj() == dv.broj();
     }
 
     
@@ -126,6 +131,12 @@ export class DatumVreme {
     }
     minuti(): number {
         return this.sirovDatum() * 24 * 60 + this.sirovoVreme();
+    }
+    slotOd(): number {
+        return Math.floor(this.sirovoVreme() / 30);
+    }
+    slotDo(): number {
+        return Math.floor((this.sirovoVreme()-1)/30);
     }
 
     //String reprezentacije

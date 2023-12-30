@@ -7,10 +7,22 @@ const mongoose_1 = __importDefault(require("mongoose"));
 let casSchema = new mongoose_1.default.Schema({
     ucenik: String,
     nastavnik: String,
-    vreme: Number,
-    datum: Number,
-    trajanje: Number,
-    potvrdjen: Boolean,
+    opis: String,
+    predmet: String,
+    od: Number,
+    do: Number,
+    potvrdjen: {
+        type: Number,
+        default: null
+    },
+    odbijen: {
+        type: Number,
+        default: null
+    },
+    otkazan: {
+        type: Number,
+        default: null
+    },
     ocenaUcenik: {
         type: Number,
         default: null

@@ -8,6 +8,7 @@ const Korisnik_1 = __importDefault(require("./modeli/Korisnik"));
 const Podatak_1 = __importDefault(require("./modeli/Podatak"));
 const Cas_1 = __importDefault(require("./modeli/Cas"));
 const utils_1 = require("./utils");
+const DatumVreme_1 = require("./DatumVreme");
 class DB {
     static korisnikPoKime(kime) {
         return new Promise((resolve, reject) => {
@@ -230,6 +231,189 @@ class DB {
                     });
                 }
             });
+        });
+    }
+    /*
+    Ako postoji nedostupnost vraca je u obliku
+    {
+        od: DatumVreme,
+        do: DatumVreme
+    }
+    */
+    static nastavnikNedostupan(kime, od, do_) {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.aggregate([
+                {
+                    $match: { kime: kime, tip: "Nastavnik", nedostupnost: { $exists: true } }
+                },
+                {
+                    $unwind: { path: "$nedostupnost" }
+                },
+                {
+                    $match: { $expr: { $or: [
+                                {
+                                    $and: [{ $gte: ["$nedostupnost.od", od.broj()] }, { $lt: ["$nedostupnost.od", do_.broj()] }]
+                                },
+                                {
+                                    $and: [{ $gt: ["$nedostupnost.do", od.broj()] }, { $lte: ["$nedostupnost.do", do_.broj()] }]
+                                }
+                            ] } }
+                }
+            ]).then((res) => {
+                if (res.length > 0)
+                    resolve({
+                        od: new DatumVreme_1.DatumVreme(res[0].nedostupnost.od),
+                        do: new DatumVreme_1.DatumVreme(res[0].nedostupnost.do)
+                    });
+                else
+                    resolve(null);
+            });
+        });
+    }
+    /*
+        Ako se interval ne preklapa sa radnim vremenom, vraca radno vreme za taj dan u obliku
+        {
+            od: DatumVreme,
+            do: DatumVreme
+        }
+    */
+    static nastavnikRadi(kime, od, do_) {
+        return new Promise((resolve, reject) => {
+            if (!od.istiDan(do_)) {
+                this.nastavnikRadi(kime, od, od.krajDana()).then((res) => {
+                    if (res)
+                        resolve(res);
+                    else
+                        this.nastavnikRadi(kime, do_.vreme(0), do_).then((res) => {
+                            if (res)
+                                resolve(res);
+                            else
+                                resolve(null);
+                        });
+                });
+            }
+            else {
+                Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik", radnovreme: { $exists: true } }).then((res) => {
+                    if (!res)
+                        resolve(null);
+                    else {
+                        let radnovreme = res.radnovreme[od.danUNedelji()];
+                        if (od.sirovoVreme() >= radnovreme.od && do_.sirovoVreme() <= radnovreme.do)
+                            resolve(null);
+                        else
+                            resolve({
+                                od: new DatumVreme_1.DatumVreme(radnovreme.od),
+                                do: new DatumVreme_1.DatumVreme(radnovreme.do)
+                            });
+                    }
+                });
+            }
+        });
+    }
+    /*
+        Ako nastavnik ima neotkazan i neodbijen cas u zadatom intervalu, vraca objekat:
+        {
+            ucenik: string
+            od: DatumVreme
+            do: DatumVreme
+            predmet: string
+            potvrdjen: number
+        }
+    */
+    static nastavnikImaCas(kime, od, do_) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.findOne({ nastavnik: kime, odbijen: null, otkazan: null, $expr: { $or: [
+                        {
+                            $and: [{ $gte: ["$od", od.broj()] }, { $lt: ["$od", do_.broj()] }]
+                        },
+                        {
+                            $and: [{ $gt: ["$do", od.broj()] }, { $lte: ["$do", do_.broj()] }]
+                        }
+                    ] } }).then((res) => {
+                if (res)
+                    resolve({
+                        ucenik: res.ucenik,
+                        od: new DatumVreme_1.DatumVreme(res.od),
+                        do: new DatumVreme_1.DatumVreme(res.do),
+                        predmet: res.predmet,
+                        potvrdjen: res.potvrdjen
+                    });
+                else
+                    resolve(null);
+            });
+        });
+    }
+    static nastavnikTerminStatus(kime, datum, slot, detaljno) {
+        let od = datum.dodajVreme(slot * 30);
+        let do_ = od.dodajVreme(30);
+        return new Promise((resolve, reject) => {
+            this.nastavnikNedostupan(kime, od, do_).then((res) => {
+                if (res) {
+                    resolve({
+                        status: 1, //Nedostupan
+                        rb: 1,
+                        duzina: 1,
+                        tekst: ""
+                    });
+                }
+                else {
+                    this.nastavnikRadi(kime, od, do_).then((res) => {
+                        if (res) {
+                            resolve({
+                                status: 2,
+                                rb: 1,
+                                duzina: 1,
+                                tekst: ""
+                            });
+                        }
+                        else {
+                            this.nastavnikImaCas(kime, od, do_).then((res) => {
+                                if (res) {
+                                    let slotOd = res.od.slotOd();
+                                    let slotDo = res.do.slotDo();
+                                    if (!res.od.istiDan(res.do))
+                                        slotDo += 24;
+                                    let ret = {
+                                        status: (res.potvrdjen ? 3 : 4),
+                                        rb: slot - slotOd + 1,
+                                        duzina: slotDo - slotOd + 1,
+                                        tekst: ""
+                                    };
+                                    if (detaljno)
+                                        DB.korisnikPoKime(res.ucenik).then((res) => {
+                                            ret.tekst = `${res.ime} ${res.prezime} (${res.predmet})`;
+                                            resolve(ret);
+                                        });
+                                    else
+                                        resolve(ret);
+                                }
+                                else {
+                                    resolve({
+                                        status: 0,
+                                        rb: 1,
+                                        duzina: 1,
+                                        tekst: ""
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    }
+    static nastavnikTerminStatusZaDan(kime, dan, detaljno) {
+        let ret = Array(48);
+        let complete = 0;
+        dan = dan.vreme(0);
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < 48; i++) {
+                this.nastavnikTerminStatus(kime, dan, i, detaljno).then((res) => {
+                    ret[i] = res;
+                    if (++complete == 48)
+                        resolve(ret);
+                });
+            }
         });
     }
 }

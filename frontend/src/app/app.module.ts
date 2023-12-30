@@ -24,6 +24,8 @@ import { KomentarComponent } from './subkomponente/komentar/komentar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VremeInputComponent } from './subkomponente/vreme-input/vreme-input.component';
 import { DatumVremeInputComponent } from './subkomponente/datum-vreme-input/datum-vreme-input.component';
+import { KalendarComponent } from './subkomponente/kalendar/kalendar.component';
+import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { DatumVremeInputComponent } from './subkomponente/datum-vreme-input/datu
     UcenikNastavnikComponent,
     KomentarComponent,
     VremeInputComponent,
-    DatumVremeInputComponent
+    DatumVremeInputComponent,
+    KalendarComponent,
+    ZakazivanjeComponent
   ],
   imports: [
     BrowserModule,
