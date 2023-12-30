@@ -16,7 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class ZvezdeComponent implements ControlValueAccessor {
   private onChange = (br: number) => {}
   private onTouched = () => {}
-  private disabled = false;
+  @Input() disabled = false;
   private touched = false;
   writeValue(obj: any): void {
     this.broj = obj;
@@ -34,8 +34,6 @@ export class ZvezdeComponent implements ControlValueAccessor {
   @Input() broj: number = 0;
   @Input() visina: string = "30px";
   @Output() naKlik: EventEmitter<any> = new EventEmitter();
-
-
 
   niz(od: number, do_: number) {
     let res = []

@@ -219,14 +219,32 @@ class DB {
                         if (!res2)
                             resolve(null);
                         else
-                            resolve({
-                                ime: res.ime,
-                                prezime: res.prezime,
-                                profil: utils_1.Utils.slikaUrl(res.profil),
-                                mejl: res.mejl,
-                                telefon: res.telefon,
-                                predmeti: res.predmeti,
-                                komentari: res2
+                            Cas_1.default.aggregate([
+                                {
+                                    $match: {
+                                        nastavnik: kime,
+                                        ocenaUcenik: { $ne: null }
+                                    }
+                                },
+                                {
+                                    $group: {
+                                        _id: null,
+                                        ocena: {
+                                            $avg: "$ocenaUcenik"
+                                        }
+                                    }
+                                }
+                            ]).then((res3) => {
+                                resolve({
+                                    ime: res.ime,
+                                    prezime: res.prezime,
+                                    profil: utils_1.Utils.slikaUrl(res.profil),
+                                    mejl: res.mejl,
+                                    telefon: res.telefon,
+                                    predmeti: res.predmeti,
+                                    ocena: res3[0].ocena,
+                                    komentari: res2
+                                });
                             });
                     });
                 }
@@ -252,10 +270,10 @@ class DB {
                 {
                     $match: { $expr: { $or: [
                                 {
-                                    $and: [{ $gte: ["$nedostupnost.od", od.broj()] }, { $lt: ["$nedostupnost.od", do_.broj()] }]
+                                    $and: [{ $gte: [od.broj(), "$nedostupnost.od"] }, { $lt: [od.broj(), "$nedostupnost.do"] }]
                                 },
                                 {
-                                    $and: [{ $gt: ["$nedostupnost.do", od.broj()] }, { $lte: ["$nedostupnost.do", do_.broj()] }]
+                                    $and: [{ $lte: [do_.broj(), "$nedostupnost.do"] }, { $gt: [do_.broj(), "$nedostupnost.od"] }]
                                 }
                             ] } }
                 }
@@ -371,16 +389,11 @@ class DB {
                             }
                             else {
                                 this.nastavnikImaCas(kime, od, do_).then((res) => {
-                                    let debug = res && res.od.broj() == 4490146;
                                     if (res) {
                                         let slotOd = res.od.slotOd();
                                         let slotDo = res.do.slotDo();
                                         if (!res.od.istiDan(res.do))
                                             slotDo += 24;
-                                        if (debug)
-                                            console.log("Slot od = " + slotOd);
-                                        if (debug)
-                                            console.log("Slot = " + slot);
                                         let ret = {
                                             status: (res.potvrdjen ? 4 : 3),
                                             rb: slot - slotOd + 1,

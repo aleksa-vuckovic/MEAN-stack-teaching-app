@@ -19,6 +19,7 @@ export class ZakazivanjeComponent implements OnInit {
     profil: "",
     telefon: "telefon",
     predmeti: ["Matematika", "Fizika"],
+    ocena: 4.4,
     komentari: [
       {
         ocena: 5,

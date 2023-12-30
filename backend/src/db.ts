@@ -228,15 +228,33 @@ export class DB {
                         }
                     ]).then((res2: any) => {
                         if (!res2) resolve(null);
-                        else resolve({
-                            ime: res.ime,
-                            prezime: res.prezime,
-                            profil: Utils.slikaUrl(res.profil as string),
-                            mejl: res.mejl,
-                            telefon: res.telefon,
-                            predmeti: res.predmeti,
-                            komentari: res2
-                        });
+                        else casModel.aggregate([
+                            {
+                                $match: {
+                                    nastavnik: kime,
+                                    ocenaUcenik: {$ne: null}
+                                }
+                            },
+                            {
+                                $group: {
+                                    _id: null,
+                                    ocena: {
+                                        $avg: "$ocenaUcenik"
+                                    }
+                                }
+                            }
+                        ]).then((res3: Array<any>) => {
+                            resolve({
+                                ime: res.ime,
+                                prezime: res.prezime,
+                                profil: Utils.slikaUrl(res.profil as string),
+                                mejl: res.mejl,
+                                telefon: res.telefon,
+                                predmeti: res.predmeti,
+                                ocena: res3[0].ocena,
+                                komentari: res2
+                            });
+                        })
                     })
                 }
             })

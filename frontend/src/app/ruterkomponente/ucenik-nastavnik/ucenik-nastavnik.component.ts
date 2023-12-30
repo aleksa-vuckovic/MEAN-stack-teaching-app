@@ -16,6 +16,7 @@ export class UcenikNastavnikComponent {
     profil: "",
     telefon: "telefon",
     predmeti: ["Matematika", "Fizika"],
+    ocena: 4.4,
     komentari: [
       {
         ocena: 5,
@@ -37,5 +38,9 @@ export class UcenikNastavnikComponent {
 
   zakazi() {
     this.ruter.navigate(["zakazivanje"]);
+  }
+
+  zaokruzi(br: number) {
+    return Math.round(br);
   }
 }

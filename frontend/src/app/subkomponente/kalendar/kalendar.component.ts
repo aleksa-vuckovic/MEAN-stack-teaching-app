@@ -17,7 +17,7 @@ import { DatumVreme } from 'src/app/DatumVreme';
 export class KalendarComponent implements ControlValueAccessor {
   private onChange = (dv: DatumVreme) => {}
   private onTouched = () => {}
-  disabled = false;
+  @Input() disabled = false;
   private touched = false;
   writeValue(dv: DatumVreme): void {
     this.datumvreme = dv;
