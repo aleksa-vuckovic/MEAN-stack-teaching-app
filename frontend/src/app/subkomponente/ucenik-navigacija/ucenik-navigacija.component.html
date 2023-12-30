@@ -4,14 +4,8 @@
     </button>
     <div class="collapse navbar-collapse" id="menu">
         <ul class ="nav navbar-nav">
-            <li class ="nav-item w-100" (click)="ucenikProfil()" [class.active]="trenutni=='ucenikProfil'" [class.inactive]="trenutni!='ucenikProfil'">
-                Profil
-            </li>
-            <li class ="nav-item w-100" (click)="ucenikNastavnici()" [class.active]="trenutni=='ucenikNastavnici'" [class.inactive]="trenutni!='ucenikNastavnici'">
-                Nastavnici
-            </li>
-            <li class ="nav-item w-100 inactive" (click)="odjava()">
-                Odjava
+            <li  *ngFor="let cilj of ciljevi; let i = index" class ="nav-item w-100" (click)="klik(cilj)" [class.active]="trenutni==cilj" [class.inactive]="trenutni!=cilj">
+                {{labele[i]}}
             </li>
         </ul>
     </div>

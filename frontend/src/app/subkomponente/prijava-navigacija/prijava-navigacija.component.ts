@@ -14,30 +14,12 @@ export class PrijavaNavigacijaComponent {
 
   @Input() trenutni:string = "osajtu"
 
+  ciljevi=["osajtu", "prijava", "prijavaAdministrator", "registracija", "promenaLozinke", "zaboravljenaLozinka"]
+  labele=["O sajtu", "Prijava", "Adminstracija", "Registracija", "Promena lozinke", "Zaboravljena lozinka"]
 
-  osajtu() {
-    if (this.trenutni == "osajtu") return;
-    this.ruter.navigate(["osajtu"]);
-  }
-  prijava() {
-    if (this.trenutni == "prijava") return;
-    this.ruter.navigate(["prijava"]);
-  }
-  prijavaAdministrator() {
-    if (this.trenutni == "prijavaAdministrator") return;
-    this.ruter.navigate(["prijavaAdministrator"]);
-  }
-  registracija() {
-    if (this.trenutni == "registracija") return;
-    this.ruter.navigate(["registracija"]);
-  }
-  promenaLozinke() {
-    if (this.trenutni == "promenaLozinke") return;
-    this.ruter.navigate(["promenaLozinke"]);
-  }
-  zaboravljenaLozinka() {
-    if (this.trenutni == "zaboravljenaLozinka") return;
-    this.ruter.navigate(["zaboravljenaLozinka"]);
+  klik(cilj: string) {
+    if (this.trenutni == cilj) return;
+    else this.ruter.navigate([cilj]);
   }
   
 }

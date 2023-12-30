@@ -44,6 +44,7 @@ export class PrijavaComponent implements OnInit {
             this.ruter.navigate(["ucenikProfil"])
           } else if (data.tip == "Nastavnik") {
             //login nastavnik
+            this.ruter.navigate(["nastavnikProfil"])
           }
         }
       })

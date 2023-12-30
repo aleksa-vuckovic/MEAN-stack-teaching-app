@@ -26,6 +26,8 @@ import { VremeInputComponent } from './subkomponente/vreme-input/vreme-input.com
 import { DatumVremeInputComponent } from './subkomponente/datum-vreme-input/datum-vreme-input.component';
 import { KalendarComponent } from './subkomponente/kalendar/kalendar.component';
 import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.component';
+import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nastavnik-profil.component';
+import { NastavnikNavigacijaComponent } from './subkomponente/nastavnik-navigacija/nastavnik-navigacija.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.
     VremeInputComponent,
     DatumVremeInputComponent,
     KalendarComponent,
-    ZakazivanjeComponent
+    ZakazivanjeComponent,
+    NastavnikProfilComponent,
+    NastavnikNavigacijaComponent
   ],
   imports: [
     BrowserModule,

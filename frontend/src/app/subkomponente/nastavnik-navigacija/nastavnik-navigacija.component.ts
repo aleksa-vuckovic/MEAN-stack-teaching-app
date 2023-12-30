@@ -1,20 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { NastavnikService } from 'src/app/servisi/nastavnik.service';
 import { PrijavaService } from 'src/app/servisi/prijava.service';
 
 @Component({
-  selector: 'ucenik-navigacija',
-  templateUrl: './ucenik-navigacija.component.html',
-  styleUrls: ['./ucenik-navigacija.component.css']
+  selector: 'nastavnik-navigacija',
+  templateUrl: './nastavnik-navigacija.component.html',
+  styleUrls: ['./nastavnik-navigacija.component.css']
 })
-export class UcenikNavigacijaComponent {
+export class NastavnikNavigacijaComponent {
 
+  
   constructor(private ruter: Router, private servis: PrijavaService) {
   }
 
-  @Input() trenutni:string = "ucenikProfil"
-  ciljevi=["ucenikProfil","ucenikNastavnici","odjava"]
-  labele=["Profil", "Nastavnici", "Odjava"]
+  @Input() trenutni:string = "nastavnikProfil"
+  ciljevi=["nastavnikProfil", "odjava"]
+  labele=["Profil", "Odjava"]
 
   klik(cilj: string) {
     if (cilj == "odjava") {
