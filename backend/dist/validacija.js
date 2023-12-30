@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validacija = void 0;
 const db_1 = require("./db");
 const image_size_1 = __importDefault(require("image-size"));
+const utils_1 = require("./utils");
 let lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
 let telefonRegex = /^\+381( *\d){8,9}$/;
 let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
@@ -185,6 +186,18 @@ class Validacija {
         }
         if (greska == "" && kor.tip == "Nastavnik") {
             //...
+            if (!ulaz.predmeti)
+                izlaz.predmeti = [];
+            else if (!Array.isArray(ulaz.predmeti))
+                izlaz.predmeti = [ulaz.predmeti];
+            else
+                izlaz.predmeti = ulaz.predmeti;
+            if (!ulaz.uzrasti)
+                izlaz.uzrasti = [];
+            else if (!Array.isArray(ulaz.uzrasti))
+                izlaz.uzrasti = [ulaz.uzrasti];
+            else
+                izlaz.uzrasti = ulaz.uzrasti;
         }
         return new Promise((resolve, reject) => {
             if (greska != "")
@@ -198,6 +211,13 @@ class Validacija {
                 });
             }
         });
+    }
+    static odgovaraUzrast(korisnik, nastavnik) {
+        let uzrast = utils_1.Utils.uzrast(korisnik);
+        if (nastavnik.uzrasti.indexOf(uzrast) == -1)
+            return false;
+        else
+            return true;
     }
 }
 exports.Validacija = Validacija;

@@ -23,5 +23,10 @@ export class Utils {
     static slikaPrefiks() {
         return "http://localhost:4000";
     }
+    static uzrast(korisnik: any) {
+        if (korisnik.skola != "Osnovna") return "Srednja";
+        else if (korisnik.razred > 4) return "Osnovna 5-8";
+        else return "Osnovna 1-4";
+    }
 
 }

@@ -173,11 +173,16 @@ class PrijavaKontroler {
             });
         };
         this.statistika = (req, res) => {
-            db_1.DB.statistika().then((ret) => {
-                if (ret)
-                    res.json({ poruka: "ok", podaci: ret });
-                else
-                    res.json({ poruka: "Greska u bazi.", podaci: { brojNastavnika: 0, brojUcenika: 0 } });
+            db_1.DB.brojAktivnihNastavnika().then((retBrojNastavnika) => {
+                db_1.DB.brojAktivnihUcenika().then((retBrojUcenika) => {
+                    res.json({
+                        poruka: "ok",
+                        podaci: {
+                            brojNastavnika: retBrojNastavnika,
+                            brojUcenika: retBrojUcenika
+                        }
+                    });
+                });
             });
         };
         this.nastavniciPretraga = (req, res) => {

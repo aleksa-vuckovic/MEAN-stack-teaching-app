@@ -1,2 +1,2 @@
-<img src = "../../../assets/zvezda-puna.png" *ngFor='let elem of niz(1, broj)' [attr.width]="visina" (click)="klik(elem)" [class.enabled]="!disabled">
-<img src = "../../../assets/zvezda-prazna.png" *ngFor='let elem of niz(broj+1, 5)' [attr.width]="visina" (click)="klik(elem)" [class.enabled]="!disabled">
+<img src = "../../../assets/zvezda-puna.png" *ngFor='let elem of niz(1, brojPunih())' [attr.width]="visina" (click)="klik(elem)" [class.enabled]="!disabled">
+<img src = "../../../assets/zvezda-prazna.png" *ngFor='let elem of niz(brojPunih()+1, brojPunih() + brojPraznih())' [attr.width]="visina" (click)="klik(elem)" [class.enabled]="!disabled">

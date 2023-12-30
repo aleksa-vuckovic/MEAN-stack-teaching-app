@@ -8,7 +8,7 @@ export class NastavnikService {
 
   constructor(private http: HttpClient) {  }
 
-  url = "http://localhost:4000/ucenik/";
+  url = "http://localhost:4000/nastavnik/";
   opcije = {
     withCredentials: true
   }
@@ -17,5 +17,16 @@ export class NastavnikService {
     headers: new HttpHeaders({
       'enctype': 'multipart/form-data'
     })
+  }
+
+  profilAzuriranje(podaci: FormData) {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data'
+    });
+    return this.http.post(this.url+"profilazuriranje", podaci, this.opcijeMultipart);
+  }
+
+  profilPodaci() {
+    return this.http.get(this.url + "profilpodaci", this.opcije);
   }
 }

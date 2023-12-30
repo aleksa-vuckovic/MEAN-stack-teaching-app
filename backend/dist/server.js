@@ -11,6 +11,7 @@ const prijavaRuter_1 = __importDefault(require("./ruteri/prijavaRuter"));
 const express_session_1 = __importDefault(require("express-session"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const ucenikRuter_1 = __importDefault(require("./ruteri/ucenikRuter"));
+const nastavnikRuter_1 = __importDefault(require("./ruteri/nastavnikRuter"));
 /*
 Svi odgovori su u json formatu
     {
@@ -43,4 +44,5 @@ app.use(express_1.default.json());
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, "..", "uploads")));
 app.use("/", prijavaRuter_1.default);
 app.use("/ucenik", ucenikRuter_1.default);
+app.use("/nastavnik", nastavnikRuter_1.default);
 app.listen(4000, () => console.log(`Express server running on port 4000`));

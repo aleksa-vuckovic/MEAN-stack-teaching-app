@@ -41,7 +41,7 @@ class UcenikKontroler {
                         res.json({ poruka: ret });
                     }
                     else {
-                        db_1.DB.ucenikProfilPodaci(kor.kime).then((ret => {
+                        db_1.DB.ucenikPodaci(kor.kime).then((ret => {
                             res.json({ poruka: "ok", podaci: ret });
                         }));
                     }
@@ -52,7 +52,7 @@ class UcenikKontroler {
             let kor = this.autorizacija(req, res);
             if (!kor)
                 return;
-            db_1.DB.ucenikProfilPodaci(kor.kime).then(ret => {
+            db_1.DB.ucenikPodaci(kor.kime).then(ret => {
                 if (ret == null)
                     res.json({ poruka: "Greska u bazi." });
                 else
@@ -75,14 +75,23 @@ class UcenikKontroler {
         this.nastavnikProfilPodaci = (req, res) => {
             //let kor = this.autorizacija(req, res);
             //if (!kor) return;
-            if (!req.query.kime)
+            let kime = req.query.kime;
+            if (!kime)
                 res.json({ poruka: "Nedostaje argument." });
             else
-                db_1.DB.nastavnikProfilPodaci(req.query.kime).then((ret) => {
-                    if (ret)
-                        res.json({ poruka: "ok", podaci: ret });
+                db_1.DB.nastavnikPodaci(kime).then((ret) => {
+                    if (!ret)
+                        res.json({ poruka: "Nastavnik ne postoji." });
                     else
-                        res.json({ poruka: "Greska u bazi." });
+                        db_1.DB.nastavnikOcena(kime).then((retOcena) => {
+                            db_1.DB.nastavnikKomentari(kime).then((retKomentari) => {
+                                delete ret.adresa;
+                                delete ret.cv; //ucenik ne bi trebalo da vidi ove podatke
+                                ret.komentari = retKomentari;
+                                ret.ocena = retOcena;
+                                res.json({ poruka: "ok", podaci: ret });
+                            });
+                        });
                 });
         };
         this.nastavnikTermini = (req, res) => {
@@ -114,8 +123,10 @@ class UcenikKontroler {
                     res.json({ poruka: "Ne mozete zakazivati prosle termine." });
                 else
                     db_1.DB.korisnikPoKime(t.nastavnik).then((ret) => {
-                        if (!ret)
+                        if (!ret || ret.tip != "Nastavnik")
                             res.json({ poruka: "Nastavnik ne postoji." });
+                        else if (!validacija_1.Validacija.odgovaraUzrast(kor, ret))
+                            res.json({ poruka: "Izabrani nastavnik ne drzi casove ucenicima vaseg uzrasta." });
                         else
                             db_1.DB.nastavnikNedostupan(t.nastavnik, od, do_).then((ret) => {
                                 if (ret)

@@ -17,7 +17,6 @@ export class DB {
             })
         })   
     }
-
     static korisnikPoMejlu(mejl: String): Promise<any> {
         return new Promise((resolve, reject) => {
             korisnikModel.findOne({mejl: mejl}).then(res => {
@@ -27,7 +26,6 @@ export class DB {
             })
         })  
     }
-
     static dodajKorisnika(kor: any): Promise<string> {
         return new Promise((resolve, reject) => {
             korisnikModel.insertMany([kor]).then(res => {
@@ -37,7 +35,6 @@ export class DB {
             })
         })
     }
-
     static promeniLozinku(kime: string, nova: string): Promise<string> {
         return new Promise((resolve, reject) => {
             korisnikModel.updateOne({kime: kime}, {$set: {lozinka: nova}}).then(res => {
@@ -59,44 +56,38 @@ export class DB {
         })
     }
 
-    /* Vraca {
-        brojNastavnika: x
-        brojUcenika: y
+    static brojAktivnihNastavnika(): Promise<number> {
+        return new Promise((resolve, reject) => {
+            korisnikModel.aggregate([
+                {
+                $match: {
+                    tip: 'Nastavnik', 
+                    odobren: true, 
+                    aktivan: true
+                }
+                }, {
+                $count: 'broj'
+                }
+            ]).then((res: Array<any>) => {
+                resolve(res[0].broj);
+            })
+        })
     }
-    */
-    static statistika(): Promise<any> {
+    static brojAktivnihUcenika(): Promise<number> {
         return new Promise((resolve, reject) => {
             korisnikModel.aggregate([
                 {
                   $match: {
-                    tip: 'Nastavnik', 
+                    tip: 'Ucenik', 
                     odobren: true, 
                     aktivan: true
                   }
                 }, {
                   $count: 'broj'
                 }
-              ]).then((res: any) => {
-                let brojNastavnika = res[0].broj;
-
-                korisnikModel.aggregate([
-                    {
-                      $match: {
-                        tip: 'Ucenik', 
-                        odobren: true, 
-                        aktivan: true
-                      }
-                    }, {
-                      $count: 'broj'
-                    }
-                  ]).then((res: any) => {
-                    let brojUcenika = res[0].broj;
-                    resolve({
-                        brojNastavnika: brojNastavnika,
-                        brojUcenika: brojUcenika
-                    })
-                  }).catch(err => {resolve(null);})
-              }).catch(err => { resolve(null); })
+            ]).then((res: Array<any>) => {
+                resolve(res[0].broj);
+            })
         })
     }
 
@@ -116,7 +107,7 @@ export class DB {
               }
             }
         }
-        ];
+    ];
     static nastavniciPretraga(pretraga: any, ocene: boolean = false, kime: boolean = false): Promise<Array<any>> {
         let upit: any = {}
         if (pretraga.ime && pretraga.ime != "") upit.ime = {$regex: new RegExp(pretraga.ime, 'i')}
@@ -171,8 +162,7 @@ export class DB {
         })
     }
 
-    static ucenikProfilPodaci(kime: string): Promise<any> {
-        //ime, prezime, skola, razred, mejl, adresa, telefon
+    static ucenikPodaci(kime: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res: any) => {
                 if (res == null) resolve(null);
@@ -190,77 +180,84 @@ export class DB {
         })
     }
 
-    static nastavnikProfilPodaci(kime: string): Promise<any> {
-        //ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari
-        return new Promise((resolve, reject) => { 
-            korisnikModel.findOne({kime: kime}).then(res => {
-                if (!res) resolve(null);
-                else {
-                    casModel.aggregate([
-                        {
-                            $match: {
-                                nastavnik: kime,
-                                ocenaUcenik: {$ne: null}
-                            }
-                        },
-                        {
-                            $lookup: {
-                                from: "korisnici",
-                                localField: "ucenik",
-                                foreignField: "kime",
-                                as: "ostalo"
-                            }
-                        },
-                        {
-                            $unwind: {path: "$ostalo"}
+    static nastavnikOcena(kime: string): Promise<number> {
+        return new Promise((resolve, reject) => {
+            casModel.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        ocenaUcenik: {$ne: null}
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        ocena: {
+                            $avg: "$ocenaUcenik"
                         }
-                        ,
-                        {
-                            $project: {
-                                _id: 0,
-                                ocena: "$ocenaUcenik",
-                                komentar: "$komentarUcenik",
-                                kime: "$ostalo.kime",
-                                profil: {$concat: [Utils.slikaPrefiks(), "$ostalo.profil"]},
-                                ime: "$ostalo.ime",
-                                prezime: "$ostalo.prezime"
-                            }
-                        }
-                    ]).then((res2: any) => {
-                        if (!res2) resolve(null);
-                        else casModel.aggregate([
-                            {
-                                $match: {
-                                    nastavnik: kime,
-                                    ocenaUcenik: {$ne: null}
-                                }
-                            },
-                            {
-                                $group: {
-                                    _id: null,
-                                    ocena: {
-                                        $avg: "$ocenaUcenik"
-                                    }
-                                }
-                            }
-                        ]).then((res3: Array<any>) => {
-                            resolve({
-                                ime: res.ime,
-                                prezime: res.prezime,
-                                profil: Utils.slikaUrl(res.profil as string),
-                                mejl: res.mejl,
-                                telefon: res.telefon,
-                                predmeti: res.predmeti,
-                                ocena: res3[0].ocena,
-                                komentari: res2
-                            });
-                        })
-                    })
+                    }
                 }
+            ]).then((res: Array<any>) => {
+                if (res.length > 0) resolve(res[0].ocena);
+                else resolve(0);
             })
         })
     }
-
+    static nastavnikKomentari(kime: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            casModel.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        ocenaUcenik: {$ne: null}
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ostalo"
+                    }
+                },
+                {
+                    $unwind: {path: "$ostalo"}
+                }
+                ,
+                {
+                    $project: {
+                        _id: 0,
+                        ocena: "$ocenaUcenik",
+                        komentar: "$komentarUcenik",
+                        kime: "$ostalo.kime",
+                        profil: {$concat: [Utils.slikaPrefiks(), "$ostalo.profil"]},
+                        ime: "$ostalo.ime",
+                        prezime: "$ostalo.prezime"
+                    }
+                }
+            ]).then((res:Array<any>) => {
+                resolve(res);
+            })
+        })
+    }
+    static nastavnikPodaci(kime: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            korisnikModel.findOne({kime: kime, tip: "Nastavnik"}).then((res: any) => {
+                if (!res) resolve(null);
+                else resolve({
+                    ime: res.ime,
+                    prezime: res.prezime,
+                    mejl: res.mejl,
+                    adresa: res.adresa,
+                    telefon: res.telefon,
+                    profil: Utils.slikaUrl(res.profil as string),
+                    predmeti: res.predmeti,
+                    uzrasti: res.uzrasti,
+                    cv: Utils.slikaUrl(res.cv as string)
+                })
+            })
+        })
+    }
 
     /*
     Ako postoji nedostupnost vraca je u obliku 
@@ -330,7 +327,6 @@ export class DB {
             }
         })
     }
-
     /*
         Ako nastavnik ima neotkazan i neodbijen cas u zadatom intervalu, vraca objekat:
         {
@@ -364,13 +360,12 @@ export class DB {
             })
         })
     }
-
     static nastavnikTerminStatus(kime: string, datum: DatumVreme, slot: number, detaljno: boolean) {
         let od = datum.dodajVreme(slot*30);
         let do_ = od.dodajVreme(30);
 
         return new Promise((resolve, reject) => {
-            if (od.proslost()) resolve({status: 5, rb: 1, duzina: 1, tekst: ""})
+            if (od.proslost()) resolve({status: 5, rb: 1, duzina: 1, tekst: ""}) //proslost
             else this.nastavnikNedostupan(kime, od, do_).then((res: any) => {
                 if (res) {
                     resolve({
@@ -423,7 +418,6 @@ export class DB {
             })
         })
     }
-
     static nastavnikTerminStatusZaDan(kime: string, dan: DatumVreme, detaljno: boolean): Promise<any> {
         let ret: Array<any> = Array(48);
         let complete = 0;

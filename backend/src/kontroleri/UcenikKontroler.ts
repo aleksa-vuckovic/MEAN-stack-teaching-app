@@ -33,7 +33,7 @@ export class UcenikKontroler {
                     res.json({poruka: ret})
                 }
                 else {
-                    DB.ucenikProfilPodaci(kor.kime).then((ret => {
+                    DB.ucenikPodaci(kor.kime).then((ret => {
                         res.json({poruka: "ok", podaci: ret})
                     }))
                 }
@@ -44,7 +44,7 @@ export class UcenikKontroler {
     profilPodaci = (req: express.Request, res: express.Response) => {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
-        DB.ucenikProfilPodaci(kor.kime).then(ret => {
+        DB.ucenikPodaci(kor.kime).then(ret => {
             if (ret == null) res.json({poruka: "Greska u bazi."});
             else res.json({poruka: "ok", podaci: ret})
         })
@@ -64,10 +64,19 @@ export class UcenikKontroler {
     nastavnikProfilPodaci = (req: express.Request, res: express.Response) => {
         //let kor = this.autorizacija(req, res);
         //if (!kor) return;
-        if (!req.query.kime) res.json({poruka: "Nedostaje argument."})
-        else DB.nastavnikProfilPodaci(req.query.kime as string).then((ret: any) => {
-            if (ret) res.json({poruka: "ok", podaci: ret});
-            else res.json({poruka: "Greska u bazi."});
+        let kime = req.query.kime as string;
+        if (!kime) res.json({poruka: "Nedostaje argument."})
+        else DB.nastavnikPodaci(kime).then((ret: any) => {
+            if(!ret) res.json({poruka: "Nastavnik ne postoji."});
+            else DB.nastavnikOcena(kime).then((retOcena: number) => {
+                DB.nastavnikKomentari(kime).then((retKomentari: Array<any>) => {
+                    delete ret.adresa;
+                    delete ret.cv; //ucenik ne bi trebalo da vidi ove podatke
+                    ret.komentari = retKomentari;
+                    ret.ocena = retOcena;
+                    res.json({poruka: "ok", podaci: ret});
+                })
+            })
         })
     }
 
@@ -93,7 +102,8 @@ export class UcenikKontroler {
             let do_ = od.dodajVreme(t.trajanje);
             if (od.proslost()) res.json({poruka: "Ne mozete zakazivati prosle termine."})
             else DB.korisnikPoKime(t.nastavnik).then((ret: any) => {
-                if (!ret) res.json({poruka: "Nastavnik ne postoji."})
+                if (!ret || ret.tip != "Nastavnik") res.json({poruka: "Nastavnik ne postoji."})
+                else if (!Validacija.odgovaraUzrast(kor, ret)) res.json({poruka: "Izabrani nastavnik ne drzi casove ucenicima vaseg uzrasta."})
                 else DB.nastavnikNedostupan(t.nastavnik, od, do_).then((ret: any) => {
                     if (ret) res.json({poruka: "Nastavnik nije dostupan u periodu od " + ret.od.vremeString() + " do " + ret.do.vremeString()})
                     else DB.nastavnikRadi(t.nastavnik, od, do_).then((ret: any) => {

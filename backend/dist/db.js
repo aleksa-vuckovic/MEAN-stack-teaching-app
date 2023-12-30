@@ -58,12 +58,7 @@ class DB {
             });
         });
     }
-    /* Vraca {
-        brojNastavnika: x
-        brojUcenika: y
-    }
-    */
-    static statistika() {
+    static brojAktivnihNastavnika() {
         return new Promise((resolve, reject) => {
             Korisnik_1.default.aggregate([
                 {
@@ -76,25 +71,25 @@ class DB {
                     $count: 'broj'
                 }
             ]).then((res) => {
-                let brojNastavnika = res[0].broj;
-                Korisnik_1.default.aggregate([
-                    {
-                        $match: {
-                            tip: 'Ucenik',
-                            odobren: true,
-                            aktivan: true
-                        }
-                    }, {
-                        $count: 'broj'
+                resolve(res[0].broj);
+            });
+        });
+    }
+    static brojAktivnihUcenika() {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: 'Ucenik',
+                        odobren: true,
+                        aktivan: true
                     }
-                ]).then((res) => {
-                    let brojUcenika = res[0].broj;
-                    resolve({
-                        brojNastavnika: brojNastavnika,
-                        brojUcenika: brojUcenika
-                    });
-                }).catch(err => { resolve(null); });
-            }).catch(err => { resolve(null); });
+                }, {
+                    $count: 'broj'
+                }
+            ]).then((res) => {
+                resolve(res[0].broj);
+            });
         });
     }
     static nastavniciPretraga(pretraga, ocene = false, kime = false) {
@@ -159,8 +154,7 @@ class DB {
             });
         });
     }
-    static ucenikProfilPodaci(kime) {
-        //ime, prezime, skola, razred, mejl, adresa, telefon
+    static ucenikPodaci(kime) {
         return new Promise((resolve, reject) => {
             this.korisnikPoKime(kime).then((res) => {
                 if (res == null)
@@ -179,75 +173,84 @@ class DB {
             });
         });
     }
-    static nastavnikProfilPodaci(kime) {
-        //ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari
+    static nastavnikOcena(kime) {
         return new Promise((resolve, reject) => {
-            Korisnik_1.default.findOne({ kime: kime }).then(res => {
+            Cas_1.default.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        ocenaUcenik: { $ne: null }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        ocena: {
+                            $avg: "$ocenaUcenik"
+                        }
+                    }
+                }
+            ]).then((res) => {
+                if (res.length > 0)
+                    resolve(res[0].ocena);
+                else
+                    resolve(0);
+            });
+        });
+    }
+    static nastavnikKomentari(kime) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        ocenaUcenik: { $ne: null }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ostalo"
+                    }
+                },
+                {
+                    $unwind: { path: "$ostalo" }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        ocena: "$ocenaUcenik",
+                        komentar: "$komentarUcenik",
+                        kime: "$ostalo.kime",
+                        profil: { $concat: [utils_1.Utils.slikaPrefiks(), "$ostalo.profil"] },
+                        ime: "$ostalo.ime",
+                        prezime: "$ostalo.prezime"
+                    }
+                }
+            ]).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+    static nastavnikPodaci(kime) {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik" }).then((res) => {
                 if (!res)
                     resolve(null);
-                else {
-                    Cas_1.default.aggregate([
-                        {
-                            $match: {
-                                nastavnik: kime,
-                                ocenaUcenik: { $ne: null }
-                            }
-                        },
-                        {
-                            $lookup: {
-                                from: "korisnici",
-                                localField: "ucenik",
-                                foreignField: "kime",
-                                as: "ostalo"
-                            }
-                        },
-                        {
-                            $unwind: { path: "$ostalo" }
-                        },
-                        {
-                            $project: {
-                                _id: 0,
-                                ocena: "$ocenaUcenik",
-                                komentar: "$komentarUcenik",
-                                kime: "$ostalo.kime",
-                                profil: { $concat: [utils_1.Utils.slikaPrefiks(), "$ostalo.profil"] },
-                                ime: "$ostalo.ime",
-                                prezime: "$ostalo.prezime"
-                            }
-                        }
-                    ]).then((res2) => {
-                        if (!res2)
-                            resolve(null);
-                        else
-                            Cas_1.default.aggregate([
-                                {
-                                    $match: {
-                                        nastavnik: kime,
-                                        ocenaUcenik: { $ne: null }
-                                    }
-                                },
-                                {
-                                    $group: {
-                                        _id: null,
-                                        ocena: {
-                                            $avg: "$ocenaUcenik"
-                                        }
-                                    }
-                                }
-                            ]).then((res3) => {
-                                resolve({
-                                    ime: res.ime,
-                                    prezime: res.prezime,
-                                    profil: utils_1.Utils.slikaUrl(res.profil),
-                                    mejl: res.mejl,
-                                    telefon: res.telefon,
-                                    predmeti: res.predmeti,
-                                    ocena: res3[0].ocena,
-                                    komentari: res2
-                                });
-                            });
+                else
+                    resolve({
+                        ime: res.ime,
+                        prezime: res.prezime,
+                        mejl: res.mejl,
+                        adresa: res.adresa,
+                        telefon: res.telefon,
+                        profil: utils_1.Utils.slikaUrl(res.profil),
+                        predmeti: res.predmeti,
+                        uzrasti: res.uzrasti,
+                        cv: utils_1.Utils.slikaUrl(res.cv)
                     });
-                }
             });
         });
     }
@@ -366,7 +369,7 @@ class DB {
         let do_ = od.dodajVreme(30);
         return new Promise((resolve, reject) => {
             if (od.proslost())
-                resolve({ status: 5, rb: 1, duzina: 1, tekst: "" });
+                resolve({ status: 5, rb: 1, duzina: 1, tekst: "" }); //proslost
             else
                 this.nastavnikNedostupan(kime, od, do_).then((res) => {
                     if (res) {

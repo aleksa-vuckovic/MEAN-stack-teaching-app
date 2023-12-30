@@ -53,4 +53,11 @@ export class ZvezdeComponent implements ControlValueAccessor {
       this.naKlik.emit(i);
     }
   }
+
+  brojPunih() {
+    return Math.round(this.broj);
+  }
+  brojPraznih() {
+    return 5 - this.brojPunih();
+  }
 }

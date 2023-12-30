@@ -2,6 +2,7 @@ import { DB } from "./db"
 import fs from 'fs';
 import path from 'path';
 import imagesize from 'image-size';
+import { Utils } from "./utils";
 
 let lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
 let telefonRegex = /^\+381( *\d){8,9}$/;
@@ -133,6 +134,12 @@ export class Validacija {
 
         if (greska == "" && kor.tip == "Nastavnik") {
             //...
+            if (!ulaz.predmeti) izlaz.predmeti = []
+            else if (!Array.isArray(ulaz.predmeti)) izlaz.predmeti = [ulaz.predmeti];
+            else izlaz.predmeti = ulaz.predmeti;
+            if (!ulaz.uzrasti) izlaz.uzrasti = []
+            else if (!Array.isArray(ulaz.uzrasti)) izlaz.uzrasti = [ulaz.uzrasti];
+            else izlaz.uzrasti = ulaz.uzrasti;
         }
 
         return new Promise((resolve, reject) => {
@@ -144,5 +151,11 @@ export class Validacija {
                 })
             }
         })
+    }
+
+    static odgovaraUzrast(korisnik: any, nastavnik: any): boolean {
+        let uzrast = Utils.uzrast(korisnik);
+        if (nastavnik.uzrasti.indexOf(uzrast) == -1) return false;
+        else return true;
     }
 }

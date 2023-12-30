@@ -151,9 +151,16 @@ export class PrijavaKontroler {
     }
 
     statistika = (req: express.Request, res:express.Response) => {
-        DB.statistika().then((ret: any) => {
-            if (ret) res.json({poruka: "ok", podaci: ret})
-            else res.json({poruka: "Greska u bazi.", podaci: {brojNastavnika: 0, brojUcenika: 0}})
+        DB.brojAktivnihNastavnika().then((retBrojNastavnika: number) => {
+            DB.brojAktivnihUcenika().then((retBrojUcenika: number) => {
+                res.json( {
+                    poruka: "ok",
+                    podaci: {
+                    brojNastavnika: retBrojNastavnika,
+                    brojUcenika: retBrojUcenika
+                    }
+                })
+            })
         })
     }
 

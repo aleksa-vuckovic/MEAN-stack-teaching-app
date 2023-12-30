@@ -25,8 +25,8 @@ export class UcenikNastavnikComponent {
         ime: "Ime",
         prezime: "Prezima"
       }
-    ]
-  }
+      ]
+    }
 
   constructor (private servis: UcenikService, private ruter: Router) {
     let kime = localStorage.getItem("nastavnik") ?? "";
@@ -38,9 +38,5 @@ export class UcenikNastavnikComponent {
 
   zakazi() {
     this.ruter.navigate(["zakazivanje"]);
-  }
-
-  zaokruzi(br: number) {
-    return Math.round(br);
   }
 }
