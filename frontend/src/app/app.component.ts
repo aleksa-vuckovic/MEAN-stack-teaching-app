@@ -12,4 +12,11 @@ import * as bootstrap from 'bootstrap';
 export class AppComponent {
   title = 'frontend';
   
+  radnovreme = {
+    od: 0,
+    do: 24*60
+  }
+  promena() {
+    console.log(this.radnovreme)
+  }
 }

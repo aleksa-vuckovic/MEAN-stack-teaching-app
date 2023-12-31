@@ -4,6 +4,7 @@ exports.NastavnikKontroler = void 0;
 const validacija_1 = require("../validacija");
 const utils_1 = require("../utils");
 const db_1 = require("../db");
+const DatumVreme_1 = require("../DatumVreme");
 class NastavnikKontroler {
     constructor() {
         this.autorizacija = (req, res) => {
@@ -41,7 +42,10 @@ class NastavnikKontroler {
                     }
                     else {
                         db_1.DB.nastavnikPodaci(kor.kime).then((ret => {
-                            res.json({ poruka: "ok", podaci: ret });
+                            db_1.DB.nastavnikOcena(kor.kime).then((retOcena) => {
+                                ret.ocena = retOcena;
+                                res.json({ poruka: "ok", podaci: ret });
+                            });
                         }));
                     }
                 });
@@ -61,6 +65,41 @@ class NastavnikKontroler {
                     });
                 }
             });
+        };
+        this.termini = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body || !req.body.datum)
+                res.json({ poruka: "Nedostaju argumenti." });
+            else
+                db_1.DB.nastavnikTerminStatusZaDan(kor.kime, new DatumVreme_1.DatumVreme(req.body.datum), true).then((ret) => {
+                    res.json({ poruka: "ok", podaci: ret });
+                });
+        };
+        this.radnovreme = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            db_1.DB.radnovreme(kor.kime).then((ret) => {
+                if (!ret)
+                    res.json({ poruka: "Greska u bazi." });
+                else
+                    res.json({ poruka: "ok", podaci: ret });
+            });
+        };
+        this.radnovremeAzuriranje = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let izlaz = {};
+            let ret = validacija_1.Validacija.radnovremeValidacija(req.body, izlaz);
+            if (ret != "ok")
+                res.json({ poruka: ret });
+            else
+                db_1.DB.azurirajRadnovreme(kor.kime, izlaz).then((ret) => {
+                    res.json({ poruka: ret });
+                });
         };
     }
 }

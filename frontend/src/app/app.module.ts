@@ -28,6 +28,8 @@ import { KalendarComponent } from './subkomponente/kalendar/kalendar.component';
 import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.component';
 import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nastavnik-profil.component';
 import { NastavnikNavigacijaComponent } from './subkomponente/nastavnik-navigacija/nastavnik-navigacija.component';
+import { NastavnikKalendarComponent } from './ruterkomponente/nastavnik-kalendar/nastavnik-kalendar.component';
+import { RadnovremeInputComponent } from './subkomponente/radnovreme-input/radnovreme-input.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { NastavnikNavigacijaComponent } from './subkomponente/nastavnik-navigaci
     KalendarComponent,
     ZakazivanjeComponent,
     NastavnikProfilComponent,
-    NastavnikNavigacijaComponent
+    NastavnikNavigacijaComponent,
+    NastavnikKalendarComponent,
+    RadnovremeInputComponent
   ],
   imports: [
     BrowserModule,

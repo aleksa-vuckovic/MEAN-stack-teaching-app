@@ -1,0 +1,11 @@
+table.radnovreme td {
+    padding: 5px
+}
+table.radnovreme td.labela {
+    font-weight: bold;
+    padding-right: 30px;
+}
+table.radnovreme tr {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}

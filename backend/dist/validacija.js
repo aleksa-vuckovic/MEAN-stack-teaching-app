@@ -219,5 +219,25 @@ class Validacija {
         else
             return true;
     }
+    static radnovremeValidacija(radnovreme, izlaz) {
+        if (!radnovreme)
+            return "Fale podaci.";
+        let keys = ["0", "1", "2", "3", "4", "5", "6"];
+        for (let key of keys) {
+            if (!radnovreme[key])
+                return "Fale podaci.";
+            if (radnovreme[key].od > radnovreme[key].do)
+                return "Pocetak radnog vremena ne moze biti posle kraja.";
+            if (radnovreme[key].od < 0)
+                return "Nevalidan pocetak radnog vremena.";
+            if (radnovreme[key].do > 24 * 60)
+                return "Nevalidan kraj radnog vremena.";
+            izlaz[key] = {
+                od: radnovreme[key].od,
+                do: radnovreme[key].do
+            };
+        }
+        return "ok";
+    }
 }
 exports.Validacija = Validacija;

@@ -19,5 +19,17 @@ nastavnikRuter.route("/profilpodaci").get((req, res) => {
     new NastavnikKontroler().profilPodaci(req, res);
 })
 
+nastavnikRuter.route("/termini").post((req, res) => {
+    new NastavnikKontroler().termini(req, res);
+})
+
+nastavnikRuter.route("/radnovreme").get((req, res) => {
+    new NastavnikKontroler().radnovreme(req, res);
+})
+
+nastavnikRuter.route("/radnovremeazuriranje").post((req, res) => {
+    new NastavnikKontroler().radnovremeAzuriranje(req, res)
+})
+
 
 export default nastavnikRuter;

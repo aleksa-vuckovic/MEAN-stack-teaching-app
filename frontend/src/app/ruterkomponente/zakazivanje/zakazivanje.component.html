@@ -9,19 +9,23 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            <div class="mb-3" *ngIf="kalendar==false">
-                <label for="datumvreme1" class="form-label">Odaberite datum i vreme</label>
-                &nbsp; &nbsp;<button (click)="kalendar = true" class = "btn btn-secondary m-1">Predji na detaljan pregled</button>
-                <datum-vreme-input id="datumvreme1" [(ngModel)]="datumvreme1"/>
+            <div class="col-12" *ngIf="kalendar==false">
+                <div class="mb-3">
+                    <label for="datumvreme1" class="form-label">Odaberite datum i vreme</label>
+                    &nbsp; &nbsp;<button (click)="kalendar = true" class = "btn btn-secondary m-1">Predji na detaljan pregled</button>
+                    <datum-vreme-input id="datumvreme1" [(ngModel)]="datumvreme1"/>
+                </div>
             </div>
-            <div class="mb-3" *ngIf="kalendar">
-                <label for="saznao" class="form-label">Izaberite termin na kalendaru</label>
-                &nbsp; &nbsp;<button (click)="kalendar = false" class="btn btn-secondary m-1">Nazad</button>
-                <kalendar id="saznao" [(ngModel)]="datumvreme2" [podaci]="termini" [datum]="datum" [period]="period" [velicina]="velicina" (strelica)="kalendarStrelica($event)"/>
+            <div class="col-12" *ngIf="kalendar">
+                <div class="mb-3">
+                    <label for="datumvreme2" class="form-label">Izaberite termin na kalendaru</label>
+                    &nbsp; &nbsp;<button (click)="kalendar = false" class="btn btn-secondary m-1">Nazad</button>
+                    <kalendar id="datumvreme2" [(ngModel)]="datumvreme2" [podaci]="termini" [datum]="datum" [period]="period" [velicina]="velicina" (strelica)="kalendarStrelica($event)"/>
+                </div>
             </div>
         </div>
         <div class="row px-3 py-1">
-            <div class="col col-4">
+            <div class="col-4">
                 <div class="mb-3">
                     <input type="checkbox" class="form-check-input" [(ngModel)]="duplicas" id="duplicas">
                     &nbsp;<label for="duplicas" class="form-label">Zelim dupli cas.</label>

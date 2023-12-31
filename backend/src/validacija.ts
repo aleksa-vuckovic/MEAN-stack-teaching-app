@@ -158,4 +158,20 @@ export class Validacija {
         if (nastavnik.uzrasti.indexOf(uzrast) == -1) return false;
         else return true;
     }
+
+    static radnovremeValidacija(radnovreme: any, izlaz: any): string {
+        if (!radnovreme) return "Fale podaci."
+        let keys = ["0", "1", "2", "3", "4", "5", "6"];
+        for (let key of keys) {
+            if (!radnovreme[key]) return "Fale podaci."
+            if (radnovreme[key].od > radnovreme[key].do) return "Pocetak radnog vremena ne moze biti posle kraja."
+            if (radnovreme[key].od < 0) return "Nevalidan pocetak radnog vremena."
+            if (radnovreme[key].do > 24*60) return "Nevalidan kraj radnog vremena."
+            izlaz[key] = {
+                od: radnovreme[key].od,
+                do: radnovreme[key].do
+            }
+        }
+        return "ok"
+    }
 }

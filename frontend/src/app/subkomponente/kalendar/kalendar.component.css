@@ -18,6 +18,11 @@ table.kalendar td.sat {
     vertical-align: bottom;
     text-align: start;
 }
+table.kalendar td.slot {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 10px;
+}
 table.kalendar td.slobodan {
     background-color: white;
 }
@@ -40,7 +45,7 @@ table.kalendar td.proslost {
 table.kalendar.enabled td.odabran {
     border-width: 5px;
 }
-table.kalendar.enabled td.slot:hover, table.kalendar.enabled td.kontrola:hover {
+table.kalendar.enabled td.slot:hover, table.kalendar td.kontrola:hover {
     border-width: 2px;
     cursor: pointer;
 }

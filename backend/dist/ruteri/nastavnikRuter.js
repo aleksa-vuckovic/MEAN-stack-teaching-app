@@ -20,4 +20,13 @@ nastavnikRuter.route("/profilazuriranje").post(upload.single("profil"), (req, re
 nastavnikRuter.route("/profilpodaci").get((req, res) => {
     new NastavnikKontroler_1.NastavnikKontroler().profilPodaci(req, res);
 });
+nastavnikRuter.route("/termini").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().termini(req, res);
+});
+nastavnikRuter.route("/radnovreme").get((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().radnovreme(req, res);
+});
+nastavnikRuter.route("/radnovremeazuriranje").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().radnovremeAzuriranje(req, res);
+});
 exports.default = nastavnikRuter;

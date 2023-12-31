@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatumVreme } from 'src/app/DatumVreme';
 
@@ -17,7 +17,7 @@ import { DatumVreme } from 'src/app/DatumVreme';
 export class VremeInputComponent implements ControlValueAccessor {
   private onChange = (vreme: number) => {}
   private onTouched = () => {}
-  private disabled = false;
+  @Input() disabled = false;
   private touched = false;
   writeValue(vreme: number): void {
     vreme = vreme - vreme%30;

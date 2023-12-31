@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <td>
+            Od
+        </td>
+        <td>
+            <vreme-input [(ngModel)]="od" [disabled]="disabled || neradan" (ngModelChange)="promena()" class="d-inline"/>
+        </td>
+        <td>
+            Do
+        </td>
+        <td>
+            <vreme-input [(ngModel)]="do" [disabled]="disabled || neradan" (ngModelChange)="promena()"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <input type="checkbox" class="form-check-input" [(ngModel)]="neradan" (ngModelChange)="promena()"> Neradan dan
+        </td>
+    </tr>
+</table>

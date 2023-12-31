@@ -58,5 +58,33 @@ export class NastavnikKontroler {
         })
     }
 
-    
+    termini = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.datum) res.json({poruka: "Nedostaju argumenti."})
+        else DB.nastavnikTerminStatusZaDan(kor.kime, new DatumVreme(req.body.datum), true).then((ret:any) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    radnovreme = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        DB.radnovreme(kor.kime).then((ret: any) => {
+            if (!ret) res.json({poruka: "Greska u bazi."})
+            else res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    radnovremeAzuriranje = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let izlaz: any = {};
+        let ret = Validacija.radnovremeValidacija(req.body, izlaz);
+        if (ret != "ok") res.json({poruka: ret})
+        else DB.azurirajRadnovreme(kor.kime, izlaz).then((ret: string) => {
+            res.json({poruka: ret})
+        })
+    }
+
 }

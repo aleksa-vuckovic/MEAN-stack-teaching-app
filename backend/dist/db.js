@@ -404,8 +404,8 @@ class DB {
                                             tekst: ""
                                         };
                                         if (detaljno)
-                                            DB.korisnikPoKime(res.ucenik).then((res) => {
-                                                ret.tekst = `${res.ime} ${res.prezime} (${res.predmet})`;
+                                            DB.korisnikPoKime(res.ucenik).then((ucenik) => {
+                                                ret.tekst = `${ucenik.ime} ${ucenik.prezime} (${res.predmet})`;
                                                 resolve(ret);
                                             });
                                         else
@@ -455,6 +455,26 @@ class DB {
                 resolve("ok");
             }).catch(err => {
                 resolve("Greska u bazi.");
+            });
+        });
+    }
+    static radnovreme(kime) {
+        return new Promise((resolve, reject) => {
+            DB.korisnikPoKime(kime).then((res) => {
+                if (!res || res.tip != "Nastavnik" || !res.radnovreme)
+                    resolve(null);
+                else
+                    resolve(res.radnovreme);
+            });
+        });
+    }
+    static azurirajRadnovreme(kime, radnovreme) {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.updateOne({ kime: kime }, { $set: { radnovreme: radnovreme } }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Greska u bazi.");
             });
         });
     }

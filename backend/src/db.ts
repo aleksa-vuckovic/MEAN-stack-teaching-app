@@ -397,8 +397,8 @@ export class DB {
                                         duzina: slotDo - slotOd + 1,
                                         tekst: ""
                                     };
-                                    if (detaljno) DB.korisnikPoKime(res.ucenik).then((res: any) => {
-                                        ret.tekst = `${res.ime} ${res.prezime} (${res.predmet})`;
+                                    if (detaljno) DB.korisnikPoKime(res.ucenik).then((ucenik: any) => {
+                                        ret.tekst = `${ucenik.ime} ${ucenik.prezime} (${res.predmet})`;
                                         resolve(ret);
                                     })
                                     else resolve(ret);
@@ -447,6 +447,24 @@ export class DB {
                 resolve("ok");
             }).catch(err => {
                 resolve("Greska u bazi.")
+            })
+        })
+    }
+
+
+    static radnovreme(kime: string) : Promise<any> {
+        return new Promise((resolve, reject) => {
+            DB.korisnikPoKime(kime).then((res: any) => {
+                if (!res || res.tip != "Nastavnik" || !res.radnovreme) resolve(null);
+                else resolve(res.radnovreme);
+            })
+        })
+    }
+    static azurirajRadnovreme(kime: string, radnovreme: any): Promise<string> {
+        return new Promise((resolve, reject) => {
+            korisnikModel.updateOne({kime: kime}, {$set: {radnovreme: radnovreme}}).then(res => {
+                if (res.modifiedCount > 0) resolve("ok")
+                else resolve("Greska u bazi.")
             })
         })
     }
