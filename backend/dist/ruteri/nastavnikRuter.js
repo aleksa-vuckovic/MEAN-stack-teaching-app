@@ -32,4 +32,10 @@ nastavnikRuter.route("/radnovremeazuriranje").post((req, res) => {
 nastavnikRuter.route("/nedostupnostazuriranje").post((req, res) => {
     new NastavnikKontroler_1.NastavnikKontroler().nedostupnostAzuriranje(req, res);
 });
+nastavnikRuter.route("/casovi").get((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().casovi(req, res);
+});
+nastavnikRuter.route("/otkazi").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().otkazi(req, res);
+});
 exports.default = nastavnikRuter;

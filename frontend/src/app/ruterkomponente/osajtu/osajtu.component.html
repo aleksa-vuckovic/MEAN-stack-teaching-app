@@ -25,29 +25,29 @@
         <div class="row px-3 py-1">
             <div class="col-10">
                 <h2>Nasi nastavnici:</h2>
-                <table class = "table table-striped border border-top-1">
+                <table class = "table table-striped border">
                     <thead>
                         <tr>
-                            <th scope = "col">
+                            <th>
                                 Ime
                             </th>
-                            <th scope = "col">
+                            <th>
                                 Prezime
                             </th>
-                            <th scope = "col">
+                            <th>
                                 Predmet
                             </th>
                         </tr>
                         <tr>
-                            <th scope = "col">
+                            <th>
                                 <input type="text" class ="border border-0" [(ngModel)]="pretraga.ime" (change)="osvezi()" placeholder = "Pretraga po imenu." >
                                 <i class="material-icons" (click)="klikSort('ime')">{{sort['ime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
                             </th>
-                            <th scope = "col">
+                            <th>
                                 <input type="text" class ="border border-0" [(ngModel)]="pretraga.prezime" (change)="osvezi()" placeholder = "Pretraga po prezimenu." >
                                 <i class="material-icons" (click)="klikSort('prezime')">{{sort['prezime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
                             </th>
-                            <th scope = "col">
+                            <th>
                                 <input type="text" class ="border border-0" [(ngModel)]="pretraga.predmet" (change)="osvezi()" placeholder = "Pretraga po predmetu." >
                                 <i class="material-icons" (click)="klikSort('predmet')">{{sort['predmet'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
                             </th>

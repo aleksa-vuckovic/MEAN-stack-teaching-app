@@ -488,6 +488,64 @@ class DB {
             });
         });
     }
+    static nastavnikCasovi(kime, limit) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        od: { $gt: DatumVreme_1.DatumVreme.sada().broj() },
+                        potvrdjen: { $ne: null },
+                        odbijen: { $eq: null },
+                        otkazan: { $eq: null }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ucenikPodaci"
+                    }
+                }, {
+                    $unwind: {
+                        path: "$ucenikPodaci"
+                    }
+                },
+                {
+                    $limit: limit
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        ime: "$ucenikPodaci.ime",
+                        prezime: "$ucenikPodaci.prezime",
+                    }
+                }
+            ]).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+    static otkaziCas(nastavnik, datum, obrazlozenje) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.updateOne({
+                nastavnik: nastavnik,
+                od: datum.broj(),
+                otkazan: { $eq: null }
+            }, {
+                $set: { otkazan: DatumVreme_1.DatumVreme.sada().broj(), komentarNastavnik: obrazlozenje }
+            }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Cas ne postoji u bazi.");
+            });
+        });
+    }
 }
 exports.DB = DB;
 DB.prosecnaOcenaPipeline = [

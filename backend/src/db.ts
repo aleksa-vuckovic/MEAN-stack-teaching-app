@@ -476,4 +476,63 @@ export class DB {
             })
         })
     }
+
+    static nastavnikCasovi(kime: string, limit: number): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            casModel.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        od: {$gt: DatumVreme.sada().broj()},
+                        potvrdjen: {$ne: null},
+                        odbijen: {$eq: null},
+                        otkazan: {$eq: null}
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ucenikPodaci"
+                    }
+                }, {
+                    $unwind: {
+                        path: "$ucenikPodaci"
+                    }
+                },
+                {
+                    $limit: limit
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        ime: "$ucenikPodaci.ime",
+                        prezime: "$ucenikPodaci.prezime",
+                    }
+                }
+            ]).then((res: Array<any>) => {
+                resolve(res)
+            })
+        })
+    }
+
+    static otkaziCas(nastavnik: string, datum: DatumVreme, obrazlozenje: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            casModel.updateOne({
+                nastavnik: nastavnik,
+                od: datum.broj(),
+                otkazan: {$eq: null}
+            },
+            {
+                $set: {otkazan: DatumVreme.sada().broj(), komentarNastavnik: obrazlozenje}
+            }).then(res => {
+                if (res.modifiedCount > 0) resolve("ok")
+                else resolve("Cas ne postoji u bazi.")
+            })
+        })
+    }
 }

@@ -98,4 +98,26 @@ export class NastavnikKontroler {
         })
     }
 
+    casovi = (req: express.Request, res:express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let limit = 5;
+        if (req.query.limit) limit = parseInt(req.query.limit as string);
+        if (isNaN(limit)) limit = 5;
+        DB.nastavnikCasovi(kor.kime, limit).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    otkazi = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json("Nedostaju podaci."); return; }
+        let od = new DatumVreme(req.body.od);
+        let ret = Validacija.otkazivanjeValidacija(od);
+        if (ret != "ok") res.json({poruka: ret})
+        else DB.otkaziCas(kor.kime, od, req.body.obrazlozenje).then((ret: string) => {
+            res.json({poruka: ret})
+        })
+    }
 }

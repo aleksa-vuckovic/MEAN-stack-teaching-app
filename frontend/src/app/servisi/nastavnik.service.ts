@@ -51,4 +51,15 @@ export class NastavnikService {
       do: do_.broj()
     }, this.opcije)
   }
+
+  casovi(limit: number) {
+    return this.http.get(this.url + "casovi?limit=" + limit, this.opcije);
+  }
+
+  otkazi(od: DatumVreme, obrazlozenje: string) {
+    return this.http.post(this.url + "otkazi", {
+      od: od.broj(),
+      obrazlozenje: obrazlozenje
+    }, this.opcije)
+  }
 }

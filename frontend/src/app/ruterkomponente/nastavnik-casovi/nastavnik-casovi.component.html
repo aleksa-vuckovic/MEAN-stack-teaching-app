@@ -1,0 +1,86 @@
+<div class="row">
+    <div class ="col-md-2 col-sm-12 bg-blue p-0">
+        <nastavnik-navigacija trenutni="nastavnikKalendar"></nastavnik-navigacija>
+    </div>
+    <div class="col-md-10 col-sm-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Casovi</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class = "col-12">
+                Prikazi: <select class="form-select d-inline" [(ngModel)]="limit" (ngModelChange)="osveziCasove()">
+                    <option selected value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="100">Sve</option>
+                  </select>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12">
+                <table  class = "table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>
+                                Termin
+                            </th>
+                            <th>
+                                Trajanje
+                            </th>
+                            <th>
+                                Predmet
+                            </th>
+                            <th>
+                                Ucenik
+                            </th>
+                            <th>
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let elem of casovi">
+                        <td>
+                            {{elem.od.datumVremeString()}}
+                        </td>
+                        <td>
+                            {{elem.trajanje}}
+                        </td>
+                        <td>
+                            {{elem.predmet}}
+                        </td>
+                        <td>
+                            {{elem.ime}} {{elem.prezime}}
+                        </td>
+                        <td>
+                            <button *ngIf="mogucOtkaz(elem.od)" class="btn btn-danger" (click)="otkazi(elem.od)">Otkazi</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Otkazivanje</h5>
+            </div>
+            <div class="modal-body">
+                <p>Otkazujete cas zakazan za {{otkazivanjeDatum.datumVremeString()}}.</p>
+                <label for="obrazlozenje" class="form-label">Ovde mozete uneti obrazlozenje.</label>
+                <textarea id="obrazlozenje" [(ngModel)]="obrazlozenje" class="form-control"></textarea>
+                <div class="form-text text-danger">{{greskaOtkazivanje}}</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="otkaziDefinitivno()">Otkazi</button>
+                &nbsp;
+                <button class="btn btn-secondary" data-bs-dismiss="modal" id="modal-zatvori">Odustani</button>
+            </div>
+        </div>
+    </div>
+</div>

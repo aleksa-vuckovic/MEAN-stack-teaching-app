@@ -34,7 +34,7 @@ let casSchema = new mongoose.Schema({
         default: null
     },
     komentarNastavnik: {
-        type: Number,
+        type: String,
         default: null
     }
 })

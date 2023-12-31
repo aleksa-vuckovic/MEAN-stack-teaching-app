@@ -251,5 +251,14 @@ class Validacija {
         izlaz.do = do_.broj();
         return "ok";
     }
+    static otkazivanjeValidacija(od) {
+        let sada = DatumVreme_1.DatumVreme.sada();
+        if (od.broj() < sada.broj())
+            return "Ne mozete otkazati prosli cas.";
+        else if (od.razlikaUMinutima(sada) < 4 * 60)
+            return "Ne mozete otkazati cas manje od 4 sata pre pocetka.";
+        else
+            return "ok";
+    }
 }
 exports.Validacija = Validacija;

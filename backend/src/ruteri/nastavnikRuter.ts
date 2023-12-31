@@ -35,4 +35,12 @@ nastavnikRuter.route("/nedostupnostazuriranje").post((req, res) => {
     new NastavnikKontroler().nedostupnostAzuriranje(req, res);
 })
 
+nastavnikRuter.route("/casovi").get((req, res) => {
+    new NastavnikKontroler().casovi(req, res);
+})
+
+nastavnikRuter.route("/otkazi").post((req, res) => {
+    new NastavnikKontroler().otkazi(req, res)
+})
+
 export default nastavnikRuter;
