@@ -468,4 +468,12 @@ export class DB {
             })
         })
     }
+    static azurirajNedostupnost(kime: string, nedostupnost: any): Promise<string> {
+        return new Promise((resolve, reject) => {
+            korisnikModel.updateOne({kime: kime}, {$push: {nedostupnost: nedostupnost}}).then(res => {
+                if (res.modifiedCount > 0) resolve("ok")
+                else resolve("Greska u bazi.")
+            })
+        })
+    }
 }

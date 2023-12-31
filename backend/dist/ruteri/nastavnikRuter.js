@@ -29,4 +29,7 @@ nastavnikRuter.route("/radnovreme").get((req, res) => {
 nastavnikRuter.route("/radnovremeazuriranje").post((req, res) => {
     new NastavnikKontroler_1.NastavnikKontroler().radnovremeAzuriranje(req, res);
 });
+nastavnikRuter.route("/nedostupnostazuriranje").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().nedostupnostAzuriranje(req, res);
+});
 exports.default = nastavnikRuter;

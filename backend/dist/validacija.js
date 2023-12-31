@@ -7,6 +7,7 @@ exports.Validacija = void 0;
 const db_1 = require("./db");
 const image_size_1 = __importDefault(require("image-size"));
 const utils_1 = require("./utils");
+const DatumVreme_1 = require("./DatumVreme");
 let lozinkaRegex = /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
 let telefonRegex = /^\+381( *\d){8,9}$/;
 let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
@@ -219,24 +220,35 @@ class Validacija {
         else
             return true;
     }
-    static radnovremeValidacija(radnovreme, izlaz) {
-        if (!radnovreme)
+    static radnovremeValidacija(ulaz, izlaz) {
+        if (!ulaz)
             return "Fale podaci.";
         let keys = ["0", "1", "2", "3", "4", "5", "6"];
         for (let key of keys) {
-            if (!radnovreme[key])
+            if (!ulaz[key])
                 return "Fale podaci.";
-            if (radnovreme[key].od > radnovreme[key].do)
+            if (ulaz[key].od > ulaz[key].do)
                 return "Pocetak radnog vremena ne moze biti posle kraja.";
-            if (radnovreme[key].od < 0)
+            if (ulaz[key].od < 0)
                 return "Nevalidan pocetak radnog vremena.";
-            if (radnovreme[key].do > 24 * 60)
+            if (ulaz[key].do > 24 * 60)
                 return "Nevalidan kraj radnog vremena.";
             izlaz[key] = {
-                od: radnovreme[key].od,
-                do: radnovreme[key].do
+                od: ulaz[key].od,
+                do: ulaz[key].do
             };
         }
+        return "ok";
+    }
+    static nedostupnostValidacija(ulaz, izlaz) {
+        if (!ulaz || !ulaz.od || !ulaz.do)
+            return "Fale podaci.";
+        let od = new DatumVreme_1.DatumVreme(ulaz.od);
+        let do_ = new DatumVreme_1.DatumVreme(ulaz.do);
+        if (od.broj() >= do_.broj())
+            return "Datum do mora biti veci od datuma od.";
+        izlaz.od = od.broj();
+        izlaz.do = do_.broj();
         return "ok";
     }
 }

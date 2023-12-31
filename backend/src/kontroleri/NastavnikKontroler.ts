@@ -87,4 +87,15 @@ export class NastavnikKontroler {
         })
     }
 
+    nedostupnostAzuriranje = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let izlaz: any = {}
+        let ret = Validacija.nedostupnostValidacija(req.body, izlaz);
+        if (ret != "ok") res.json({poruka: ret})
+        else DB.azurirajNedostupnost(kor.kime, izlaz).then((ret: string) => {
+            res.json({poruka: ret})
+        })
+    }
+
 }

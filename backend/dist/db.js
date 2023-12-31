@@ -478,6 +478,16 @@ class DB {
             });
         });
     }
+    static azurirajNedostupnost(kime, nedostupnost) {
+        return new Promise((resolve, reject) => {
+            Korisnik_1.default.updateOne({ kime: kime }, { $push: { nedostupnost: nedostupnost } }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Greska u bazi.");
+            });
+        });
+    }
 }
 exports.DB = DB;
 DB.prosecnaOcenaPipeline = [

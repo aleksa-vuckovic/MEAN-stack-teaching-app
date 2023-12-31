@@ -8,13 +8,13 @@
                 <h2>Kalendar i radno vreme</h2>
             </div>
         </div>
-        <div class="row px-3 py-1 border-bottom">
+        <div class="row px-3 py-1 border-bottom border-3 border-dark">
             <div class = "col-12">
                 <kalendar [podaci]="termini" [datum]="datum" [period]="period" [velicina]="velicina" (strelica)="kalendarStrelica($event)" [disabled]="true"/>
             </div>
         </div>
-        <div class="row px-3 py-1 border-bottom">
-            <div class = "col-12">
+        <div class="row px-3 py-1 border-bottom border-3 border-dark">
+            <div class = "col-12 my-3">
                 <h3>Radno vreme</h3>
             </div>
             <div class="col-12">
@@ -48,12 +48,8 @@
                         <td class="labela">Nedelja:</td>
                         <td><radnovreme-input formControlName="6"></radnovreme-input></td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button class="btn btn-primary" (click)="azurirajRadnovreme()">Sacuvaj izmene</button>
-                        </td>
-                    </tr>
                 </table>
+                <button class="btn btn-primary m-2" (click)="azurirajRadnovreme()">Sacuvaj izmene</button>
                 </form>
                 <div class="alert alert-success" role="alert" *ngIf="uspehRadnovreme!=''">
                     {{uspehRadnovreme}}
@@ -61,12 +57,39 @@
                 <div class="form-text text-danger">{{greskaRadnovreme}}</div>
             </div>
         </div>
-        <div class="row px-3 py-1 border-bottom">
-            <div class = "col-12">
+        <div class="row px-3 py-1">
+            <div class = "col-12 my-3">
                 <h3>Nedostupnost</h3>
             </div>
             <div class="col-12">
-
+                <p>Mozete odabrati period u kome niste dostupni za drzanje casova:</p>
+                <div class="row">
+                    <div class="col-12 col-lg-1 fw-bold">
+                        Od
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <datum-vreme-input [(ngModel)]="nedostupnostOd"></datum-vreme-input>
+                    </div>
+                    <div class="col-12 col-lg-1 fw-bold">
+                        Do
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <datum-vreme-input [(ngModel)]="nedostupnostDo"></datum-vreme-input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 offset-lg-5 col-lg-2 justify-content-center text-center">
+                        <button class="btn btn-primary" (click)="azurirajNedostupnost()">Sacuvaj</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 justify-content-center text-center p-2">
+                        <div class="alert alert-success" role="alert" *ngIf="uspehNedostupnost!=''">
+                            {{uspehNedostupnost}}
+                        </div>
+                        <div class="form-text text-danger">{{greskaNedostupnost}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

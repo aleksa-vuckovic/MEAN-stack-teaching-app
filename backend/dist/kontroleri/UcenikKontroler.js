@@ -60,8 +60,9 @@ class UcenikKontroler {
             });
         };
         this.nastavniciPretraga = (req, res) => {
-            //let kor = this.autorizacija(req, res);
-            //if (!kor) return;
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
             let pretraga = req.body;
             if (!pretraga)
                 pretraga = {};
@@ -73,8 +74,9 @@ class UcenikKontroler {
             });
         };
         this.nastavnikProfilPodaci = (req, res) => {
-            //let kor = this.autorizacija(req, res);
-            //if (!kor) return;
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
             let kime = req.query.kime;
             if (!kime)
                 res.json({ poruka: "Nedostaje argument." });
@@ -95,8 +97,9 @@ class UcenikKontroler {
                 });
         };
         this.nastavnikTermini = (req, res) => {
-            //let kor = this.autorizacija(req, res);
-            //if (!kor) return;
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
             if (!req.body || !req.body.nastavnik || !req.body.datum)
                 res.json({ poruka: "Nedostaju argumenti." });
             else

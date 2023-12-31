@@ -44,4 +44,11 @@ export class NastavnikService {
   radnovremeAzuriranje(radnovreme: any) {
     return this.http.post(this.url + "radnovremeazuriranje", radnovreme, this.opcije)
   }
+
+  nedostupnostAzuriranje(od: DatumVreme, do_: DatumVreme) {
+    return this.http.post(this.url + "nedostupnostazuriranje", {
+      od: od.broj(),
+      do: do_.broj()
+    }, this.opcije)
+  }
 }

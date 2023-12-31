@@ -51,8 +51,8 @@ export class UcenikKontroler {
     }
 
     nastavniciPretraga = (req: express.Request, res: express.Response) => {
-        //let kor = this.autorizacija(req, res);
-        //if (!kor) return;
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
         let pretraga = req.body;
         if (!pretraga) pretraga = {};
         DB.nastavniciPretraga(pretraga, true, true).then(ret => {
@@ -62,8 +62,8 @@ export class UcenikKontroler {
     }
 
     nastavnikProfilPodaci = (req: express.Request, res: express.Response) => {
-        //let kor = this.autorizacija(req, res);
-        //if (!kor) return;
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
         let kime = req.query.kime as string;
         if (!kime) res.json({poruka: "Nedostaje argument."})
         else DB.nastavnikPodaci(kime).then((ret: any) => {
@@ -81,8 +81,8 @@ export class UcenikKontroler {
     }
 
     nastavnikTermini = (req: express.Request, res: express.Response) => {
-        //let kor = this.autorizacija(req, res);
-        //if (!kor) return;
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
         if (!req.body || !req.body.nastavnik || !req.body.datum) res.json({poruka: "Nedostaju argumenti."})
         else DB.korisnikPoKime(req.body.nastavnik).then((ret:any) => {
             if (!ret) res.json({poruka: "Nastavnik ne postoji."})

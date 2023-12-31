@@ -101,6 +101,19 @@ class NastavnikKontroler {
                     res.json({ poruka: ret });
                 });
         };
+        this.nedostupnostAzuriranje = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let izlaz = {};
+            let ret = validacija_1.Validacija.nedostupnostValidacija(req.body, izlaz);
+            if (ret != "ok")
+                res.json({ poruka: ret });
+            else
+                db_1.DB.azurirajNedostupnost(kor.kime, izlaz).then((ret) => {
+                    res.json({ poruka: ret });
+                });
+        };
     }
 }
 exports.NastavnikKontroler = NastavnikKontroler;

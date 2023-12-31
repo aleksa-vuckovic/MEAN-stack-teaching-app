@@ -89,4 +89,27 @@ export class NastavnikKalendarComponent {
       }
     })
   }
+
+  //nedostupnost
+  nedostupnostOd: DatumVreme = DatumVreme.sada().vreme(12*60)
+  nedostupnostDo: DatumVreme = DatumVreme.sada().vreme(12*60)
+  uspehNedostupnost: string = ""
+  greskaNedostupnost: string = ""
+  azurirajNedostupnost() {
+    this.greskaNedostupnost = this.uspehNedostupnost = ""
+    let od = this.nedostupnostOd;
+    let do_ = this.nedostupnostDo;
+    if (do_.sirovoVreme() == 0) do_ = do_.vreme(24*60); //specijalni slucaj kao i kod radnog vremena
+    this.servis.nedostupnostAzuriranje(od, do_).subscribe((res: any) => {
+      if (res.poruka == "ok") {
+        this.uspehNedostupnost = "Uspesno ste dodali nedostupnost od " + od.datumVremeString() + " do " + do_.datumVremeString() + "."
+        setTimeout(() => {this.uspehNedostupnost = ""}, 3000)
+        this.osveziKalendar()
+      }
+      else {
+        this.greskaNedostupnost = res.poruka;
+      }
+    })
+  }
+
 }
