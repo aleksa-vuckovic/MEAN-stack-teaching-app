@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as bootstrap from 'bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { UcenikService } from 'src/app/servisi/ucenik.service';
@@ -31,7 +32,7 @@ export class ZakazivanjeComponent implements OnInit {
     ]
   }
 
-  constructor (private servis: UcenikService, private ruter: Router) {}
+  constructor (private servis: UcenikService, private ruter: Router, public modalServis: NgbModal) {}
   ngOnInit(): void {
     this.nastavniKime = localStorage.getItem("nastavnik") ?? "";
     this.servis.nastavnikProfilPodaci(this.nastavniKime).subscribe((res:any) => {
@@ -87,10 +88,9 @@ export class ZakazivanjeComponent implements OnInit {
 
   greska: string = ""
   poruka: string = ""
-  modal() {
-    new bootstrap.Modal(document.getElementById('modal') as Element).show();
-  }
+  @ViewChild('modal') modal!: ElementRef
   kraj() {
+    this.modalServis.dismissAll()
     this.ruter.navigate(["ucenikNastavnik"]);
   }
 
@@ -106,7 +106,7 @@ export class ZakazivanjeComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.poruka == "ok") {
         this.poruka = "Zakazali ste cas za " + dv.datumVremeString() + " u trajanju od " + (this.duplicas ? "120" : "60") + " minuta, iz predmeta " + this.predmet + "."
-        this.modal();
+        this.modalServis.open(this.modal);
       } else this.greska = res.poruka;
     })
   }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as bootstrap from 'bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { NastavnikService } from 'src/app/servisi/nastavnik.service';
@@ -12,7 +13,7 @@ export class NastavnikCasoviComponent {
 
   casovi: Array<any> = []
   limit: number = 5;
-  constructor(private servis: NastavnikService) {
+  constructor(private servis: NastavnikService, public modalServis: NgbModal) {
     this.osveziCasove()
   }
   sada: DatumVreme = DatumVreme.sada()
@@ -37,22 +38,17 @@ export class NastavnikCasoviComponent {
   otkazivanjeDatum: DatumVreme = DatumVreme.sada()
   obrazlozenje: string = ""
   greskaOtkazivanje: string = ""
-  modal() {
-    new bootstrap.Modal(document.getElementById('modal') as Element).show();
-  }
-  modalZatvori() {
-    document.getElementById('modal-zatvori')?.click()
-  }
+  @ViewChild('modal') modal!: ElementRef;
   otkazi(od: DatumVreme) {
     this.otkazivanjeDatum = od;
     this.obrazlozenje = ""
     this.greskaOtkazivanje = ""
-    this.modal()
+    this.modalServis.open(this.modal)
   }
   otkaziDefinitivno() {
     this.servis.otkazi(this.otkazivanjeDatum, this.obrazlozenje).subscribe((res: any) => {
       if (res.poruka == "ok") {
-        this.modalZatvori()
+        this.modalServis.dismissAll()
         this.osveziCasove()
       }
       else this.greskaOtkazivanje = res.poruka
