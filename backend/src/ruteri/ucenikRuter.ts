@@ -36,5 +36,9 @@ ucenikRuter.route("/zakazi").post((req, res) => {
     new UcenikKontroler().zakazi(req, res);
 })
 
+ucenikRuter.route("/casovi").get((req, res) => {
+    new UcenikKontroler().casovi(req, res)
+})
+
 
 export default ucenikRuter;

@@ -481,7 +481,7 @@ export class DB {
                 {
                     $match: {
                         nastavnik: kime,
-                        od: {$gt: DatumVreme.sada().broj()},
+                        do: {$gt: DatumVreme.sada().broj()},
                         potvrdjen: {$ne: null},
                         odbijen: null,
                         otkazan: null
@@ -510,6 +510,11 @@ export class DB {
                         predmet: "$predmet",
                         ime: "$ucenikPodaci.ime",
                         prezime: "$ucenikPodaci.prezime",
+                    }
+                },
+                {
+                    $sort: {
+                        od: 1
                     }
                 }
             ]).then((res: Array<any>) => {
@@ -726,6 +731,53 @@ export class DB {
                 odbijen: null,
                 otkazan: null
             }).then(res => resolve(res))
+        })
+    }
+
+    static ucenikCasovi(kime: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            casModel.aggregate([
+                {
+                    $match: {
+                        ucenik: kime,
+                        do: {$gt: DatumVreme.sada().broj()},
+                        potvrdjen: {$ne: null},
+                        odbijen: null,
+                        otkazan: null
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "nastavnik",
+                        foreignField: "kime",
+                        as: "nastavnikPodaci"
+                    }
+                }, {
+                    $unwind: {
+                        path: "$nastavnikPodaci"
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        nastavnik: "$nastavnik",
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        opis: "$opis",
+                        ime: "$nastavnikPodaci.ime",
+                        prezime: "$nastavnikPodaci.prezime",
+                    }
+                },
+                {
+                    $sort: {
+                        od: 1
+                    }
+                }
+            ]).then((res: Array<any>) => {
+                resolve(res)
+            })
         })
     }
 }

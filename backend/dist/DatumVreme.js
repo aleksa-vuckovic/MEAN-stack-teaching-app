@@ -43,6 +43,9 @@ class DatumVreme {
     krajDana() {
         return this.vreme(DatumVreme.ponoc);
     }
+    naCeoSlot() {
+        return this.vreme(this.sirovoVreme() - this.sirovoVreme() % 30);
+    }
     //Sirovi podaci
     sirovoVreme() {
         return this.vrednost & DatumVreme.vremeMaska;

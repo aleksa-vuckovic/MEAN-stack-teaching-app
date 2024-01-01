@@ -126,4 +126,12 @@ export class UcenikKontroler {
             })
         }
     }
+
+    casovi = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        DB.ucenikCasovi(kor.kime).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
 }

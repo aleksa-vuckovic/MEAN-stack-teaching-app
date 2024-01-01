@@ -32,4 +32,7 @@ ucenikRuter.route("/nastavniktermini").post((req, res) => {
 ucenikRuter.route("/zakazi").post((req, res) => {
     new UcenikKontroler_1.UcenikKontroler().zakazi(req, res);
 });
+ucenikRuter.route("/casovi").get((req, res) => {
+    new UcenikKontroler_1.UcenikKontroler().casovi(req, res);
+});
 exports.default = ucenikRuter;

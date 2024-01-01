@@ -9,7 +9,54 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            
+            <div class="col-12">
+                <table  class = "table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>
+                                Termin
+                            </th>
+                            <th>
+                                Trajanje
+                            </th>
+                            <th>
+                                Predmet
+                            </th>
+                            <th>
+                                Nastavnik
+                            </th>
+                            <th>
+                                Opis
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let elem of casovi">
+                        <td>
+                            {{elem.od.datumVremeString()}}
+                        </td>
+                        <td>
+                            {{elem.trajanje}}
+                        </td>
+                        <td>
+                            {{elem.predmet}}
+                        </td>
+                        <td>
+                            {{elem.ime}} {{elem.prezime}}
+                        </td>
+                        <td>
+                            {{elem.opis}}
+                        </td>
+                        <td>
+                            <button *ngIf="mogucePrikljucenje(elem)" class="btn btn-primary" (click)="prikljucenje(elem)">Prikljuci se</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

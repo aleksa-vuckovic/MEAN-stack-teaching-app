@@ -19,7 +19,7 @@ export class NastavnikCasoviComponent {
   mogucOtkaz(cas: any) {
     return cas.od.razlikaUMinutima(this.sada) >= 4*60
   }
-  mogucePrikljucivanje(cas: any) {
+  mogucePrikljucenje(cas: any) {
     return cas.od.razlikaUMinutima(this.sada) <= 15
   }
   osveziCasove() {

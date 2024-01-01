@@ -161,6 +161,14 @@ class UcenikKontroler {
                     });
             }
         };
+        this.casovi = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            db_1.DB.ucenikCasovi(kor.kime).then((ret) => {
+                res.json({ poruka: "ok", podaci: ret });
+            });
+        };
     }
 }
 exports.UcenikKontroler = UcenikKontroler;
