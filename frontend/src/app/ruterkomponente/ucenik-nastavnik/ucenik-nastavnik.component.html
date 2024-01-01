@@ -9,11 +9,11 @@
             </div>
         </div>
         <div class="row px-3 py-1 border-bottom border-bottom-5 profile-info">
-            <div class="col-3">
+            <div class="col-12 col-md-3">
                 <img [src]="podaci.profil" width="100%" class="rounded-1">
             </div>
             <!--ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari-->
-            <div class="col-9">
+            <div class="col-12 col-md-9">
                 <h2>{{podaci.ime}} {{podaci.prezime}}</h2>
                 <p>Predmeti: <span *ngFor="let elem of podaci.predmeti; let last = last">{{elem}}<span *ngIf="!last">, </span></span></p>
                 <zvezde [broj]="podaci.ocena" visina="40px" [disabled]="true"></zvezde> &nbsp; <span>{{podaci.ocena}}/5</span>
@@ -23,8 +23,10 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            <komentar *ngFor="let elem of podaci.komentari" [slika]="elem.profil" [naslov]="elem.ime + ' ' + elem.prezime"
+            <div class="col-12 col-md-10">
+                <komentar *ngFor="let elem of podaci.komentari" [slika]="elem.profil" [naslov]="elem.ime + ' ' + elem.prezime + ' (' + elem.predmet + ')'"
                 [ocena]="elem.ocena" [sadrzaj]="elem.komentar"></komentar>
+            </div>
         </div>
     </div>
 </div>

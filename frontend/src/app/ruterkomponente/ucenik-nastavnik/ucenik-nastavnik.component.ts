@@ -23,7 +23,9 @@ export class UcenikNastavnikComponent {
         komentar: "Komentar",
         profil: "",
         ime: "Ime",
-        prezime: "Prezima"
+        prezime: "Prezime",
+        datumvreme: 0,
+        predmet: "Matematika"
       }
       ]
     }
@@ -32,7 +34,9 @@ export class UcenikNastavnikComponent {
     let kime = localStorage.getItem("nastavnik") ?? "";
     this.servis.nastavnikProfilPodaci(kime).subscribe((res: any) => {
       console.log(res);
-      if (res.poruka == "ok") this.podaci = res.podaci;
+      if (res.poruka == "ok") {
+        this.podaci = res.podaci;
+      }
     })
   }
 

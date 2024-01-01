@@ -233,7 +233,14 @@ export class DB {
                         kime: "$ostalo.kime",
                         profil: {$concat: [Utils.slikaPrefiks(), "$ostalo.profil"]},
                         ime: "$ostalo.ime",
-                        prezime: "$ostalo.prezime"
+                        prezime: "$ostalo.prezime",
+                        predmet: "$predmet",
+                        datumvreme: "$od"
+                    }
+                },
+                {
+                    $sort: {
+                        datumvreme: -1
                     }
                 }
             ]).then((res:Array<any>) => {
