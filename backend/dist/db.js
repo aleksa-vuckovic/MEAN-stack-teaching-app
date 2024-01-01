@@ -368,62 +368,60 @@ class DB {
         let od = datum.dodajVreme(slot * 30);
         let do_ = od.dodajVreme(30);
         return new Promise((resolve, reject) => {
-            if (od.proslost())
-                resolve({ status: 5, rb: 1, duzina: 1, tekst: "" }); //proslost
-            else
-                this.nastavnikNedostupan(kime, od, do_).then((res) => {
-                    if (res) {
-                        resolve({
-                            status: 1, //Nedostupan
-                            rb: 1,
-                            duzina: 1,
-                            tekst: ""
+            this.nastavnikImaCas(kime, od, do_).then((res) => {
+                if (res) {
+                    let slotOd = res.od.slotOd();
+                    let slotDo = res.do.slotDo();
+                    if (!res.od.istiDan(res.do))
+                        slotDo += 24;
+                    let ret = {
+                        status: (res.potvrdjen ? 4 : 3),
+                        rb: slot - slotOd + 1,
+                        duzina: slotDo - slotOd + 1,
+                        tekst: ""
+                    };
+                    if (detaljno)
+                        DB.korisnikPoKime(res.ucenik).then((ucenik) => {
+                            ret.tekst = `${ucenik.ime} ${ucenik.prezime} (${res.predmet})`;
+                            resolve(ret);
                         });
-                    }
-                    else {
-                        this.nastavnikRadi(kime, od, do_).then((res) => {
-                            if (res) {
-                                resolve({
-                                    status: 2,
-                                    rb: 1,
-                                    duzina: 1,
-                                    tekst: ""
-                                });
-                            }
-                            else {
-                                this.nastavnikImaCas(kime, od, do_).then((res) => {
-                                    if (res) {
-                                        let slotOd = res.od.slotOd();
-                                        let slotDo = res.do.slotDo();
-                                        if (!res.od.istiDan(res.do))
-                                            slotDo += 24;
-                                        let ret = {
-                                            status: (res.potvrdjen ? 4 : 3),
-                                            rb: slot - slotOd + 1,
-                                            duzina: slotDo - slotOd + 1,
-                                            tekst: ""
-                                        };
-                                        if (detaljno)
-                                            DB.korisnikPoKime(res.ucenik).then((ucenik) => {
-                                                ret.tekst = `${ucenik.ime} ${ucenik.prezime} (${res.predmet})`;
-                                                resolve(ret);
-                                            });
-                                        else
-                                            resolve(ret);
-                                    }
-                                    else {
-                                        resolve({
-                                            status: 0,
-                                            rb: 1,
-                                            duzina: 1,
-                                            tekst: ""
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
+                    else
+                        resolve(ret);
+                }
+                else if (od.proslost())
+                    resolve({ status: 5, rb: 1, duzina: 1, tekst: "" }); //proslost
+                else
+                    this.nastavnikNedostupan(kime, od, do_).then((res) => {
+                        if (res) {
+                            resolve({
+                                status: 1, //Nedostupan
+                                rb: 1,
+                                duzina: 1,
+                                tekst: ""
+                            });
+                        }
+                        else {
+                            this.nastavnikRadi(kime, od, do_).then((res) => {
+                                if (res) {
+                                    resolve({
+                                        status: 2,
+                                        rb: 1,
+                                        duzina: 1,
+                                        tekst: ""
+                                    });
+                                }
+                                else {
+                                    resolve({
+                                        status: 0,
+                                        rb: 1,
+                                        duzina: 1,
+                                        tekst: ""
+                                    });
+                                }
+                            });
+                        }
+                    });
+            });
         });
     }
     static nastavnikTerminStatusZaDan(kime, dan, detaljno) {

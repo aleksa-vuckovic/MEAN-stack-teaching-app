@@ -14,6 +14,7 @@ import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nas
 import { NastavnikKalendarComponent } from './ruterkomponente/nastavnik-kalendar/nastavnik-kalendar.component';
 import { NastavnikCasoviComponent } from './ruterkomponente/nastavnik-casovi/nastavnik-casovi.component';
 import { NastavnikZahteviComponent } from './ruterkomponente/nastavnik-zahtevi/nastavnik-zahtevi.component';
+import { NastavnikUceniciComponent } from './ruterkomponente/nastavnik-ucenici/nastavnik-ucenici.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: "nastavnikProfil", component: NastavnikProfilComponent},
   { path: "nastavnikKalendar", component: NastavnikKalendarComponent},
   { path: "nastavnikCasovi", component: NastavnikCasoviComponent},
-  { path: "nastavnikZahtevi", component: NastavnikZahteviComponent}
+  { path: "nastavnikZahtevi", component: NastavnikZahteviComponent},
+  { path: "nastavnikUcenici", component: NastavnikUceniciComponent}
 ]
 
 @NgModule({
