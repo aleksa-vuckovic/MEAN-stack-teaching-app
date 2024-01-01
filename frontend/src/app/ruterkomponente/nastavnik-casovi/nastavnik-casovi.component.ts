@@ -16,8 +16,11 @@ export class NastavnikCasoviComponent {
     this.osveziCasove()
   }
   sada: DatumVreme = DatumVreme.sada()
-  mogucOtkaz(od: DatumVreme) {
-    return od.razlikaUMinutima(this.sada) >= 4*60
+  mogucOtkaz(cas: any) {
+    return cas.od.razlikaUMinutima(this.sada) >= 4*60
+  }
+  mogucePrikljucivanje(cas: any) {
+    return cas.od.razlikaUMinutima(this.sada) <= 15
   }
   osveziCasove() {
     this.servis.casovi(this.limit).subscribe((res: any) => {
@@ -34,23 +37,28 @@ export class NastavnikCasoviComponent {
   }
 
   //otkazivanje
-  otkazivanjeDatum: DatumVreme = DatumVreme.sada()
+  odabran: any = null
   obrazlozenje: string = ""
-  greskaOtkazivanje: string = ""
+  greska: string = ""
   @ViewChild('modal') modal!: ElementRef;
-  otkazi(od: DatumVreme) {
-    this.otkazivanjeDatum = od;
+  otkazi(cas: any) {
+    this.odabran = cas;
     this.obrazlozenje = ""
-    this.greskaOtkazivanje = ""
+    this.greska = ""
     this.modalServis.open(this.modal)
   }
   otkaziDefinitivno() {
-    this.servis.otkazi(this.otkazivanjeDatum, this.obrazlozenje).subscribe((res: any) => {
+    this.servis.otkazi(this.odabran.od, this.obrazlozenje).subscribe((res: any) => {
       if (res.poruka == "ok") {
         this.modalServis.dismissAll()
         this.osveziCasove()
       }
-      else this.greskaOtkazivanje = res.poruka
+      else this.greska = res.poruka
     })
+  }
+
+  //prikljucenje
+  prikljucenje(cas: any) {
+    
   }
 }
