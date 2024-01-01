@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import korisnikModel from './modeli/Korisnik';
 import podatakModel from './modeli/Podatak';
 import casModel from "./modeli/Cas";
+import obavestenjeModel from "./modeli/Obavestenje";
 import { Utils } from './utils';
 import { DatumVreme } from './DatumVreme';
 
@@ -849,6 +850,51 @@ export class DB {
                 if (res.modifiedCount > 0) resolve("ok")
                 else resolve("Nije pronadjen cas.")
             })
+        })
+    }
+
+    static dodajObavestenje(kime: string, sadrzaj: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            obavestenjeModel.insertMany([{
+                kime: kime,
+                datumvreme: DatumVreme.sada(),
+                sadrzaj: sadrzaj
+            }]).then(res => {
+                resolve("ok")
+            })
+        })
+    }
+
+    static obavestenja(kime: string, od: DatumVreme, do_: DatumVreme): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            obavestenjeModel.aggregate([
+                {
+                    $match: {
+                        kime: kime,
+                        datumvreme: {$lt: do_.broj()}
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        datumvreme: "$datumvreme",
+                        sadrzaj: "$sadrzaj",
+                        novo: { $gt: ["$datumvreme", "$od"]}
+                    }
+                }
+            ]).then((res: Array<any>) => {
+                resolve(res)
+            })
+        })
+    }
+
+    static prijava(kime: string) {
+        korisnikModel.updateOne({
+            kime: kime
+        }, {
+            $set: {
+                prijava: DatumVreme.sada().broj()
+            }
         })
     }
 }

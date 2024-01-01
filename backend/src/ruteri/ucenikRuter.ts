@@ -48,4 +48,8 @@ ucenikRuter.route("/recenzija").post((req, res) => {
     new UcenikKontroler().recenzija(req, res)
 })
 
+ucenikRuter.route("/obavestenja").post((req, res) => {
+    new UcenikKontroler().obavestenja(req, res)
+})
+
 export default ucenikRuter;

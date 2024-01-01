@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 let korisnikSchema = new mongoose.Schema({
+    prijava: { //datum i vreme poslednje prijave, na osnovu kog se odredjuje koja obavestenja su nova
+        type: Number,
+        default: 0
+    },
     kime: String,
     lozinka: String,
     pitanje: String,

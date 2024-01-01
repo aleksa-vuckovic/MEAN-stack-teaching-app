@@ -113,11 +113,21 @@ export class NastavnikKontroler {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
         if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json("Nedostaju podaci."); return; }
-        let od = new DatumVreme(req.body.od);
-        let ret = Validacija.otkazivanjeValidacija(od);
+        let izlaz: any = {}
+        let ret = Validacija.otkazivanjeValidacija(req.body, izlaz);
         if (ret != "ok") res.json({poruka: ret})
-        else DB.otkaziCas(kor.kime, od, req.body.obrazlozenje).then((ret: string) => {
-            res.json({poruka: ret})
+        else DB.otkaziCas(kor.kime, izlaz.od, izlaz.obrazlozenje).then((ret: string) => {
+            if (ret == "ok") {
+                DB.cas(kor.kime, izlaz.od).then((cas:any) => {
+                    let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${izlaz.od.datumVremeString()}`
+                    if (izlaz.obrazlozenje == "") sadrzaj += " bez obrazlozenja."
+                    else sadrzaj += " uz obrazlozenje: '" + izlaz.obrazlozenje + "'."
+                    DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                        res.json({poruka: "ok"})
+                    })
+                })
+            }
+            else res.json({poruka: ret})
         })
     }
 
@@ -134,7 +144,15 @@ export class NastavnikKontroler {
         if (!req.body || !req.body.od) { res.json({poruka: "Nedostaju podaci."}); return; }
         let od = new DatumVreme(req.body.od);
         DB.nastavnikOdgovor(kor.kime, od, null).then((ret: string) => {
-            res.json({poruka: ret})
+            if (ret == "ok") {
+                DB.cas(kor.kime, od).then((cas:any) => {
+                    let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${od.datumVremeString()}.`
+                    DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                        res.json({poruka: "ok"})
+                    })
+                })
+            }
+            else res.json({poruka: ret})
         })
     }
     odbij = (req: express.Request, res: express.Response) => {
@@ -144,7 +162,17 @@ export class NastavnikKontroler {
         let od = new DatumVreme(req.body.od);
         let obrazlozenje = req.body.obrazlozenje
         DB.nastavnikOdgovor(kor.kime, od, obrazlozenje).then((ret: string) => {
-            res.json({poruka: ret})
+            if (ret == "ok") {
+                DB.cas(kor.kime, od).then((cas:any) => {
+                    let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${od.datumVremeString()}`
+                    if (obrazlozenje == "") sadrzaj += " bez obrazlozenja."
+                    else sadrzaj += " uz obrazlozenje: '" + obrazlozenje + "'."
+                    DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                        res.json({poruka: "ok"})
+                    })
+                })
+            }
+            else res.json({poruka: ret})
         })
     }
 

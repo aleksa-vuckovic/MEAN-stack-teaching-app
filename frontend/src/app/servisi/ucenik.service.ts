@@ -66,5 +66,11 @@ export class UcenikService {
       komentar: komentar
     }, this.opcije)
   }
+
+  obavestenja(do_: DatumVreme) {
+    return this.http.post(this.url + "obavestenja", {
+      do: do_.broj()
+    }, this.opcije)
+  }
 }
 

@@ -154,4 +154,13 @@ export class UcenikKontroler {
             })
         })
     }
+
+    obavestenja = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.do) res.json({poruka: "Nedovoljno podataka."})
+        else DB.obavestenja(kor.kime, new DatumVreme(kor.prijava), new DatumVreme(req.body.do)).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
 }

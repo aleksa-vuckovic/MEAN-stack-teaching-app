@@ -186,10 +186,13 @@ export class Validacija {
         return "ok";
     }
 
-    static otkazivanjeValidacija(od: DatumVreme): string {
+    static otkazivanjeValidacija(ulaz: any, izlaz: any): string {
+        if (!ulaz || !ulaz.od || !ulaz.obrazlozenje) return "Nedostaju podaci."
+        izlaz.od = new DatumVreme(ulaz.od)
+        izlaz.obrazlozenje = ulaz.obrazlozenje
         let sada = DatumVreme.sada()
-        if (od.broj() < sada.broj()) return "Ne mozete otkazati prosli cas."
-        else if (od.razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
+        if (izlaz.od.broj() < sada.broj()) return "Ne mozete otkazati prosli cas."
+        else if (izlaz.od.razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
         else return "ok";
     }
 

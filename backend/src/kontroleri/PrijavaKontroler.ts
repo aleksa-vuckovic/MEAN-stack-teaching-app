@@ -53,6 +53,7 @@ export class PrijavaKontroler {
 
             izlaz.odobren = false;
             izlaz.aktivan = true;
+            izlaz.prijava = 0;
 
             if (izlaz.tip == "Nastavnik") {
                 let cv = files["cv"] ? files["cv"][0] : null;
@@ -83,6 +84,7 @@ export class PrijavaKontroler {
             else {
                 let session = req.session as any
                 session.korisnik = ret;
+                DB.prijava(ret.kime) //pamti se vreme poslednje prijave
                 res.json({
                     poruka: "ok",
                     podaci: {
