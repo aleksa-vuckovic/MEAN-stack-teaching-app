@@ -62,4 +62,20 @@ export class NastavnikService {
       obrazlozenje: obrazlozenje
     }, this.opcije)
   }
+
+  zahtevi() {
+    return this.http.get(this.url + "zahtevi", this.opcije)
+  }
+
+  potvrdi(od: DatumVreme) {
+    return this.http.post(this.url + "potvrdi", {
+      od: od.broj()
+    }, this.opcije)
+  }
+  odbij(od: DatumVreme, obrazlozenje: string) {
+    return this.http.post(this.url + "odbij", {
+      od: od.broj(),
+      obrazlozenje: obrazlozenje
+    }, this.opcije)
+  }
 }

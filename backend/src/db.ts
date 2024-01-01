@@ -535,4 +535,84 @@ export class DB {
             })
         })
     }
+
+    static nastavnikZahtevi(nastavnik: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            casModel.aggregate([
+                {
+                    $match: {
+                        nastavnik: nastavnik,
+                        od: {$gt: DatumVreme.sada().broj()},
+                        potvrdjen: {$eq: null},
+                        odbijen: {$eq: null},
+                        otkazan: {$eq: null}
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ucenikPodaci"
+                    }
+                },
+                {
+                    $unwind: {
+                        path: "$ucenikPodaci"
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "casovi",
+                        localField: "ucenik",
+                        foreignField: "ucenik",
+                        as: "ucenikOcene"
+                    }
+                },
+                {
+                    $project: {
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        ime: "$ucenikPodaci.ime",
+                        prezime: "$ucenikPodaci.prezime",
+                        ocena: {
+                            $avg: "$ucenikOcene.ocenaNastavnik"
+                        },
+                        brojOcena: {
+                            $size: {
+                                $filter: {
+                                    input: "$ucenikOcene.ocenaNastavnik",
+                                    as: "ucenikOcena",
+                                    cond: {$ne: ["$$ucenikOcena", null]}
+                                }
+                            }
+                        }
+                    }
+                }
+            ]).then((res: Array<any>) => {
+                resolve(res)
+            })
+        })
+    }
+
+    static nastavnikOdgovor(nastavnik: string, od: DatumVreme, obrazlozenje: string|null): Promise<string> {
+        let vreme = DatumVreme.sada().broj()
+        let set: any = obrazlozenje ? {potvrdjen: vreme} : {odbijen: vreme}
+        if (obrazlozenje) set.komentarNastavnik = obrazlozenje
+        return new Promise((resolve, reject) => {
+            casModel.updateOne({
+                nastavnik: nastavnik,
+                od: od.broj(),
+                potvrdjen: {$eq: null},
+                odbijen: {$eq: null},
+                otkazan: {$eq: null}
+            }, {
+                $set: set
+            }).then(res => {
+                if (res.modifiedCount > 0) resolve("ok")
+                else resolve("Nije pronadjen cas.")
+            })
+        })
+    }
 }

@@ -120,4 +120,31 @@ export class NastavnikKontroler {
             res.json({poruka: ret})
         })
     }
+
+    zahtevi = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        DB.nastavnikZahtevi(kor.kime).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+    potvrdi = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.od) { res.json({poruka: "Nedostaju podaci."}); return; }
+        let od = new DatumVreme(req.body.od);
+        DB.nastavnikOdgovor(kor.kime, od, null).then((ret: string) => {
+            res.json({poruka: ret})
+        })
+    }
+    odbij = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json({poruka: "Nedostaju podaci."}); return; }
+        let od = new DatumVreme(req.body.od);
+        let obrazlozenje = req.body.obrazlozenje
+        DB.nastavnikOdgovor(kor.kime, od, obrazlozenje).then((ret: string) => {
+            res.json({poruka: ret})
+        })
+    }
 }

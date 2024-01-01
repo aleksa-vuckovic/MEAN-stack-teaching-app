@@ -55,7 +55,7 @@ export class ZvezdeComponent implements ControlValueAccessor {
   }
 
   brojPunih() {
-    return Math.round(this.broj);
+    return Math.round(this.broj ?? 0);
   }
   brojPraznih() {
     return 5 - this.brojPunih();
