@@ -33,6 +33,7 @@ import { RadnovremeInputComponent } from './subkomponente/radnovreme-input/radno
 import { NastavnikCasoviComponent } from './ruterkomponente/nastavnik-casovi/nastavnik-casovi.component';
 import { NastavnikZahteviComponent } from './ruterkomponente/nastavnik-zahtevi/nastavnik-zahtevi.component';
 import { NastavnikUceniciComponent } from './ruterkomponente/nastavnik-ucenici/nastavnik-ucenici.component';
+import { NastavnikDosijeComponent } from './ruterkomponente/nastavnik-dosije/nastavnik-dosije.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { NastavnikUceniciComponent } from './ruterkomponente/nastavnik-ucenici/n
     RadnovremeInputComponent,
     NastavnikCasoviComponent,
     NastavnikZahteviComponent,
-    NastavnikUceniciComponent
+    NastavnikUceniciComponent,
+    NastavnikDosijeComponent
   ],
   imports: [
     BrowserModule,

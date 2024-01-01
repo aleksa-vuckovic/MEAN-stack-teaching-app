@@ -176,4 +176,17 @@ export class NastavnikKontroler {
             })
         })
     }
+
+    dosijeProfil = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body.ucenik) res.json({poruka: "Nema dovoljno podataka."})
+        else DB.ucenikPodaci(req.body.ucenik).then((ret: any) => {
+            if (!ret) res.json({poruka: "Nije pronadjen ucenik."})
+            else {
+                delete ret.adresa 
+                res.json({poruka: "ok", podaci: ret})
+            }  
+        })
+    }
 }

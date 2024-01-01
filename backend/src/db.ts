@@ -681,8 +681,13 @@ export class DB {
                         predmet: "$predmet",
                         od: "$od",
                         do: "$do",
-                        ocena: "$nastavnikOcena",
-                        komentar: "$nastavnikKomentar"
+                        ocena: "$ocenaNastavnik",
+                        komentar: "$komentarNastavnik"
+                    }
+                },
+                {
+                    $sort: {
+                        od: -1
                     }
                 }
             ]).then((res: Array<any>) => {

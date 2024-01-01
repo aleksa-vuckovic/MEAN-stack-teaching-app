@@ -9,70 +9,29 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            <!--
-            <div class="col-12">
-                <table  class = "table table-striped border">
-                    <thead>
-                        <tr>
-                            <th>
-                                Termin
-                            </th>
-                            <th>
-                                Trajanje
-                            </th>
-                            <th>
-                                Predmet
-                            </th>
-                            <th>
-                                Ucenik
-                            </th>
-                            <th>
-                                
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let elem of casovi">
+            <table class="table table-striped border" *ngIf="ucenici.length!=0">
+                <thead>
+                    <tr>
+                        <th>
+                            Ime
+                        </th>
+                        <th>
+                            Prezime
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let elem of ucenici" (click)="klik(elem.kime)" class="link">
                         <td>
-                            {{elem.od.datumVremeString()}}
+                            {{elem.ime}}
                         </td>
                         <td>
-                            {{elem.trajanje}}
-                        </td>
-                        <td>
-                            {{elem.predmet}}
-                        </td>
-                        <td>
-                            {{elem.ime}} {{elem.prezime}}
-                        </td>
-                        <td>
-                            <button *ngIf="mogucOtkaz(elem)" class="btn btn-danger" (click)="otkazi(elem)">Otkazi</button>
-                            <button *ngIf="mogucePrikljucivanje(elem)" class="btn btn-primary" (click)="prikljucenje(elem)">Prikljuci se</button>
+                            {{elem.prezime}}
                         </td>
                     </tr>
-                    </tbody>
-                </table>
-            </div>-->
+                </tbody>
+            </table>
+            <h4 *ngIf="ucenici.length==0">Nemate ucenike za prikaz.</h4>
         </div>
     </div>
 </div>
-
-
-<!--
-<ng-template #modal>
-    <div class="modal-header">
-        <h5 class="modal-title">Otkazivanje</h5>
-    </div>
-    <div class="modal-body">
-        <p>Otkazujete cas zakazan za {{odabran.od.datumVremeString()}}.</p>
-        <label for="obrazlozenje" class="form-label">Ovde mozete uneti obrazlozenje.</label>
-        <textarea id="obrazlozenje" [(ngModel)]="obrazlozenje" class="form-control"></textarea>
-        <div class="form-text text-danger">{{greska}}</div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click)="otkaziDefinitivno()">Otkazi</button>
-        &nbsp;
-        <button class="btn btn-secondary" (click)="modalServis.dismissAll()">Odustani</button>
-    </div>
-</ng-template>
--->

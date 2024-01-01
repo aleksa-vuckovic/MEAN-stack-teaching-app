@@ -89,11 +89,17 @@ export class NastavnikService {
     }, this.opcije);
   }
 
-  recenzija(od: DatumVreme, ocena: number, komentar: string) {
+  recenzija(od: DatumVreme, ocena: number | null, komentar: string) {
     return this.http.post(this.url + "recenzija", {
       od: od.broj(),
       ocena: ocena,
       komentar: komentar
+    }, this.opcije)
+  }
+
+  dosijeProfil(ucenik: string) {
+    return this.http.post(this.url + "dosijeprofil", {
+      ucenik: ucenik
     }, this.opcije)
   }
 }

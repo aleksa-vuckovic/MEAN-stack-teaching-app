@@ -179,6 +179,55 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
             });
         };
+        this.ucenici = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            db_1.DB.nastavnikUcenici(kor.kime).then((ret) => {
+                res.json({ poruka: "ok", podaci: ret });
+            });
+        };
+        this.dosije = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body || !req.body.ucenik)
+                res.json({ poruka: "Nedovoljno podataka." });
+            else
+                db_1.DB.nastavnikDosije(kor.kime, req.body.ucenik).then((ret) => {
+                    res.json({ poruka: "ok", podaci: ret });
+                });
+        };
+        this.recenzija = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let izlaz = {};
+            validacija_1.Validacija.recenzijaValidacija(req.body, izlaz, kor.kime).then((ret) => {
+                if (ret != "ok")
+                    res.json({ poruka: ret });
+                else
+                    db_1.DB.nastavnikRecenzija(kor.kime, izlaz.od, izlaz.ocena, izlaz.komentar).then((ret) => {
+                        res.json({ poruka: ret });
+                    });
+            });
+        };
+        this.dosijeProfil = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body.ucenik)
+                res.json({ poruka: "Nema dovoljno podataka." });
+            else
+                db_1.DB.ucenikPodaci(req.body.ucenik).then((ret) => {
+                    if (!ret)
+                        res.json({ poruka: "Nije pronadjen ucenik." });
+                    else {
+                        delete ret.adresa;
+                        res.json({ poruka: "ok", podaci: ret });
+                    }
+                });
+        };
     }
 }
 exports.NastavnikKontroler = NastavnikKontroler;

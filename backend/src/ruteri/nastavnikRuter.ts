@@ -67,4 +67,8 @@ nastavnikRuter.route("/recenzija").post((req, res) => {
     new NastavnikKontroler().recenzija(req, res)
 })
 
+nastavnikRuter.route("/dosijeprofil").post((req, res) => {
+    new NastavnikKontroler().dosijeProfil(req, res)
+})
+
 export default nastavnikRuter;
