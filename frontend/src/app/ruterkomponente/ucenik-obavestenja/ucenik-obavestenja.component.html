@@ -9,7 +9,24 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            
+            <div class="col-12 col-lg-8">
+                <div *ngFor="let elem of obavestenja" class="border border-1 rounded-start p-2 my-4 shadow-sm">
+                    <div class="border-bottom border-bottom-1 bg-light">
+                        <span class = "fw-bold">{{elem.datumvreme.datumVremeString()}}</span>
+                        &nbsp;
+                        <span *ngIf="elem.novo" class="badge bg-primary">novo</span>
+                    </div>
+                    <div class="p-2">
+                        <p class="mb-0">{{elem.sadrzaj}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">.
+            <div class="col-12">
+                <span class="link" *ngIf="!kraj" (click)="jos()">Ucitaj jos</span>
+                <h5 *ngIf="kraj">Kraj</h5>
+            </div>
         </div>
     </div>
 </div>

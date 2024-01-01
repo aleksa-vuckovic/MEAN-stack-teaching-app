@@ -57,6 +57,7 @@ class PrijavaKontroler {
                 izlaz.profil = profilBaza;
                 izlaz.odobren = false;
                 izlaz.aktivan = true;
+                izlaz.prijava = 0;
                 if (izlaz.tip == "Nastavnik") {
                     let cv = files["cv"] ? files["cv"][0] : null;
                     ret = validacija_1.Validacija.cvValidacija(cv);
@@ -89,6 +90,7 @@ class PrijavaKontroler {
                 else {
                     let session = req.session;
                     session.korisnik = ret;
+                    db_1.DB.prijava(ret.kime); //pamti se vreme poslednje prijave
                     res.json({
                         poruka: "ok",
                         podaci: {

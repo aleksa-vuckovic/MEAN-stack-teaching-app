@@ -191,6 +191,17 @@ class UcenikKontroler {
                     });
             });
         };
+        this.obavestenja = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body || !req.body.do)
+                res.json({ poruka: "Nedovoljno podataka." });
+            else
+                db_1.DB.obavestenja(kor.kime, new DatumVreme_1.DatumVreme(kor.prijava), new DatumVreme_1.DatumVreme(req.body.do)).then((ret) => {
+                    res.json({ poruka: "ok", podaci: ret });
+                });
+        };
     }
 }
 exports.UcenikKontroler = UcenikKontroler;

@@ -135,13 +135,26 @@ class NastavnikKontroler {
                 res.json("Nedostaju podaci.");
                 return;
             }
-            let od = new DatumVreme_1.DatumVreme(req.body.od);
-            let ret = validacija_1.Validacija.otkazivanjeValidacija(od);
+            let izlaz = {};
+            let ret = validacija_1.Validacija.otkazivanjeValidacija(req.body, izlaz);
             if (ret != "ok")
                 res.json({ poruka: ret });
             else
-                db_1.DB.otkaziCas(kor.kime, od, req.body.obrazlozenje).then((ret) => {
-                    res.json({ poruka: ret });
+                db_1.DB.otkaziCas(kor.kime, izlaz.od, izlaz.obrazlozenje).then((ret) => {
+                    if (ret == "ok") {
+                        db_1.DB.cas(kor.kime, izlaz.od).then((cas) => {
+                            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${izlaz.od.datumVremeString()}`;
+                            if (izlaz.obrazlozenje == "")
+                                sadrzaj += " bez obrazlozenja.";
+                            else
+                                sadrzaj += " uz obrazlozenje: '" + izlaz.obrazlozenje + "'.";
+                            db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                                res.json({ poruka: "ok" });
+                            });
+                        });
+                    }
+                    else
+                        res.json({ poruka: ret });
                 });
         };
         this.zahtevi = (req, res) => {
@@ -162,7 +175,16 @@ class NastavnikKontroler {
             }
             let od = new DatumVreme_1.DatumVreme(req.body.od);
             db_1.DB.nastavnikOdgovor(kor.kime, od, null).then((ret) => {
-                res.json({ poruka: ret });
+                if (ret == "ok") {
+                    db_1.DB.cas(kor.kime, od).then((cas) => {
+                        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${od.datumVremeString()}.`;
+                        db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                            res.json({ poruka: "ok" });
+                        });
+                    });
+                }
+                else
+                    res.json({ poruka: ret });
             });
         };
         this.odbij = (req, res) => {
@@ -176,7 +198,20 @@ class NastavnikKontroler {
             let od = new DatumVreme_1.DatumVreme(req.body.od);
             let obrazlozenje = req.body.obrazlozenje;
             db_1.DB.nastavnikOdgovor(kor.kime, od, obrazlozenje).then((ret) => {
-                res.json({ poruka: ret });
+                if (ret == "ok") {
+                    db_1.DB.cas(kor.kime, od).then((cas) => {
+                        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${od.datumVremeString()}`;
+                        if (obrazlozenje == "")
+                            sadrzaj += " bez obrazlozenja.";
+                        else
+                            sadrzaj += " uz obrazlozenje: '" + obrazlozenje + "'.";
+                        db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj).then(ret => {
+                            res.json({ poruka: "ok" });
+                        });
+                    });
+                }
+                else
+                    res.json({ poruka: ret });
             });
         };
         this.ucenici = (req, res) => {

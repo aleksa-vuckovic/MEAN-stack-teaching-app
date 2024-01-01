@@ -251,11 +251,15 @@ class Validacija {
         izlaz.do = do_.broj();
         return "ok";
     }
-    static otkazivanjeValidacija(od) {
+    static otkazivanjeValidacija(ulaz, izlaz) {
+        if (!ulaz || !ulaz.od || !ulaz.obrazlozenje)
+            return "Nedostaju podaci.";
+        izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
+        izlaz.obrazlozenje = ulaz.obrazlozenje;
         let sada = DatumVreme_1.DatumVreme.sada();
-        if (od.broj() < sada.broj())
+        if (izlaz.od.broj() < sada.broj())
             return "Ne mozete otkazati prosli cas.";
-        else if (od.razlikaUMinutima(sada) < 4 * 60)
+        else if (izlaz.od.razlikaUMinutima(sada) < 4 * 60)
             return "Ne mozete otkazati cas manje od 4 sata pre pocetka.";
         else
             return "ok";

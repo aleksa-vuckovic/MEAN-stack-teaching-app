@@ -5,6 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 let korisnikSchema = new mongoose_1.default.Schema({
+    prijava: {
+        type: Number,
+        default: 0
+    },
     kime: String,
     lozinka: String,
     pitanje: String,

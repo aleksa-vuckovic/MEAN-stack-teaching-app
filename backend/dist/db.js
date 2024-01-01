@@ -7,6 +7,7 @@ exports.DB = void 0;
 const Korisnik_1 = __importDefault(require("./modeli/Korisnik"));
 const Podatak_1 = __importDefault(require("./modeli/Podatak"));
 const Cas_1 = __importDefault(require("./modeli/Cas"));
+const Obavestenje_1 = __importDefault(require("./modeli/Obavestenje"));
 const utils_1 = require("./utils");
 const DatumVreme_1 = require("./DatumVreme");
 class DB {
@@ -858,6 +859,56 @@ class DB {
                 else
                     resolve("Nije pronadjen cas.");
             });
+        });
+    }
+    static dodajObavestenje(kime, sadrzaj) {
+        return new Promise((resolve, reject) => {
+            Obavestenje_1.default.insertMany([{
+                    kime: kime,
+                    datumvreme: DatumVreme_1.DatumVreme.sada(),
+                    sadrzaj: sadrzaj
+                }]).then(res => {
+                resolve("ok");
+            });
+        });
+    }
+    static obavestenja(kime, od, do_) {
+        return new Promise((resolve, reject) => {
+            Obavestenje_1.default.aggregate([
+                {
+                    $match: {
+                        kime: kime,
+                        datumvreme: { $lt: do_.broj() }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        datumvreme: "$datumvreme",
+                        sadrzaj: "$sadrzaj",
+                        novo: { $gt: ["$datumvreme", od.broj()] }
+                    }
+                },
+                {
+                    $sort: {
+                        datumvreme: -1
+                    }
+                },
+                {
+                    $limit: 1
+                }
+            ]).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+    static prijava(kime) {
+        Korisnik_1.default.updateOne({
+            kime: kime
+        }, {
+            $set: {
+                prijava: DatumVreme_1.DatumVreme.sada().broj()
+            }
         });
     }
 }

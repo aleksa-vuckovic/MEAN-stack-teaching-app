@@ -879,8 +879,16 @@ export class DB {
                         _id: 0,
                         datumvreme: "$datumvreme",
                         sadrzaj: "$sadrzaj",
-                        novo: { $gt: ["$datumvreme", "$od"]}
+                        novo: { $gt: ["$datumvreme", od.broj()]}
                     }
+                },
+                {
+                    $sort: {
+                        datumvreme: -1
+                    }
+                },
+                {
+                    $limit: 1
                 }
             ]).then((res: Array<any>) => {
                 resolve(res)

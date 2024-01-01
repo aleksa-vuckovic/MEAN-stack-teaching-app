@@ -41,4 +41,7 @@ ucenikRuter.route("/arhiva").get((req, res) => {
 ucenikRuter.route("/recenzija").post((req, res) => {
     new UcenikKontroler_1.UcenikKontroler().recenzija(req, res);
 });
+ucenikRuter.route("/obavestenja").post((req, res) => {
+    new UcenikKontroler_1.UcenikKontroler().obavestenja(req, res);
+});
 exports.default = ucenikRuter;
