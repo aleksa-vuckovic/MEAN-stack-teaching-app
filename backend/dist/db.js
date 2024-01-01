@@ -546,6 +546,88 @@ class DB {
             });
         });
     }
+    static nastavnikZahtevi(nastavnik) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.aggregate([
+                {
+                    $match: {
+                        nastavnik: nastavnik,
+                        od: { $gt: DatumVreme_1.DatumVreme.sada().broj() },
+                        potvrdjen: { $eq: null },
+                        odbijen: { $eq: null },
+                        otkazan: { $eq: null }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "ucenik",
+                        foreignField: "kime",
+                        as: "ucenikPodaci"
+                    }
+                },
+                {
+                    $unwind: {
+                        path: "$ucenikPodaci"
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "casovi",
+                        localField: "ucenik",
+                        foreignField: "ucenik",
+                        as: "ucenikOcene"
+                    }
+                },
+                {
+                    $project: {
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        ime: "$ucenikPodaci.ime",
+                        prezime: "$ucenikPodaci.prezime",
+                        opis: "$opis",
+                        ocena: {
+                            $avg: "$ucenikOcene.ocenaNastavnik"
+                        },
+                        brojOcena: {
+                            $size: {
+                                $filter: {
+                                    input: "$ucenikOcene.ocenaNastavnik",
+                                    as: "ucenikOcena",
+                                    cond: { $ne: ["$$ucenikOcena", null] }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+    static nastavnikOdgovor(nastavnik, od, obrazlozenje) {
+        let vreme = DatumVreme_1.DatumVreme.sada().broj();
+        let set = obrazlozenje ? { odbijen: vreme } : { potvrdjen: vreme };
+        if (obrazlozenje)
+            set.komentarNastavnik = obrazlozenje;
+        return new Promise((resolve, reject) => {
+            Cas_1.default.updateOne({
+                nastavnik: nastavnik,
+                od: od.broj(),
+                potvrdjen: { $eq: null },
+                odbijen: { $eq: null },
+                otkazan: { $eq: null }
+            }, {
+                $set: set
+            }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Nije pronadjen cas.");
+            });
+        });
+    }
 }
 exports.DB = DB;
 DB.prosecnaOcenaPipeline = [

@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as bootstrap from 'bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { NastavnikService } from 'src/app/servisi/nastavnik.service';
 

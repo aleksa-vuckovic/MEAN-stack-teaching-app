@@ -38,4 +38,13 @@ nastavnikRuter.route("/casovi").get((req, res) => {
 nastavnikRuter.route("/otkazi").post((req, res) => {
     new NastavnikKontroler_1.NastavnikKontroler().otkazi(req, res);
 });
+nastavnikRuter.route("/zahtevi").get((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().zahtevi(req, res);
+});
+nastavnikRuter.route("/potvrdi").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().potvrdi(req, res);
+});
+nastavnikRuter.route("/odbij").post((req, res) => {
+    new NastavnikKontroler_1.NastavnikKontroler().odbij(req, res);
+});
 exports.default = nastavnikRuter;

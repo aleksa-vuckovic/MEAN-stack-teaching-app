@@ -15,8 +15,8 @@ export class NastavnikNavigacijaComponent {
   }
 
   @Input() trenutni:string = "nastavnikProfil"
-  ciljevi=["nastavnikProfil", "nastavnikKalendar", "nastavnikCasovi", "odjava"]
-  labele=["Profil", "Kalendar", "Casovi", "Odjava"]
+  ciljevi=["nastavnikProfil", "nastavnikKalendar", "nastavnikCasovi", "nastavnikZahtevi", "odjava"]
+  labele=["Profil", "Kalendar", "Casovi", "Zahtevi", "Odjava"]
 
   klik(cilj: string) {
     if (cilj == "odjava") {

@@ -576,6 +576,7 @@ export class DB {
                         predmet: "$predmet",
                         ime: "$ucenikPodaci.ime",
                         prezime: "$ucenikPodaci.prezime",
+                        opis: "$opis",
                         ocena: {
                             $avg: "$ucenikOcene.ocenaNastavnik"
                         },
@@ -598,7 +599,7 @@ export class DB {
 
     static nastavnikOdgovor(nastavnik: string, od: DatumVreme, obrazlozenje: string|null): Promise<string> {
         let vreme = DatumVreme.sada().broj()
-        let set: any = obrazlozenje ? {potvrdjen: vreme} : {odbijen: vreme}
+        let set: any = obrazlozenje ? {odbijen: vreme} : {potvrdjen: vreme}
         if (obrazlozenje) set.komentarNastavnik = obrazlozenje
         return new Promise((resolve, reject) => {
             casModel.updateOne({

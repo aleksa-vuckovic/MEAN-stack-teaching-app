@@ -1,0 +1,98 @@
+<div class="row">
+    <div class ="col-lg-2 col-12 bg-blue p-0">
+        <nastavnik-navigacija trenutni="nastavnikZahtevi"></nastavnik-navigacija>
+    </div>
+    <div class="col-lg-10 col-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Zahtevi</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12">
+                <table *ngIf="zahtevi.length > 0"  class = "table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>
+                                Termin
+                            </th>
+                            <th>
+                                Trajanje
+                            </th>
+                            <th>
+                                Predmet
+                            </th>
+                            <th>
+                                Ucenik
+                            </th>
+                            <th>
+                                Opis
+                            </th>
+                            <th>
+                                Ocena
+                            </th>
+                            <!--<th>
+
+                            </th>-->
+                            <th>
+
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let elem of zahtevi">
+                        <td>
+                            {{elem.od.datumVremeString()}}
+                        </td>
+                        <td>
+                            {{elem.trajanje}}
+                        </td>
+                        <td>
+                            {{elem.predmet}}
+                        </td>
+                        <td>
+                            {{elem.ime}} {{elem.prezime}}
+                        </td>
+                        <td>
+                            {{elem.opis && elem.opis != "" ? elem.opis : "/"}}
+                        </td>
+                        <td>
+                            {{elem.brojOcena > 2 ? "" + elem.ocena.toFixed(2) + "/5" : "Nema podataka"}}
+                        </td>
+                        <!--<td>
+                            <zvezde *ngIf="elem.brojOcena > 2" [broj]="elem.ocena" visina="30px" [disabled]="true"></zvezde>
+                        </td>-->
+                        <td>
+                            <button class="btn btn-success" (click)="potvrdi(elem)">Potvrdi</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="odbij(elem)">Odbij</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="zahtevi.length==0">Nema zahteva.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Da li ste sigurni?</h5>
+    </div>
+    <div class="modal-body">
+        <p>Odbijate zahtev ucenika {{odabran.ime}} {{odabran.prezime}} iz predmeta {{odabran.predmet}} za {{odabran.od.datumVremeString()}}.</p>
+        <label for="obrazlozenje" class="form-label">Ako ste sigurni, ovde mozete uneti obrazlozenje.</label>
+        <textarea id="obrazlozenje" [(ngModel)]="obrazlozenje" class="form-control"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="odbijDefinitivno()">Odbij zahtev</button>
+        &nbsp;
+        <button class="btn btn-secondary" (click)="modalServis.dismissAll()">Ipak ne</button>
+    </div>
+</ng-template>

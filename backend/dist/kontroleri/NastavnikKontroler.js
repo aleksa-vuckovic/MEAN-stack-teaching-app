@@ -144,6 +144,41 @@ class NastavnikKontroler {
                     res.json({ poruka: ret });
                 });
         };
+        this.zahtevi = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            db_1.DB.nastavnikZahtevi(kor.kime).then((ret) => {
+                res.json({ poruka: "ok", podaci: ret });
+            });
+        };
+        this.potvrdi = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body || !req.body.od) {
+                res.json({ poruka: "Nedostaju podaci." });
+                return;
+            }
+            let od = new DatumVreme_1.DatumVreme(req.body.od);
+            db_1.DB.nastavnikOdgovor(kor.kime, od, null).then((ret) => {
+                res.json({ poruka: ret });
+            });
+        };
+        this.odbij = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            if (!req.body || !req.body.od || !req.body.obrazlozenje) {
+                res.json({ poruka: "Nedostaju podaci." });
+                return;
+            }
+            let od = new DatumVreme_1.DatumVreme(req.body.od);
+            let obrazlozenje = req.body.obrazlozenje;
+            db_1.DB.nastavnikOdgovor(kor.kime, od, obrazlozenje).then((ret) => {
+                res.json({ poruka: ret });
+            });
+        };
     }
 }
 exports.NastavnikKontroler = NastavnikKontroler;

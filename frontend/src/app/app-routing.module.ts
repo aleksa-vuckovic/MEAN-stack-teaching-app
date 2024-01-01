@@ -13,6 +13,7 @@ import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.
 import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nastavnik-profil.component';
 import { NastavnikKalendarComponent } from './ruterkomponente/nastavnik-kalendar/nastavnik-kalendar.component';
 import { NastavnikCasoviComponent } from './ruterkomponente/nastavnik-casovi/nastavnik-casovi.component';
+import { NastavnikZahteviComponent } from './ruterkomponente/nastavnik-zahtevi/nastavnik-zahtevi.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
 
   { path: "nastavnikProfil", component: NastavnikProfilComponent},
   { path: "nastavnikKalendar", component: NastavnikKalendarComponent},
-  { path: "nastavnikCasovi", component: NastavnikCasoviComponent}
+  { path: "nastavnikCasovi", component: NastavnikCasoviComponent},
+  { path: "nastavnikZahtevi", component: NastavnikZahteviComponent}
 ]
 
 @NgModule({
