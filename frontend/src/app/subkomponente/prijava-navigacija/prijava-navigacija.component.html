@@ -4,7 +4,7 @@
     </button>
     <div class="collapse navbar-collapse" id="menu">
         <ul class ="nav navbar-nav">
-            <li  *ngFor="let cilj of ciljevi; let i = index" class ="nav-item w-100" (click)="klik(cilj)" [class.active]="trenutni==cilj" [class.inactive]="trenutni!=cilj">
+            <li  *ngFor="let cilj of ciljevi; let i = index" class ="nav-item w-100" (click)="klik(cilj)">
                 {{labele[i]}}
             </li>
         </ul>

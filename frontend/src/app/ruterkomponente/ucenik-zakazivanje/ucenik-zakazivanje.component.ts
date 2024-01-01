@@ -1,16 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as bootstrap from 'bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { UcenikService } from 'src/app/servisi/ucenik.service';
 
 @Component({
-  selector: 'app-zakazivanje',
-  templateUrl: './zakazivanje.component.html',
-  styleUrls: ['./zakazivanje.component.css']
+  selector: 'app-ucenik-zakazivanje',
+  templateUrl: './ucenik-zakazivanje.component.html',
+  styleUrls: ['./ucenik-zakazivanje.component.css']
 })
-export class ZakazivanjeComponent implements OnInit {
+export class UcenikZakazivanjeComponent implements OnInit {
   //ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari
   nastavniKime = "";
   podaci = {
@@ -80,8 +79,8 @@ export class ZakazivanjeComponent implements OnInit {
 
   //forma
   predmet: string = ""
-  datumvreme1: DatumVreme = DatumVreme.sada().vreme(60*12);
-  datumvreme2: DatumVreme = DatumVreme.sada().vreme(60*12);
+  datumvreme1: DatumVreme = DatumVreme.sada().naCeoSlot();
+  datumvreme2: DatumVreme = DatumVreme.sada().naCeoSlot();
   duplicas: boolean = false;
   opis: string = "";
 
@@ -112,3 +111,4 @@ export class ZakazivanjeComponent implements OnInit {
   }
 
 }
+

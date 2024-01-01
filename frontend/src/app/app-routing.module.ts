@@ -9,13 +9,16 @@ import { OsajtuComponent } from './ruterkomponente/osajtu/osajtu.component';
 import { UcenikProfilComponent } from './ruterkomponente/ucenik-profil/ucenik-profil.component';
 import { UcenikNastavniciComponent } from './ruterkomponente/ucenik-nastavnici/ucenik-nastavnici.component';
 import { UcenikNastavnikComponent } from './ruterkomponente/ucenik-nastavnik/ucenik-nastavnik.component';
-import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.component';
 import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nastavnik-profil.component';
 import { NastavnikKalendarComponent } from './ruterkomponente/nastavnik-kalendar/nastavnik-kalendar.component';
 import { NastavnikCasoviComponent } from './ruterkomponente/nastavnik-casovi/nastavnik-casovi.component';
 import { NastavnikZahteviComponent } from './ruterkomponente/nastavnik-zahtevi/nastavnik-zahtevi.component';
 import { NastavnikUceniciComponent } from './ruterkomponente/nastavnik-ucenici/nastavnik-ucenici.component';
 import { NastavnikDosijeComponent } from './ruterkomponente/nastavnik-dosije/nastavnik-dosije.component';
+import { UcenikArhivaComponent } from './ruterkomponente/ucenik-arhiva/ucenik-arhiva.component';
+import { UcenikCasoviComponent } from './ruterkomponente/ucenik-casovi/ucenik-casovi.component';
+import { UcenikObavestenjaComponent } from './ruterkomponente/ucenik-obavestenja/ucenik-obavestenja.component';
+import { UcenikZakazivanjeComponent } from './ruterkomponente/ucenik-zakazivanje/ucenik-zakazivanje.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -29,7 +32,10 @@ const routes: Routes = [
   { path: "ucenikProfil", component: UcenikProfilComponent},
   { path: "ucenikNastavnici", component: UcenikNastavniciComponent},
   { path: "ucenikNastavnik", component: UcenikNastavnikComponent},
-  { path: "zakazivanje", component: ZakazivanjeComponent},
+  { path: "ucenikZakazivanje", component: UcenikZakazivanjeComponent},
+  { path: "ucenikArhiva", component: UcenikArhivaComponent},
+  { path: "ucenikCasovi", component: UcenikCasoviComponent},
+  { path: "ucenikObavestenja", component: UcenikObavestenjaComponent},
 
   { path: "nastavnikProfil", component: NastavnikProfilComponent},
   { path: "nastavnikKalendar", component: NastavnikKalendarComponent},

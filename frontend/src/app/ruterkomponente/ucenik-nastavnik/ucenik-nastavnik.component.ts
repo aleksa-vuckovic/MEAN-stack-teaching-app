@@ -37,6 +37,6 @@ export class UcenikNastavnikComponent {
   }
 
   zakazi() {
-    this.ruter.navigate(["zakazivanje"]);
+    this.ruter.navigate(["ucenikZakazivanje"]);
   }
 }

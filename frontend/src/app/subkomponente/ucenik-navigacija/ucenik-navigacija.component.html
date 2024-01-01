@@ -4,9 +4,19 @@
     </button>
     <div class="collapse navbar-collapse" id="menu">
         <ul class ="nav navbar-nav">
-            <li  *ngFor="let cilj of ciljevi; let i = index" class ="nav-item w-100" (click)="klik(cilj)" [class.active]="trenutni==cilj" [class.inactive]="trenutni!=cilj">
-                {{labele[i]}}
+            <li class="nav-item w-100" (click)="klik('ucenikProfil')">Profil</li>
+            <li class="nav-item w-100" (click)="klik('ucenikNastavnici')">Nastavnici</li>
+            <li class="nav-item w-100 dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="casovi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Casovi
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="casovi">
+                  <li><a class="dropdown-item" (click)="klik('ucenikArhiva')">Arhiva</a></li>
+                  <li><a class="dropdown-item" (click)="klik('ucenikCasovi')">Predstojeci</a></li>
+                </ul>
             </li>
+            <li class="nav-item w-100" (click)="klik('ucenikObavestenja')">Obavestenja</li>
+            <li class="nav-item w-100" (click)="klik('odjava')">Odjava</li>
         </ul>
     </div>
 </nav>

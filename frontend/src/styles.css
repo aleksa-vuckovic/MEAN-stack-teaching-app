@@ -33,19 +33,12 @@ th input {
     background-color: #cfe3f0;
     padding: 15px;
 }
-.nav-item.inactive:hover {
+.nav-item:hover {
     background-color: #ccd5db;
     cursor: pointer;
 }
-.nav-item.active {
-    background-color: #ccd5db;
-    cursor:default
-}
 .navbar {
     padding: 0px;
-}
-.navbar-toggler {
-    border-width: 1px !important;
 }
 
 select {

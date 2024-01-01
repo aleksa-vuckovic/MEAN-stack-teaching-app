@@ -25,7 +25,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VremeInputComponent } from './subkomponente/vreme-input/vreme-input.component';
 import { DatumVremeInputComponent } from './subkomponente/datum-vreme-input/datum-vreme-input.component';
 import { KalendarComponent } from './subkomponente/kalendar/kalendar.component';
-import { ZakazivanjeComponent } from './ruterkomponente/zakazivanje/zakazivanje.component';
 import { NastavnikProfilComponent } from './ruterkomponente/nastavnik-profil/nastavnik-profil.component';
 import { NastavnikNavigacijaComponent } from './subkomponente/nastavnik-navigacija/nastavnik-navigacija.component';
 import { NastavnikKalendarComponent } from './ruterkomponente/nastavnik-kalendar/nastavnik-kalendar.component';
@@ -34,6 +33,10 @@ import { NastavnikCasoviComponent } from './ruterkomponente/nastavnik-casovi/nas
 import { NastavnikZahteviComponent } from './ruterkomponente/nastavnik-zahtevi/nastavnik-zahtevi.component';
 import { NastavnikUceniciComponent } from './ruterkomponente/nastavnik-ucenici/nastavnik-ucenici.component';
 import { NastavnikDosijeComponent } from './ruterkomponente/nastavnik-dosije/nastavnik-dosije.component';
+import { UcenikArhivaComponent } from './ruterkomponente/ucenik-arhiva/ucenik-arhiva.component';
+import { UcenikCasoviComponent } from './ruterkomponente/ucenik-casovi/ucenik-casovi.component';
+import { UcenikObavestenjaComponent } from './ruterkomponente/ucenik-obavestenja/ucenik-obavestenja.component';
+import { UcenikZakazivanjeComponent } from './ruterkomponente/ucenik-zakazivanje/ucenik-zakazivanje.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,6 @@ import { NastavnikDosijeComponent } from './ruterkomponente/nastavnik-dosije/nas
     VremeInputComponent,
     DatumVremeInputComponent,
     KalendarComponent,
-    ZakazivanjeComponent,
     NastavnikProfilComponent,
     NastavnikNavigacijaComponent,
     NastavnikKalendarComponent,
@@ -63,7 +65,11 @@ import { NastavnikDosijeComponent } from './ruterkomponente/nastavnik-dosije/nas
     NastavnikCasoviComponent,
     NastavnikZahteviComponent,
     NastavnikUceniciComponent,
-    NastavnikDosijeComponent
+    NastavnikDosijeComponent,
+    UcenikArhivaComponent,
+    UcenikCasoviComponent,
+    UcenikObavestenjaComponent,
+    UcenikZakazivanjeComponent
   ],
   imports: [
     BrowserModule,

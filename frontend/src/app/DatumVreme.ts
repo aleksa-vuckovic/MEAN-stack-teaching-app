@@ -42,8 +42,11 @@ export class DatumVreme {
         } else tmp = vreme;
         return new DatumVreme((this.vrednost & ~DatumVreme.vremeMaska) + tmp)
     }
-    krajDana() {
+    krajDana(): DatumVreme {
         return this.vreme(DatumVreme.ponoc);
+    }
+    naCeoSlot(): DatumVreme {
+        return this.vreme(this.sirovoVreme() - this.sirovoVreme()%30)
     }
 
     //Sirovi podaci

@@ -13,8 +13,8 @@ export class UcenikNavigacijaComponent {
   }
 
   @Input() trenutni:string = "ucenikProfil"
-  ciljevi=["ucenikProfil","ucenikNastavnici","odjava"]
-  labele=["Profil", "Nastavnici", "Odjava"]
+  ciljevi=["ucenikProfil","ucenikNastavnici", "ucenikArhiva", "ucenikCasovi", "ucenikObavestenja", "odjava"]
+  labele=["Profil", "Nastavnici", "Arhiva", "Casovi", "Obavestenja", "Odjava"]
 
   klik(cilj: string) {
     if (cilj == "odjava") {
