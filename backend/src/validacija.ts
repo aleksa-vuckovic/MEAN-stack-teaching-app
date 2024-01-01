@@ -193,13 +193,13 @@ export class Validacija {
         else return "ok";
     }
 
-    static recenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
+    static nastavnikRecenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
         return new Promise((resolve, reject) => {
             if (!ulaz || !ulaz.od) resolve("Nema dovoljno podataka.")
-            else if (ulaz.od >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji jos nije odrzan.")
+            else if (ulaz.do >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji se jos nije zavrsio.")
             else DB.cas(nastavnik, new DatumVreme(ulaz.od)).then((res: any) => {
                 if (!res) resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.")
-                else if (res.ocena || res.komentar) resolve("Cas je vec ocenjen.")
+                else if (res.ocenaNastavnik || res.komentarNastavnik) resolve("Cas je vec ocenjen.")
                 else {
                     if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
                     else izlaz.ocena = null;
@@ -208,6 +208,29 @@ export class Validacija {
                     else izlaz.komentar = "";
 
                     izlaz.od = new DatumVreme(ulaz.od)
+                    resolve("ok")
+                }
+            })
+        })
+    }
+
+    static ucenikRecenzijaValidacija(ulaz: any, izlaz: any, ucenik: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            if (!ulaz || !ulaz.od || !ulaz.nastavnik) resolve("Nema dovoljno podataka.")
+            else if (ulaz.do >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji se jos nije zavrsio.")
+            else DB.cas(ulaz.nastavnik, new DatumVreme(ulaz.od)).then((res: any) => {
+                if (!res) resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.")
+                else if (res.ucenik != ucenik) resolve("Ne mozete oceniti cas koji nije odrzan vama.")
+                else if (res.ocenaUcenik || res.komentarUcenik) resolve("Cas je vec ocenjen.")
+                else {
+                    if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
+                    else izlaz.ocena = null;
+
+                    if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
+                    else izlaz.komentar = "";
+
+                    izlaz.od = new DatumVreme(ulaz.od)
+                    izlaz.nastavnik = ulaz.nastavnik
                     resolve("ok")
                 }
             })

@@ -203,7 +203,7 @@ class NastavnikKontroler {
             if (!kor)
                 return;
             let izlaz = {};
-            validacija_1.Validacija.recenzijaValidacija(req.body, izlaz, kor.kime).then((ret) => {
+            validacija_1.Validacija.nastavnikRecenzijaValidacija(req.body, izlaz, kor.kime).then((ret) => {
                 if (ret != "ok")
                     res.json({ poruka: ret });
                 else

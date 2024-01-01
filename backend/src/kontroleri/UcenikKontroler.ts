@@ -134,4 +134,24 @@ export class UcenikKontroler {
             res.json({poruka: "ok", podaci: ret})
         })
     }
+
+    arhiva = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        DB.ucenikArhiva(kor.kime).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    recenzija = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let izlaz: any = {}
+        Validacija.ucenikRecenzijaValidacija(req.body, izlaz, kor.kime).then((ret: string) => {
+            if (ret != "ok") res.json({poruka: ret})
+            else DB.ucenikRecenzija(izlaz.nastavnik, izlaz.od, izlaz.ocena, izlaz.komentar).then((ret: string) => {
+                res.json({poruka: ret})
+            })
+        })
+    }
 }

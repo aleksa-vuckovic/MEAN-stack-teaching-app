@@ -260,17 +260,17 @@ class Validacija {
         else
             return "ok";
     }
-    static recenzijaValidacija(ulaz, izlaz, nastavnik) {
+    static nastavnikRecenzijaValidacija(ulaz, izlaz, nastavnik) {
         return new Promise((resolve, reject) => {
             if (!ulaz || !ulaz.od)
                 resolve("Nema dovoljno podataka.");
-            else if (ulaz.od >= DatumVreme_1.DatumVreme.sada().broj())
-                resolve("Ne mozete oceniti cas koji jos nije odrzan.");
+            else if (ulaz.do >= DatumVreme_1.DatumVreme.sada().broj())
+                resolve("Ne mozete oceniti cas koji se jos nije zavrsio.");
             else
                 db_1.DB.cas(nastavnik, new DatumVreme_1.DatumVreme(ulaz.od)).then((res) => {
                     if (!res)
                         resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.");
-                    else if (res.ocena || res.komentar)
+                    else if (res.ocenaNastavnik || res.komentarNastavnik)
                         resolve("Cas je vec ocenjen.");
                     else {
                         if (ulaz.ocena)
@@ -282,6 +282,36 @@ class Validacija {
                         else
                             izlaz.komentar = "";
                         izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
+                        resolve("ok");
+                    }
+                });
+        });
+    }
+    static ucenikRecenzijaValidacija(ulaz, izlaz, ucenik) {
+        return new Promise((resolve, reject) => {
+            if (!ulaz || !ulaz.od || !ulaz.nastavnik)
+                resolve("Nema dovoljno podataka.");
+            else if (ulaz.do >= DatumVreme_1.DatumVreme.sada().broj())
+                resolve("Ne mozete oceniti cas koji se jos nije zavrsio.");
+            else
+                db_1.DB.cas(ulaz.nastavnik, new DatumVreme_1.DatumVreme(ulaz.od)).then((res) => {
+                    if (!res)
+                        resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.");
+                    else if (res.ucenik != ucenik)
+                        resolve("Ne mozete oceniti cas koji nije odrzan vama.");
+                    else if (res.ocenaUcenik || res.komentarUcenik)
+                        resolve("Cas je vec ocenjen.");
+                    else {
+                        if (ulaz.ocena)
+                            izlaz.ocena = ulaz.ocena;
+                        else
+                            izlaz.ocena = null;
+                        if (ulaz.komentar)
+                            izlaz.komentar = ulaz.komentar;
+                        else
+                            izlaz.komentar = "";
+                        izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
+                        izlaz.nastavnik = ulaz.nastavnik;
                         resolve("ok");
                     }
                 });

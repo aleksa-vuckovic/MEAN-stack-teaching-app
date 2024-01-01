@@ -169,6 +169,28 @@ class UcenikKontroler {
                 res.json({ poruka: "ok", podaci: ret });
             });
         };
+        this.arhiva = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            db_1.DB.ucenikArhiva(kor.kime).then((ret) => {
+                res.json({ poruka: "ok", podaci: ret });
+            });
+        };
+        this.recenzija = (req, res) => {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let izlaz = {};
+            validacija_1.Validacija.ucenikRecenzijaValidacija(req.body, izlaz, kor.kime).then((ret) => {
+                if (ret != "ok")
+                    res.json({ poruka: ret });
+                else
+                    db_1.DB.ucenikRecenzija(izlaz.nastavnik, izlaz.od, izlaz.ocena, izlaz.komentar).then((ret) => {
+                        res.json({ poruka: ret });
+                    });
+            });
+        };
     }
 }
 exports.UcenikKontroler = UcenikKontroler;

@@ -53,5 +53,18 @@ export class UcenikService {
   casovi() {
     return this.http.get(this.url + "casovi", this.opcije)
   }
+
+  arhiva() {
+    return this.http.get(this.url + "arhiva", this.opcije)
+  }
+
+  recenzija(od: DatumVreme, nastavnik: string, ocena: number|null, komentar: string) {
+    return this.http.post(this.url + "recenzija", {
+      od: od.broj(),
+      nastavnik: nastavnik,
+      ocena: ocena,
+      komentar: komentar
+    }, this.opcije)
+  }
 }
 

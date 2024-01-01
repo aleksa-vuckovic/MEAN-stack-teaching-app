@@ -169,7 +169,7 @@ export class NastavnikKontroler {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
         let izlaz: any = {}
-        Validacija.recenzijaValidacija(req.body, izlaz, kor.kime).then((ret: string) => {
+        Validacija.nastavnikRecenzijaValidacija(req.body, izlaz, kor.kime).then((ret: string) => {
             if (ret != "ok") res.json({poruka: ret})
             else DB.nastavnikRecenzija(kor.kime, izlaz.od, izlaz.ocena, izlaz.komentar).then((ret: string) => {
                 res.json({poruka: ret})

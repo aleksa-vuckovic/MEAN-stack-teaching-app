@@ -522,6 +522,11 @@ class DB {
                         ime: "$ucenikPodaci.ime",
                         prezime: "$ucenikPodaci.prezime",
                     }
+                },
+                {
+                    $sort: {
+                        od: 1
+                    }
                 }
             ]).then((res) => {
                 resolve(res);
@@ -682,7 +687,7 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        od: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
+                        do: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
                     }
                 },
                 {
@@ -773,9 +778,85 @@ class DB {
                         ime: "$nastavnikPodaci.ime",
                         prezime: "$nastavnikPodaci.prezime",
                     }
+                },
+                {
+                    $sort: {
+                        od: 1
+                    }
                 }
             ]).then((res) => {
                 resolve(res);
+            });
+        });
+    }
+    static ucenikArhiva(ucenik) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.aggregate([
+                {
+                    $match: {
+                        ucenik: ucenik,
+                        potvrdjen: { $ne: null },
+                        odbijen: null,
+                        otkazan: null,
+                        do: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "korisnici",
+                        localField: "nastavnik",
+                        foreignField: "kime",
+                        as: "nastavnikPodaci"
+                    }
+                },
+                {
+                    $unwind: {
+                        path: "$nastavnikPodaci"
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        nastavnik: "$nastavnik",
+                        od: "$od",
+                        do: "$do",
+                        predmet: "$predmet",
+                        ime: "$nastavnikPodaci.ime",
+                        prezime: "$nastavnikPodaci.prezime",
+                        komentar: "$komentarNastavnik",
+                        ocenjen: { $or: [{ $ne: ["$ocenaUcenik", null] }, { $ne: ["$komentarUcenik", null] }] }
+                    }
+                },
+                {
+                    $sort: {
+                        od: -1
+                    }
+                }
+            ]).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+    static ucenikRecenzija(nastavnik, od, ocena, komentar) {
+        return new Promise((resolve, reject) => {
+            Cas_1.default.updateOne({
+                nastavnik: nastavnik,
+                od: od.broj(),
+                potvrdjen: { $ne: null },
+                odbijen: null,
+                otkazan: null,
+                ocenaUcenik: null,
+                komentarUcenik: null
+            }, {
+                $set: {
+                    ocenaUcenik: ocena,
+                    komentarUcenik: komentar
+                }
+            }).then(res => {
+                if (res.modifiedCount > 0)
+                    resolve("ok");
+                else
+                    resolve("Nije pronadjen cas.");
             });
         });
     }

@@ -9,7 +9,74 @@
             </div>
         </div>
         <div class="row px-3 py-1">
-            
+            <div class="col-12">
+                <table class="table table-striped border" *ngIf="casovi.length!=0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Datum
+                            </th>
+                            <th>
+                                Trajanje
+                            </th>
+                            <th>
+                                Predmet
+                            </th>
+                            <th>
+                                Nastavnik
+                            </th>
+                            <th>
+                                Komentar nastavnika
+                            </th>
+                            <th>
+                                Recenzija
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let elem of casovi">
+                            <td>
+                                {{elem.od.datumVremeString()}}
+                            </td>
+                            <td>
+                                {{elem.trajanje}}
+                            </td>
+                            <td>
+                                {{elem.predmet}}
+                            </td>
+                            <td>
+                                {{elem.ime}} {{elem.prezime}}
+                            </td>
+                            <td>
+                                {{elem.komentar ? elem.komentar : "/"}}
+                            </td>
+                            <td>
+                                <button *ngIf="!elem.ocenjen" class="btn btn-primary" (click)="recenzija(elem)">Oceni</button>
+                                <i *ngIf="elem.ocenjen" class="material-icons">check_circle</i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4 *ngIf="casovi.length==0">
+                    Nema casova za prikaz.
+                </h4>
+            </div>
         </div>
     </div>
 </div>
+
+<ng-template #modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Recenzija</h5>
+    </div>
+    <div class="modal-body">
+        <p>Unesite ocenu i komentar za cas odrzan {{odabran.od.datumVremeString()}}.</p>
+        <zvezde [(ngModel)]="ocena" visina="35px"></zvezde>
+        <textarea [(ngModel)]="komentar" class="form-control mt-2"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="recenzijaOk()">Ok</button>
+        &nbsp;
+        <button class="btn btn-secondary" (click)="modalServis.dismissAll()">Odustani</button>
+    </div>
+</ng-template>
