@@ -78,4 +78,22 @@ export class NastavnikService {
       obrazlozenje: obrazlozenje
     }, this.opcije)
   }
+
+  ucenici() {
+    return this.http.get(this.url + "ucenici", this.opcije)
+  }
+
+  dosije(ucenik: string) {
+    return this.http.post(this.url + "dosije", {
+      ucenik: ucenik
+    }, this.opcije);
+  }
+
+  recenzija(od: DatumVreme, ocena: number, komentar: string) {
+    return this.http.post(this.url + "recenzija", {
+      od: od.broj(),
+      ocena: ocena,
+      komentar: komentar
+    }, this.opcije)
+  }
 }

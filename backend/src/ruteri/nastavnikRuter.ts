@@ -55,4 +55,16 @@ nastavnikRuter.route("/odbij").post((req, res) => {
     new NastavnikKontroler().odbij(req, res)
 })
 
+nastavnikRuter.route("/ucenici").get((req, res) => {
+    new NastavnikKontroler().ucenici(req, res)
+})
+
+nastavnikRuter.route("/dosije").post((req, res) => {
+    new NastavnikKontroler().dosije(req, res)
+})
+
+nastavnikRuter.route("/recenzija").post((req, res) => {
+    new NastavnikKontroler().recenzija(req, res)
+})
+
 export default nastavnikRuter;

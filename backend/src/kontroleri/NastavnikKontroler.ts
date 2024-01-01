@@ -147,4 +147,33 @@ export class NastavnikKontroler {
             res.json({poruka: ret})
         })
     }
+
+    ucenici = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        DB.nastavnikUcenici(kor.kime).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    dosije = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        if (!req.body || !req.body.ucenik) res.json({poruka: "Nedovoljno podataka."})
+        else DB.nastavnikDosije(kor.kime, req.body.ucenik).then((ret: Array<any>) => {
+            res.json({poruka: "ok", podaci: ret})
+        })
+    }
+
+    recenzija = (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let izlaz: any = {}
+        Validacija.recenzijaValidacija(req.body, izlaz, kor.kime).then((ret: string) => {
+            if (ret != "ok") res.json({poruka: ret})
+            else DB.nastavnikRecenzija(kor.kime, izlaz.od, izlaz.ocena, izlaz.komentar).then((ret: string) => {
+                res.json({poruka: ret})
+            })
+        })
+    }
 }

@@ -192,4 +192,25 @@ export class Validacija {
         else if (od.razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
         else return "ok";
     }
+
+    static recenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            if (!ulaz || !ulaz.od) resolve("Nema dovoljno podataka.")
+            else if (ulaz.od >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji jos nije odrzan.")
+            else DB.cas(nastavnik, new DatumVreme(ulaz.od)).then((res: any) => {
+                if (!res) resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.")
+                else if (res.ocena || res.komentar) resolve("Cas je vec ocenjen.")
+                else {
+                    if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
+                    else izlaz.ocena = null;
+
+                    if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
+                    else izlaz.komentar = "";
+
+                    izlaz.od = new DatumVreme(ulaz.od)
+                    resolve("ok")
+                }
+            })
+        })
+    }
 }
