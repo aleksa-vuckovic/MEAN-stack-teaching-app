@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PrijavaService } from 'src/app/servisi/prijava.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { PrijavaService } from 'src/app/servisi/prijava.service';
 export class PrijavaAdministratorComponent {
   prijavaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private servis: PrijavaService) {
+  constructor(private fb: FormBuilder, private servis: PrijavaService, private ruter: Router) {
     this.prijavaForm = this.fb.group({
       kime: ['', Validators.required],
       lozinka: ['', [ Validators.required ] ]
@@ -35,7 +36,7 @@ export class PrijavaAdministratorComponent {
           if (data.tip == "Administrator") {
             //login admin
             localStorage.setItem("korisnik", JSON.stringify(data))
-            alert(JSON.stringify(data))
+            this.ruter.navigate(["administratorKorisnici"])
           }
           else {
             this.greska = "Niste administrator."

@@ -1,0 +1,59 @@
+<div class="row">
+    <div class ="col-lg-2 col-12 bg-blue p-0">
+        <administrator-navigacija trenutni="administratorKorisnici"></administrator-navigacija>
+    </div>
+    <div class="col-lg-10 col-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Korisnici</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class = "col-12">
+                <table class = "table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tip
+                            </th>
+                            <th>
+                                Ime
+                            </th>
+                            <th>
+                                Prezime
+                            </th>
+                            <th>
+                                Mejl
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.ime" (change)="osvezi()" placeholder = "Pretraga po imenu." >
+                                <i class="material-icons" (click)="klikSort('ime')">{{sort['ime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                            <th>
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.prezime" (change)="osvezi()" placeholder = "Pretraga po prezimenu." >
+                                <i class="material-icons" (click)="klikSort('prezime')">{{sort['prezime'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                            <th>
+                                <input type="text" class ="border border-0" [(ngModel)]="pretraga.mejl" (change)="osvezi()" placeholder = "Pretraga po mejlu." >
+                                <i class="material-icons" (click)="klikSort('mejl')">{{sort['mejl'] ? 'arrow_drop_down' : 'arrow_drop_up'}}</i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let elem of korisnici" class="link" (click)="klik(elem)">
+                            <td> {{elem.tip}}</td>
+                            <td> {{elem.ime}} </td>
+                            <td> {{elem.prezime}} </td>
+                            <td> {{elem.mejl}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

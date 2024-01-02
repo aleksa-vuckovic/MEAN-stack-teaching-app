@@ -93,6 +93,7 @@ class UcenikKontroler {
             }
             let ocena = yield db_1.DB.nastavnikOcena(kime);
             let komentari = yield db_1.DB.nastavnikKomentari(kime);
+            delete ret.aktivan;
             delete ret.adresa;
             delete ret.cv; //ucenik ne bi trebalo da vidi ove podatke
             ret.komentari = komentari;

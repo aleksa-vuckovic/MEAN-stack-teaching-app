@@ -132,7 +132,8 @@ export class DB {
             mejl: ret.mejl,
             adresa: ret.adresa,
             telefon: ret.telefon,
-            profil: Utils.slikaUrl(ret.profil)
+            profil: Utils.slikaUrl(ret.profil),
+            aktivan: ret.aktivan
         }
     }
 
@@ -198,7 +199,7 @@ export class DB {
         return ret
     }
     static async nastavnikPodaci(kime: string): Promise<any> {
-        let ret = await korisnikModel.findOne({kime: kime, tip: "Nastavnik"})
+        let ret = await korisnikModel.findOne({kime: kime, tip: "Nastavnik", odobren: true})
         if (!ret) return null;
         else return {
             ime: ret.ime,
@@ -209,7 +210,8 @@ export class DB {
             profil: Utils.slikaUrl(ret.profil as string),
             predmeti: ret.predmeti,
             uzrasti: ret.uzrasti,
-            cv: Utils.slikaUrl(ret.cv as string)
+            cv: Utils.slikaUrl(ret.cv as string),
+            aktivan: ret.aktivan
         }
     }
 
@@ -807,5 +809,81 @@ export class DB {
         ])
         if (ret.length == 0) return 0
         return ret[0].broj
+    }
+
+
+    static async korisniciPretraga(pretraga: any): Promise<Array<any>> {
+        let upit: any = {
+            tip: {$in: ['Ucenik', 'Nastavnik']}, 
+            odobren: true
+        }
+        if (pretraga.ime && pretraga.ime != "") upit.ime = {$regex: new RegExp(pretraga.ime, 'i')}
+        if (pretraga.prezime && pretraga.prezime != "") upit.prezime = {$regex: new RegExp(pretraga.prezime, 'i')}
+        if (pretraga.mejl && pretraga.mejl != "") upit.mejl = {$regex: new RegExp(pretraga.mejl, 'i')}
+        let sort: any = null
+        if (pretraga.sort && pretraga.sort != "") {
+            sort = {}
+            sort[pretraga.sort] = pretraga.opadajuce ? -1 : 1;
+        }
+        let projekcija: any = {
+            tip: 1,
+            kime: 1,
+            ime: 1, 
+            prezime: 1,
+            mejl: 1,
+            _id: 0
+        }
+        let tmp: Array<any> = [
+            {
+                $match: upit
+            },
+            {
+                $project: projekcija
+            }
+        ];
+        if (sort) tmp.push({$sort: sort});
+        
+        return await korisnikModel.aggregate(tmp);
+    }
+
+    static async korisnikAktivacija(kime: string, aktivan: boolean): Promise<string> {
+        let ret = await korisnikModel.updateOne({kime: kime}, {$set: {aktivan: aktivan}})
+        if (ret.modifiedCount > 0) return "ok"
+        return "Greska u bazi."
+    }
+
+    static async zahteviZaRegistraciju(): Promise<Array<any>> {
+        let ret = await korisnikModel.aggregate([
+            {
+                $match: {
+                    tip: "Nastavnik",
+                    odobren: false,
+                    aktivan: true
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    kime: 1,
+                    ime: 1,
+                    prezime: 1,
+                    pol: 1,
+                    telefon: 1,
+                    mejl: 1,
+                    profil: {$concat: [Utils.slikaPrefiks(), "$profil"]},
+                    predmeti: 1,
+                    uzrasti: 1,
+                    saznao: 1,
+                    cv: {$concat: [Utils.slikaPrefiks(), "$cv"]}
+                }
+            }
+        ])
+        return ret;
+    }
+
+    static async odobrenje(kime: string, odobren: boolean): Promise<string> {
+        let ret = await korisnikModel.updateOne({kime: kime}, {$set:{odobren: odobren}})
+        if (ret.modifiedCount > 0) return "ok"
+        else return "Greska u bazi."
     }
 }

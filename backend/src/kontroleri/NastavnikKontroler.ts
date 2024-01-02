@@ -176,6 +176,7 @@ export class NastavnikKontroler {
         if (!ret) res.json({poruka: "Nije pronadjen ucenik."})
         else {
             delete ret.adresa 
+            delete ret.aktivan
             res.json({poruka: "ok", podaci: ret})
         }
     }

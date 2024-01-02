@@ -7,6 +7,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import ucenikRuter from './ruteri/ucenikRuter';
 import nastavnikRuter from './ruteri/nastavnikRuter';
+import administratorRuter from './ruteri/administratorRuter';
 
 /*
 Svi odgovori su u json formatu 
@@ -42,4 +43,5 @@ app.use('/uploads', express.static(path.join(__dirname, "..", "uploads")));
 app.use("/", prijavaRuter);
 app.use("/ucenik", ucenikRuter);
 app.use("/nastavnik", nastavnikRuter);
+app.use("/administrator", administratorRuter)
 app.listen(4000, () => console.log(`Express server running on port 4000`));

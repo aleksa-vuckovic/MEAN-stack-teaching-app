@@ -1,0 +1,26 @@
+<div class="row">
+    <div class ="col-lg-2 col-12 bg-blue p-0">
+        <administrator-navigacija trenutni="administratorZahtevi"></administrator-navigacija>
+    </div>
+    <div class="col-lg-10 col-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Zahtevi za registraciju</h2>
+            </div>
+        </div>
+        <div *ngFor="let elem of zahtevi" class="row px-3 py-1 border-bottom border-bottom-5">
+            <div class="col-12 col-md-3">
+                <img [src]="elem.profil" width="100%" class="rounded-1">
+            </div>
+            <div class="col-12 col-md-9">
+                <h2>{{elem.ime}} {{elem.prezime}}</h2>
+                <p>Predmeti: <span *ngFor="let predmet of elem.predmeti; let last = last">{{predmet}}<span *ngIf="!last">, </span></span></p>
+                <p>Saznao: <i>{{elem.saznao}}</i></p>
+                <p>Kontakt: <br> {{elem.mejl}} <br> {{elem.telefon}}</p>
+                <a [href]="elem.cv" [download]="elem.ime + '-' + elem.prezime + '-cv'">CV</a><br>
+                <button class="btn btn-success mt-2" (click)="prihvati(elem)">Prihvati</button>
+                &nbsp;&nbsp;<button class="btn btn-danger mt-2" (click)="odbij(elem)">Odbij</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -152,7 +152,8 @@ class DB {
                     mejl: ret.mejl,
                     adresa: ret.adresa,
                     telefon: ret.telefon,
-                    profil: utils_1.Utils.slikaUrl(ret.profil)
+                    profil: utils_1.Utils.slikaUrl(ret.profil),
+                    aktivan: ret.aktivan
                 };
         });
     }
@@ -224,7 +225,7 @@ class DB {
     }
     static nastavnikPodaci(kime) {
         return __awaiter(this, void 0, void 0, function* () {
-            let ret = yield Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik" });
+            let ret = yield Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik", odobren: true });
             if (!ret)
                 return null;
             else
@@ -237,7 +238,8 @@ class DB {
                     profil: utils_1.Utils.slikaUrl(ret.profil),
                     predmeti: ret.predmeti,
                     uzrasti: ret.uzrasti,
-                    cv: utils_1.Utils.slikaUrl(ret.cv)
+                    cv: utils_1.Utils.slikaUrl(ret.cv),
+                    aktivan: ret.aktivan
                 };
         });
     }
@@ -887,6 +889,91 @@ class DB {
             if (ret.length == 0)
                 return 0;
             return ret[0].broj;
+        });
+    }
+    static korisniciPretraga(pretraga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let upit = {
+                tip: { $in: ['Ucenik', 'Nastavnik'] },
+                odobren: true
+            };
+            if (pretraga.ime && pretraga.ime != "")
+                upit.ime = { $regex: new RegExp(pretraga.ime, 'i') };
+            if (pretraga.prezime && pretraga.prezime != "")
+                upit.prezime = { $regex: new RegExp(pretraga.prezime, 'i') };
+            if (pretraga.mejl && pretraga.mejl != "")
+                upit.mejl = { $regex: new RegExp(pretraga.mejl, 'i') };
+            let sort = null;
+            if (pretraga.sort && pretraga.sort != "") {
+                sort = {};
+                sort[pretraga.sort] = pretraga.opadajuce ? -1 : 1;
+            }
+            let projekcija = {
+                tip: 1,
+                kime: 1,
+                ime: 1,
+                prezime: 1,
+                mejl: 1,
+                _id: 0
+            };
+            let tmp = [
+                {
+                    $match: upit
+                },
+                {
+                    $project: projekcija
+                }
+            ];
+            if (sort)
+                tmp.push({ $sort: sort });
+            return yield Korisnik_1.default.aggregate(tmp);
+        });
+    }
+    static korisnikAktivacija(kime, aktivan) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.updateOne({ kime: kime }, { $set: { aktivan: aktivan } });
+            if (ret.modifiedCount > 0)
+                return "ok";
+            return "Greska u bazi.";
+        });
+    }
+    static zahteviZaRegistraciju() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: "Nastavnik",
+                        odobren: false,
+                        aktivan: true
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        kime: 1,
+                        ime: 1,
+                        prezime: 1,
+                        pol: 1,
+                        telefon: 1,
+                        mejl: 1,
+                        profil: { $concat: [utils_1.Utils.slikaPrefiks(), "$profil"] },
+                        predmeti: 1,
+                        uzrasti: 1,
+                        saznao: 1,
+                        cv: { $concat: [utils_1.Utils.slikaPrefiks(), "$cv"] }
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static odobrenje(kime, odobren) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.updateOne({ kime: kime }, { $set: { odobren: odobren } });
+            if (ret.modifiedCount > 0)
+                return "ok";
+            else
+                return "Greska u bazi.";
         });
     }
 }

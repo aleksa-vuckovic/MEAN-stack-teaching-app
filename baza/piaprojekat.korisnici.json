@@ -535,7 +535,7 @@
   "_id": {
     "$oid": "65944fb4979100d9a64c50ea"
   },
-  "prijava": 0,
+  "prijava": 4497455,
   "kime": "aleksa",
   "lozinka": "$2a$10$8Fx56SC5D2WgwM4j0GK0E.IQ5w53q12EWkDX0exLfUfF/wbjX2u7O",
   "pitanje": "Vreme rodjenja?",
@@ -548,5 +548,134 @@
   "telefon": "+381621807888",
   "mejl": "aleksa.vuckovic77@gmail.com",
   "profil": "/uploads/admin.jpeg",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65949ccd3d6da41685a0042a"
+  },
+  "prijava": 0,
+  "kime": "jovan",
+  "lozinka": "$2b$10$Zq7clzI4JmGvLl1GJwNBO.qe9gajfuvOr2EbIEiJ2qhpRdvHVBIa6",
+  "pitanje": "Koji si znak u horoskopu?",
+  "odgovor": "devica",
+  "ime": "Jovan",
+  "prezime": "Jovanovic",
+  "tip": "Nastavnik",
+  "pol": "M",
+  "adresa": "Resavska 11",
+  "telefon": "+38111100200",
+  "mejl": "jovan@etf.rs",
+  "profil": "/uploads/profil-1704238285178.jpeg",
+  "odobren": false,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Informatika",
+    "Programiranje"
+  ],
+  "uzrasti": [
+    "Srednja"
+  ],
+  "saznao": "Saznao sam od prijatelja koji koristi ovaj sajt vec godinama.",
+  "cv": "/uploads/cv-1704238285179.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65949d7d3d6da41685a0042e"
+  },
+  "prijava": 0,
+  "kime": "stojan",
+  "lozinka": "$2b$10$AX7O5ZyeMsZ0b56gWlBlUeuBkMSWUHjn3doV4Ypf8yvluBBTf9O8G",
+  "pitanje": "Sta najcesce jedes za rucak?",
+  "odgovor": "sarme",
+  "ime": "Stojan",
+  "prezime": "Stojanovic",
+  "tip": "Nastavnik",
+  "pol": "M",
+  "adresa": "Nemanjina 123",
+  "telefon": "+38167888777",
+  "mejl": "stojan@etf.rs",
+  "profil": "/uploads/profil-1704238461613.jpeg",
+  "odobren": false,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Matematika",
+    "Fizika",
+    "Hemija",
+    "Elektronika"
+  ],
+  "uzrasti": [
+    "Osnovna 5-8",
+    "Srednja"
+  ],
+  "saznao": "Saznao sam preko jedne reklame koju samo video na TV-u.",
+  "cv": "/uploads/cv-1704238461614.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
   "__v": 0
 }]

@@ -1,0 +1,7 @@
+i.material-icons:hover {
+    cursor:pointer
+}
+tr.link:hover {
+    font-weight: bold;
+    cursor: pointer
+}

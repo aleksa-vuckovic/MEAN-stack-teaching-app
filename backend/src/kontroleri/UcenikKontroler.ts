@@ -65,6 +65,7 @@ export class UcenikKontroler {
         if(!ret) { res.json({poruka: "Nastavnik ne postoji."}); return }
         let ocena = await DB.nastavnikOcena(kime)
         let komentari =await DB.nastavnikKomentari(kime)
+        delete ret.aktivan;
         delete ret.adresa;
         delete ret.cv; //ucenik ne bi trebalo da vidi ove podatke
         ret.komentari = komentari;

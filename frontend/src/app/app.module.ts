@@ -37,6 +37,12 @@ import { UcenikArhivaComponent } from './ruterkomponente/ucenik-arhiva/ucenik-ar
 import { UcenikCasoviComponent } from './ruterkomponente/ucenik-casovi/ucenik-casovi.component';
 import { UcenikObavestenjaComponent } from './ruterkomponente/ucenik-obavestenja/ucenik-obavestenja.component';
 import { UcenikZakazivanjeComponent } from './ruterkomponente/ucenik-zakazivanje/ucenik-zakazivanje.component';
+import { AdministratorNavigacijaComponent } from './subkomponente/administrator-navigacija/administrator-navigacija.component';
+import { AdministratorKorisniciComponent } from './ruterkomponente/administrator-korisnici/administrator-korisnici.component';
+import { AdministratorNastavnikComponent } from './ruterkomponente/administrator-nastavnik/administrator-nastavnik.component';
+import { AdministratorUcenikComponent } from './ruterkomponente/administrator-ucenik/administrator-ucenik.component';
+import { AdministratorZahteviComponent } from './ruterkomponente/administrator-zahtevi/administrator-zahtevi.component';
+import { AdministratorPredmetiComponent } from './ruterkomponente/administrator-predmeti/administrator-predmeti.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +75,13 @@ import { UcenikZakazivanjeComponent } from './ruterkomponente/ucenik-zakazivanje
     UcenikArhivaComponent,
     UcenikCasoviComponent,
     UcenikObavestenjaComponent,
-    UcenikZakazivanjeComponent
+    UcenikZakazivanjeComponent,
+    AdministratorNavigacijaComponent,
+    AdministratorKorisniciComponent,
+    AdministratorNastavnikComponent,
+    AdministratorUcenikComponent,
+    AdministratorZahteviComponent,
+    AdministratorPredmetiComponent
   ],
   imports: [
     BrowserModule,

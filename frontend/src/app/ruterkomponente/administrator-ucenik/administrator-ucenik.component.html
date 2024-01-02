@@ -1,0 +1,25 @@
+<div class="row">
+    <div class ="col-lg-2 col-12 bg-blue p-0">
+        <administrator-navigacija trenutni="administratorUcenik"></administrator-navigacija>
+    </div>
+    <div class="col-lg-10 col-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Ucenik</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1 border-bottom border-bottom-5">
+            <div class="col-12 col-md-3">
+                <img [src]="podaci.profil" width="100%" class="rounded-1">
+            </div>
+            <div class="col-12 col-md-9">
+                <h2>{{podaci.ime}} {{podaci.prezime}}</h2>
+                <p>{{podaci.skola}}, {{podaci.razred}}. razred</p>
+                <br>
+                <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.telefon}}</p>
+                <button *ngIf="!podaci.aktivan" class="btn btn-success m-1" (click)="aktiviraj()">Aktiviraj</button>
+                <button *ngIf="podaci.aktivan" class="btn btn-danger m-1" (click)="deaktiviraj()">Deaktiviraj</button>
+            </div>
+        </div>
+    </div>
+</div>
