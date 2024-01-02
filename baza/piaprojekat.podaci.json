@@ -1,0 +1,47 @@
+[{
+  "_id": {
+    "$oid": "6589a1c1979100d9a64c50ae"
+  },
+  "podatak": "tip skole",
+  "vrednosti": [
+    "Osnovna",
+    "Srednja strucna",
+    "Srednja umetnicka",
+    "Gimnazija"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6589a1f3979100d9a64c50b0"
+  },
+  "podatak": "uzrast",
+  "vrednosti": [
+    "Osnovna 1-4",
+    "Osnovna 5-8",
+    "Srednja"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6589a286979100d9a64c50b2"
+  },
+  "podatak": "predmeti",
+  "vrednosti": [
+    "Matematika",
+    "Fizika",
+    "Hemija",
+    "Informatika",
+    "Programiranje",
+    "Srpski jezik",
+    "Engleski jezik",
+    "Nemacki jezik",
+    "Italijanski jezik",
+    "Francuski jezik",
+    "Spanski jezik",
+    "Latinski jezik",
+    "Biologija",
+    "Istorija",
+    "Geografija",
+    "Svet oko nas"
+  ]
+}]

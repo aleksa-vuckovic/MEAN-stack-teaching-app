@@ -37,6 +37,7 @@ export class NastavnikKalendarComponent {
     let termini = Array(7);
     for (let i = 0; i < 7; i++) {
       this.servis.termini(this.datum.dodajDan(i)).subscribe((res: any) => {
+        console.log(res)
         if (res.poruka != "ok") return;
         termini[i] = res.podaci; tmp++;
         if (tmp == 7) this.termini = termini;

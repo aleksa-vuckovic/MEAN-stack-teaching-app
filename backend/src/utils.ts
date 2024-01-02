@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { DatumVreme } from './DatumVreme';
+import * as bcrypt from 'bcrypt'
 
 export class Utils {
     static jedinstvenoFajlIme(fajl: any) {
@@ -27,6 +28,12 @@ export class Utils {
         if (korisnik.skola != "Osnovna") return "Srednja";
         else if (korisnik.razred > 4) return "Osnovna 5-8";
         else return "Osnovna 1-4";
+    }
+
+    static async enkripcija(lozinka: string): Promise<string> {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(lozinka, salt);
+        return hash;
     }
 
 }

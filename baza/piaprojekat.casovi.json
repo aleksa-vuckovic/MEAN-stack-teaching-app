@@ -1,0 +1,304 @@
+[{
+  "_id": {
+    "$oid": "65942e3f38a68bb04292d57c"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Hteo bih da vezbamo kvadratne jednacine.",
+  "predmet": "Matematika",
+  "od": 4432652,
+  "do": 4432772,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 3,
+  "komentarUcenik": "Casovi kod ovog nastavnika umeju da budu pomalo dosadni...",
+  "ocenaNastavnik": 5,
+  "komentarNastavnik": "Matematika ti sjajno ide.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65942f7538a68bb04292e32c"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Zelim da radimo kubne jednacine.",
+  "predmet": "Matematika",
+  "od": 4436568,
+  "do": 4436628,
+  "potvrdjen": null,
+  "odbijen": 4400004,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": "Nazalost nisam ekspert za kubne jednacine",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65942fa538a68bb04292ec00"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Nikada nisam ucio programiranje, zelim da mi pokazete samo najosnovnije stvari.",
+  "predmet": "C++",
+  "od": 4448976,
+  "do": 4449036,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": 4420557,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": "Nazalost, Pajo, otkazujem cas zbog nepredvidjenih okolnosti i desvanja u krugu najblize rodbine...",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65942ffb38a68bb04292f9fd"
+  },
+  "ucenik": "paja",
+  "nastavnik": "petar",
+  "opis": "Imam polozen A2 hteo bih da krenemo sa casovima za B2 nivo.",
+  "predmet": "Kineski jezik",
+  "od": 4461294,
+  "do": 4461414,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Ko zeli da uci kineski, boljek nastavnik ne moze da nadje!",
+  "ocenaNastavnik": 5,
+  "komentarNastavnik": "Kineski nije lak, ali brzo ucis.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594303b38a68bb04293127c"
+  },
+  "ucenik": "paja",
+  "nastavnik": "lana",
+  "opis": "Potrebna mi je priprema za test iz kovalentnih veza.",
+  "predmet": "Hemija",
+  "od": 4465480,
+  "do": 4465540,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Sjajna profesorka, svima bih preporucio! Sve je objasnila detaljno, a na vrlo jednostavan i razumljiv nacin.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Jonske veze ti idu dobro, kovalentne manje vise.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659430a138a68bb042931a0b"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "marko",
+  "opis": "Treba mi priprema za test iz specijalne teorije relativiteta.",
+  "predmet": "Fizika",
+  "od": 4449096,
+  "do": 4449216,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Oduvek mi je fizika lose isla. Sa markom je ipak mnogo lakse.",
+  "ocenaNastavnik": 5,
+  "komentarNastavnik": "Odlicno samo tako nastavi!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594311b38a68bb042933443"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Treba mi pomoc sa interpretacijom sekspirovog romea i julije.",
+  "predmet": "Engleski jezik",
+  "od": 4465270,
+  "do": 4465330,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Sjajan profesor, za casove Engleskog boljeg ne bih znao da vam preporucim.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Nije lose, samo napred.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594315d38a68bb042933811"
+  },
+  "ucenik": "darko",
+  "nastavnik": "tijana",
+  "opis": "Zelim da naucim javu moolim vas.",
+  "predmet": "Java",
+  "od": 4477828,
+  "do": 4477948,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 1,
+  "komentarUcenik": "Ne idite kod nje, casovi su uzasno dosadni i naporni.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Moras puno da vezbas.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594318638a68bb042934186"
+  },
+  "ucenik": "darko",
+  "nastavnik": "jana",
+  "opis": "Hocu da naucim peloponeski rat, do detalja!",
+  "predmet": "Istorija",
+  "od": 4444880,
+  "do": 4445000,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 4,
+  "komentarUcenik": "Dobro je, dobro je, nemam sta da zamerim.",
+  "ocenaNastavnik": 5,
+  "komentarNastavnik": "Samo pohvale za ovog decka!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659431f638a68bb042934a6d"
+  },
+  "ucenik": "sara",
+  "nastavnik": "pavle",
+  "opis": "Treba mi pomoc u vezi sa klisurama u jugoistocnoj srbiji.",
+  "predmet": "Geografija",
+  "od": 4461204,
+  "do": 4461264,
+  "potvrdjen": 4400004,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 2,
+  "komentarUcenik": "Pavle je katastrofalno los profesor.",
+  "ocenaNastavnik": 2,
+  "komentarNastavnik": "Jako nevaspitano i nerazumno ponasanje, ne planiram vise da ti drzim casove.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65943d170aa5700623fd4ae3"
+  },
+  "ucenik": "sara",
+  "nastavnik": "jana",
+  "opis": "Zelela bih da obnovimo gradivo u oblasti organa za varenje.",
+  "predmet": "Biologija",
+  "od": 4461384,
+  "do": 4461504,
+  "potvrdjen": 4424720,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 2,
+  "komentarUcenik": "Bez komentara.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65943da60aa5700623fd5fd0"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "tijana",
+  "opis": "Voleo bih da vi spremite neki intersantan program u Javi pa da ga analiziramo.",
+  "predmet": "Java",
+  "od": 4448976,
+  "do": 4449096,
+  "potvrdjen": 4424720,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 4,
+  "komentarUcenik": "Casovi su jako interesantni i korisni.",
+  "ocenaNastavnik": 5,
+  "komentarNastavnik": "Java programiranje je stvoreno za tebe.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65943e480aa5700623fd639f"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Htela bih da analiziramo Seobe Crnjanskog.",
+  "predmet": "Srpski jezik",
+  "od": 4436928,
+  "do": 4437048,
+  "potvrdjen": 4424720,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Volim da idem na casove srpskog jezika kod ovog profesora, uvek naucim nesto novo.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Odlicno!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65944055c059cbf0cca687c0"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Zelim da nsastavimo tamo gde smo i stali.",
+  "predmet": "C++",
+  "od": 4465270,
+  "do": 4465390,
+  "potvrdjen": 4440853,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 4,
+  "komentarUcenik": "Marko nije los profesor, ali ume da se iznervira kada ucenik nesto ne razume.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Pajo, dobar si ti, ali moras jos puno da ucis.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659440b9c059cbf0cca69176"
+  },
+  "ucenik": "sara",
+  "nastavnik": "lana",
+  "opis": "Treba mi mala pomoc oko jonskih veza, imam test 27. decembra.",
+  "predmet": "Hemija",
+  "od": 4448976,
+  "do": 4449036,
+  "potvrdjen": null,
+  "odbijen": 4440853,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": "Nazalost imam druge obaveze u ovom terminu, jako mi je zao, molim te zakazi cas za neki kasniji termin.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594488688479e74ef1a29c6"
+  },
+  "ucenik": "paja",
+  "nastavnik": "petar",
+  "opis": "Pozdrav, potrebno mi je obnavljanje proslih vremena (past simple i past continuous)",
+  "predmet": "Engleski jezik",
+  "od": 4498068,
+  "do": 4498188,
+  "potvrdjen": 4494447,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+}]

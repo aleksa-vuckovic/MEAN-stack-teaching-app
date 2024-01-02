@@ -19,7 +19,7 @@ export class UcenikObavestenjaComponent implements OnInit {
 
   jos() {
     if (this.kraj) return
-    let do_ = DatumVreme.sada();
+    let do_ = DatumVreme.sada().dodajDan(1);
     if (this.obavestenja.length > 0) do_ = this.obavestenja[this.obavestenja.length - 1].datumvreme
     this.servis.obavestenja(do_).subscribe((res: any) => {
       console.log(res)

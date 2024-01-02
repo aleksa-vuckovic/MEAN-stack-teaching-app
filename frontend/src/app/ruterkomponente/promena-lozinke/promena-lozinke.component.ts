@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PrijavaService } from 'src/app/servisi/prijava.service';
 import { Utils } from 'src/app/utils';
 
@@ -11,7 +12,7 @@ import { Utils } from 'src/app/utils';
 export class PromenaLozinkeComponent {
   promenaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private servis: PrijavaService) {
+  constructor(private fb: FormBuilder, private servis: PrijavaService, private ruter: Router) {
     this.promenaForm = this.fb.group({
       kime: ['', Validators.required],
       stara: ['', [ Validators.required ] ],
@@ -45,7 +46,16 @@ export class PromenaLozinkeComponent {
             this.greska = res.poruka;
           }
           else {
-            this.alertUspeh = "Lozinka je uspesno promenjena!";
+            this.alertUspeh = "Lozinka je uspesno promenjena. Preusmeravanje za 6.";
+            let cnt = 6;
+            let id: any;
+            id = setInterval(() => {
+              if (cnt > 0) this.alertUspeh = `Lozinka je uspesno promenjena. Preusmeravanje za ${--cnt}.`
+              else {
+                clearInterval(id);
+                this.ruter.navigate(["prijava"])
+              }
+            }, 1000)
           }
         })
       }

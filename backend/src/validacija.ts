@@ -21,8 +21,7 @@ export class Validacija {
         else return "ok";
     }
     //Proverava sva polja u registraciji OSIM fajlova, i upisuje u izlaz
-    static registracijaValidacija(ulaz: any, izlaz: any): Promise<string> {
-        let greska = "";
+    static async registracijaValidacija(ulaz: any, izlaz: any): Promise<string> {
         //Zajednicka polja
         if (!ulaz || !ulaz.kime || ulaz.kime == "" ||
             !ulaz.lozinka ||
@@ -35,34 +34,33 @@ export class Validacija {
             !ulaz.adresa || ulaz.adresa == "" ||
             !ulaz.telefon || ulaz.telefon == "" ||
             !ulaz.mejl || ulaz.mejl == "" ||
-            !ulaz.tip || ulaz.tip == "") greska = "Nedostaju informacije.";
-        else if (!lozinkaRegex.test(ulaz.lozinka)) greska = lozinkaPoruka;
-        else if (!telefonRegex.test(ulaz.telefon)) greska = telefonPoruka;
-        else if (!mejlRegex.test(ulaz.mejl)) greska = mejlPoruka;
-        else if (ulaz.tip != "Ucenik" && ulaz.tip != "Nastavnik") greska = "Tip ne postoji.";
-        else if (ulaz.pol != "M" && ulaz.pol != "Z") greska = "Pol ne postoji.";
-        else {
-            izlaz.kime = ulaz.kime; izlaz.lozinka = ulaz.lozinka;
-            izlaz.pitanje = ulaz.pitanje; izlaz.odgovor = ulaz.odgovor;
-            izlaz.ime = ulaz.ime; izlaz.prezime = ulaz.prezime;
-            izlaz.tip = ulaz.tip; izlaz.pol = ulaz.pol;
-            izlaz.adresa = ulaz.adresa; izlaz.telefon = ulaz.telefon;
-            izlaz.telefon = ulaz.telefon; izlaz.mejl = ulaz.mejl;
-            izlaz.tip = ulaz.tip;
-        }
+            !ulaz.tip || ulaz.tip == "") return "Nedostaju informacije.";
+        else if (!lozinkaRegex.test(ulaz.lozinka)) return lozinkaPoruka;
+        else if (!telefonRegex.test(ulaz.telefon)) return telefonPoruka;
+        else if (!mejlRegex.test(ulaz.mejl)) return mejlPoruka;
+        else if (ulaz.tip != "Ucenik" && ulaz.tip != "Nastavnik") return "Tip ne postoji.";
+        else if (ulaz.pol != "M" && ulaz.pol != "Z") return "Pol ne postoji.";
+
+        izlaz.kime = ulaz.kime; izlaz.lozinka = ulaz.lozinka;
+        izlaz.pitanje = ulaz.pitanje; izlaz.odgovor = ulaz.odgovor;
+        izlaz.ime = ulaz.ime; izlaz.prezime = ulaz.prezime;
+        izlaz.tip = ulaz.tip; izlaz.pol = ulaz.pol;
+        izlaz.adresa = ulaz.adresa; izlaz.telefon = ulaz.telefon;
+        izlaz.telefon = ulaz.telefon; izlaz.mejl = ulaz.mejl;
+        izlaz.tip = ulaz.tip;
         
-        if (greska == "" && izlaz.tip == "Ucenik") {
+        if (izlaz.tip == "Ucenik") {
             //Provera polja za ucenika
             ulaz.razred = parseInt(ulaz.razred);
             if (!ulaz.skola || ulaz.skola == "" ||
-            !ulaz.razred || isNaN(ulaz.razred)) greska = "Nedostaju podaci za ucenika.";
-            else if (tipoviSkola.indexOf(ulaz.skola) == -1) greska = "Tip skole ne postoji.";
-            else if (ulaz.razred < 1 || ulaz.razred > 8 || ulaz.skola != "Osnovna" && ulaz.razred > 4) greska = "Razred izvan opsega.";
-            else {
-                izlaz.skola = ulaz.skola; izlaz.razred = ulaz.razred;
-            }
+            !ulaz.razred || isNaN(ulaz.razred)) return "Nedostaju podaci za ucenika.";
+            else if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip skole ne postoji.";
+            else if (ulaz.razred < 1 || ulaz.razred > 8 || ulaz.skola != "Osnovna" && ulaz.razred > 4) return "Razred izvan opsega.";
+            
+            izlaz.skola = ulaz.skola; izlaz.razred = ulaz.razred;
+            
         }
-        else if (greska == "" && izlaz.tip == "Nastavnik") {
+        else if (izlaz.tip == "Nastavnik") {
             if (!ulaz.predmeti) izlaz.predmeti = []
             else if (!Array.isArray(ulaz.predmeti)) izlaz.predmeti = [ulaz.predmeti];
             else izlaz.predmeti = ulaz.predmeti;
@@ -73,16 +71,11 @@ export class Validacija {
             else izlaz.saznao = ulaz.saznao;
         }
 
-        return new Promise((resolve, reject) => {
-            if (greska != "") resolve(greska);
-            else DB.korisnikPoKime(izlaz.kime).then(res => {
-                if (res) resolve("Korisnicko ime vec postoji.");
-                else DB.korisnikPoMejlu(izlaz.mejl).then(res => {
-                    if (res) resolve("Mejl je zauzet.");
-                    else resolve("ok");
-                })
-            });
-        });
+        let ret = await DB.korisnikPoKime(izlaz.kime)
+        if (ret) return "Korisnicko ime vec postoji.";
+        ret = await DB.korisnikPoMejlu(izlaz.mejl)
+        if (ret) return "Mejl je zauzet.";
+        else return "ok";
     }
     static profilValidacija(fajl: any): string {
         if (!fajl) return "ok";
@@ -103,37 +96,36 @@ export class Validacija {
     }
 
 
-    static profilAzuriranjeValidacija(ulaz: any, izlaz: any, kor: any): Promise<string> {
+    static async profilAzuriranjeValidacija(ulaz: any, izlaz: any, kor: any): Promise<string> {
         //ime, prezime, mejl, adresa, telefon
-        let greska = "";
 
         if (ulaz.ime && ulaz.ime != "") izlaz.ime = ulaz.ime;
         if (ulaz.prezime && ulaz.prezime != "") izlaz.prezime = ulaz.prezime;
         if (ulaz.adresa && ulaz.adresa != "") izlaz.adresa = ulaz.adresa;
         if (ulaz.telefon && ulaz.telefon != "") {
-            if (!telefonRegex.test(ulaz.telefon)) greska += telefonPoruka;
+            if (!telefonRegex.test(ulaz.telefon)) return telefonPoruka;
             else izlaz.telefon = ulaz.telefon;
         }
-        if (ulaz.mejl && ulaz.mejl == "") {
-            if (!mejlRegex.test(ulaz.mejl)) greska += mejlPoruka;
+        if (ulaz.mejl && ulaz.mejl != "") {
+            if (!mejlRegex.test(ulaz.mejl)) return mejlPoruka;
             else izlaz.mejl = ulaz.mejl;
         } else izlaz.mejl = kor.mejl;
 
-        if (greska == "" && kor.tip == "Ucenik") {
+        if (kor.tip == "Ucenik") {
             //skola, prelazak
             if (ulaz.skola && ulaz.skola != "") {
-                if (tipoviSkola.indexOf(ulaz.skola) == -1) { greska += "Tip skole ne postoji. "; izlaz.skola = kor.skola; }
+                if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip skole ne postoji."
                 else izlaz.skola = ulaz.skola;
             } else izlaz.skola = kor.skola;
             if (izlaz.skola != kor.skola) {
-                if (izlaz.skola == "Osnovna") greska += "Nedozvoljena promena tipa skole.";
-                else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak)) greska += "Nedozvoljena promena tipa skole.";
+                if (izlaz.skola == "Osnovna") return "Nedozvoljena promena tipa skole.";
+                else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak)) return "Nedozvoljena promena tipa skole.";
             }
-            if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4) greska += "Nedozvoljen prelazak u sledeci razred.";
+            if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4) return "Nedozvoljen prelazak u sledeci razred.";
             if (ulaz.prelazak) izlaz.razred = kor.razred % 8 + 1;
         }
 
-        if (greska == "" && kor.tip == "Nastavnik") {
+        if (kor.tip == "Nastavnik") {
             //...
             if (!ulaz.predmeti) izlaz.predmeti = []
             else if (!Array.isArray(ulaz.predmeti)) izlaz.predmeti = [ulaz.predmeti];
@@ -143,15 +135,9 @@ export class Validacija {
             else izlaz.uzrasti = ulaz.uzrasti;
         }
 
-        return new Promise((resolve, reject) => {
-            if (greska != "") resolve(greska);
-            else {
-                DB.korisnikPoMejlu(izlaz.mejl).then((res: any) => {
-                    if (res != null && res.kime != kor.kime) resolve("Mejl je zauzet");
-                    else resolve("ok");
-                })
-            }
-        })
+        let ret = await DB.korisnikPoMejlu(izlaz.mejl)
+        if (ret != null && ret.kime != kor.kime) return "Mejl je zauzet";
+        else return "ok";
     }
 
     static odgovaraUzrast(korisnik: any, nastavnik: any): boolean {
@@ -196,47 +182,38 @@ export class Validacija {
         else return "ok";
     }
 
-    static nastavnikRecenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
-        return new Promise((resolve, reject) => {
-            if (!ulaz || !ulaz.od) resolve("Nema dovoljno podataka.")
-            else if (ulaz.do >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji se jos nije zavrsio.")
-            else DB.cas(nastavnik, new DatumVreme(ulaz.od)).then((res: any) => {
-                if (!res) resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.")
-                else if (res.ocenaNastavnik || res.komentarNastavnik) resolve("Cas je vec ocenjen.")
-                else {
-                    if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
-                    else izlaz.ocena = null;
+    static async nastavnikRecenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
+        if (!ulaz || !ulaz.od) return "Nema dovoljno podataka."
+        else if (ulaz.do >= DatumVreme.sada().broj()) return "Ne mozete oceniti cas koji se jos nije zavrsio."
+        let cas = await DB.cas(nastavnik, new DatumVreme(ulaz.od))
+        if (!cas) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
+        else if (cas.ocenaNastavnik || cas.komentarNastavnik) return "Cas je vec ocenjen."
+        if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
+        else izlaz.ocena = null;
 
-                    if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
-                    else izlaz.komentar = "";
+        if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
+        else izlaz.komentar = "";
 
-                    izlaz.od = new DatumVreme(ulaz.od)
-                    resolve("ok")
-                }
-            })
-        })
+        izlaz.od = new DatumVreme(ulaz.od)
+        return "ok"
     }
 
-    static ucenikRecenzijaValidacija(ulaz: any, izlaz: any, ucenik: string): Promise<string> {
-        return new Promise((resolve, reject) => {
-            if (!ulaz || !ulaz.od || !ulaz.nastavnik) resolve("Nema dovoljno podataka.")
-            else if (ulaz.do >= DatumVreme.sada().broj()) resolve("Ne mozete oceniti cas koji se jos nije zavrsio.")
-            else DB.cas(ulaz.nastavnik, new DatumVreme(ulaz.od)).then((res: any) => {
-                if (!res) resolve("Trazeni cas ne postoji u bazi ili je otkazan/odbijen.")
-                else if (res.ucenik != ucenik) resolve("Ne mozete oceniti cas koji nije odrzan vama.")
-                else if (res.ocenaUcenik || res.komentarUcenik) resolve("Cas je vec ocenjen.")
-                else {
-                    if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
-                    else izlaz.ocena = null;
+    static async ucenikRecenzijaValidacija(ulaz: any, izlaz: any, ucenik: string): Promise<string> {
+        if (!ulaz || !ulaz.od || !ulaz.nastavnik) return "Nema dovoljno podataka."
+        else if (ulaz.do >= DatumVreme.sada().broj()) return "Ne mozete oceniti cas koji se jos nije zavrsio."
+        let res = await DB.cas(ulaz.nastavnik, new DatumVreme(ulaz.od))
+        if (!res) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
+        else if (res.ucenik != ucenik) return "Ne mozete oceniti cas koji nije odrzan vama."
+        else if (res.ocenaUcenik || res.komentarUcenik) return "Cas je vec ocenjen."
+        
+        if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
+        else izlaz.ocena = null;
 
-                    if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
-                    else izlaz.komentar = "";
+        if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
+        else izlaz.komentar = "";
 
-                    izlaz.od = new DatumVreme(ulaz.od)
-                    izlaz.nastavnik = ulaz.nastavnik
-                    resolve("ok")
-                }
-            })
-        })
+        izlaz.od = new DatumVreme(ulaz.od)
+        izlaz.nastavnik = ulaz.nastavnik
+        return "ok"
     }
 }

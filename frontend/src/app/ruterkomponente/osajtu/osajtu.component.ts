@@ -10,7 +10,9 @@ export class OsajtuComponent implements OnInit {
 
   statistika: any = {
     brojNastavnika: 0,
-    brojUcenika: 0
+    brojUcenika: 0,
+    brojCasova7: 0,
+    brojCasova30: 30
   }
   nastavnici: Array<{ime: string, prezime: string, predmet: string}> = []
 

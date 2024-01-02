@@ -1,0 +1,552 @@
+[{
+  "_id": {
+    "$oid": "6594218e6709789d0fdc42bc"
+  },
+  "prijava": 4494446,
+  "kime": "marko",
+  "lozinka": "$2b$10$VixSMYnkI.Kn88AazRNqNOWyRpvoyEyEKxWoMrvIP941Y5qh3bHX2",
+  "pitanje": "Koji ti je omiljeni ukus sladoleda?",
+  "odgovor": "bela cokolada",
+  "ime": "Marko",
+  "prezime": "Markovic",
+  "tip": "Nastavnik",
+  "pol": "M",
+  "adresa": "Bulevar Kralja Aleksandra 200",
+  "telefon": "+381621122333",
+  "mejl": "marko@etf.rs",
+  "profil": "/uploads/profil-1704206734934.png",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Matematika",
+    "Fizika",
+    "Informatika",
+    "C++"
+  ],
+  "uzrasti": [
+    "Osnovna 5-8",
+    "Srednja"
+  ],
+  "saznao": "Preko jutjub reklame.",
+  "cv": "/uploads/cv-1704206734935.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 480,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 0,
+      "do": 0
+    },
+    "4": {
+      "od": 600,
+      "do": 960
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659423f71254ae03e0c57f8d"
+  },
+  "prijava": 4494446,
+  "kime": "petar",
+  "lozinka": "$2b$10$4ScWt9HgGy42cVHtBOzlc.7fUFish5nYA5SWnWgYFqzxRfKJBoSc.",
+  "pitanje": "Kako ti se zove cukundeda?",
+  "odgovor": "Stanoje",
+  "ime": "Petar",
+  "prezime": "Jankovic",
+  "tip": "Nastavnik",
+  "pol": "M",
+  "adresa": "Trg Republike 120",
+  "telefon": "+38166444888",
+  "mejl": "petar@etf.rs",
+  "profil": "/uploads/profil-1704207351035.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Srpski jezik",
+    "Engleski jezik",
+    "Kineski jezik"
+  ],
+  "uzrasti": [
+    "Osnovna 1-4",
+    "Osnovna 5-8",
+    "Srednja"
+  ],
+  "saznao": "Video sam reklamu na bilbordu.",
+  "cv": "/uploads/cv-1704207351036.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594248d1254ae03e0c57f91"
+  },
+  "prijava": 4490117,
+  "kime": "pavle",
+  "lozinka": "$2b$10$nULhHNsuypffraTdRktH2uUjnnpBrJ1IXmr97jsbcD7h8jN5SqhJW",
+  "pitanje": "Koju osnovnu skolu si pohadjao?",
+  "odgovor": "OS Stanoje Stanojevic",
+  "ime": "Pavle",
+  "prezime": "Pavlovic",
+  "tip": "Nastavnik",
+  "pol": "M",
+  "adresa": "Trg Republike 125",
+  "telefon": "+38166444999",
+  "mejl": "pavle@etf.rs",
+  "profil": "/uploads/profil-1704207501555.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Biologija",
+    "Geografija",
+    "Svet oko nas"
+  ],
+  "uzrasti": [
+    "Osnovna 1-4",
+    "Osnovna 5-8"
+  ],
+  "saznao": "Rekla mi je prijateljica.",
+  "cv": "/uploads/cv-1704207501556.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659425381254ae03e0c57f97"
+  },
+  "prijava": 4490117,
+  "kime": "jana",
+  "lozinka": "$2b$10$i/GtkDMu30Z5p3ah5sW64O836ynFSRlqhv9aB9hWdyBJcM1eIEF4y",
+  "pitanje": "Koja ti je omiljena boja?",
+  "odgovor": "Roze",
+  "ime": "Jana",
+  "prezime": "Ivanovic",
+  "tip": "Nastavnik",
+  "pol": "Z",
+  "adresa": "Bulevar Kralja Aleksandra 210",
+  "telefon": "+38169123123",
+  "mejl": "jana@etf.rs",
+  "profil": "/uploads/profil-1704207672855.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Biologija",
+    "Istorija",
+    "Geografija"
+  ],
+  "uzrasti": [
+    "Osnovna 5-8"
+  ],
+  "saznao": "Ne znam",
+  "cv": "/uploads/cv-1704207672856.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659425b21254ae03e0c57f9b"
+  },
+  "prijava": 4490117,
+  "kime": "lana",
+  "lozinka": "$2b$10$dY2jVsI2AItlpBEpcH8ugezTE1CCODDEoONkBji/6Xxzy99RVxUsC",
+  "pitanje": "Kako se zove tvoj omiljeni restora?",
+  "odgovor": "Plavo nebo",
+  "ime": "Lana",
+  "prezime": "Stankovic",
+  "tip": "Nastavnik",
+  "pol": "Z",
+  "adresa": "Tosin Bunar 102",
+  "telefon": "+381605555553",
+  "mejl": "lana@etf.rs",
+  "profil": "/uploads/profil-1704207794318.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Hemija"
+  ],
+  "uzrasti": [
+    "Osnovna 5-8"
+  ],
+  "saznao": "Preko oglasa.",
+  "cv": "/uploads/cv-1704207794319.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6594261c1254ae03e0c57f9f"
+  },
+  "prijava": 4490117,
+  "kime": "tijana",
+  "lozinka": "$2b$10$jRFVUsYTj6rnKzIUpXYIH.0iLAnqE1NDHKUPB5b4kJhu6eQCOhZTi",
+  "pitanje": "Kako se zoves?",
+  "odgovor": "Tijana",
+  "ime": "Tijana",
+  "prezime": "Tijanovic",
+  "tip": "Nastavnik",
+  "pol": "Z",
+  "adresa": "Bulevar Umetnosti 45",
+  "telefon": "+381601235553",
+  "mejl": "tijana@etf.rs",
+  "profil": "/uploads/profil-1704207900465.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": null,
+  "razred": null,
+  "predmeti": [
+    "Informatika",
+    "Programiranje",
+    "Java"
+  ],
+  "uzrasti": [
+    "Osnovna 5-8",
+    "Srednja"
+  ],
+  "saznao": "Svuda vas ima, ne znam sta bih pre navela.",
+  "cv": "/uploads/cv-1704207900466.pdf",
+  "radnovreme": {
+    "0": {
+      "od": 600,
+      "do": 1080
+    },
+    "1": {
+      "od": 600,
+      "do": 1080
+    },
+    "2": {
+      "od": 600,
+      "do": 1080
+    },
+    "3": {
+      "od": 600,
+      "do": 1080
+    },
+    "4": {
+      "od": 600,
+      "do": 1080
+    },
+    "5": {
+      "od": 0,
+      "do": 0
+    },
+    "6": {
+      "od": 0,
+      "do": 0
+    }
+  },
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659426df1254ae03e0c57fa4"
+  },
+  "prijava": 4494442,
+  "kime": "paja",
+  "lozinka": "$2b$10$IHgVxxBPGvNTttmBeAIiQeTrg36aiJBj/UgIAE0hcSHMIygR2Z2V6",
+  "pitanje": "Koji ti je omiljeni predmet?",
+  "odgovor": "Fizicka kultura i vaspitanje",
+  "ime": "Paja",
+  "prezime": "Petrovic",
+  "tip": "Ucenik",
+  "pol": "M",
+  "adresa": "Aleksinackih rudara",
+  "telefon": "+381621807888",
+  "mejl": "paja200002@student.etf.bg.ac.rs",
+  "profil": "/uploads/profil-1704208095120.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": "Osnovna",
+  "razred": 7,
+  "predmeti": [],
+  "uzrasti": [],
+  "saznao": null,
+  "cv": null,
+  "radnovreme": null,
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659427de1254ae03e0c57fa9"
+  },
+  "prijava": 4490117,
+  "kime": "lazar",
+  "lozinka": "$2b$10$eD7ajQD8SBl4gMEDfrzKj.SgZ0AnUbjmzCjDXILHwPyhSHAUG8cp2",
+  "pitanje": "Koliko je 2+2?",
+  "odgovor": "3",
+  "ime": "Lazar",
+  "prezime": "Budimirovic",
+  "tip": "Ucenik",
+  "pol": "M",
+  "adresa": "Studentska 198",
+  "telefon": "+38162223322",
+  "mejl": "lazar@gmail.com",
+  "profil": "/uploads/profil-1704208350648.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": "Gimnazija",
+  "razred": 4,
+  "predmeti": [],
+  "uzrasti": [],
+  "saznao": null,
+  "cv": null,
+  "radnovreme": null,
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659428501254ae03e0c57fad"
+  },
+  "prijava": 4490117,
+  "kime": "darko",
+  "lozinka": "$2b$10$q4jkU6YInI5dFdB.jvS8nuJbZqL2V11eg.RkF3ORjn/1Ma41EWqnm",
+  "pitanje": "Koliko godina si imao kada si prvi put probao sladoled?",
+  "odgovor": "4 i po",
+  "ime": "Darko",
+  "prezime": "Darkovic",
+  "tip": "Ucenik",
+  "pol": "M",
+  "adresa": "Bul Nikole Tesle 234",
+  "telefon": "+38165010101",
+  "mejl": "darko@gmail.com",
+  "profil": "/uploads/profil-1704208464521.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": "Osnovna",
+  "razred": 6,
+  "predmeti": [],
+  "uzrasti": [],
+  "saznao": null,
+  "cv": null,
+  "radnovreme": null,
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659428bc1254ae03e0c57fb1"
+  },
+  "prijava": 4490117,
+  "kime": "sara",
+  "lozinka": "$2b$10$h5kig8uAodInMOgEXZpazuap7viRtS.qhfMg7gEJNAJKD6pZ59FV6",
+  "pitanje": "Omiljeno voce?",
+  "odgovor": "Nar i banane",
+  "ime": "Sara",
+  "prezime": "Petkovic",
+  "tip": "Ucenik",
+  "pol": "Z",
+  "adresa": "Bul Mihajla Pupina 127",
+  "telefon": "+38165012222",
+  "mejl": "sara@student.etf.bg.ac.rs",
+  "profil": "/uploads/profil-1704208572707.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": "Osnovna",
+  "razred": 8,
+  "predmeti": [],
+  "uzrasti": [],
+  "saznao": null,
+  "cv": null,
+  "radnovreme": null,
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "659429191254ae03e0c57fb5"
+  },
+  "prijava": 4490117,
+  "kime": "danica",
+  "lozinka": "$2b$10$nyFkyDJBFpncEKPHsL7sd.RFdK2EWomsomzFsa54//GDKc/w9o0L2",
+  "pitanje": "Kako se zoves?",
+  "odgovor": "Danica",
+  "ime": "Danica",
+  "prezime": "Petrovic",
+  "tip": "Ucenik",
+  "pol": "Z",
+  "adresa": "Omladinskih brigada 22",
+  "telefon": "+38165012333",
+  "mejl": "danica@student.etf.bg.ac.rs",
+  "profil": "/uploads/profil-1704208665033.jpeg",
+  "odobren": true,
+  "aktivan": true,
+  "skola": "Osnovna",
+  "razred": 4,
+  "predmeti": [],
+  "uzrasti": [],
+  "saznao": null,
+  "cv": null,
+  "radnovreme": null,
+  "nedostupnost": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65944fb4979100d9a64c50ea"
+  },
+  "prijava": 0,
+  "kime": "aleksa",
+  "lozinka": "$2a$10$8Fx56SC5D2WgwM4j0GK0E.IQ5w53q12EWkDX0exLfUfF/wbjX2u7O",
+  "pitanje": "Vreme rodjenja?",
+  "odgovor": "11:15",
+  "ime": "Aleksa",
+  "prezime": "Vuckovic",
+  "tip": "Administrator",
+  "pol": "M",
+  "adresa": "Donjovrezinska 6",
+  "telefon": "+381621807888",
+  "mejl": "aleksa.vuckovic77@gmail.com",
+  "profil": "/uploads/admin.jpeg",
+  "__v": 0
+}]

@@ -19,7 +19,7 @@
         </div>
         <div class="row px-3 py-1">
             <div class="col-12">
-                <table  class = "table table-striped border">
+                <table *ngIf="casovi.length!=0" class = "table table-striped border">
                     <thead>
                         <tr>
                             <th>
@@ -60,6 +60,7 @@
                     </tr>
                     </tbody>
                 </table>
+                <h4 *ngIf="casovi.length==0">Nema casova za prikaz.</h4>
             </div>
         </div>
     </div>

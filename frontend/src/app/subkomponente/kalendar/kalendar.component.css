@@ -32,10 +32,10 @@ table.kalendar td.nedostupan {
 table.kalendar td.vanradnog {
     background-color: rgb(199, 114, 114);
 }
-table.kalendar td.zakazancas {
+table.kalendar td.potvrdjencas {
     background-color: aquamarine;
 }
-table.kalendar td.potvrdjencas {
+table.kalendar td.zakazancas {
     background-color: rgb(227, 227, 175);
 }
 table.kalendar td.proslost {
@@ -67,12 +67,12 @@ ul.vanradnog li::before {
     color: rgb(199, 114, 114);
     font-size: 40px;
 }
-ul.zakazancas li::before {
+ul.potvrdjencas li::before {
     content: "\2022";
     color: aquamarine;
     font-size: 40px;
 }
-ul.potvrdjencas li::before {
+ul.zakazancas li::before {
     content: "\2022";
     color: rgb(227, 227, 175);
     font-size: 40px;

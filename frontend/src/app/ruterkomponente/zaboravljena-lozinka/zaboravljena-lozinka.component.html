@@ -24,7 +24,7 @@
                     </div>
                     <div *ngIf="korak==2">
                         <div class="mb-3">
-                            <label for="odgovor" class="form-label">Unesite odgovor na sigurnosno pitanje: {{pitanje}}</label>
+                            <label for="odgovor" class="form-label">Unesite odgovor na sigurnosno pitanje:<br><b>{{pitanje}}</b></label>
                             <input type="text" class="form-control" id="odgovor" formControlName="odgovor" required>
                             <div class="form-text text-danger">{{greska}}</div>
                         </div>

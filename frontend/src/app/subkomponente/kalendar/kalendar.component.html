@@ -30,7 +30,7 @@
             [class.zakazancas]="podaci[i][j].status==3"
             [class.potvrdjencas]="podaci[i][j].status==4"
             [class.proslost]="podaci[i][j].status==5"
-            [class.odabran]="datumvreme.jednako(datum.dodajDan(i).vreme(j*30))"
+            [class.odabran]="datumvreme != null && datumvreme.jednako(datum.dodajDan(i).vreme(j*30))"
             [attr.colspan]="
                 pomeraj == j ? min(podaci[i][j].duzina - podaci[i][j].rb + 1, velicina) :
                 min(podaci[i][j].duzina, pomeraj + velicina - j)
