@@ -27,4 +27,13 @@ administratorRuter.route("/zahtevi").get((req, res) => {
 administratorRuter.route("/odobreno").get((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().odobreno(req, res);
 });
+administratorRuter.route("/predlozenipredmeti").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().predlozeniPredmeti(req, res);
+});
+administratorRuter.route("/dodajpredmet").post((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().dodajPredmet(req, res);
+});
+administratorRuter.route("/uklonipredmet").post((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().ukloniPredmet(req, res);
+});
 exports.default = administratorRuter;

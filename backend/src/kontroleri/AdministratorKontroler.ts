@@ -86,4 +86,31 @@ export class AdministratorKontroler {
         let ret = await DB.odobrenje(kime, true)
         res.json({poruka: ret})
     }
+
+    predlozeniPredmeti = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let ret = await DB.predlozeniPredmeti()
+        res.json({poruka: "ok", podaci: ret})
+    }
+
+    dodajPredmet = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let predmet = req.body.predmet as string
+        if (!predmet) {res.json({poruka: "Nedostaju argumenti."}); return}
+        else if (predmet == "") {res.json({poruka: "Predmet ne moze biti prazan string."}); return}
+        let ret = await DB.dodajPredmet(predmet)
+        res.json({poruka: ret})
+    }
+
+    ukloniPredmet = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let predmet = req.body.predmet as string
+        if (!predmet) {res.json({poruka: "Nedostaju argumenti."}); return}
+        else if (predmet == "") {res.json({poruka: "Predmet ne moze biti prazan string."}); return}
+        let ret = await DB.ukloniPredmet(predmet)
+        res.json({poruka: ret})
+    }
 }

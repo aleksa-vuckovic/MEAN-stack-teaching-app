@@ -116,6 +116,45 @@ class AdministratorKontroler {
             let ret = yield db_1.DB.odobrenje(kime, true);
             res.json({ poruka: ret });
         });
+        this.predlozeniPredmeti = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let ret = yield db_1.DB.predlozeniPredmeti();
+            res.json({ poruka: "ok", podaci: ret });
+        });
+        this.dodajPredmet = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let predmet = req.body.predmet;
+            if (!predmet) {
+                res.json({ poruka: "Nedostaju argumenti." });
+                return;
+            }
+            else if (predmet == "") {
+                res.json({ poruka: "Predmet ne moze biti prazan string." });
+                return;
+            }
+            let ret = yield db_1.DB.dodajPredmet(predmet);
+            res.json({ poruka: ret });
+        });
+        this.ukloniPredmet = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let predmet = req.body.predmet;
+            if (!predmet) {
+                res.json({ poruka: "Nedostaju argumenti." });
+                return;
+            }
+            else if (predmet == "") {
+                res.json({ poruka: "Predmet ne moze biti prazan string." });
+                return;
+            }
+            let ret = yield db_1.DB.ukloniPredmet(predmet);
+            res.json({ poruka: ret });
+        });
     }
 }
 exports.AdministratorKontroler = AdministratorKontroler;

@@ -1,0 +1,10 @@
+div.predmet-link:hover {
+    cursor: pointer;
+    border: 1px solid black
+}
+div.predmet {
+    cursor:default
+}
+input#drugipredmet {
+    max-width: 200px;
+}

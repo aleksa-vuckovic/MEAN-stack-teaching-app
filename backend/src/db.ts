@@ -26,7 +26,7 @@ export class DB {
         else return "Greska u bazi."
     }
 
-    static async sviPredmeti(): Promise<Array<any>> {
+    static async sviPredmeti(): Promise<Array<string>> {
         let ret: any = await podatakModel.findOne({podatak: "predmeti"})
         return ret.vrednosti;
     }
@@ -883,6 +883,42 @@ export class DB {
 
     static async odobrenje(kime: string, odobren: boolean): Promise<string> {
         let ret = await korisnikModel.updateOne({kime: kime}, {$set:{odobren: odobren}})
+        if (ret.modifiedCount > 0) return "ok"
+        else return "Greska u bazi."
+    }
+
+    static async predlozeniPredmeti(): Promise<Array<string>> {
+        let predmeti = await DB.sviPredmeti()
+        let ret = await korisnikModel.aggregate([
+            {
+                $unwind: { path: "$predmeti"}
+            },
+            {
+                $group: {
+                    _id: "$predmeti"
+                }
+            },
+            {
+                $match: {
+                    _id: {$nin: predmeti}
+                }
+            }
+        ])
+        let result = []
+        for (let elem of ret) result.push(elem._id)
+        return result
+    }
+
+    static async dodajPredmet(predmet: string) {
+        let predmeti = await DB.sviPredmeti()
+        if (predmeti.indexOf(predmet) != -1) return "Predmet vec postoji u bazi."
+        let ret = await podatakModel.updateOne({podatak: "predmeti"}, {$push: {vrednosti: predmet}})
+        if (ret.modifiedCount > 0) return "ok"
+        else return "Greska u bazi."
+    }
+
+    static async ukloniPredmet(predmet: string) {
+        let ret = await podatakModel.updateOne({podatak: "predmeti"}, {$pull: {vrednosti: predmet}})
         if (ret.modifiedCount > 0) return "ok"
         else return "Greska u bazi."
     }

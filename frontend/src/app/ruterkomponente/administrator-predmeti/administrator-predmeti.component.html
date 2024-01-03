@@ -9,7 +9,20 @@
             </div>
         </div>
         <div class="row px-3 py-1">
+            <div class="col-12 border-bottom border-bottom-1 pb-2">
+                <p>Postojeci predmeti:</p>
+                <div *ngFor="let elem of predmeti" class="shadow p-2 rounded mx-2 my-2 predmet-link d-inline-block" (click)="ukloni(elem)">{{elem}}</div>
+            </div>
+            <div class="col-12 border-bottom border-bottom-1 pb-2">
+                <p>Predlozeni predmeti:</p>
+                <div *ngFor="let elem of predlozi" class="shadow p-2 rounded mx-2 my-2 predmet-link d-inline-block" (click)="dodaj(elem)">{{elem}}</div>
+                <p class="my-3">(Predmet mozete dodati ili ukloniti klikom na njega.)</p>
+            </div>
             <div class="col-12">
+                <p>Mozete i sami uneti novi predmet:</p>
+                <input type="text" class="form-control d-inline" [(ngModel)]="drugiPredmet" id="drugipredmet">
+                <button class = "btn btn-primary ms-2" (click)="dodaj(drugiPredmet)">Dodaj</button>
+                <div class="form-text text-danger">{{greska}}</div>
             </div>
         </div>
     </div>

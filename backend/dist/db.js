@@ -976,6 +976,51 @@ class DB {
                 return "Greska u bazi.";
         });
     }
+    static predlozeniPredmeti() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let predmeti = yield DB.sviPredmeti();
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $unwind: { path: "$predmeti" }
+                },
+                {
+                    $group: {
+                        _id: "$predmeti"
+                    }
+                },
+                {
+                    $match: {
+                        _id: { $nin: predmeti }
+                    }
+                }
+            ]);
+            let result = [];
+            for (let elem of ret)
+                result.push(elem._id);
+            return result;
+        });
+    }
+    static dodajPredmet(predmet) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let predmeti = yield DB.sviPredmeti();
+            if (predmeti.indexOf(predmet) != -1)
+                return "Predmet vec postoji u bazi.";
+            let ret = yield Podatak_1.default.updateOne({ podatak: "predmeti" }, { $push: { vrednosti: predmet } });
+            if (ret.modifiedCount > 0)
+                return "ok";
+            else
+                return "Greska u bazi.";
+        });
+    }
+    static ukloniPredmet(predmet) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Podatak_1.default.updateOne({ podatak: "predmeti" }, { $pull: { vrednosti: predmet } });
+            if (ret.modifiedCount > 0)
+                return "ok";
+            else
+                return "Greska u bazi.";
+        });
+    }
 }
 exports.DB = DB;
 DB.prosecnaOcenaPipeline = [

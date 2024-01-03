@@ -40,4 +40,16 @@ export class AdministratorService {
   odobreno(kime: string) {
     return this.http.get(this.url + "odobreno?kime=" + kime, this.opcije)
   }
+
+  predlozeniPredmeti() {
+    return this.http.get(this.url + "predlozenipredmeti", this.opcije)
+  }
+
+  dodajPredmet(predmet: string) {
+    return this.http.post(this.url + "dodajpredmet", {predmet: predmet}, this.opcije)
+  }
+
+  ukloniPredmet(predmet: string) {
+    return this.http.post(this.url + "uklonipredmet", {predmet: predmet}, this.opcije)
+  }
 }
