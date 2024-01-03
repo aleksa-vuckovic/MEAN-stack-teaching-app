@@ -12,8 +12,9 @@ export class AdministratorNavigacijaComponent {
   }
 
   @Input() trenutni:string = "nastavnikProfil"
-  ciljevi=["administratorKorisnici","administratorZahtevi", "administratorPredmeti", "odjava"]
-  labele=["Korisnici", "Zahtevi", "Predmeti", "Odjava"]
+  ciljevi=["administratorKorisnici","administratorZahtevi", "administratorPredmeti", "statistikaBrojNastavnika", "statistikaPol", 
+  "statistikaBrojCasova", "statistikaAngazovanje", "odjava"]
+  labele=["Korisnici", "Zahtevi", "Predmeti", "Broj nastavnika", "Pol", "Broj casova", "Angazovanje nastavnika", "Odjava"]
 
   klik(cilj: string) {
     if (cilj == "odjava") {

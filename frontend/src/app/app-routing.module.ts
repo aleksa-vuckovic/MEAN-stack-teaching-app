@@ -24,6 +24,10 @@ import { AdministratorNastavnikComponent } from './ruterkomponente/administrator
 import { AdministratorUcenikComponent } from './ruterkomponente/administrator-ucenik/administrator-ucenik.component';
 import { AdministratorZahteviComponent } from './ruterkomponente/administrator-zahtevi/administrator-zahtevi.component';
 import { AdministratorPredmetiComponent } from './ruterkomponente/administrator-predmeti/administrator-predmeti.component';
+import { StatistikaBrojNastavnikaComponent } from './ruterkomponente/statistika-broj-nastavnika/statistika-broj-nastavnika.component';
+import { StatistikaPolComponent } from './ruterkomponente/statistika-pol/statistika-pol.component';
+import { StatistikaBrojCasovaComponent } from './ruterkomponente/statistika-broj-casova/statistika-broj-casova.component';
+import { StatistikaAngazovanjeComponent } from './ruterkomponente/statistika-angazovanje/statistika-angazovanje.component';
 
 const routes: Routes = [
   { path: "osajtu", component: OsajtuComponent},
@@ -53,7 +57,11 @@ const routes: Routes = [
   { path: "administratorNastavnik", component: AdministratorNastavnikComponent},
   { path: "administratorUcenik", component: AdministratorUcenikComponent},
   { path: "administratorZahtevi", component: AdministratorZahteviComponent},
-  { path: "administratorPredmeti", component: AdministratorPredmetiComponent}
+  { path: "administratorPredmeti", component: AdministratorPredmetiComponent},
+  { path: "statistikaBrojNastavnika", component: StatistikaBrojNastavnikaComponent},
+  { path: "statistikaPol", component: StatistikaPolComponent},
+  { path: "statistikaBrojCasova", component: StatistikaBrojCasovaComponent},
+  { path: "statistikaAngazovanje", component: StatistikaAngazovanjeComponent}
 ]
 
 @NgModule({

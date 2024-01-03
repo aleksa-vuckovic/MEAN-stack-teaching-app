@@ -43,6 +43,11 @@ import { AdministratorNastavnikComponent } from './ruterkomponente/administrator
 import { AdministratorUcenikComponent } from './ruterkomponente/administrator-ucenik/administrator-ucenik.component';
 import { AdministratorZahteviComponent } from './ruterkomponente/administrator-zahtevi/administrator-zahtevi.component';
 import { AdministratorPredmetiComponent } from './ruterkomponente/administrator-predmeti/administrator-predmeti.component';
+import { NgChartsModule } from 'ng2-charts';
+import { StatistikaBrojNastavnikaComponent } from './ruterkomponente/statistika-broj-nastavnika/statistika-broj-nastavnika.component';
+import { StatistikaPolComponent } from './ruterkomponente/statistika-pol/statistika-pol.component';
+import { StatistikaBrojCasovaComponent } from './ruterkomponente/statistika-broj-casova/statistika-broj-casova.component';
+import { StatistikaAngazovanjeComponent } from './ruterkomponente/statistika-angazovanje/statistika-angazovanje.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +86,11 @@ import { AdministratorPredmetiComponent } from './ruterkomponente/administrator-
     AdministratorNastavnikComponent,
     AdministratorUcenikComponent,
     AdministratorZahteviComponent,
-    AdministratorPredmetiComponent
+    AdministratorPredmetiComponent,
+    StatistikaBrojNastavnikaComponent,
+    StatistikaPolComponent,
+    StatistikaBrojCasovaComponent,
+    StatistikaAngazovanjeComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +99,8 @@ import { AdministratorPredmetiComponent } from './ruterkomponente/administrator-
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

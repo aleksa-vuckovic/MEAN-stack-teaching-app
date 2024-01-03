@@ -52,4 +52,29 @@ export class AdministratorService {
   ukloniPredmet(predmet: string) {
     return this.http.post(this.url + "uklonipredmet", {predmet: predmet}, this.opcije)
   }
+
+  //statistika
+  brojNastavnikaPoPredmetu() {
+    return this.http.get(this.url + "brojnastavnikapopredmetu", this.opcije)
+  }
+
+  brojNastavnikaPoUzrastu() {
+    return this.http.get(this.url + "brojnastavnikapouzrastu", this.opcije)
+  }
+
+  brojKorisnikaPoPolu() {
+    return this.http.get(this.url + "brojkorisnikapopolu", this.opcije)
+  }
+
+  brojCasovaPoDanuNedelje() {
+    return this.http.get(this.url + "brojcasovapodanunedelje", this.opcije)
+  }
+
+  brojCasovaPoSatu() {
+    return this.http.get(this.url + "brojcasovaposatu", this.opcije)
+  }
+
+  angazovanjeNastavnika() {
+    return this.http.get(this.url + "angazovanjenastavnika", this.opcije)
+  }
 }

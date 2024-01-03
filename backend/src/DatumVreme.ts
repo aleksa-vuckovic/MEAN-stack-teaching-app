@@ -3,7 +3,7 @@
 export class DatumVreme {
 
     private static vremeMaska = 0xFFF;
-    private static vremeShift = 12;
+    public static vremeShift = 12;
     private static prostaGodina = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     private static prestupnaGodina = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     private static ponoc = 24*60;

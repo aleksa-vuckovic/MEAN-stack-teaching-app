@@ -1021,6 +1021,273 @@ class DB {
                 return "Greska u bazi.";
         });
     }
+    //Statistika
+    static brojNastavnikaPoPredmetu() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: 'Nastavnik',
+                        odobren: true,
+                        aktivan: true
+                    }
+                },
+                {
+                    $unwind: { path: "$predmeti" }
+                },
+                {
+                    $group: {
+                        _id: "$predmeti",
+                        broj: {
+                            $count: {}
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        predmet: "$_id",
+                        broj: 1
+                    }
+                },
+                {
+                    $sort: {
+                        broj: -1
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static brojNastavnikaPoUzrastu() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: 'Nastavnik',
+                        odobren: true,
+                        aktivan: true
+                    }
+                },
+                {
+                    $unwind: { path: "$uzrasti" }
+                },
+                {
+                    $group: {
+                        _id: "$uzrasti",
+                        broj: {
+                            $count: {}
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        uzrast: "$_id",
+                        broj: 1
+                    }
+                },
+                {
+                    $sort: {
+                        broj: -1
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static brojKorisnikaPoPolu() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        odobren: true,
+                        aktivan: true
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            pol: "$pol",
+                            tip: "$tip"
+                        },
+                        broj: {
+                            $count: {}
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        pol: "$_id.pol",
+                        tip: "$_id.tip",
+                        broj: 1
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static brojCasovaPoDanuNedelje(od, do_) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Cas_1.default.aggregate([
+                {
+                    $match: {
+                        potvrdjen: { $ne: null },
+                        odbijen: null,
+                        otkazan: null,
+                        od: { $gte: od.broj(), $lte: do_.broj() }
+                    }
+                },
+                {
+                    $project: {
+                        dan: { $mod: [{ $add: [{ $floor: { $divide: ["$od", Math.pow(2, DatumVreme_1.DatumVreme.vremeShift)] } }, 3] }, 7] }
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$dan",
+                        broj: {
+                            $count: {}
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        dan: "$_id",
+                        broj: 1
+                    }
+                },
+                {
+                    $sort: {
+                        dan: 1
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static brojCasovaPoSatu(od, do_) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Cas_1.default.aggregate([
+                {
+                    $match: {
+                        potvrdjen: { $ne: null },
+                        odbijen: null,
+                        otkazan: null,
+                        od: { $gte: od.broj(), $lte: do_.broj() }
+                    }
+                },
+                {
+                    $project: {
+                        sat: { $floor: { $divide: [{ $mod: ["$od", Math.pow(2, DatumVreme_1.DatumVreme.vremeShift)] }, 60] } }
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$sat",
+                        broj: {
+                            $count: {}
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        sat: "$_id",
+                        broj: 1
+                    }
+                }
+            ]);
+            return ret;
+        });
+    }
+    static angazovanjeNastavnikaPoMesecima(od, do_) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ret = yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: "Nastavnik",
+                        odobren: true,
+                        aktivan: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "casovi",
+                        localField: "kime",
+                        foreignField: "nastavnik",
+                        as: "casovi"
+                    }
+                },
+                {
+                    $unwind: { path: "$casovi" }
+                },
+                {
+                    $match: {
+                        "casovi.od": { $gte: od.broj(), $lte: do_.broj() }
+                    }
+                },
+                {
+                    $project: {
+                        kime: "$kime",
+                        ime: "$ime",
+                        prezime: "$prezime",
+                        mesec: { $month: {
+                                $dateAdd: {
+                                    startDate: new Date('2020-12-31'),
+                                    amount: { $floor: { $divide: ["$casovi.od", 4096] } },
+                                    unit: 'day'
+                                }
+                            } }
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            kime: "$kime",
+                            ime: "$ime",
+                            prezime: "$prezime",
+                            mesec: "$mesec"
+                        },
+                        broj: { $count: {} }
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                            kime: "$_id.kime",
+                            ime: "$_id.ime",
+                            prezime: "$_id.prezime"
+                        },
+                        podaci: {
+                            $push: {
+                                mesec: "$_id.mesec",
+                                broj: "$broj"
+                            }
+                        },
+                        ukupno: { $sum: "$broj" }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        ime: { $concat: ["$_id.ime", " ", "$_id.prezime"] },
+                        podaci: "$podaci",
+                        ukupno: "$ukupno"
+                    }
+                },
+                {
+                    $sort: {
+                        ukupno: -1
+                    }
+                },
+                {
+                    $limit: 10
+                }
+            ]);
+            return ret;
+        });
+    }
 }
 exports.DB = DB;
 DB.prosecnaOcenaPipeline = [

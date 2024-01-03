@@ -7,6 +7,17 @@
             <li class="nav-item w-100" (click)="klik('administratorKorisnici')">Korisnici</li>
             <li class="nav-item w-100" (click)="klik('administratorZahtevi')">Zahtevi</li>
             <li class="nav-item w-100" (click)="klik('administratorPredmeti')">Predmeti</li>
+            <li class="nav-item w-100 dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="statistika" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Statistika
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="statistika">
+                  <li><a class="dropdown-item" (click)="klik('statistikaBrojNastavnika')">Broj nastavnika</a></li>
+                  <li><a class="dropdown-item" (click)="klik('statistikaPol')">Pol</a></li>
+                  <li><a class="dropdown-item" (click)="klik('statistikaBrojCasova')">Broj casova</a></li>
+                  <li><a class="dropdown-item" (click)="klik('statistikaAngazovanje')">Angazovanje nastavnika</a></li>
+                </ul>
+            </li>
             <li class="nav-item w-100" (click)="klik('odjava')">Odjava</li>
         </ul>
     </div>

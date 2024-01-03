@@ -113,4 +113,85 @@ export class AdministratorKontroler {
         let ret = await DB.ukloniPredmet(predmet)
         res.json({poruka: ret})
     }
+
+    //statistika
+    brojNastavnikaPoPredmetu = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let ret = await DB.brojNastavnikaPoPredmetu();
+        res.json({poruka: "ok", podaci: ret})
+    }
+
+
+    brojNastavnikaPoUzrastu = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let ret = await DB.brojNastavnikaPoUzrastu();
+        res.json({poruka: "ok", podaci: ret})
+    }
+
+    brojKorisnikaPoPolu = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let ret = await DB.brojKorisnikaPoPolu()
+        let result: any = {Ucenik: {Z: 0, M: 0}, Nastavnik: {Z: 0, M:0}}
+        for (let elem of ret) result[elem.tip][elem.pol] = elem.broj
+        res.json({poruka: "ok", podaci: result})
+    }
+
+    brojCasovaPoDanuNedelje = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let do_ = DatumVreme.sada()
+        let od = do_.dodajDan(-365)
+        let ret = await DB.brojCasovaPoDanuNedelje(od, do_)
+        let result: Array<number> = [0, 0, 0, 0, 0, 0, 0]
+        for (let elem of ret) {
+            result[elem.dan] = elem.broj
+            /*
+            let dan = ""
+            switch(elem.dan) {
+                case 0: dan = "PON"; break;
+                case 1: dan = "UTO"; break;
+                case 2: dan = "SRE"; break;
+                case 3: dan = "CET"; break;
+                case 4: dan = "PET"; break;
+                case 5: dan = "SUB"; break;
+                case 6: dan = "NED"; break;
+            }
+            elem.dan = dan*/
+        }
+        res.json({poruka: "ok", podaci: result})
+    }
+
+    brojCasovaPoSatu = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let do_ = DatumVreme.sada()
+        let od = do_.dodajDan(-365)
+        let ret: any = await DB.brojCasovaPoSatu(od, do_)
+        let result = Array.from({length: 24}, () => 0)
+        for (let elem of ret) {
+            result[elem.sat] = elem.broj
+        }
+        res.json({poruka: "ok", podaci: result})
+    }
+
+    angazovanjeNastavnika = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let do_ = DatumVreme.sada()
+        let od = do_.dodajDan(-365)
+        let ret: Array<any> = await DB.angazovanjeNastavnikaPoMesecima(od, do_)
+        let result = []
+        for (let elem of ret) {
+            let podaciPoMesecima = Array.from({length: 12}, () => 0)
+            for (let podatak of elem.podaci) podaciPoMesecima[podatak.mesec - 1] = podatak.broj
+            result.push({
+                ime: elem.ime,
+                podaci: podaciPoMesecima
+            })
+        }
+        res.json({poruka: "ok", podaci: result})
+    }
 }

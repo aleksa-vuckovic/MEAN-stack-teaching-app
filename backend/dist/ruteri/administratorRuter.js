@@ -36,4 +36,22 @@ administratorRuter.route("/dodajpredmet").post((req, res) => {
 administratorRuter.route("/uklonipredmet").post((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().ukloniPredmet(req, res);
 });
+administratorRuter.route("/brojnastavnikapopredmetu").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojNastavnikaPoPredmetu(req, res);
+});
+administratorRuter.route("/brojnastavnikapouzrastu").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojNastavnikaPoUzrastu(req, res);
+});
+administratorRuter.route("/brojkorisnikapopolu").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojKorisnikaPoPolu(req, res);
+});
+administratorRuter.route("/brojcasovapodanunedelje").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojCasovaPoDanuNedelje(req, res);
+});
+administratorRuter.route("/brojcasovaposatu").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojCasovaPoSatu(req, res);
+});
+administratorRuter.route("/angazovanjenastavnika").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().angazovanjeNastavnika(req, res);
+});
 exports.default = administratorRuter;

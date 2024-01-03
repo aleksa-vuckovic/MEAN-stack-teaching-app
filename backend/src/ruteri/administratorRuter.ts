@@ -44,4 +44,28 @@ administratorRuter.route("/uklonipredmet").post((req, res) => {
     new AdministratorKontroler().ukloniPredmet(req, res)
 })
 
+administratorRuter.route("/brojnastavnikapopredmetu").get((req, res) => {
+    new AdministratorKontroler().brojNastavnikaPoPredmetu(req, res)
+})
+
+administratorRuter.route("/brojnastavnikapouzrastu").get((req, res) => {
+    new AdministratorKontroler().brojNastavnikaPoUzrastu(req, res)
+})
+
+administratorRuter.route("/brojkorisnikapopolu").get((req, res) => {
+    new AdministratorKontroler().brojKorisnikaPoPolu(req, res)
+})
+
+administratorRuter.route("/brojcasovapodanunedelje").get((req, res) => {
+    new AdministratorKontroler().brojCasovaPoDanuNedelje(req, res)
+})
+
+administratorRuter.route("/brojcasovaposatu").get((req, res) => {
+    new AdministratorKontroler().brojCasovaPoSatu(req, res)
+})
+
+administratorRuter.route("/angazovanjenastavnika").get((req, res) => {
+    new AdministratorKontroler().angazovanjeNastavnika(req, res)
+})
+
 export default administratorRuter;

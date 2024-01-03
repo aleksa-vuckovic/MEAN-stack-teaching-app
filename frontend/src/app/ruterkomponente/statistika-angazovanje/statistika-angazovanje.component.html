@@ -1,0 +1,23 @@
+<div class="row">
+    <div class ="col-lg-2 col-12 bg-blue p-0">
+        <administrator-navigacija trenutni="statistikaBrojCasova"></administrator-navigacija>
+    </div>
+    <div class="col-lg-10 col-12 ">
+        <div class = "row border-bottom px-3 py-1">
+            <div class="col-12 my-3">
+                <h2>Statistika - Angazovanje najboljih nastavnika po mesecima</h2>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12 col-lg-10">
+                <canvas baseChart
+                [labels]="labels"
+                [datasets]="datasets"
+                [options]="options"
+                [legend]="legend"
+                [type]="type">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>

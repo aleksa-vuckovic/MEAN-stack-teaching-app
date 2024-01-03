@@ -12,11 +12,23 @@ import * as bootstrap from 'bootstrap';
 export class AppComponent {
   title = 'frontend';
   
-  radnovreme = {
-    od: 0,
-    do: 24*60
+  data={
+    labels: ["M", "Z"],
+    datasets: [
+      {
+        label: "Broj nastavnika",
+        data: [5, 10]
+      },
+      {
+        label: "Broj ucenika",
+        data: [10, 10]
+      }
+    ]
   }
-  promena() {
-    console.log(this.radnovreme)
+  
+  options = {
+    responsive: true
   }
+  legend=false
+  type='bar'
 }
