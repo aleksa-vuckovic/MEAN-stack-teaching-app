@@ -194,4 +194,31 @@ export class AdministratorKontroler {
         }
         res.json({poruka: "ok", podaci: result})
     }
+
+    brojCasovaPoPredmetuPoPolu = async(req: express.Request, res: express.Response) => {
+        //let predmeti = ["Matematika", "Informatika", "Geografija", "Srpski jezik", "Engleski jezik", "Istorija", "Biologija", "Hemija", "Fizika"]
+        let skupovi = [ ["Engleski jezik", "Francuski jezik", "Nemacki jezik", "Italijanski jezik", "Spanski jezik", "Kineski jezik"],
+                        ["Srpski jezik"], ["Istorija"], ["Geografija"], ["Biologija"], ["Hemija"], ["Fizika"], ["Matematika"],
+                        ["Informatika", "Programiranje", "C++", "Java"]
+                    ]
+        let predmeti = [    "Strani jezici",
+                            "Srpski jezik", "Istorija", "Geografija", "Biologija", "Hemija", "Fizika", "Matematika",
+                            "Informatika i programiranje"
+                        ]
+        let do_ = DatumVreme.sada()
+        let od = do_.dodajDan(-365)
+
+        let podaciM = []
+        let podaciZ = []
+        for (let skup of skupovi) {
+            podaciM.push(await DB.brojCasovaPoPredmetuIPolu(skup, "M", od, do_))
+            podaciZ.push(await DB.brojCasovaPoPredmetuIPolu(skup, "Z", od, do_))
+        }
+
+        res.json({poruka: "ok", podaci: {
+            predmeti: predmeti,
+            podaciM: podaciM,
+            podaciZ: podaciZ
+        }})
+    }
 }

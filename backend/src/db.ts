@@ -1122,7 +1122,10 @@ export class DB {
             },
             {
                 $match: {
-                    "casovi.od": {$gte: od.broj(), $lte: do_.broj()}
+                    "casovi.od": {$gte: od.broj(), $lte: do_.broj()},
+                    "casovi.potvrdjen": {$ne: null},
+                    "casovi.odbijen": null,
+                    "casovi.otkazan":  null
                 }
             },
             {
@@ -1184,5 +1187,40 @@ export class DB {
             }
         ])
         return ret
+    }
+
+    static async brojCasovaPoPredmetuIPolu(predmeti: Array<string>, pol: string, od: DatumVreme, do_: DatumVreme): Promise<number> {
+        let ret = await casModel.aggregate([
+            {
+                $match: {
+                    od: {$gte: od.broj(), $lte: do_.broj()},
+                    potvrdjen: {$ne: null},
+                    odbijen: null,
+                    otkazan: null,
+                    predmet: {$in: predmeti}
+                }
+            },
+            {
+                $lookup: {
+                    from: "korisnici",
+                    localField: "ucenik",
+                    foreignField: "kime",
+                    as: "ucenikPodaci"
+                }
+            },
+            {
+                $unwind: {path: "$ucenikPodaci"}
+            },
+            {
+                $match: {
+                    "ucenikPodaci.pol": pol
+                }
+            },
+            {
+                $count: "broj"
+            }
+        ])
+        if (ret.length > 0) return ret[0].broj
+        else return 0
     }
 }

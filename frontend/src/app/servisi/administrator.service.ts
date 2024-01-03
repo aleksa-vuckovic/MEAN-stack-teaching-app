@@ -77,4 +77,8 @@ export class AdministratorService {
   angazovanjeNastavnika() {
     return this.http.get(this.url + "angazovanjenastavnika", this.opcije)
   }
+
+  brojCasovaPoPredmetuPoPolu() {
+    return this.http.get(this.url + "brojcasovapopredmetupopolu", this.opcije)
+  }
 }

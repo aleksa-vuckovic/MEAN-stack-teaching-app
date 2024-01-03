@@ -54,4 +54,7 @@ administratorRuter.route("/brojcasovaposatu").get((req, res) => {
 administratorRuter.route("/angazovanjenastavnika").get((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().angazovanjeNastavnika(req, res);
 });
+administratorRuter.route("/brojcasovapopredmetupopolu").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().brojCasovaPoPredmetuPoPolu(req, res);
+});
 exports.default = administratorRuter;

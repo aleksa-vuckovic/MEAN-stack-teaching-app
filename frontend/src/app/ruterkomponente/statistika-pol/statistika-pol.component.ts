@@ -21,11 +21,11 @@ export class StatistikaPolComponent {
     }
   ]
 
-  opcije={
+  options={
     responsive: true
   }
-  legenda = true
-  tip: keyof ChartTypeRegistry='pie'
+  legend = true
+  type: keyof ChartTypeRegistry='pie'
 
   constructor(private servis: AdministratorService) {}
   ngOnInit(): void {
@@ -44,5 +44,28 @@ export class StatistikaPolComponent {
         ]
       }
     })
+
+    this.servis.brojCasovaPoPredmetuPoPolu().subscribe((res:any) => {
+      if (res.poruka == "ok") {
+        console.log(res)
+        this.predmetiLabele = res.podaci.predmeti
+        this.predmetiPodaci.push({
+          label: "Z",
+          data: res.podaci.podaciZ,
+          fill: true
+        })
+        this.predmetiPodaci.push({
+          label: "M",
+          data: res.podaci.podaciM,
+          fill: true
+        })
+      }
+    })
   }
+
+
+  predmetiLabele: Array<string> = []
+  predmetiPodaci: Array<any> =[]
+  predmetiType: keyof ChartTypeRegistry = 'radar'
+
 }
