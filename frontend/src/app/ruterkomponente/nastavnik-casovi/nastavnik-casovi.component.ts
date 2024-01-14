@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatumVreme } from 'src/app/DatumVreme';
 import { NastavnikService } from 'src/app/servisi/nastavnik.service';
@@ -8,12 +9,17 @@ import { NastavnikService } from 'src/app/servisi/nastavnik.service';
   templateUrl: './nastavnik-casovi.component.html',
   styleUrls: ['./nastavnik-casovi.component.css']
 })
-export class NastavnikCasoviComponent {
+export class NastavnikCasoviComponent implements OnInit {
 
+  profil = {ime: "", prezime: "", mejl : ""}
   casovi: Array<any> = []
   limit: number = 5;
-  constructor(private servis: NastavnikService, public modalServis: NgbModal) {
+  constructor(private servis: NastavnikService, public modalServis: NgbModal, private ruter: Router) {}
+  ngOnInit(): void {
     this.osveziCasove()
+    this.servis.profilPodaci().subscribe((res:any) => {
+      if (res.poruka == "ok") this.profil = res.podaci
+    })
   }
   sada: DatumVreme = DatumVreme.sada()
   mogucOtkaz(cas: any) {
@@ -59,6 +65,12 @@ export class NastavnikCasoviComponent {
 
   //prikljucenje
   prikljucenje(cas: any) {
-    
+    if (!this.mogucePrikljucenje(cas)) return;
+    localStorage.setItem("cas", JSON.stringify({
+      id: cas._id,
+      ime: this.profil.ime + " " + this.profil.prezime,
+      mejl: this.profil.mejl
+    }))
+    this.ruter.navigate(["sastanak"])
   }
 }

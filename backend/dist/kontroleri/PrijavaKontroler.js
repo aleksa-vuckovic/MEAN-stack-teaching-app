@@ -117,7 +117,7 @@ class PrijavaKontroler {
             let ret = yield db_1.DB.korisnikPoKime(req.body.kime);
             if (ret == null)
                 res.json({ poruka: "Neispravni kredencijali." });
-            else if (!bcrypt.compare(req.body.lozinka, ret.lozinka))
+            else if (!(yield bcrypt.compare(req.body.lozinka, ret.lozinka)))
                 res.json({ poruka: "Neispravni kredencijali." });
             else {
                 let session = req.session;
@@ -127,9 +127,7 @@ class PrijavaKontroler {
                     poruka: "ok",
                     podaci: {
                         kime: ret.kime,
-                        tip: ret.tip,
-                        skola: ret.skola,
-                        razred: ret.razred
+                        tip: ret.tip
                     }
                 });
             }

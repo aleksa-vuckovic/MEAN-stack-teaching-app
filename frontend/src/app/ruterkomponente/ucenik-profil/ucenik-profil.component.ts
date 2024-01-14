@@ -35,7 +35,17 @@ export class UcenikProfilComponent {
     if (!this.dozvoljenaSrednja && odabranaSkola != "Osnovna") this.azuriranjeForma.get('skola')?.setValue("Osnovna");
   }
   postaviPodatke(podaci: any) {
-    this.podaci = podaci;
+    this.podaci = {
+      ime: podaci.ime,
+      prezime: podaci.prezime,
+      skola: podaci.skola,
+      razred: podaci.razred,
+    
+      mejl: podaci.mejl,
+      adresa: podaci.adresa,
+      telefon: podaci.telefon,
+      profil: podaci.profil
+    }
     this.azurirajDozvoljene();
   }
 

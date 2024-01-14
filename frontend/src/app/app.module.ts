@@ -48,6 +48,7 @@ import { StatistikaBrojNastavnikaComponent } from './ruterkomponente/statistika-
 import { StatistikaPolComponent } from './ruterkomponente/statistika-pol/statistika-pol.component';
 import { StatistikaBrojCasovaComponent } from './ruterkomponente/statistika-broj-casova/statistika-broj-casova.component';
 import { StatistikaAngazovanjeComponent } from './ruterkomponente/statistika-angazovanje/statistika-angazovanje.component';
+import { SastanakComponent } from './ruterkomponente/sastanak/sastanak.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { StatistikaAngazovanjeComponent } from './ruterkomponente/statistika-ang
     StatistikaBrojNastavnikaComponent,
     StatistikaPolComponent,
     StatistikaBrojCasovaComponent,
-    StatistikaAngazovanjeComponent
+    StatistikaAngazovanjeComponent,
+    SastanakComponent
   ],
   imports: [
     BrowserModule,

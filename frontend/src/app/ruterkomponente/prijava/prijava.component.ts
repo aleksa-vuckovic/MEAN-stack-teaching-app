@@ -39,7 +39,7 @@ export class PrijavaComponent implements OnInit {
             this.greska = "Administratori pristupaju sa posebne stranice."
             return;
           }
-          localStorage.setItem("korisnik", JSON.stringify(data));
+          localStorage.setItem("kime", data.kime);
           if (data.tip == "Ucenik") {
             this.ruter.navigate(["ucenikProfil"])
           } else if (data.tip == "Nastavnik") {

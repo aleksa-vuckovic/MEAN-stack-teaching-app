@@ -80,7 +80,7 @@ export class PrijavaKontroler {
 
         let ret = await DB.korisnikPoKime(req.body.kime)
         if (ret == null) res.json({poruka: "Neispravni kredencijali."})
-        else if (!bcrypt.compare(req.body.lozinka, ret.lozinka)) res.json({poruka: "Neispravni kredencijali."})
+        else if (! await bcrypt.compare(req.body.lozinka, ret.lozinka)) res.json({poruka: "Neispravni kredencijali."})
         else {
             let session = req.session as any
             session.korisnik = ret;
@@ -89,9 +89,7 @@ export class PrijavaKontroler {
                 poruka: "ok",
                 podaci: {
                     kime: ret.kime,
-                    tip: ret.tip,
-                    skola: ret.skola,
-                    razred: ret.razred
+                    tip: ret.tip
                 }
             })
         }
@@ -104,7 +102,7 @@ export class PrijavaKontroler {
         else {
             let ret:any = await DB.korisnikPoKime(req.body.kime)
             if (ret == null) res.json({poruka: "Neispravni kredencijali."})
-            else if (!bcrypt.compare(req.body.stara, ret.lozinka)) res.json({poruka: "Neispravni kredencijali."})
+            else if (!await bcrypt.compare(req.body.stara, ret.lozinka)) res.json({poruka: "Neispravni kredencijali."})
             else {
                 let ret = await DB.promeniLozinku(req.body.kime, await Utils.enkripcija(req.body.nova))
                 res.json({poruka: ret})

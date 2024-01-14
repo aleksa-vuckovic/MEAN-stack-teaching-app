@@ -471,7 +471,6 @@ class DB {
                 },
                 {
                     $project: {
-                        _id: 0,
                         od: "$od",
                         do: "$do",
                         predmet: "$predmet",
@@ -719,7 +718,6 @@ class DB {
                 },
                 {
                     $project: {
-                        _id: 0,
                         nastavnik: "$nastavnik",
                         od: "$od",
                         do: "$do",

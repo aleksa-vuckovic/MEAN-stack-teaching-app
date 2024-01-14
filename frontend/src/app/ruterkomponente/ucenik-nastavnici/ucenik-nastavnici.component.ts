@@ -27,12 +27,16 @@ export class UcenikNastavniciComponent {
 
   constructor (private servis: UcenikService, private ruter: Router) {}
   ngOnInit(): void {
-    let korisnik = JSON.parse(localStorage.getItem("korisnik") ?? "{}");
-    console.log(korisnik)
-    let uzrast = "Srednja";
-    if (korisnik.skola == "Osnovna") uzrast = korisnik.razred <= 4 ? "Osnovna 1-4" : "Osnovna 5-8";
-    this.pretraga.uzrast = uzrast;
-    this.osvezi();
+    this.servis.profilPodaci().subscribe((res: any) => {
+      if (res.poruka == "ok") {
+        let razred = res.podaci.razred
+        let skola = res.podaci.skola
+        let uzrast = "Srednja";
+        if (skola == "Osnovna") uzrast = razred <= 4 ? "Osnovna 1-4" : "Osnovna 5-8";
+        this.pretraga.uzrast = uzrast;
+        this.osvezi();
+      }
+    })
   }
 
   sort: any = {
