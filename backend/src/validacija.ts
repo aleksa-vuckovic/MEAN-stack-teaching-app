@@ -153,7 +153,7 @@ export class Validacija {
             if (!ulaz[key]) return "Fale podaci."
             if (ulaz[key].od > ulaz[key].do) return "Pocetak radnog vremena ne moze biti posle kraja."
             if (ulaz[key].od < 0) return "Nevalidan pocetak radnog vremena."
-            if (ulaz[key].do > 24*60) return "Nevalidan kraj radnog vremena."
+            if (ulaz[key].do > 24*60*60*1000) return "Nevalidan kraj radnog vremena."
             izlaz[key] = {
                 od: ulaz[key].od,
                 do: ulaz[key].do
@@ -166,53 +166,53 @@ export class Validacija {
         if (!ulaz || !ulaz.od || !ulaz.do) return "Fale podaci."
         let od = new DatumVreme(ulaz.od);
         let do_ = new DatumVreme(ulaz.do);
-        if (od.broj() >= do_.broj()) return "Datum do mora biti veci od datuma od."
-        izlaz.od = od.broj();
-        izlaz.do = do_.broj();
+        if (od.date >= do_.date) return "Datum do mora biti veci od datuma od."
+        izlaz.od = od.date;
+        izlaz.do = do_.date;
         return "ok";
     }
 
-    static otkazivanjeValidacija(ulaz: any, izlaz: any): string {
-        if (!ulaz || !ulaz.od || !ulaz.obrazlozenje) return "Nedostaju podaci."
-        izlaz.od = new DatumVreme(ulaz.od)
+    static async otkazivanjeValidacija(ulaz: any, izlaz: any): Promise<string> {
+        if (!ulaz || !ulaz.id || !ulaz.obrazlozenje) return "Nedostaju podaci."
+        let cas = await DB.cas(ulaz.id)
+        if (cas == null) return "Cas ne postoji."
+        izlaz.id = ulaz.id
         izlaz.obrazlozenje = ulaz.obrazlozenje
         let sada = DatumVreme.sada()
-        if (izlaz.od.broj() < sada.broj()) return "Ne mozete otkazati prosli cas."
-        else if (izlaz.od.razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
+        if (cas.od < sada.date) return "Ne mozete otkazati prosli cas."
+        else if (new DatumVreme(cas.od).razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
         else return "ok";
     }
 
     static async nastavnikRecenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
-        if (!ulaz || !ulaz.od) return "Nema dovoljno podataka."
-        else if (ulaz.do >= DatumVreme.sada().broj()) return "Ne mozete oceniti cas koji se jos nije zavrsio."
-        let cas = await DB.cas(nastavnik, new DatumVreme(ulaz.od))
-        if (!cas) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
+        if (!ulaz || !ulaz.id) return "Nema dovoljno podataka."
+        let cas = await DB.cas(ulaz.id)
+        if (cas == null) return "Cas ne postoji u bazi ili je otkazan/odbijen."
+        izlaz.id = ulaz.id
+        if (cas.od >= DatumVreme.sada().date) return "Ne mozete oceniti cas koji se jos nije zavrsio."
         else if (cas.ocenaNastavnik || cas.komentarNastavnik) return "Cas je vec ocenjen."
         if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
         else izlaz.ocena = null;
 
         if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
         else izlaz.komentar = "";
-
-        izlaz.od = new DatumVreme(ulaz.od)
         return "ok"
     }
 
     static async ucenikRecenzijaValidacija(ulaz: any, izlaz: any, ucenik: string): Promise<string> {
-        if (!ulaz || !ulaz.od || !ulaz.nastavnik) return "Nema dovoljno podataka."
-        else if (ulaz.do >= DatumVreme.sada().broj()) return "Ne mozete oceniti cas koji se jos nije zavrsio."
-        let res = await DB.cas(ulaz.nastavnik, new DatumVreme(ulaz.od))
-        if (!res) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
-        else if (res.ucenik != ucenik) return "Ne mozete oceniti cas koji nije odrzan vama."
-        else if (res.ocenaUcenik || res.komentarUcenik) return "Cas je vec ocenjen."
+        if (!ulaz || !ulaz.id) return "Nema dovoljno podataka."
+        let cas = await DB.cas(ulaz.id)
+        if (!cas) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
+        izlaz.id = ulaz.id
+        if (cas.od >= DatumVreme.sada().date) return "Ne mozete oceniti cas koji se jos nije zavrsio."
+        else if (cas.ucenik != ucenik) return "Ne mozete oceniti cas koji nije odrzan vama."
+        else if (cas.ocenaUcenik || cas.komentarUcenik) return "Cas je vec ocenjen."
         
         if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
         else izlaz.ocena = null;
 
         if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
         else izlaz.komentar = "";
-
-        izlaz.od = new DatumVreme(ulaz.od)
         izlaz.nastavnik = ulaz.nastavnik
         return "ok"
     }

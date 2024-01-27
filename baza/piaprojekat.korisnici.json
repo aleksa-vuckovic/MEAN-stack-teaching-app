@@ -2,7 +2,9 @@
   "_id": {
     "$oid": "6594218e6709789d0fdc42bc"
   },
-  "prijava": 4494446,
+  "prijava": {
+    "$date": "2024-01-27T02:54:22.489Z"
+  },
   "kime": "marko",
   "lozinka": "$2b$10$VixSMYnkI.Kn88AazRNqNOWyRpvoyEyEKxWoMrvIP941Y5qh3bHX2",
   "pitanje": "Koji ti je omiljeni ukus sladoleda?",
@@ -33,24 +35,24 @@
   "cv": "/uploads/cv-1704206734935.pdf",
   "radnovreme": {
     "0": {
-      "od": 480,
-      "do": 1080
+      "od": 28800000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
       "od": 0,
       "do": 0
     },
     "4": {
-      "od": 600,
-      "do": 960
+      "od": 36000000,
+      "do": 57600000
     },
     "5": {
       "od": 0,
@@ -68,7 +70,9 @@
   "_id": {
     "$oid": "659423f71254ae03e0c57f8d"
   },
-  "prijava": 4494446,
+  "prijava": {
+    "$date": "2024-01-27T03:03:29.550Z"
+  },
   "kime": "petar",
   "lozinka": "$2b$10$4ScWt9HgGy42cVHtBOzlc.7fUFish5nYA5SWnWgYFqzxRfKJBoSc.",
   "pitanje": "Kako ti se zove cukundeda?",
@@ -99,24 +103,24 @@
   "cv": "/uploads/cv-1704207351036.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
@@ -134,7 +138,9 @@
   "_id": {
     "$oid": "6594248d1254ae03e0c57f91"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-14T19:56:00.000Z"
+  },
   "kime": "pavle",
   "lozinka": "$2b$10$nULhHNsuypffraTdRktH2uUjnnpBrJ1IXmr97jsbcD7h8jN5SqhJW",
   "pitanje": "Koju osnovnu skolu si pohadjao?",
@@ -164,32 +170,32 @@
   "cv": "/uploads/cv-1704207501556.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 79200000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
       "do": 0
     },
     "6": {
-      "od": 0,
-      "do": 0
+      "od": 36000000,
+      "do": 82800000
     }
   },
   "nedostupnost": [],
@@ -199,7 +205,9 @@
   "_id": {
     "$oid": "659425381254ae03e0c57f97"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-01T14:01:00.000Z"
+  },
   "kime": "jana",
   "lozinka": "$2b$10$i/GtkDMu30Z5p3ah5sW64O836ynFSRlqhv9aB9hWdyBJcM1eIEF4y",
   "pitanje": "Koja ti je omiljena boja?",
@@ -228,24 +236,24 @@
   "cv": "/uploads/cv-1704207672856.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
@@ -263,7 +271,9 @@
   "_id": {
     "$oid": "659425b21254ae03e0c57f9b"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-01T14:01:00.000Z"
+  },
   "kime": "lana",
   "lozinka": "$2b$10$dY2jVsI2AItlpBEpcH8ugezTE1CCODDEoONkBji/6Xxzy99RVxUsC",
   "pitanje": "Kako se zove tvoj omiljeni restora?",
@@ -290,24 +300,24 @@
   "cv": "/uploads/cv-1704207794319.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
@@ -325,7 +335,9 @@
   "_id": {
     "$oid": "6594261c1254ae03e0c57f9f"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-27T02:59:46.504Z"
+  },
   "kime": "tijana",
   "lozinka": "$2b$10$jRFVUsYTj6rnKzIUpXYIH.0iLAnqE1NDHKUPB5b4kJhu6eQCOhZTi",
   "pitanje": "Kako se zoves?",
@@ -355,24 +367,24 @@
   "cv": "/uploads/cv-1704207900466.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
@@ -383,14 +395,25 @@
       "do": 0
     }
   },
-  "nedostupnost": [],
+  "nedostupnost": [
+    {
+      "od": {
+        "$date": "2024-01-28T14:00:00.000Z"
+      },
+      "do": {
+        "$date": "2024-02-01T08:00:00.000Z"
+      }
+    }
+  ],
   "__v": 0
 },
 {
   "_id": {
     "$oid": "659426df1254ae03e0c57fa4"
   },
-  "prijava": 4494442,
+  "prijava": {
+    "$date": "2024-01-03T16:50:00.000Z"
+  },
   "kime": "paja",
   "lozinka": "$2b$10$IHgVxxBPGvNTttmBeAIiQeTrg36aiJBj/UgIAE0hcSHMIygR2Z2V6",
   "pitanje": "Koji ti je omiljeni predmet?",
@@ -419,7 +442,9 @@
   "_id": {
     "$oid": "659427de1254ae03e0c57fa9"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-27T03:02:13.266Z"
+  },
   "kime": "lazar",
   "lozinka": "$2b$10$eD7ajQD8SBl4gMEDfrzKj.SgZ0AnUbjmzCjDXILHwPyhSHAUG8cp2",
   "pitanje": "Koliko je 2+2?",
@@ -448,7 +473,9 @@
   "_id": {
     "$oid": "659428501254ae03e0c57fad"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-27T02:35:33.739Z"
+  },
   "kime": "darko",
   "lozinka": "$2b$10$q4jkU6YInI5dFdB.jvS8nuJbZqL2V11eg.RkF3ORjn/1Ma41EWqnm",
   "pitanje": "Koliko godina si imao kada si prvi put probao sladoled?",
@@ -477,7 +504,9 @@
   "_id": {
     "$oid": "659428bc1254ae03e0c57fb1"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-27T02:45:12.595Z"
+  },
   "kime": "sara",
   "lozinka": "$2b$10$h5kig8uAodInMOgEXZpazuap7viRtS.qhfMg7gEJNAJKD6pZ59FV6",
   "pitanje": "Omiljeno voce?",
@@ -489,11 +518,11 @@
   "adresa": "Bul Mihajla Pupina 127",
   "telefon": "+38165012222",
   "mejl": "sara@student.etf.bg.ac.rs",
-  "profil": "/uploads/profil-1704208572707.jpeg",
+  "profil": "/uploads/profil-1706323602527.jpeg",
   "odobren": true,
   "aktivan": true,
   "skola": "Osnovna",
-  "razred": 8,
+  "razred": 1,
   "predmeti": [],
   "uzrasti": [],
   "saznao": null,
@@ -506,7 +535,9 @@
   "_id": {
     "$oid": "659429191254ae03e0c57fb5"
   },
-  "prijava": 4490117,
+  "prijava": {
+    "$date": "2024-01-14T20:16:00.000Z"
+  },
   "kime": "danica",
   "lozinka": "$2b$10$nyFkyDJBFpncEKPHsL7sd.RFdK2EWomsomzFsa54//GDKc/w9o0L2",
   "pitanje": "Kako se zoves?",
@@ -535,7 +566,9 @@
   "_id": {
     "$oid": "65944fb4979100d9a64c50ea"
   },
-  "prijava": 4497455,
+  "prijava": {
+    "$date": "2024-01-27T02:21:17.924Z"
+  },
   "kime": "aleksa",
   "lozinka": "$2a$10$8Fx56SC5D2WgwM4j0GK0E.IQ5w53q12EWkDX0exLfUfF/wbjX2u7O",
   "pitanje": "Vreme rodjenja?",
@@ -554,7 +587,9 @@
   "_id": {
     "$oid": "65949ccd3d6da41685a0042a"
   },
-  "prijava": 0,
+  "prijava": {
+    "$date": "2020-12-30T23:00:00.000Z"
+  },
   "kime": "jovan",
   "lozinka": "$2b$10$Zq7clzI4JmGvLl1GJwNBO.qe9gajfuvOr2EbIEiJ2qhpRdvHVBIa6",
   "pitanje": "Koji si znak u horoskopu?",
@@ -582,24 +617,24 @@
   "cv": "/uploads/cv-1704238285179.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,
@@ -617,7 +652,9 @@
   "_id": {
     "$oid": "65949d7d3d6da41685a0042e"
   },
-  "prijava": 0,
+  "prijava": {
+    "$date": "2020-12-30T23:00:00.000Z"
+  },
   "kime": "stojan",
   "lozinka": "$2b$10$AX7O5ZyeMsZ0b56gWlBlUeuBkMSWUHjn3doV4Ypf8yvluBBTf9O8G",
   "pitanje": "Sta najcesce jedes za rucak?",
@@ -648,24 +685,24 @@
   "cv": "/uploads/cv-1704238461614.pdf",
   "radnovreme": {
     "0": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "1": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "2": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "3": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "4": {
-      "od": 600,
-      "do": 1080
+      "od": 36000000,
+      "do": 64800000
     },
     "5": {
       "od": 0,

@@ -221,7 +221,7 @@ class Validacija {
                 return "Pocetak radnog vremena ne moze biti posle kraja.";
             if (ulaz[key].od < 0)
                 return "Nevalidan pocetak radnog vremena.";
-            if (ulaz[key].do > 24 * 60)
+            if (ulaz[key].do > 24 * 60 * 60 * 1000)
                 return "Nevalidan kraj radnog vremena.";
             izlaz[key] = {
                 od: ulaz[key].od,
@@ -235,34 +235,40 @@ class Validacija {
             return "Fale podaci.";
         let od = new DatumVreme_1.DatumVreme(ulaz.od);
         let do_ = new DatumVreme_1.DatumVreme(ulaz.do);
-        if (od.broj() >= do_.broj())
+        if (od.date >= do_.date)
             return "Datum do mora biti veci od datuma od.";
-        izlaz.od = od.broj();
-        izlaz.do = do_.broj();
+        izlaz.od = od.date;
+        izlaz.do = do_.date;
         return "ok";
     }
     static otkazivanjeValidacija(ulaz, izlaz) {
-        if (!ulaz || !ulaz.od || !ulaz.obrazlozenje)
-            return "Nedostaju podaci.";
-        izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
-        izlaz.obrazlozenje = ulaz.obrazlozenje;
-        let sada = DatumVreme_1.DatumVreme.sada();
-        if (izlaz.od.broj() < sada.broj())
-            return "Ne mozete otkazati prosli cas.";
-        else if (izlaz.od.razlikaUMinutima(sada) < 4 * 60)
-            return "Ne mozete otkazati cas manje od 4 sata pre pocetka.";
-        else
-            return "ok";
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!ulaz || !ulaz.id || !ulaz.obrazlozenje)
+                return "Nedostaju podaci.";
+            let cas = yield db_1.DB.cas(ulaz.id);
+            if (cas == null)
+                return "Cas ne postoji.";
+            izlaz.id = ulaz.id;
+            izlaz.obrazlozenje = ulaz.obrazlozenje;
+            let sada = DatumVreme_1.DatumVreme.sada();
+            if (cas.od < sada.date)
+                return "Ne mozete otkazati prosli cas.";
+            else if (new DatumVreme_1.DatumVreme(cas.od).razlikaUMinutima(sada) < 4 * 60)
+                return "Ne mozete otkazati cas manje od 4 sata pre pocetka.";
+            else
+                return "ok";
+        });
     }
     static nastavnikRecenzijaValidacija(ulaz, izlaz, nastavnik) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!ulaz || !ulaz.od)
+            if (!ulaz || !ulaz.id)
                 return "Nema dovoljno podataka.";
-            else if (ulaz.do >= DatumVreme_1.DatumVreme.sada().broj())
+            let cas = yield db_1.DB.cas(ulaz.id);
+            if (cas == null)
+                return "Cas ne postoji u bazi ili je otkazan/odbijen.";
+            izlaz.id = ulaz.id;
+            if (cas.od >= DatumVreme_1.DatumVreme.sada().date)
                 return "Ne mozete oceniti cas koji se jos nije zavrsio.";
-            let cas = yield db_1.DB.cas(nastavnik, new DatumVreme_1.DatumVreme(ulaz.od));
-            if (!cas)
-                return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen.";
             else if (cas.ocenaNastavnik || cas.komentarNastavnik)
                 return "Cas je vec ocenjen.";
             if (ulaz.ocena)
@@ -273,22 +279,22 @@ class Validacija {
                 izlaz.komentar = ulaz.komentar;
             else
                 izlaz.komentar = "";
-            izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
             return "ok";
         });
     }
     static ucenikRecenzijaValidacija(ulaz, izlaz, ucenik) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!ulaz || !ulaz.od || !ulaz.nastavnik)
+            if (!ulaz || !ulaz.id)
                 return "Nema dovoljno podataka.";
-            else if (ulaz.do >= DatumVreme_1.DatumVreme.sada().broj())
-                return "Ne mozete oceniti cas koji se jos nije zavrsio.";
-            let res = yield db_1.DB.cas(ulaz.nastavnik, new DatumVreme_1.DatumVreme(ulaz.od));
-            if (!res)
+            let cas = yield db_1.DB.cas(ulaz.id);
+            if (!cas)
                 return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen.";
-            else if (res.ucenik != ucenik)
+            izlaz.id = ulaz.id;
+            if (cas.od >= DatumVreme_1.DatumVreme.sada().date)
+                return "Ne mozete oceniti cas koji se jos nije zavrsio.";
+            else if (cas.ucenik != ucenik)
                 return "Ne mozete oceniti cas koji nije odrzan vama.";
-            else if (res.ocenaUcenik || res.komentarUcenik)
+            else if (cas.ocenaUcenik || cas.komentarUcenik)
                 return "Cas je vec ocenjen.";
             if (ulaz.ocena)
                 izlaz.ocena = ulaz.ocena;
@@ -298,7 +304,6 @@ class Validacija {
                 izlaz.komentar = ulaz.komentar;
             else
                 izlaz.komentar = "";
-            izlaz.od = new DatumVreme_1.DatumVreme(ulaz.od);
             izlaz.nastavnik = ulaz.nastavnik;
             return "ok";
         });

@@ -43,6 +43,7 @@ export class UcenikZakazivanjeComponent implements OnInit {
     let tmp = 0;
     for (let i = 0; i < 7; i++) {
       this.servis.nastavnikTermini(this.nastavniKime, this.datum.dodajDan(i)).subscribe((res: any) => {
+        //console.log(res)
         termini[i] = res.podaci; tmp++;
         if (tmp == 7) this.termini = termini;
       })
@@ -79,8 +80,8 @@ export class UcenikZakazivanjeComponent implements OnInit {
 
   //forma
   predmet: string = ""
-  datumvreme1: DatumVreme = DatumVreme.sada().naCeoSlot();
-  datumvreme2: DatumVreme = DatumVreme.sada().naCeoSlot();
+  datumvreme1: DatumVreme = DatumVreme.sada().naPolaSata();
+  datumvreme2: DatumVreme = DatumVreme.sada().naPolaSata();
   duplicas: boolean = false;
   opis: string = "";
 

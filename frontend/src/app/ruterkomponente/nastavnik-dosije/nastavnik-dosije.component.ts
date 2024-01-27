@@ -22,7 +22,7 @@ export class NastavnikDosijeComponent {
   }
   ucenik: string = ""
 
-  //od, do, predmet, ocena, komentar
+  //_id, od, do, predmet, ocena, komentar
   casovi: Array<any> = []
 
   constructor(private servis: NastavnikService, public modalServis: NgbModal) {
@@ -58,7 +58,7 @@ export class NastavnikDosijeComponent {
 
   recenzijaOk() {
     let ocena = this.ocena == 0 ? null : this.ocena;
-    this.servis.recenzija(this.odabran.od, ocena, this.komentar).subscribe((res:any) => {
+    this.servis.recenzija(this.odabran._id, ocena, this.komentar).subscribe((res:any) => {
       if (res.poruka == "ok") {
         this.odabran.ocena = ocena
         this.odabran.komentar = this.komentar

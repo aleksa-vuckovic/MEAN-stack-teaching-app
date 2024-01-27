@@ -54,7 +54,7 @@ export class NastavnikCasoviComponent implements OnInit {
     this.modalServis.open(this.modal)
   }
   otkaziDefinitivno() {
-    this.servis.otkazi(this.odabran.od, this.obrazlozenje).subscribe((res: any) => {
+    this.servis.otkazi(this.odabran._id, this.obrazlozenje).subscribe((res: any) => {
       if (res.poruka == "ok") {
         this.modalServis.dismissAll()
         this.osveziCasove()

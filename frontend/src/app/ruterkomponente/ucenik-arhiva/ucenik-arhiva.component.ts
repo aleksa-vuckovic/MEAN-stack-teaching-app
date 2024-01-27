@@ -11,7 +11,7 @@ import { UcenikService } from 'src/app/servisi/ucenik.service';
 export class UcenikArhivaComponent {
 
 
-  //od, do, predmet, ime, prezime, komentar (nastavnika), ocenjen
+  //_id, od, do, predmet, ime, prezime, komentar (nastavnika), ocenjen
   casovi: Array<any> = []
 
   constructor(private servis: UcenikService, public modalServis: NgbModal) {
@@ -42,7 +42,7 @@ export class UcenikArhivaComponent {
 
   recenzijaOk() {
     let ocena = this.ocena == 0 ? null : this.ocena;
-    this.servis.recenzija(this.odabran.od, this.odabran.nastavnik, ocena, this.komentar).subscribe((res:any) => {
+    this.servis.recenzija(this.odabran._id, ocena, this.komentar).subscribe((res:any) => {
       if (res.poruka == "ok") {
         this.odabran.ocenjen = true
       }

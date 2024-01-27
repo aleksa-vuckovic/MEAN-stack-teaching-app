@@ -39,24 +39,24 @@ const db_1 = require("../db");
 const bcrypt = __importStar(require("bcrypt"));
 let podrazumevanoRadnoVreme = {
     "0": {
-        od: 600,
-        do: 18 * 60
+        od: 600 * 60 * 1000,
+        do: 18 * 60 * 60 * 1000
     },
     "1": {
-        od: 600,
-        do: 18 * 60
+        od: 600 * 60 * 1000,
+        do: 18 * 60 * 60 * 1000
     },
     "2": {
-        od: 600,
-        do: 18 * 60
+        od: 600 * 60 * 1000,
+        do: 18 * 60 * 60 * 1000
     },
     "3": {
-        od: 600,
-        do: 18 * 60
+        od: 600 * 60 * 1000,
+        do: 18 * 60 * 60 * 1000
     },
     "4": {
-        od: 600,
-        do: 18 * 60
+        od: 600 * 60 * 1000,
+        do: 18 * 60 * 60 * 1000
     },
     "5": {
         od: 0,
@@ -144,7 +144,7 @@ class PrijavaKontroler {
                 let ret = yield db_1.DB.korisnikPoKime(req.body.kime);
                 if (ret == null)
                     res.json({ poruka: "Neispravni kredencijali." });
-                else if (!bcrypt.compare(req.body.stara, ret.lozinka))
+                else if (!(yield bcrypt.compare(req.body.stara, ret.lozinka)))
                     res.json({ poruka: "Neispravni kredencijali." });
                 else {
                     let ret = yield db_1.DB.promeniLozinku(req.body.kime, yield utils_1.Utils.enkripcija(req.body.nova));

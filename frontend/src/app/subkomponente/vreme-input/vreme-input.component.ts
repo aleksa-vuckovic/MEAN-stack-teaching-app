@@ -20,10 +20,10 @@ export class VremeInputComponent implements ControlValueAccessor {
   @Input() disabled = false;
   private touched = false;
   writeValue(vreme: number): void {
-    vreme = vreme - vreme%30;
-    this.vreme = vreme;
+    vreme = Math.floor(vreme / (60*1000))
+    vreme -= vreme % 30;
     this.model = {
-      hour: Math.floor(vreme/60),
+      hour: Math.floor(vreme/(60)),
       minute: vreme%60
     }
   }
@@ -36,7 +36,6 @@ export class VremeInputComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-  vreme: number = 0;
 
   model = {
     hour: 0,
@@ -48,8 +47,7 @@ export class VremeInputComponent implements ControlValueAccessor {
       this.touched = true;
       this.onTouched();
     }
-    this.vreme = this.model.hour*60 + this.model.minute;
-    this.onChange(this.vreme);
+    this.onChange((this.model.hour*60 + this.model.minute)*60*1000);
   }
 }
 

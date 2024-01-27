@@ -1,7 +1,9 @@
+table {
+    cursor:default
+}
 i.material-icons:hover {
     cursor:pointer
 }
-
 table.kalendar, table.kalendar td {
     border: 1px solid black;
     border-collapse: collapse;

@@ -1,6 +1,4 @@
 import express from 'express';
-import { Validacija } from "../validacija";
-import { Utils } from "../utils"
 import { DB } from "../db";
 import { DatumVreme } from '../DatumVreme';
 

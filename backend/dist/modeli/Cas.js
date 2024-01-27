@@ -9,18 +9,18 @@ let casSchema = new mongoose_1.default.Schema({
     nastavnik: String,
     opis: String,
     predmet: String,
-    od: Number,
-    do: Number,
+    od: Date,
+    do: Date,
     potvrdjen: {
-        type: Number,
+        type: Date,
         default: null
     },
     odbijen: {
-        type: Number,
+        type: Date,
         default: null
     },
     otkazan: {
-        type: Number,
+        type: Date,
         default: null
     },
     ocenaUcenik: {

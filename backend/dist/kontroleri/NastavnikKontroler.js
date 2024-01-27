@@ -76,7 +76,7 @@ class NastavnikKontroler {
                 res.json({ poruka: "Nedostaju argumenti." });
                 return;
             }
-            let ret = yield db_1.DB.nastavnikTerminStatusZaDan(kor.kime, new DatumVreme_1.DatumVreme(req.body.datum), true);
+            let ret = yield db_1.DB.nastavnikTerminiStatus(kor.kime, new DatumVreme_1.DatumVreme(req.body.datum), 30 * 60 * 1000, 48, true);
             res.json({ poruka: "ok", podaci: ret });
         });
         this.radnovreme = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -136,18 +136,18 @@ class NastavnikKontroler {
                 return;
             }
             let izlaz = {};
-            let ret = validacija_1.Validacija.otkazivanjeValidacija(req.body, izlaz);
+            let ret = yield validacija_1.Validacija.otkazivanjeValidacija(req.body, izlaz);
             if (ret != "ok") {
                 res.json({ poruka: ret });
                 return;
             }
-            let cas = yield db_1.DB.cas(kor.kime, izlaz.od);
-            ret = yield db_1.DB.otkaziCas(kor.kime, izlaz.od, izlaz.obrazlozenje);
+            let cas = yield db_1.DB.cas(izlaz.id);
+            ret = yield db_1.DB.otkaziCas(izlaz.id, izlaz.obrazlozenje);
             if (ret != "ok") {
                 res.json({ poruka: ret });
                 return;
             }
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${izlaz.od.datumVremeString()}`;
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
             if (izlaz.obrazlozenje == "")
                 sadrzaj += " bez obrazlozenja.";
             else
@@ -166,18 +166,17 @@ class NastavnikKontroler {
             let kor = this.autorizacija(req, res);
             if (!kor)
                 return;
-            if (!req.body || !req.body.od) {
+            if (!req.body || !req.body.id) {
                 res.json({ poruka: "Nedostaju podaci." });
                 return;
             }
-            let od = new DatumVreme_1.DatumVreme(req.body.od);
-            let ret = yield db_1.DB.nastavnikOdgovor(kor.kime, od, null);
+            let ret = yield db_1.DB.nastavnikOdgovor(req.body.id, null);
             if (ret != "ok") {
                 res.json({ poruka: ret });
                 return;
             }
-            let cas = yield db_1.DB.cas(kor.kime, od);
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${od.datumVremeString()}.`;
+            let cas = yield db_1.DB.cas(req.body.id);
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}.`;
             yield db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj);
             res.json({ poruka: "ok" });
         });
@@ -185,19 +184,19 @@ class NastavnikKontroler {
             let kor = this.autorizacija(req, res);
             if (!kor)
                 return;
-            if (!req.body || !req.body.od || !req.body.obrazlozenje) {
+            if (!req.body || !req.body.id || !req.body.obrazlozenje) {
                 res.json({ poruka: "Nedostaju podaci." });
                 return;
             }
-            let od = new DatumVreme_1.DatumVreme(req.body.od);
+            let id = req.body.id;
             let obrazlozenje = req.body.obrazlozenje;
-            let cas = yield db_1.DB.cas(kor.kime, od);
-            let ret = yield db_1.DB.nastavnikOdgovor(kor.kime, od, obrazlozenje);
+            let cas = yield db_1.DB.cas(id);
+            let ret = yield db_1.DB.nastavnikOdgovor(id, obrazlozenje);
             if (ret != "ok") {
                 res.json({ poruka: ret });
                 return;
             }
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${od.datumVremeString()}`;
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
             if (obrazlozenje == "")
                 sadrzaj += " bez obrazlozenja.";
             else
@@ -233,7 +232,7 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            ret = yield db_1.DB.nastavnikRecenzija(kor.kime, izlaz.od, izlaz.ocena, izlaz.komentar);
+            ret = yield db_1.DB.nastavnikRecenzija(izlaz.id, izlaz.ocena, izlaz.komentar);
             res.json({ poruka: ret });
         });
         this.dosijeProfil = (req, res) => __awaiter(this, void 0, void 0, function* () {

@@ -50,7 +50,7 @@ export class NastavnikKontroler {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
         if (!req.body || !req.body.datum) { res.json({poruka: "Nedostaju argumenti."}); return }
-        let ret = await DB.nastavnikTerminStatusZaDan(kor.kime, new DatumVreme(req.body.datum), true)
+        let ret = await DB.nastavnikTerminiStatus(kor.kime, new DatumVreme(req.body.datum), 30*60*1000, 48, true)
         res.json({poruka: "ok", podaci: ret})
     }
 
@@ -97,12 +97,12 @@ export class NastavnikKontroler {
         if (!kor) return;
         if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json("Nedostaju podaci."); return; }
         let izlaz: any = {}
-        let ret = Validacija.otkazivanjeValidacija(req.body, izlaz);
+        let ret = await Validacija.otkazivanjeValidacija(req.body, izlaz);
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let cas = await DB.cas(kor.kime, izlaz.od)
-        ret = await  DB.otkaziCas(kor.kime, izlaz.od, izlaz.obrazlozenje)
+        let cas = await DB.cas(izlaz.id)
+        ret = await  DB.otkaziCas(izlaz.id, izlaz.obrazlozenje)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${izlaz.od.datumVremeString()}`
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
         if (izlaz.obrazlozenje == "") sadrzaj += " bez obrazlozenja."
         else sadrzaj += " uz obrazlozenje: '" + izlaz.obrazlozenje + "'."
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
@@ -118,25 +118,24 @@ export class NastavnikKontroler {
     potvrdi = async (req: express.Request, res: express.Response) => {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
-        if (!req.body || !req.body.od) { res.json({poruka: "Nedostaju podaci."}); return; }
-        let od = new DatumVreme(req.body.od);
-        let ret = await DB.nastavnikOdgovor(kor.kime, od, null)
+        if (!req.body || !req.body.id) { res.json({poruka: "Nedostaju podaci."}); return; }
+        let ret = await DB.nastavnikOdgovor(req.body.id, null)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let cas = await DB.cas(kor.kime, od)
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${od.datumVremeString()}.`
+        let cas = await DB.cas(req.body.id)
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}.`
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
         res.json({poruka: "ok"})
     }
     odbij = async (req: express.Request, res: express.Response) => {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
-        if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json({poruka: "Nedostaju podaci."}); return; }
-        let od = new DatumVreme(req.body.od);
+        if (!req.body || !req.body.id || !req.body.obrazlozenje) { res.json({poruka: "Nedostaju podaci."}); return; }
+        let id = req.body.id
         let obrazlozenje = req.body.obrazlozenje
-        let cas = await DB.cas(kor.kime, od)
-        let ret = await DB.nastavnikOdgovor(kor.kime, od, obrazlozenje)
+        let cas = await DB.cas(id)
+        let ret = await DB.nastavnikOdgovor(id, obrazlozenje)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${od.datumVremeString()}`
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
         if (obrazlozenje == "") sadrzaj += " bez obrazlozenja."
         else sadrzaj += " uz obrazlozenje: '" + obrazlozenje + "'."
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
@@ -164,7 +163,7 @@ export class NastavnikKontroler {
         let izlaz: any = {}
         let ret = await Validacija.nastavnikRecenzijaValidacija(req.body, izlaz, kor.kime)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        ret = await DB.nastavnikRecenzija(kor.kime, izlaz.od, izlaz.ocena, izlaz.komentar)
+        ret = await DB.nastavnikRecenzija(izlaz.id, izlaz.ocena, izlaz.komentar)
         res.json({poruka: ret})
     }
 

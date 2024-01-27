@@ -260,13 +260,9 @@ class DB {
                     $unwind: { path: "$nedostupnost" }
                 },
                 {
-                    $match: { $expr: { $or: [
-                                {
-                                    $and: [{ $gte: [od.broj(), "$nedostupnost.od"] }, { $lt: [od.broj(), "$nedostupnost.do"] }]
-                                },
-                                {
-                                    $and: [{ $lte: [do_.broj(), "$nedostupnost.do"] }, { $gt: [do_.broj(), "$nedostupnost.od"] }]
-                                }
+                    $match: { $expr: { $and: [
+                                { $gt: [do_.date, "$nedostupnost.od"] },
+                                { $lt: [od.date, "$nedostupnost.do"] }
                             ] } }
                 }
             ]);
@@ -282,32 +278,33 @@ class DB {
     /*
         Ako se interval ne preklapa sa radnim vremenom, vraca radno vreme za taj dan u obliku
         {
-            od: DatumVreme,
-            do: DatumVreme
+            od: vreme u milisekundama,
+            do: vreme u milisekundama
         }
     */
     static nastavnikRadi(kime, od, do_) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!od.istiDan(do_)) {
-                let ret = yield this.nastavnikRadi(kime, od, od.krajDana());
-                if (ret)
-                    return ret;
-                ret = yield this.nastavnikRadi(kime, do_.vreme(0), do_);
-                return ret;
-            }
-            else {
-                let ret = yield Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik", radnovreme: { $exists: true } });
-                if (!ret)
-                    return null;
-                let radnovreme = ret.radnovreme[od.danUNedelji()];
-                if (od.sirovoVreme() >= radnovreme.od && do_.sirovoVreme() <= radnovreme.do)
-                    return null;
-                else
+            let ret = yield Korisnik_1.default.findOne({ kime: kime, tip: "Nastavnik", radnovreme: { $exists: true } });
+            if (!ret)
+                return null;
+            let radnovreme = ret.radnovreme;
+            do_ = do_.neposrednoDo();
+            while (!od.istiDan(do_)) {
+                let sati = radnovreme[od.danUNedelji()];
+                if (od.sirovoVreme() < sati.od || sati.do < 24 * 60 * 60 * 1000)
                     return {
-                        od: new DatumVreme_1.DatumVreme(radnovreme.od),
-                        do: new DatumVreme_1.DatumVreme(radnovreme.do)
+                        od: sati.od,
+                        do: sati.do
                     };
+                od = od.dodajDan(1).pocetakDana();
             }
+            let sati = radnovreme[od.danUNedelji()];
+            if (od.sirovoVreme() < sati.od || do_.sirovoVreme() >= sati.do)
+                return {
+                    od: sati.od,
+                    do: sati.do
+                };
+            return null;
         });
     }
     /*
@@ -322,14 +319,15 @@ class DB {
     */
     static nastavnikImaCas(kime, od, do_) {
         return __awaiter(this, void 0, void 0, function* () {
-            let ret = yield Cas_1.default.findOne({ nastavnik: kime, odbijen: null, otkazan: null, $expr: { $or: [
-                        {
-                            $and: [{ $gte: [od.broj(), "$od"] }, { $lt: [od.broj(), "$do"] }]
-                        },
-                        {
-                            $and: [{ $lte: [do_.broj(), "$do"] }, { $gt: [do_.broj(), "$od"] }]
-                        }
-                    ] } });
+            let ret = yield Cas_1.default.findOne({
+                nastavnik: kime,
+                odbijen: null,
+                otkazan: null,
+                $expr: { $and: [
+                        { $gt: [do_.date, "$od"] },
+                        { $lt: [od.date, "$do"] }
+                    ] }
+            });
             if (ret)
                 return {
                     ucenik: ret.ucenik,
@@ -342,19 +340,17 @@ class DB {
                 return null;
         });
     }
-    static nastavnikTerminStatus(kime, datum, slot, detaljno) {
+    //provarava status termina koji pocinje u "od" i koji traje "trajanje" milisekundi
+    static nastavnikTerminStatus(kime, od, trajanje, detaljno) {
         return __awaiter(this, void 0, void 0, function* () {
-            let od = datum.dodajVreme(slot * 30);
-            let do_ = od.dodajVreme(30);
+            let do_ = od.dodajMili(trajanje);
             let ret = yield this.nastavnikImaCas(kime, od, do_);
             if (ret) {
-                let slotOd = ret.od.slotOd();
-                let slotDo = ret.do.slotDo();
-                if (!ret.od.istiDan(ret.do))
-                    slotDo += 24;
+                let slotOd = Math.floor((ret.od.broj() - od.broj()) / trajanje);
+                let slotDo = Math.floor((ret.do.broj() - 1 - od.broj()) / trajanje);
                 let result = {
                     status: (ret.potvrdjen ? 4 : 3),
-                    rb: slot - slotOd + 1,
+                    rb: -slotOd + 1,
                     duzina: slotDo - slotOd + 1,
                     tekst: ""
                 };
@@ -390,13 +386,11 @@ class DB {
             };
         });
     }
-    static nastavnikTerminStatusZaDan(kime, dan, detaljno) {
+    static nastavnikTerminiStatus(kime, od, trajanje, broj, detaljno) {
         return __awaiter(this, void 0, void 0, function* () {
             let result = [];
-            let complete = 0;
-            dan = dan.vreme(0);
-            for (let i = 0; i < 48; i++)
-                result.push(yield this.nastavnikTerminStatus(kime, dan, i, detaljno));
+            for (let i = 0; i < broj; i++)
+                result.push(yield this.nastavnikTerminStatus(kime, od.dodajMili(i * trajanje), trajanje, detaljno));
             return result;
         });
     }
@@ -406,8 +400,8 @@ class DB {
                 {
                     ucenik: ucenik,
                     nastavnik: nastavnik,
-                    od: od.broj(),
-                    do: do_.broj(),
+                    od: od.date,
+                    do: do_.date,
                     predmet: predmet,
                     opis: opis
                 }
@@ -448,7 +442,7 @@ class DB {
                 {
                     $match: {
                         nastavnik: kime,
-                        do: { $gt: DatumVreme_1.DatumVreme.sada().broj() },
+                        do: { $gt: DatumVreme_1.DatumVreme.sada().date },
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null
@@ -471,6 +465,7 @@ class DB {
                 },
                 {
                     $project: {
+                        _id: 1,
                         od: "$od",
                         do: "$do",
                         predmet: "$predmet",
@@ -487,16 +482,15 @@ class DB {
             return ret;
         });
     }
-    static otkaziCas(nastavnik, datum, obrazlozenje) {
+    static otkaziCas(id, obrazlozenje) {
         return __awaiter(this, void 0, void 0, function* () {
             let ret = yield Cas_1.default.updateOne({
-                nastavnik: nastavnik,
-                od: datum.broj(),
+                _id: id,
                 potvrdjen: { $ne: null },
                 odbijen: null,
                 otkazan: null
             }, {
-                $set: { otkazan: DatumVreme_1.DatumVreme.sada().broj(), komentarNastavnik: obrazlozenje }
+                $set: { otkazan: DatumVreme_1.DatumVreme.sada().date, komentarNastavnik: obrazlozenje }
             });
             if (ret.modifiedCount > 0)
                 return "ok";
@@ -510,7 +504,7 @@ class DB {
                 {
                     $match: {
                         nastavnik: nastavnik,
-                        od: { $gt: DatumVreme_1.DatumVreme.sada().broj() },
+                        od: { $gt: DatumVreme_1.DatumVreme.sada().date },
                         potvrdjen: { $eq: null },
                         odbijen: null,
                         otkazan: null
@@ -539,6 +533,7 @@ class DB {
                 },
                 {
                     $project: {
+                        _id: 1,
                         od: "$od",
                         do: "$do",
                         predmet: "$predmet",
@@ -563,15 +558,14 @@ class DB {
             return ret;
         });
     }
-    static nastavnikOdgovor(nastavnik, od, obrazlozenje) {
+    static nastavnikOdgovor(id, obrazlozenje) {
         return __awaiter(this, void 0, void 0, function* () {
-            let vreme = DatumVreme_1.DatumVreme.sada().broj();
+            let vreme = DatumVreme_1.DatumVreme.sada().date;
             let set = obrazlozenje ? { odbijen: vreme } : { potvrdjen: vreme };
             if (obrazlozenje)
                 set.komentarNastavnik = obrazlozenje;
             let ret = yield Cas_1.default.updateOne({
-                nastavnik: nastavnik,
-                od: od.broj(),
+                _id: id,
                 potvrdjen: null,
                 odbijen: null,
                 otkazan: null
@@ -593,7 +587,7 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        od: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
+                        od: { $lt: DatumVreme_1.DatumVreme.sada().date }
                     }
                 },
                 {
@@ -637,12 +631,12 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        do: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
+                        do: { $lt: DatumVreme_1.DatumVreme.sada().date }
                     }
                 },
                 {
                     $project: {
-                        _id: 0,
+                        _id: 1,
                         predmet: "$predmet",
                         od: "$od",
                         do: "$do",
@@ -659,11 +653,10 @@ class DB {
             return ret;
         });
     }
-    static nastavnikRecenzija(nastavnik, od, ocena, komentar) {
+    static nastavnikRecenzija(id, ocena, komentar) {
         return __awaiter(this, void 0, void 0, function* () {
             let ret = yield Cas_1.default.updateOne({
-                nastavnik: nastavnik,
-                od: od.broj(),
+                _id: id,
                 potvrdjen: { $ne: null },
                 odbijen: null,
                 otkazan: null,
@@ -681,11 +674,10 @@ class DB {
                 return "Nije pronadjen cas.";
         });
     }
-    static cas(nastavnik, od) {
+    static cas(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let ret = yield Cas_1.default.findOne({
-                nastavnik: nastavnik,
-                od: od.broj(),
+                _id: id,
                 odbijen: null,
                 otkazan: null
             });
@@ -698,7 +690,7 @@ class DB {
                 {
                     $match: {
                         ucenik: kime,
-                        do: { $gt: DatumVreme_1.DatumVreme.sada().broj() },
+                        do: { $gt: DatumVreme_1.DatumVreme.sada().date },
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null
@@ -745,7 +737,7 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        do: { $lt: DatumVreme_1.DatumVreme.sada().broj() }
+                        do: { $lt: DatumVreme_1.DatumVreme.sada().date }
                     }
                 },
                 {
@@ -763,7 +755,7 @@ class DB {
                 },
                 {
                     $project: {
-                        _id: 0,
+                        _id: 1,
                         nastavnik: "$nastavnik",
                         od: "$od",
                         do: "$do",
@@ -783,11 +775,10 @@ class DB {
             return ret;
         });
     }
-    static ucenikRecenzija(nastavnik, od, ocena, komentar) {
+    static ucenikRecenzija(id, ocena, komentar) {
         return __awaiter(this, void 0, void 0, function* () {
             let ret = yield Cas_1.default.updateOne({
-                nastavnik: nastavnik,
-                od: od.broj(),
+                _id: id,
                 potvrdjen: { $ne: null },
                 odbijen: null,
                 otkazan: null,
@@ -809,7 +800,7 @@ class DB {
         return __awaiter(this, void 0, void 0, function* () {
             yield Obavestenje_1.default.insertMany([{
                     kime: kime,
-                    datumvreme: DatumVreme_1.DatumVreme.sada().broj(),
+                    datumvreme: DatumVreme_1.DatumVreme.sada().date,
                     sadrzaj: sadrzaj
                 }]);
             return "ok";
@@ -821,7 +812,7 @@ class DB {
                 {
                     $match: {
                         kime: kime,
-                        datumvreme: { $lt: do_.broj() }
+                        datumvreme: { $lt: do_.date }
                     }
                 },
                 {
@@ -829,7 +820,7 @@ class DB {
                         _id: 0,
                         datumvreme: "$datumvreme",
                         sadrzaj: "$sadrzaj",
-                        novo: { $gt: ["$datumvreme", od.broj()] }
+                        novo: { $gt: ["$datumvreme", od.date] }
                     }
                 },
                 {
@@ -841,14 +832,15 @@ class DB {
                     $limit: 2
                 }
             ]);
-            if (ret.length == 0)
-                return ret;
-            let poslednji = ret[ret.length - 1].datumvreme;
-            let presek = yield Obavestenje_1.default.find({ datumvreme: poslednji, kime: kime });
-            while (ret.length > 0 && ret[ret.length - 1].datumvreme == poslednji)
-                ret.pop();
-            ret.push(...presek);
             return ret;
+            /*
+            if (ret.length == 0) return ret;
+            let poslednji = ret[ret.length-1].datumvreme
+            let presek = await obavestenjeModel.find({datumvreme: poslednji, kime: kime})
+            while(ret.length > 0 && ret[ret.length-1].datumvreme == poslednji) ret.pop()
+            ret.push(...presek)
+            return ret
+            */
         });
     }
     static prijava(kime) {
@@ -857,7 +849,7 @@ class DB {
                 kime: kime
             }, {
                 $set: {
-                    prijava: DatumVreme_1.DatumVreme.sada().broj()
+                    prijava: DatumVreme_1.DatumVreme.sada().date
                 }
             });
             if (ret.modifiedCount > 0)
@@ -876,8 +868,8 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        do: { $lt: do_.broj() },
-                        od: { $gt: od.broj() }
+                        do: { $lt: do_.date },
+                        od: { $gt: od.date }
                     }
                 },
                 {
@@ -1132,12 +1124,13 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        od: { $gte: od.broj(), $lte: do_.broj() }
+                        od: { $gte: od.date, $lte: do_.date }
                     }
                 },
                 {
                     $project: {
-                        dan: { $mod: [{ $add: [{ $floor: { $divide: ["$od", Math.pow(2, DatumVreme_1.DatumVreme.vremeShift)] } }, 3] }, 7] }
+                        //dan: {$mod: [{$add: [{$floor: {$divide: ["$od", Math.pow(2, DatumVreme.vremeShift)]}}, 3]}, 7]}
+                        dan: { $mod: [{ $add: [{ $dayOfWeek: "$od" }, 2] }, 7] }
                     }
                 },
                 {
@@ -1172,12 +1165,13 @@ class DB {
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,
-                        od: { $gte: od.broj(), $lte: do_.broj() }
+                        od: { $gte: od.date, $lte: do_.date }
                     }
                 },
                 {
                     $project: {
-                        sat: { $floor: { $divide: [{ $mod: ["$od", Math.pow(2, DatumVreme_1.DatumVreme.vremeShift)] }, 60] } }
+                        //sat: {$floor: {$divide: [{$mod: ["$od", Math.pow(2, DatumVreme.vremeShift)]}, 60]}}
+                        sat: { $hour: { date: "$od", timezone: "+01" } }
                     }
                 },
                 {
@@ -1222,7 +1216,7 @@ class DB {
                 },
                 {
                     $match: {
-                        "casovi.od": { $gte: od.broj(), $lte: do_.broj() },
+                        "casovi.od": { $gte: od.date, $lte: do_.date },
                         "casovi.potvrdjen": { $ne: null },
                         "casovi.odbijen": null,
                         "casovi.otkazan": null
@@ -1233,13 +1227,16 @@ class DB {
                         kime: "$kime",
                         ime: "$ime",
                         prezime: "$prezime",
-                        mesec: { $month: {
-                                $dateAdd: {
-                                    startDate: new Date('2020-12-31'),
-                                    amount: { $floor: { $divide: ["$casovi.od", 4096] } },
-                                    unit: 'day'
-                                }
-                            } }
+                        mesec: { $month: "$casovi.od" }
+                        /*
+                        mesec: {$month: {
+                            $dateAdd: {
+                                startDate: new Date('2020-12-31'),
+                                amount: {$floor:{$divide:["$casovi.od", 4096]}},
+                                unit: 'day'
+                            }
+                        }}
+                        */
                     }
                 },
                 {
@@ -1294,7 +1291,7 @@ class DB {
             let ret = yield Cas_1.default.aggregate([
                 {
                     $match: {
-                        od: { $gte: od.broj(), $lte: do_.broj() },
+                        od: { $gte: od.date, $lte: do_.date },
                         potvrdjen: { $ne: null },
                         odbijen: null,
                         otkazan: null,

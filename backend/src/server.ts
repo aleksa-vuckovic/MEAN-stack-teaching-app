@@ -8,6 +8,8 @@ import MongoStore from 'connect-mongo'
 import ucenikRuter from './ruteri/ucenikRuter';
 import nastavnikRuter from './ruteri/nastavnikRuter';
 import administratorRuter from './ruteri/administratorRuter';
+import { DB } from './db';
+
 
 /*
 Svi odgovori su u json formatu 
@@ -17,7 +19,7 @@ Svi odgovori su u json formatu
     }
 */
 mongoose.connect("mongodb://127.0.0.1:27017/piaprojekat")
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open', async () => {
     console.log('db ok')
 })
 

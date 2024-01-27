@@ -79,7 +79,7 @@ export class UcenikKontroler {
         if (!req.body || !req.body.nastavnik || !req.body.datum) { res.json({poruka: "Nedostaju argumenti."}); return }
         let ret = await  DB.korisnikPoKime(req.body.nastavnik)
         if (!ret) { res.json({poruka: "Nastavnik ne postoji."}); return }
-        ret = await DB.nastavnikTerminStatusZaDan(req.body.nastavnik, new DatumVreme(req.body.datum), false)
+        ret = await DB.nastavnikTerminiStatus(req.body.nastavnik, new DatumVreme(req.body.datum), 30*60*1000, 48, false)
         res.json({poruka: "ok", podaci: ret})
     }
 
@@ -89,16 +89,20 @@ export class UcenikKontroler {
         let t = req.body;
         if (!t || !t.predmet || !t.datumvreme || !t.nastavnik || !t.trajanje) { res.json({poruka: "Nedostaju argumenti."}); return;}
         let od = new DatumVreme(t.datumvreme);
-        let do_ = od.dodajVreme(t.trajanje);
+        let do_ = od.dodajMili(t.trajanje*60*1000);
         if (od.proslost()) { res.json({poruka: "Ne mozete zakazivati prosle termine."}); return; }
         let ret = await DB.korisnikPoKime(t.nastavnik)
         if (!ret || ret.tip != "Nastavnik") { res.json({poruka: "Nastavnik ne postoji."}); return; }
         else if (!Validacija.odgovaraUzrast(kor, ret)) { res.json({poruka: "Izabrani nastavnik ne drzi casove ucenicima vaseg uzrasta."}); return }
         ret = await DB.nastavnikNedostupan(t.nastavnik, od, do_)
-        if (ret) { res.json({poruka: "Nastavnik nije dostupan u periodu od " + ret.od.vremeString() + " do " + ret.do.vremeString()}); return }
+        if (ret) { res.json({poruka: "Nastavnik nije dostupan u periodu od " + ret.od.datumVremeString() + " do " + ret.do.datumVremeString()}); return }
         ret = await DB.nastavnikRadi(t.nastavnik, od, do_)
         if (ret) {
-            if (ret.od.sirovoVreme() != ret.do.sirovoVreme()) res.json({poruka: "Radno vreme nastavnika je od " + ret.od.vremeString() + " do " + ret.do.vremeString()})
+            if (ret.od != ret.do) {
+                let od = ret.od / (1000*60)
+                let do_ = ret.do / (1000*60)
+                res.json({poruka: `Radno vreme nastavnika je od ${od/60}:${od%60} do ${do_/60}:${do_%60}.`})
+            }
             else res.json({poruka: "Odabrali ste neradan dan."})
             return
         }
@@ -130,7 +134,7 @@ export class UcenikKontroler {
         let izlaz: any = {}
         let ret = await Validacija.ucenikRecenzijaValidacija(req.body, izlaz, kor.kime)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        ret = await DB.ucenikRecenzija(izlaz.nastavnik, izlaz.od, izlaz.ocena, izlaz.komentar)
+        ret = await DB.ucenikRecenzija(izlaz.id, izlaz.ocena, izlaz.komentar)
         res.json({poruka: ret})
     }
 

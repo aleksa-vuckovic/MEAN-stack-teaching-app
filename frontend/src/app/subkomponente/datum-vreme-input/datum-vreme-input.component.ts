@@ -40,15 +40,14 @@ export class DatumVremeInputComponent implements ControlValueAccessor {
     day: 0
   }
   vreme  = 0;
-  datumvreme: DatumVreme = DatumVreme.sada();
   promena() {
     if (this.disabled) return;
     if (!this.touched) {
       this.touched = true;
       this.onTouched();
     }
-    this.datumvreme = DatumVreme.datum(this.model).vreme(this.vreme);
-    this.onChange(this.datumvreme);
+    let datumvreme = DatumVreme.datum(this.model).vreme(this.vreme);
+    this.onChange(datumvreme);
   }
 
 

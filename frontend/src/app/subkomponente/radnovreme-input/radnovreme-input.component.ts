@@ -49,7 +49,7 @@ export class RadnovremeInputComponent implements ControlValueAccessor {
       this.touched = true;
       this.onTouched();
     }
-    if (!this.neradan && this.do==0) this.onChange({od: this.od, do: 24*60}) //specijalan slucaj, jer treba dozvoliti da "do" bude 24:00
+    if (!this.neradan && this.do==0) this.onChange({od: this.od, do: 24*60*60*1000}) //specijalan slucaj, jer treba dozvoliti da "do" bude 24:00
     else if (this.neradan || this.od==this.do) this.onChange({od: 0, do:0})
     else this.onChange({od: this.od, do: this.do})
   }

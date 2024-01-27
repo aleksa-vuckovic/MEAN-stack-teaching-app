@@ -33,7 +33,7 @@ export class NastavnikZahteviComponent {
   greska: string = ""
   @ViewChild('modal') modal!: ElementRef;
   potvrdi(zahtev: any) {
-    this.servis.potvrdi(zahtev.od).subscribe((res:any) => {
+    this.servis.potvrdi(zahtev._id).subscribe((res:any) => {
       if (res.poruka == "ok") this.osveziZahteve();
     })
   }
@@ -43,7 +43,7 @@ export class NastavnikZahteviComponent {
     this.modalServis.open(this.modal)
   }
   odbijDefinitivno() {
-    this.servis.odbij(this.odabran.od, this.obrazlozenje).subscribe((res: any) => {
+    this.servis.odbij(this.odabran._id, this.obrazlozenje).subscribe((res: any) => {
       if (res.poruka == "ok") {
         this.modalServis.dismissAll()
         this.osveziZahteve()

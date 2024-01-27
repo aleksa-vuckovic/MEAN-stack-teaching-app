@@ -1,85 +1,96 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatumVreme = void 0;
+/*
+Klasa datum vreme je omotac oko javascript Date klase,
+tako da vreme pamti kao jedinstveni trenutak u milisekundama od 1970-1-1 UTC.
+*/
 class DatumVreme {
-    //Konstruisanje
+    //Sve metode koriste Date metode za podrazumevnu vremensku zonu
     constructor(vrednost) {
-        this.vrednost = 0;
-        this.vrednost = vrednost;
+        this.date = new Date(vrednost);
     }
     static sada() {
-        const currentDate = new Date();
-        let datum = {
-            day: currentDate.getDate(),
-            month: currentDate.getMonth() + 1,
-            year: currentDate.getFullYear()
-        };
-        let vreme = {
-            hour: currentDate.getHours(),
-            minute: currentDate.getMinutes()
-        };
-        return DatumVreme.datum(datum).vreme(vreme);
+        return new DatumVreme(Date.now());
     }
     static datum(datum) {
-        let dan = datum.day;
-        let godina = datum.year;
-        let mesec = datum.month;
-        let res = (godina - 2021) * 365 + Math.floor((godina - 2021) / 4);
-        let meseci = godina % 4 ? DatumVreme.prostaGodina : DatumVreme.prestupnaGodina;
-        for (let i = 0; i < mesec - 1; i++)
-            res += meseci[i];
-        res += dan;
-        return new DatumVreme(res << DatumVreme.vremeShift);
+        return new DatumVreme(Date.parse(datum.year.toString() + "-" + datum.month.toString() + "-" + datum.day.toString()));
     }
     vreme(vreme) {
-        let tmp = 0;
-        if (typeof (vreme) != 'number') {
-            tmp = vreme.hour * 60 + vreme.minute;
+        var _a, _b, _c, _d;
+        let res = {};
+        if (typeof (vreme) == 'number') {
+            res.milli = vreme % 1000;
+            vreme /= 1000;
+            res.second = vreme % 60;
+            vreme /= 60;
+            res.minute = vreme % 60;
+            vreme /= 60;
+            res.hour = vreme % 24;
         }
-        else
-            tmp = vreme;
-        return new DatumVreme((this.vrednost & ~DatumVreme.vremeMaska) + tmp);
+        else {
+            res.milli = (_a = vreme.milli) !== null && _a !== void 0 ? _a : 0;
+            res.second = (_b = vreme.second) !== null && _b !== void 0 ? _b : 0;
+            res.minute = (_c = vreme.minute) !== null && _c !== void 0 ? _c : 0;
+            res.hour = (_d = vreme.hour) !== null && _d !== void 0 ? _d : 0;
+        }
+        let ret = new Date(this.date);
+        ret.setMilliseconds(res.milli);
+        ret.setSeconds(res.second);
+        ret.setMinutes(res.minute);
+        ret.setHours(res.hour);
+        return new DatumVreme(ret);
+    }
+    pocetakDana() {
+        let ret = new Date(this.date);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        ret.setSeconds(0);
+        ret.setMilliseconds(0);
+        return new DatumVreme(ret);
     }
     krajDana() {
-        return this.vreme(DatumVreme.ponoc);
+        let ret = new Date(this.date);
+        ret.setHours(23);
+        ret.setMinutes(59);
+        ret.setSeconds(59);
+        ret.setMilliseconds(999);
+        return new DatumVreme(ret);
     }
-    naCeoSlot() {
-        return this.vreme(this.sirovoVreme() - this.sirovoVreme() % 30);
+    neposrednoDo() {
+        return new DatumVreme(this.date.getTime() - 1);
     }
-    //Sirovi podaci
+    naPolaSata() {
+        let min = this.date.getMinutes();
+        min -= min % 30;
+        let ret = new Date(this.date);
+        ret.setMinutes(min);
+        ret.setSeconds(0);
+        ret.setMilliseconds(0);
+        return new DatumVreme(ret);
+    }
+    //Broj proteklih milisekundi u tekucem danu, prema podrazumevanoj vremenskoj zoni
     sirovoVreme() {
-        return this.vrednost & DatumVreme.vremeMaska;
+        return ((this.date.getHours() * 60 + this.date.getMinutes()) * 60 + this.date.getSeconds()) * 1000 + this.date.getMilliseconds();
     }
-    sirovDatum() {
-        return this.vrednost >> DatumVreme.vremeShift;
-    }
+    //Broj milisekundi of 1.1.1970 UTC
     broj() {
-        return this.vrednost;
+        return this.date.getTime();
     }
     //Operacije
     dodajDan(dana) {
-        let tmp = this.vrednost;
-        if (dana < 0)
-            tmp -= ((-dana)) << DatumVreme.vremeShift;
-        else
-            tmp += (dana << DatumVreme.vremeShift);
-        return new DatumVreme(tmp);
+        return new DatumVreme(this.date.getTime() + dana * 24 * 60 * 60 * 1000);
     }
-    dodajVreme(broj) {
-        let tmp = this.vrednost & DatumVreme.vremeMaska;
-        tmp += broj;
-        if (tmp > DatumVreme.ponoc) {
-            tmp = tmp % DatumVreme.ponoc;
-            return this.dodajDan(1).vreme(tmp);
-        }
-        else
-            return this.vreme(tmp);
+    dodajMinut(minut) {
+        return new DatumVreme(this.date.getTime() + minut * 60 * 1000);
     }
-    razlikaUDanima(dv) {
-        return this.sirovDatum() - dv.sirovDatum();
+    dodajMili(mili) {
+        return new DatumVreme(this.date.getTime() + mili);
     }
+    //Da li trenuci predstavljaju isti datum, u podrazumevanoj vremenskoj zoni
     istiDan(dv) {
-        return dv.sirovDatum() == this.sirovDatum();
+        //return dv.sirovDatum() == this.sirovDatum();
+        return this.date.getFullYear() == dv.date.getFullYear() && this.date.getMonth() == dv.date.getMonth() && this.date.getDate() == dv.date.getDate();
     }
     razlikaUMinutima(dv) {
         return this.minuti() - dv.minuti();
@@ -88,57 +99,30 @@ class DatumVreme {
         return this.broj() == dv.broj();
     }
     proslost() {
-        return DatumVreme.sada().broj() > this.broj();
+        return Date.now() > this.date.getTime();
     }
     //Konverzija
+    //ngb datum u podrazumevanoj vremenskoj zoni
     ngbDatum() {
-        let datumvreme = (this.vrednost >> DatumVreme.vremeShift) - 1;
-        let period = 365 * 3 + 366;
-        let periodBroj = Math.floor(datumvreme / period);
-        let godina = periodBroj * 4;
-        datumvreme -= periodBroj * period;
-        let godinaBroj = Math.floor(datumvreme / 365);
-        if (godinaBroj == 4)
-            godinaBroj--;
-        godina += godinaBroj;
-        datumvreme -= godinaBroj * 365;
-        let meseci = godinaBroj == 3 ? DatumVreme.prestupnaGodina : DatumVreme.prostaGodina;
-        let mesec = 1;
-        for (let i = 0; i < 12; i++)
-            if (meseci[i] <= datumvreme) {
-                mesec++,
-                    datumvreme -= meseci[i];
-            }
-            else
-                break;
-        let dan = datumvreme + 1;
         return {
-            day: dan,
-            month: mesec,
-            year: godina + 2021
+            day: this.date.getDate(),
+            month: this.date.getMonth() + 1,
+            year: this.date.getFullYear()
         };
     }
+    //ng vreme u podrazumevanoj vremenskoj zoni
     ngbVreme() {
         return {
-            hour: Math.floor((this.vrednost & DatumVreme.vremeMaska) / 60),
-            minute: (this.vrednost & DatumVreme.vremeMaska) % 60
+            hour: this.date.getHours(),
+            minute: this.date.getMinutes()
         };
     }
+    //dan u nedelji u podrazumevanoj vremenskoj zoni
     danUNedelji() {
-        let t = (this.vrednost >> DatumVreme.vremeShift) % 7; //1.1.2021. = petak => 1 = petak, 4 = ponedeljak
-        return `${(t + 3) % 7}`;
-    }
-    slot() {
-        return this.sirovoVreme() / 30;
+        return `${(this.date.getDay() + 6) % 7}`;
     }
     minuti() {
-        return this.sirovDatum() * 24 * 60 + this.sirovoVreme();
-    }
-    slotOd() {
-        return Math.floor(this.sirovoVreme() / 30);
-    }
-    slotDo() {
-        return Math.floor((this.sirovoVreme() - 1) / 30);
+        return this.date.getTime() / (60 * 1000);
     }
     //String reprezentacije
     pad(br) {
@@ -221,7 +205,6 @@ class DatumVreme {
         return res;
     }
     datumVremeString() {
-        let vreme = this.ngbVreme();
         return this.datumString() + " " + this.vremeString();
     }
     vremeString() {
@@ -230,8 +213,3 @@ class DatumVreme {
     }
 }
 exports.DatumVreme = DatumVreme;
-DatumVreme.vremeMaska = 0xFFF;
-DatumVreme.vremeShift = 12;
-DatumVreme.prostaGodina = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-DatumVreme.prestupnaGodina = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-DatumVreme.ponoc = 24 * 60;

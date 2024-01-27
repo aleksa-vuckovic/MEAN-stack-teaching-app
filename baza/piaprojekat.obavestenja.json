@@ -3,7 +3,9 @@
     "$oid": "65943389e6e522c80bd212b5"
   },
   "kime": "paja",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.001Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je potvrdio cas zakazan za 2023/12/18 13:00.",
   "__v": 0
 },
@@ -12,7 +14,9 @@
     "$oid": "6594344a4ec0528c36aec147"
   },
   "kime": "paja",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.002Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je odbio cas zakazan za 2023/12/19 10:00 uz obrazlozenje: 'Nazalost nisam ekspert za kubne jednacine'.",
   "__v": 0
 },
@@ -21,7 +25,9 @@
     "$oid": "659434574ec0528c36aec14c"
   },
   "kime": "paja",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.003Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je potvrdio cas zakazan za 2023/12/22 12:00.",
   "__v": 0
 },
@@ -30,7 +36,9 @@
     "$oid": "659434584ec0528c36aec151"
   },
   "kime": "lazar",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.004Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je potvrdio cas zakazan za 2023/12/22 14:00.",
   "__v": 0
 },
@@ -39,7 +47,9 @@
     "$oid": "659435b5f5c8c19307fe026d"
   },
   "kime": "paja",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.005Z"
+  },
   "sadrzaj": "Nastavnik Petar Jankovic je potvrdio cas zakazan za 2023/12/25 12:30.",
   "__v": 0
 },
@@ -48,7 +58,9 @@
     "$oid": "659435b6f5c8c19307fe0272"
   },
   "kime": "lazar",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.006Z"
+  },
   "sadrzaj": "Nastavnik Petar Jankovic je potvrdio cas zakazan za 2023/12/26 10:30.",
   "__v": 0
 },
@@ -57,7 +69,9 @@
     "$oid": "65943610f5c8c19307fe0c62"
   },
   "kime": "sara",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.007Z"
+  },
   "sadrzaj": "Nastavnik Pavle Pavlovic je potvrdio cas zakazan za 2023/12/25 11:00.",
   "__v": 0
 },
@@ -66,7 +80,9 @@
     "$oid": "65943635f5c8c19307fe0c6e"
   },
   "kime": "darko",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.008Z"
+  },
   "sadrzaj": "Nastavnik Jana Ivanovic je potvrdio cas zakazan za 2023/12/21 12:00.",
   "__v": 0
 },
@@ -75,7 +91,9 @@
     "$oid": "6594363ff5c8c19307fe0c79"
   },
   "kime": "paja",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.009Z"
+  },
   "sadrzaj": "Nastavnik Lana Stankovic je potvrdio cas zakazan za 2023/12/26 14:00.",
   "__v": 0
 },
@@ -84,7 +102,9 @@
     "$oid": "6594364af5c8c19307fe0c84"
   },
   "kime": "darko",
-  "datumvreme": 4400004,
+  "datumvreme": {
+    "$date": "2023-12-10T14:00:00.010Z"
+  },
   "sadrzaj": "Nastavnik Tijana Tijanovic je potvrdio cas zakazan za 2023/12/29 15:00.",
   "__v": 0
 },
@@ -93,7 +113,9 @@
     "$oid": "659437a00c880ced23180d42"
   },
   "kime": "paja",
-  "datumvreme": 4420557,
+  "datumvreme": {
+    "$date": "2023-12-15T15:13:00.000Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je otkazao cas zakazan za 2023/12/22 12:00 uz obrazlozenje: 'Nazalost, Pajo, otkazujem cas zbog nepredvidjenih okolnosti i desvanja u krugu najblize rodbine...'.",
   "__v": 0
 },
@@ -102,7 +124,9 @@
     "$oid": "65943ed3ab0f7e5d299d36bc"
   },
   "kime": "danica",
-  "datumvreme": 4424720,
+  "datumvreme": {
+    "$date": "2023-12-16T16:20:00.000Z"
+  },
   "sadrzaj": "Nastavnik Petar Jankovic je potvrdio cas zakazan za 2023/12/19 16:00.",
   "__v": 0
 },
@@ -111,7 +135,9 @@
     "$oid": "65943efcab0f7e5d299d36cd"
   },
   "kime": "sara",
-  "datumvreme": 4424720,
+  "datumvreme": {
+    "$date": "2023-12-16T16:20:00.001Z"
+  },
   "sadrzaj": "Nastavnik Jana Ivanovic je potvrdio cas zakazan za 2023/12/25 14:00.",
   "__v": 0
 },
@@ -120,7 +146,9 @@
     "$oid": "65943f25ab0f7e5d299d36e1"
   },
   "kime": "lazar",
-  "datumvreme": 4424720,
+  "datumvreme": {
+    "$date": "2023-12-16T16:20:00.002Z"
+  },
   "sadrzaj": "Nastavnik Tijana Tijanovic je potvrdio cas zakazan za 2023/12/22 12:00.",
   "__v": 0
 },
@@ -129,7 +157,9 @@
     "$oid": "6594411be26ab5200086e5e6"
   },
   "kime": "paja",
-  "datumvreme": 4440853,
+  "datumvreme": {
+    "$date": "2023-12-20T12:09:00.000Z"
+  },
   "sadrzaj": "Nastavnik Marko Markovic je potvrdio cas zakazan za 2023/12/26 10:30.",
   "__v": 0
 },
@@ -138,7 +168,9 @@
     "$oid": "65944168e26ab5200086e603"
   },
   "kime": "sara",
-  "datumvreme": 4440853,
+  "datumvreme": {
+    "$date": "2023-12-20T12:09:00.001Z"
+  },
   "sadrzaj": "Nastavnik Lana Stankovic je odbio cas zakazan za 2023/12/22 12:00 uz obrazlozenje: 'Nazalost imam druge obaveze u ovom terminu, jako mi je zao, molim te zakazi cas za neki kasniji termin.'.",
   "__v": 0
 },
@@ -147,7 +179,53 @@
     "$oid": "65944e150186a1a690f96534"
   },
   "kime": "paja",
-  "datumvreme": 4494447,
+  "datumvreme": {
+    "$date": "2024-01-02T17:55:00.000Z"
+  },
   "sadrzaj": "Nastavnik Petar Jankovic je potvrdio cas zakazan za 2024/01/03 11:00.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a43c5a1c70058999a88d4d"
+  },
+  "kime": "danica",
+  "datumvreme": {
+    "$date": "2024-01-14T19:56:00.000Z"
+  },
+  "sadrzaj": "Nastavnik Pavle Pavlovic je potvrdio cas zakazan za 2024/01/14 21:00.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b4718bcb229fa54cb61762"
+  },
+  "kime": "darko",
+  "datumvreme": {
+    "$date": "2024-01-27T02:59:23.472Z"
+  },
+  "sadrzaj": "Nastavnik Marko Markovic je potvrdio cas zakazan za 2024/01/29 14:30.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b471b4cb229fa54cb61773"
+  },
+  "kime": "lazar",
+  "datumvreme": {
+    "$date": "2024-01-27T03:00:04.646Z"
+  },
+  "sadrzaj": "Nastavnik Tijana Tijanovic je potvrdio cas zakazan za 2024/02/01 10:30.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b4728dcb229fa54cb61cf8"
+  },
+  "kime": "sara",
+  "datumvreme": {
+    "$date": "2024-01-27T03:03:41.078Z"
+  },
+  "sadrzaj": "Nastavnik Petar Jankovic je potvrdio cas zakazan za 2024/01/29 10:30.",
   "__v": 0
 }]

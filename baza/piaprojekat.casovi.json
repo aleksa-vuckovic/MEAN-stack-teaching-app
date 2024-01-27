@@ -6,9 +6,15 @@
   "nastavnik": "marko",
   "opis": "Hteo bih da vezbamo kvadratne jednacine.",
   "predmet": "Matematika",
-  "od": 4432652,
-  "do": 4432772,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-18T12:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-18T14:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 3,
@@ -25,10 +31,16 @@
   "nastavnik": "marko",
   "opis": "Zelim da radimo kubne jednacine.",
   "predmet": "Matematika",
-  "od": 4436568,
-  "do": 4436628,
+  "od": {
+    "$date": "2023-12-19T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-19T10:00:00.000Z"
+  },
   "potvrdjen": null,
-  "odbijen": 4400004,
+  "odbijen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "otkazan": null,
   "ocenaUcenik": null,
   "komentarUcenik": null,
@@ -44,11 +56,19 @@
   "nastavnik": "marko",
   "opis": "Nikada nisam ucio programiranje, zelim da mi pokazete samo najosnovnije stvari.",
   "predmet": "C++",
-  "od": 4448976,
-  "do": 4449036,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-22T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-22T12:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
-  "otkazan": 4420557,
+  "otkazan": {
+    "$date": "2023-12-15T15:13:00.000Z"
+  },
   "ocenaUcenik": null,
   "komentarUcenik": null,
   "ocenaNastavnik": null,
@@ -63,9 +83,15 @@
   "nastavnik": "petar",
   "opis": "Imam polozen A2 hteo bih da krenemo sa casovima za B2 nivo.",
   "predmet": "Kineski jezik",
-  "od": 4461294,
-  "do": 4461414,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-25T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-25T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 5,
@@ -82,9 +108,15 @@
   "nastavnik": "lana",
   "opis": "Potrebna mi je priprema za test iz kovalentnih veza.",
   "predmet": "Hemija",
-  "od": 4465480,
-  "do": 4465540,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-26T13:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-26T14:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 5,
@@ -101,9 +133,15 @@
   "nastavnik": "marko",
   "opis": "Treba mi priprema za test iz specijalne teorije relativiteta.",
   "predmet": "Fizika",
-  "od": 4449096,
-  "do": 4449216,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-22T13:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-22T15:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 5,
@@ -120,9 +158,15 @@
   "nastavnik": "petar",
   "opis": "Treba mi pomoc sa interpretacijom sekspirovog romea i julije.",
   "predmet": "Engleski jezik",
-  "od": 4465270,
-  "do": 4465330,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-26T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-26T10:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 5,
@@ -139,9 +183,15 @@
   "nastavnik": "tijana",
   "opis": "Zelim da naucim javu moolim vas.",
   "predmet": "Java",
-  "od": 4477828,
-  "do": 4477948,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-29T14:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-29T16:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 1,
@@ -158,9 +208,15 @@
   "nastavnik": "jana",
   "opis": "Hocu da naucim peloponeski rat, do detalja!",
   "predmet": "Istorija",
-  "od": 4444880,
-  "do": 4445000,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-21T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-21T13:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 4,
@@ -177,9 +233,15 @@
   "nastavnik": "pavle",
   "opis": "Treba mi pomoc u vezi sa klisurama u jugoistocnoj srbiji.",
   "predmet": "Geografija",
-  "od": 4461204,
-  "do": 4461264,
-  "potvrdjen": 4400004,
+  "od": {
+    "$date": "2023-12-25T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-25T11:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-10T14:00:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 2,
@@ -196,9 +258,15 @@
   "nastavnik": "jana",
   "opis": "Zelela bih da obnovimo gradivo u oblasti organa za varenje.",
   "predmet": "Biologija",
-  "od": 4461384,
-  "do": 4461504,
-  "potvrdjen": 4424720,
+  "od": {
+    "$date": "2023-12-25T13:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-25T15:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-16T16:20:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 2,
@@ -215,9 +283,15 @@
   "nastavnik": "tijana",
   "opis": "Voleo bih da vi spremite neki intersantan program u Javi pa da ga analiziramo.",
   "predmet": "Java",
-  "od": 4448976,
-  "do": 4449096,
-  "potvrdjen": 4424720,
+  "od": {
+    "$date": "2023-12-22T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-22T13:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-16T16:20:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 4,
@@ -234,9 +308,15 @@
   "nastavnik": "petar",
   "opis": "Htela bih da analiziramo Seobe Crnjanskog.",
   "predmet": "Srpski jezik",
-  "od": 4436928,
-  "do": 4437048,
-  "potvrdjen": 4424720,
+  "od": {
+    "$date": "2023-12-19T15:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-19T17:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-16T16:20:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 5,
@@ -253,9 +333,15 @@
   "nastavnik": "marko",
   "opis": "Zelim da nsastavimo tamo gde smo i stali.",
   "predmet": "C++",
-  "od": 4465270,
-  "do": 4465390,
-  "potvrdjen": 4440853,
+  "od": {
+    "$date": "2023-12-26T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-26T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-12-20T12:09:00.000Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": 4,
@@ -272,10 +358,16 @@
   "nastavnik": "lana",
   "opis": "Treba mi mala pomoc oko jonskih veza, imam test 27. decembra.",
   "predmet": "Hemija",
-  "od": 4448976,
-  "do": 4449036,
+  "od": {
+    "$date": "2023-12-22T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-22T12:00:00.000Z"
+  },
   "potvrdjen": null,
-  "odbijen": 4440853,
+  "odbijen": {
+    "$date": "2023-12-20T12:09:00.000Z"
+  },
   "otkazan": null,
   "ocenaUcenik": null,
   "komentarUcenik": null,
@@ -291,9 +383,113 @@
   "nastavnik": "petar",
   "opis": "Pozdrav, potrebno mi je obnavljanje proslih vremena (past simple i past continuous)",
   "predmet": "Engleski jezik",
-  "od": 4498068,
-  "do": 4498188,
-  "potvrdjen": 4494447,
+  "od": {
+    "$date": "2024-01-03T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-03T12:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-02T17:55:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b46c2a5002f6bfd563cb4c"
+  },
+  "ucenik": "darko",
+  "nastavnik": "marko",
+  "opis": "Zelim da ucimo o visestrukom nasledjivanju!",
+  "predmet": "C++",
+  "od": {
+    "$date": "2024-01-29T13:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-29T15:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-27T02:59:23.461Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b46d965002f6bfd563d70a"
+  },
+  "ucenik": "darko",
+  "nastavnik": "pavle",
+  "opis": "Imam test iz sistema za varenje, treba mi priprema.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2024-01-30T12:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-30T13:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b46ee45002f6bfd563e606"
+  },
+  "ucenik": "sara",
+  "nastavnik": "petar",
+  "opis": "Pozdrav, ja bih da malo pricamo o vrstama zavisnih recenica, kao i o recenicnim konstrukcijama uopste.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-01-29T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-29T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-27T03:03:41.074Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b470508789ddb90dd887c9"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "tijana",
+  "opis": "Pozdrav! Da li biste mogli da mi pokazete kako se pravi graficki korisnicki interfejs u javi? Puno bi mi znacilo. Hvala unapred!",
+  "predmet": "Informatika",
+  "od": {
+    "$date": "2024-02-01T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-27T03:00:04.643Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": null,

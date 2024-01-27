@@ -93,15 +93,15 @@ export class NastavnikKalendarComponent {
   }
 
   //nedostupnost
-  nedostupnostOd: DatumVreme = DatumVreme.sada().vreme(12*60)
-  nedostupnostDo: DatumVreme = DatumVreme.sada().vreme(12*60)
+  nedostupnostOd: DatumVreme = DatumVreme.sada().vreme({hour: 12})
+  nedostupnostDo: DatumVreme = DatumVreme.sada().vreme({hour: 12})
   uspehNedostupnost: string = ""
   greskaNedostupnost: string = ""
   azurirajNedostupnost() {
     this.greskaNedostupnost = this.uspehNedostupnost = ""
     let od = this.nedostupnostOd;
     let do_ = this.nedostupnostDo;
-    if (do_.sirovoVreme() == 0) do_ = do_.vreme(24*60); //specijalni slucaj kao i kod radnog vremena
+    //if (do_.sirovoVreme() == 0) do_ = do_.vreme(24*60); //specijalni slucaj kao i kod radnog vremena
     this.servis.nedostupnostAzuriranje(od, do_).subscribe((res: any) => {
       if (res.poruka == "ok") {
         this.uspehNedostupnost = "Uspesno ste dodali nedostupnost od " + od.datumVremeString() + " do " + do_.datumVremeString() + "."

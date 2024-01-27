@@ -42,7 +42,7 @@ export class UcenikService {
   nastavnikTermini(kime: string, datum: DatumVreme) {
     return this.http.post(this.url + "nastavniktermini", {
       nastavnik: kime,
-      datum: datum.broj()
+      datum: datum.date
     }, this.opcije)
   }
 
@@ -58,10 +58,9 @@ export class UcenikService {
     return this.http.get(this.url + "arhiva", this.opcije)
   }
 
-  recenzija(od: DatumVreme, nastavnik: string, ocena: number|null, komentar: string) {
+  recenzija(id: string, ocena: number|null, komentar: string) {
     return this.http.post(this.url + "recenzija", {
-      od: od.broj(),
-      nastavnik: nastavnik,
+      id: id,
       ocena: ocena,
       komentar: komentar
     }, this.opcije)

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let obavestenjeSchema = new mongoose.Schema({
     kime: String,
-    datumvreme: Number,
+    datumvreme: Date,
     sadrzaj: String
 })
 

@@ -231,13 +231,9 @@ export class DB {
                 $unwind: { path: "$nedostupnost" }
             },
             {
-                $match: { $expr: {$or: [
-                    {
-                        $and: [{$gte: [od.broj(), "$nedostupnost.od"]}, {$lt: [od.broj(), "$nedostupnost.do"]}]
-                    },
-                    {
-                        $and: [{$lte: [do_.broj(), "$nedostupnost.do"]}, {$gt: [do_.broj(), "$nedostupnost.od"]}]
-                    }
+                $match: { $expr: {$and: [
+                    {$gt: [do_.date, "$nedostupnost.od"]},
+                    {$lt: [od.date, "$nedostupnost.do"]}
                 ]}}
             }
         ])
@@ -250,27 +246,29 @@ export class DB {
     /*
         Ako se interval ne preklapa sa radnim vremenom, vraca radno vreme za taj dan u obliku
         {
-            od: DatumVreme,
-            do: DatumVreme
+            od: vreme u milisekundama,
+            do: vreme u milisekundama
         }
     */
     static async nastavnikRadi(kime: string, od: DatumVreme, do_: DatumVreme): Promise<any> {
-        if (!od.istiDan(do_)) {
-            let ret: any = await this.nastavnikRadi(kime, od, od.krajDana())
-            if (ret) return ret;
-            ret = await this.nastavnikRadi(kime, do_.vreme(0), do_)
-            return ret
+        let ret: any = await korisnikModel.findOne({kime: kime, tip: "Nastavnik", radnovreme: {$exists: true}})
+        if (!ret) return null
+        let radnovreme = ret.radnovreme
+        do_ = do_.neposrednoDo()
+        while (!od.istiDan(do_)) {
+            let sati = radnovreme[od.danUNedelji()]
+            if (od.sirovoVreme() < sati.od || sati.do < 24*60*60*1000) return {
+                od: sati.od,
+                do: sati.do
+            }
+            od = od.dodajDan(1).pocetakDana()
         }
-        else {
-            let ret: any = await korisnikModel.findOne({kime: kime, tip: "Nastavnik", radnovreme: {$exists: true}})
-            if (!ret) return null;
-            let radnovreme = ret.radnovreme[od.danUNedelji()];
-            if (od.sirovoVreme() >= radnovreme.od && do_.sirovoVreme() <= radnovreme.do) return null;
-            else return {
-                od: new DatumVreme(radnovreme.od),
-                do: new DatumVreme(radnovreme.do)
-            };
+        let sati = radnovreme[od.danUNedelji()]
+        if (od.sirovoVreme() < sati.od || do_.sirovoVreme() >= sati.do ) return {
+            od: sati.od,
+            do: sati.do
         }
+        return null
     }
     /*
         Ako nastavnik ima neotkazan i neodbijen cas u zadatom intervalu, vraca objekat:
@@ -284,14 +282,15 @@ export class DB {
     */
     static async nastavnikImaCas(kime: string, od: DatumVreme, do_: DatumVreme) {
         let ret: any = await casModel.findOne(
-            { nastavnik: kime, odbijen: null, otkazan: null, $expr: {$or: [
-                    {
-                        $and: [{$gte: [od.broj(), "$od"]}, {$lt: [od.broj(), "$do"]}]
-                    },
-                    {
-                        $and: [{$lte: [do_.broj(), "$do"]}, {$gt: [do_.broj(), "$od"]}]
-                    }
-            ]}}
+            {
+                nastavnik: kime,
+                odbijen: null,
+                otkazan: null,
+                $expr: { $and: [
+                    {$gt: [do_.date, "$od"]},
+                    {$lt: [od.date, "$do"]}
+                ]}
+            }
         )
         if (ret) return {
             ucenik: ret.ucenik,
@@ -302,18 +301,18 @@ export class DB {
         }
         else return null;
     }
-    static async nastavnikTerminStatus(kime: string, datum: DatumVreme, slot: number, detaljno: boolean) {
-        let od = datum.dodajVreme(slot*30);
-        let do_ = od.dodajVreme(30);
+
+    //provarava status termina koji pocinje u "od" i koji traje "trajanje" milisekundi
+    static async nastavnikTerminStatus(kime: string, od: DatumVreme, trajanje: number, detaljno: boolean) {
+        let do_ = od.dodajMili(trajanje);
 
         let ret: any = await this.nastavnikImaCas(kime, od, do_)
         if (ret) {
-            let slotOd = ret.od.slotOd();
-            let slotDo = ret.do.slotDo();
-            if (!ret.od.istiDan(ret.do)) slotDo += 24;
+            let slotOd = Math.floor((ret.od.broj() - od.broj())/trajanje)
+            let slotDo = Math.floor((ret.do.broj() - 1 - od.broj())/trajanje)
             let result = {
                 status: (ret.potvrdjen ? 4 : 3),
-                rb: slot -slotOd + 1,
+                rb: -slotOd + 1,
                 duzina: slotDo - slotOd + 1,
                 tekst: ""
             };
@@ -349,22 +348,18 @@ export class DB {
             tekst: ""
         }
     }
-
-    static async nastavnikTerminStatusZaDan(kime: string, dan: DatumVreme, detaljno: boolean): Promise<Array<any>> {
+    static async nastavnikTerminiStatus(kime: string, od: DatumVreme, trajanje: number, broj: number, detaljno: boolean): Promise<Array<any>> {
         let result: Array<any> = [];
-        let complete = 0;
-        dan = dan.vreme(0);
-        for (let i = 0; i < 48; i++) result.push(await this.nastavnikTerminStatus(kime, dan, i, detaljno))
+        for (let i = 0; i < broj; i++) result.push(await this.nastavnikTerminStatus(kime, od.dodajMili(i*trajanje), trajanje, detaljno))
         return result;
     }
-
     static async zakazi(nastavnik: string, ucenik: string, od: DatumVreme, do_: DatumVreme, predmet: String, opis: String): Promise<string> {
         await casModel.insertMany([
             {
                 ucenik: ucenik,
                 nastavnik: nastavnik,
-                od: od.broj(),
-                do: do_.broj(),
+                od: od.date,
+                do: do_.date,
                 predmet: predmet,
                 opis: opis
             }
@@ -394,7 +389,7 @@ export class DB {
             {
                 $match: {
                     nastavnik: kime,
-                    do: {$gt: DatumVreme.sada().broj()},
+                    do: {$gt: DatumVreme.sada().date},
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null
@@ -417,6 +412,7 @@ export class DB {
             },
             {
                 $project: {
+                    _id: 1,
                     od: "$od",
                     do: "$do",
                     predmet: "$predmet",
@@ -433,16 +429,15 @@ export class DB {
         return ret
     }
 
-    static async otkaziCas(nastavnik: string, datum: DatumVreme, obrazlozenje: string): Promise<string> {
+    static async otkaziCas(id:string, obrazlozenje: string): Promise<string> {
         let ret = await casModel.updateOne({
-            nastavnik: nastavnik,
-            od: datum.broj(),
+            _id: id,
             potvrdjen: {$ne: null},
             odbijen: null,
             otkazan: null
         },
         {
-            $set: {otkazan: DatumVreme.sada().broj(), komentarNastavnik: obrazlozenje}
+            $set: {otkazan: DatumVreme.sada().date, komentarNastavnik: obrazlozenje}
         })
         if (ret.modifiedCount > 0) return "ok"
         else return "Cas ne postoji u bazi."
@@ -453,7 +448,7 @@ export class DB {
             {
                 $match: {
                     nastavnik: nastavnik,
-                    od: {$gt: DatumVreme.sada().broj()},
+                    od: {$gt: DatumVreme.sada().date},
                     potvrdjen: {$eq: null},
                     odbijen: null,
                     otkazan: null
@@ -482,6 +477,7 @@ export class DB {
             },
             {
                 $project: {
+                    _id: 1,
                     od: "$od",
                     do: "$do",
                     predmet: "$predmet",
@@ -506,13 +502,12 @@ export class DB {
         return ret
     }
 
-    static async nastavnikOdgovor(nastavnik: string, od: DatumVreme, obrazlozenje: string|null): Promise<string> {
-        let vreme = DatumVreme.sada().broj()
+    static async nastavnikOdgovor(id: string, obrazlozenje: string|null): Promise<string> {
+        let vreme = DatumVreme.sada().date
         let set: any = obrazlozenje ? {odbijen: vreme} : {potvrdjen: vreme}
         if (obrazlozenje) set.komentarNastavnik = obrazlozenje
         let ret = await casModel.updateOne({
-            nastavnik: nastavnik,
-            od: od.broj(),
+            _id: id,
             potvrdjen: null,
             odbijen: null,
             otkazan: null
@@ -531,7 +526,7 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    od: {$lt: DatumVreme.sada().broj()}
+                    od: {$lt: DatumVreme.sada().date}
                 }
             },
             {
@@ -574,12 +569,12 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    do: {$lt: DatumVreme.sada().broj()}
+                    do: {$lt: DatumVreme.sada().date}
                 }
             },
             {
                 $project: {
-                    _id: 0,
+                    _id: 1,
                     predmet: "$predmet",
                     od: "$od",
                     do: "$do",
@@ -596,10 +591,9 @@ export class DB {
         return ret
     }
 
-    static async nastavnikRecenzija(nastavnik: string, od: DatumVreme, ocena: number, komentar: string): Promise<string> {
+    static async nastavnikRecenzija(id: string, ocena: number, komentar: string): Promise<string> {
         let ret = await casModel.updateOne({
-            nastavnik: nastavnik,
-            od: od.broj(),
+            _id: id,
             potvrdjen: {$ne: null},
             odbijen: null,
             otkazan: null,
@@ -615,10 +609,9 @@ export class DB {
         else return "Nije pronadjen cas."
     }
 
-    static async cas(nastavnik: string, od: DatumVreme): Promise<any> {
+    static async cas(id: string): Promise<any> {
         let ret = await casModel.findOne({
-            nastavnik: nastavnik,
-            od: od.broj(),
+            _id: id,
             odbijen: null,
             otkazan: null
         });
@@ -630,7 +623,7 @@ export class DB {
             {
                 $match: {
                     ucenik: kime,
-                    do: {$gt: DatumVreme.sada().broj()},
+                    do: {$gt: DatumVreme.sada().date},
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null
@@ -676,7 +669,7 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    do: {$lt: DatumVreme.sada().broj()}
+                    do: {$lt: DatumVreme.sada().date}
                 }
             },
             {
@@ -694,7 +687,7 @@ export class DB {
             },
             {
                 $project: {
-                    _id: 0,
+                    _id: 1,
                     nastavnik: "$nastavnik",
                     od: "$od",
                     do: "$do",
@@ -714,10 +707,9 @@ export class DB {
         return ret
     }
 
-    static async ucenikRecenzija(nastavnik: string, od: DatumVreme, ocena: number, komentar: string): Promise<string> {
+    static async ucenikRecenzija(id: string, ocena: number, komentar: string): Promise<string> {
         let ret = await casModel.updateOne({
-            nastavnik: nastavnik,
-            od: od.broj(),
+            _id: id,
             potvrdjen: {$ne: null},
             odbijen: null,
             otkazan: null,
@@ -736,7 +728,7 @@ export class DB {
     static async dodajObavestenje(kime: string, sadrzaj: string): Promise<string> {
         await obavestenjeModel.insertMany([{
             kime: kime,
-            datumvreme: DatumVreme.sada().broj(),
+            datumvreme: DatumVreme.sada().date,
             sadrzaj: sadrzaj
         }])
         return "ok"
@@ -747,7 +739,7 @@ export class DB {
             {
                 $match: {
                     kime: kime,
-                    datumvreme: {$lt: do_.broj()}
+                    datumvreme: {$lt: do_.date}
                 }
             },
             {
@@ -755,7 +747,7 @@ export class DB {
                     _id: 0,
                     datumvreme: "$datumvreme",
                     sadrzaj: "$sadrzaj",
-                    novo: { $gt: ["$datumvreme", od.broj()]}
+                    novo: { $gt: ["$datumvreme", od.date]}
                 }
             },
             {
@@ -767,12 +759,15 @@ export class DB {
                 $limit: 2
             }
         ])
+        return ret
+        /*
         if (ret.length == 0) return ret;
         let poslednji = ret[ret.length-1].datumvreme
         let presek = await obavestenjeModel.find({datumvreme: poslednji, kime: kime})
         while(ret.length > 0 && ret[ret.length-1].datumvreme == poslednji) ret.pop()
         ret.push(...presek)
         return ret
+        */
     }
 
     static async prijava(kime: string): Promise<string> {
@@ -780,7 +775,7 @@ export class DB {
             kime: kime
         }, {
             $set: {
-                prijava: DatumVreme.sada().broj()
+                prijava: DatumVreme.sada().date
             }
         })
         if (ret.modifiedCount > 0) return "ok"
@@ -797,8 +792,8 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    do: {$lt: do_.broj()},
-                    od: {$gt: od.broj()}
+                    do: {$lt: do_.date},
+                    od: {$gt: od.date}
                 }
             },
             {
@@ -1032,12 +1027,13 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    od: {$gte: od.broj(), $lte: do_.broj()}
+                    od: {$gte: od.date, $lte: do_.date}
                 }
             },
             {
                 $project: {
-                    dan: {$mod: [{$add: [{$floor: {$divide: ["$od", Math.pow(2, DatumVreme.vremeShift)]}}, 3]}, 7]}
+                    //dan: {$mod: [{$add: [{$floor: {$divide: ["$od", Math.pow(2, DatumVreme.vremeShift)]}}, 3]}, 7]}
+                    dan: {$mod: [{$add: [{$dayOfWeek: "$od"}, 2]}, 7]}
                 }
             },
             {
@@ -1071,12 +1067,13 @@ export class DB {
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
-                    od: {$gte: od.broj(), $lte: do_.broj()}
+                    od: {$gte: od.date, $lte: do_.date}
                 }
             },
             {
                 $project: {
-                    sat: {$floor: {$divide: [{$mod: ["$od", Math.pow(2, DatumVreme.vremeShift)]}, 60]}}
+                    //sat: {$floor: {$divide: [{$mod: ["$od", Math.pow(2, DatumVreme.vremeShift)]}, 60]}}
+                    sat: {$hour: {date: "$od", timezone: "+01"}}
                 }
             },
             {
@@ -1120,7 +1117,7 @@ export class DB {
             },
             {
                 $match: {
-                    "casovi.od": {$gte: od.broj(), $lte: do_.broj()},
+                    "casovi.od": {$gte: od.date, $lte: do_.date},
                     "casovi.potvrdjen": {$ne: null},
                     "casovi.odbijen": null,
                     "casovi.otkazan":  null
@@ -1131,6 +1128,8 @@ export class DB {
                     kime: "$kime",
                     ime: "$ime",
                     prezime: "$prezime",
+                    mesec: {$month: "$casovi.od"}
+                    /*
                     mesec: {$month: {
                         $dateAdd: {
                             startDate: new Date('2020-12-31'),
@@ -1138,6 +1137,7 @@ export class DB {
                             unit: 'day'
                         }
                     }}
+                    */
                 }
             },
             {
@@ -1191,7 +1191,7 @@ export class DB {
         let ret = await casModel.aggregate([
             {
                 $match: {
-                    od: {$gte: od.broj(), $lte: do_.broj()},
+                    od: {$gte: od.date, $lte: do_.date},
                     potvrdjen: {$ne: null},
                     odbijen: null,
                     otkazan: null,
@@ -1221,4 +1221,29 @@ export class DB {
         if (ret.length > 0) return ret[0].broj
         else return 0
     }
+
+    /*
+    static async fixDates(): Promise<string> {
+        await obavestenjeModel.updateMany({
+            datumvreme: {$ne: null}
+        },
+        [{
+            $set: {
+                datumvreme: {
+                    $dateAdd: {
+                        startDate: {
+                            $dateAdd: {
+                                startDate: new Date('2020-12-31T00:00+01:00'),
+                                amount: {$floor:{$divide:["$datumvreme", 4096]}},
+                                unit: 'day'
+                            }
+                        },
+                        amount: {$mod: ["$datumvreme", 4096]},
+                        unit: 'minute'
+                    }
+                }
+            }
+        }])
+        return "ok"
+    }*/
 }

@@ -113,7 +113,7 @@ class UcenikKontroler {
                 res.json({ poruka: "Nastavnik ne postoji." });
                 return;
             }
-            ret = yield db_1.DB.nastavnikTerminStatusZaDan(req.body.nastavnik, new DatumVreme_1.DatumVreme(req.body.datum), false);
+            ret = yield db_1.DB.nastavnikTerminiStatus(req.body.nastavnik, new DatumVreme_1.DatumVreme(req.body.datum), 30 * 60 * 1000, 48, false);
             res.json({ poruka: "ok", podaci: ret });
         });
         this.zakazi = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -126,7 +126,7 @@ class UcenikKontroler {
                 return;
             }
             let od = new DatumVreme_1.DatumVreme(t.datumvreme);
-            let do_ = od.dodajVreme(t.trajanje);
+            let do_ = od.dodajMili(t.trajanje * 60 * 1000);
             if (od.proslost()) {
                 res.json({ poruka: "Ne mozete zakazivati prosle termine." });
                 return;
@@ -142,13 +142,16 @@ class UcenikKontroler {
             }
             ret = yield db_1.DB.nastavnikNedostupan(t.nastavnik, od, do_);
             if (ret) {
-                res.json({ poruka: "Nastavnik nije dostupan u periodu od " + ret.od.vremeString() + " do " + ret.do.vremeString() });
+                res.json({ poruka: "Nastavnik nije dostupan u periodu od " + ret.od.datumVremeString() + " do " + ret.do.datumVremeString() });
                 return;
             }
             ret = yield db_1.DB.nastavnikRadi(t.nastavnik, od, do_);
             if (ret) {
-                if (ret.od.sirovoVreme() != ret.do.sirovoVreme())
-                    res.json({ poruka: "Radno vreme nastavnika je od " + ret.od.vremeString() + " do " + ret.do.vremeString() });
+                if (ret.od != ret.do) {
+                    let od = ret.od / (1000 * 60);
+                    let do_ = ret.do / (1000 * 60);
+                    res.json({ poruka: `Radno vreme nastavnika je od ${od / 60}:${od % 60} do ${do_ / 60}:${do_ % 60}.` });
+                }
                 else
                     res.json({ poruka: "Odabrali ste neradan dan." });
                 return;
@@ -188,7 +191,7 @@ class UcenikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            ret = yield db_1.DB.ucenikRecenzija(izlaz.nastavnik, izlaz.od, izlaz.ocena, izlaz.komentar);
+            ret = yield db_1.DB.ucenikRecenzija(izlaz.id, izlaz.ocena, izlaz.komentar);
             res.json({ poruka: ret });
         });
         this.obavestenja = (req, res) => __awaiter(this, void 0, void 0, function* () {

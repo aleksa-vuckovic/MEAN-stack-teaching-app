@@ -33,7 +33,7 @@ export class NastavnikService {
 
   termini(datum: DatumVreme) {
     return this.http.post(this.url + "termini", {
-      datum: datum.broj()
+      datum: datum.date
     }, this.opcije)
   }
 
@@ -47,8 +47,8 @@ export class NastavnikService {
 
   nedostupnostAzuriranje(od: DatumVreme, do_: DatumVreme) {
     return this.http.post(this.url + "nedostupnostazuriranje", {
-      od: od.broj(),
-      do: do_.broj()
+      od: od.date,
+      do: do_.date
     }, this.opcije)
   }
 
@@ -56,9 +56,9 @@ export class NastavnikService {
     return this.http.get(this.url + "casovi?limit=" + limit, this.opcije);
   }
 
-  otkazi(od: DatumVreme, obrazlozenje: string) {
+  otkazi(id: string, obrazlozenje: string) {
     return this.http.post(this.url + "otkazi", {
-      od: od.broj(),
+      id: id,
       obrazlozenje: obrazlozenje
     }, this.opcije)
   }
@@ -67,14 +67,14 @@ export class NastavnikService {
     return this.http.get(this.url + "zahtevi", this.opcije)
   }
 
-  potvrdi(od: DatumVreme) {
+  potvrdi(id: string) {
     return this.http.post(this.url + "potvrdi", {
-      od: od.broj()
+      id: id
     }, this.opcije)
   }
-  odbij(od: DatumVreme, obrazlozenje: string) {
+  odbij(id: string, obrazlozenje: string) {
     return this.http.post(this.url + "odbij", {
-      od: od.broj(),
+      id: id,
       obrazlozenje: obrazlozenje
     }, this.opcije)
   }
@@ -89,9 +89,9 @@ export class NastavnikService {
     }, this.opcije);
   }
 
-  recenzija(od: DatumVreme, ocena: number | null, komentar: string) {
+  recenzija(id: string, ocena: number | null, komentar: string) {
     return this.http.post(this.url + "recenzija", {
-      od: od.broj(),
+      id: id,
       ocena: ocena,
       komentar: komentar
     }, this.opcije)
