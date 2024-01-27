@@ -55,7 +55,7 @@
                             <td scope = "row"> {{elem.ime}} </td>
                             <td scope = "row"> {{elem.prezime}} </td>
                             <td scope = "row"> {{elem.predmet}} </td>
-                            <td scope = "row"> {{elem.ocena}} </td>
+                            <td scope = "row"> {{elem.ocena.toFixed(2)}} </td>
                             <td scope = "row"> <zvezde [broj]="zaokruzi(elem.ocena)" visina="20px" [disabled]="true"></zvezde> </td>
                         </tr>
                     </tbody>

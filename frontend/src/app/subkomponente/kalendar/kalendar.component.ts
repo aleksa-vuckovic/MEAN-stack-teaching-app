@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DatumVreme } from 'src/app/DatumVreme';
 
@@ -14,7 +14,7 @@ import { DatumVreme } from 'src/app/DatumVreme';
     }
   ]
 })
-export class KalendarComponent implements ControlValueAccessor {
+export class KalendarComponent implements ControlValueAccessor, OnChanges {
   private onChange = (dv: DatumVreme) => {}
   private onTouched = () => {}
   @Input() disabled = false;
@@ -62,14 +62,9 @@ export class KalendarComponent implements ControlValueAccessor {
   }
 
   levoDesno(tip: boolean) {
-    if (tip) {
-      //levo
-      if (this.pomeraj > 0) this.pomeraj--;
-    }
-    else {
-      //desno
-      if (this.pomeraj < 48 - this.velicina) this.pomeraj++;
-    }
+    if (tip)  this.pomeraj--;
+    else if (this.pomeraj < 48 - this.velicina) this.pomeraj++;
+    this.pomerajVelicinaRekalkulacija()
   }  
 
   opseg(od: number, do_: number) {
@@ -82,4 +77,21 @@ export class KalendarComponent implements ControlValueAccessor {
   satZaglavlje(i: number) {
     return i%2 ? "" : `${i/2}h`
   }
+
+
+  responzivnaVelicina: number = Math.ceil(window.innerWidth / 1700 * this.velicina)
+  @HostListener('window:resize')
+  onResize(): void {
+    this.pomerajVelicinaRekalkulacija()
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pomerajVelicinaRekalkulacija()
+}
+  pomerajVelicinaRekalkulacija() {
+    this.responzivnaVelicina = Math.ceil(window.innerWidth / 1700 * this.velicina)
+    if (this.pomeraj < 0) this.pomeraj = 0;
+    if (this.pomeraj > 48 - this.responzivnaVelicina) this.pomeraj = 48 - this.responzivnaVelicina;
+  }
+
+
 }

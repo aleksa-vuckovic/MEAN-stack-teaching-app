@@ -16,7 +16,7 @@
             <div class="col-12 col-md-9">
                 <h2>{{podaci.ime}} {{podaci.prezime}}</h2>
                 <p>Predmeti: <span *ngFor="let elem of podaci.predmeti; let last = last">{{elem}}<span *ngIf="!last">, </span></span></p>
-                <zvezde [broj]="podaci.ocena" visina="40px" [disabled]="true"></zvezde> &nbsp; <span>{{podaci.ocena}}/5</span>
+                <zvezde [broj]="podaci.ocena" visina="40px" [disabled]="true"></zvezde> &nbsp; <span>{{podaci.ocena.toFixed(2)}}/5</span>
                 <br>
                 <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.telefon}}</p>
                 <button *ngIf="!podaci.aktivan" class="btn btn-success m-1" (click)="aktiviraj()">Aktiviraj</button>

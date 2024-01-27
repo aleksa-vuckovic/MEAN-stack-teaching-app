@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatumVreme } from './DatumVreme';
 import { UcenikService } from './servisi/ucenik.service';
@@ -16,13 +16,6 @@ export class AppComponent {
   title = 'frontend';
   
   constructor(private ruter: Router) {}
-  startMeeting() {
-    let cas = {
-      id: 19238571093485710935,
-      mejl: "aleksa@gmail.com",
-      ime: "Aleksa Vuckovic"
-    }
-    localStorage.setItem("cas", JSON.stringify(cas))
-    this.ruter.navigate(["sastanak"])
-  }
+
+
 }
