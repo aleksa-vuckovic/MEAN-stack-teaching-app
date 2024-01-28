@@ -60,7 +60,7 @@
                             {{elem.opis && elem.opis != "" ? elem.opis : "/"}}
                         </td>
                         <td>
-                            {{elem.brojOcena > 2 ? "" + elem.ocena.toFixed(2) + "/5" : "Nema podataka"}}
+                            {{elem.brojOcena > 2 ? elem.ocena.toFixed(2) + "/5" : "Nema podataka"}}
                         </td>
                         <!--<td>
                             <zvezde *ngIf="elem.brojOcena > 2" [broj]="elem.ocena" visina="30px" [disabled]="true"></zvezde>

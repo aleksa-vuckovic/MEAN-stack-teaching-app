@@ -5,17 +5,43 @@
     <div class="col-lg-10 col-12 ">
         <div class = "row border-bottom px-3 py-1">
             <div class="col-12 my-3">
-                <h2>Statistika - Angazovanje najboljih nastavnika po mesecima</h2>
+                <h2>Statistika - Angazovanje nastavnika</h2>
             </div>
         </div>
-        <div class="row px-3 py-1">
+        <div class="row border-bottom px-3 py-1">
             <div class="col-12 col-lg-10">
+                <h3>Broj odrzanih casova po mesecima</h3>
                 <canvas baseChart
                 [labels]="labels"
                 [datasets]="datasets"
                 [options]="options"
                 [legend]="legend"
                 [type]="type">
+                </canvas>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12">
+                <h3>Nastavnici sa najvise otkazanih casova</h3>
+                <select class="form-select" [(ngModel)]="odabran" (ngModelChange)="odabranNastavnik()">
+                    <option *ngFor="let elem of nastavnici" [ngValue]="elem">{{elem.ime}} {{elem.prezime}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-6">
+                <canvas baseChart
+                [labels]="udeoLabels"
+                [datasets]="udeoDatasets"
+                [options]="udeoOptions"
+                [legend]="udeoLegend"
+                [type]="udeoType">
+                </canvas>
+            </div>
+            <div class="col-12 col-lg-6">
+                <canvas baseChart
+                [datasets]="otkazivanjaDatasets"
+                [options]="otkazivanjaOptions"
+                [legend]="otkazivanjaLegend"
+                [type]="otkazivanjaType">
                 </canvas>
             </div>
         </div>

@@ -19,58 +19,58 @@
                 <form [formGroup]="registracijaForm" (ngSubmit)="registracija()">
                     <div class="mb-3">
                         <label for="kime" class="form-label">Korisnicko ime *</label>
-                        <input type="text" class="form-control" id="kime" formControlName="kime" required>
+                        <input type="text" class="form-control" id="kime" formControlName="kime" [class.greska]="registracijaForm.get('kime')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <label for="lozinka" class="form-label">Lozinka *</label>
-                        <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required>
+                        <input type="password" class="form-control" id="lozinka" formControlName="lozinka" required [class.greska]="greskaLozinka != '' || (registracijaForm.get('lozinka')?.hasError('required') && greska != '')">
                         <div class="form-text text-danger">{{greskaLozinka}}</div>
                     </div>
                     <div class="mb-3">
                         <label for="pitanje" class="form-label">Sigurnosno pitanje *</label>
-                        <input type="text" class="form-control" id="pitanje" formControlName="pitanje" required>
+                        <input type="text" class="form-control" id="pitanje" formControlName="pitanje" required [class.greska]="registracijaForm.get('pitanje')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <label for="odgovor" class="form-label">Sigurnosni odgovor *</label>
-                        <input type="text" class="form-control" id="odgovor" formControlName="odgovor" required>
+                        <input type="text" class="form-control" id="odgovor" formControlName="odgovor" required [class.greska]="registracijaForm.get('odgovor')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <label for="ime" class="form-label">Ime *</label>
-                        <input type="text" class="form-control" id="ime" formControlName="ime" required>
+                        <input type="text" class="form-control" id="ime" formControlName="ime" required [class.greska]="registracijaForm.get('ime')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <label for="prezime" class="form-label">Prezime *</label>
-                        <input type="text" class="form-control" id="prezime" formControlName="prezime" required>
+                        <input type="text" class="form-control" id="prezime" formControlName="prezime" required [class.greska]="registracijaForm.get('prezime')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <div>Pol *</div>
-                        <input type="radio" name = "pol" class="form-check-input" id="pol-M" formControlName="pol" value="M">
+                        <input type="radio" name = "pol" class="form-check-input" id="pol-M" formControlName="pol" value="M" [class.greska]="registracijaForm.get('pol')?.hasError('required') && greska != ''">
                         <label for="pol-M" class="form-label">M</label>
                         &nbsp;&nbsp;
-                        <input type="radio" name = "pol" class="form-check-input" id="pol-Z" formControlName="pol" value="Z">
+                        <input type="radio" name = "pol" class="form-check-input" id="pol-Z" formControlName="pol" value="Z" [class.greska]="registracijaForm.get('pol')?.hasError('required') && greska != ''">
                         <label for="pol-Z" class="form-label">Z</label>
                     </div>
                     <div class="mb-3">
                         <label for="adresa" class="form-label">Adresa *</label>
-                        <input type="text" class="form-control" id="adresa" formControlName="adresa" required>
+                        <input type="text" class="form-control" id="adresa" formControlName="adresa" required [class.greska]="registracijaForm.get('adresa')?.hasError('required') && greska != ''">
                     </div>
                     <div class="mb-3">
                         <label for="telefon" class="form-label">Telefon *</label>
-                        <input type="text" class="form-control" id="telefon" formControlName="telefon" required>
+                        <input type="text" class="form-control" id="telefon" formControlName="telefon" required [class.greska]="greskaTelefon != '' || (registracijaForm.get('telefon')?.hasError('required') && greska != '')">
                         <div class="form-text text-danger">{{greskaTelefon}}</div>
                     </div>
                     <div class="mb-3">
                         <label for="mejl" class="form-label">Mejl *</label>
-                        <input type="text" class="form-control" id="mejl" formControlName="mejl" required>
+                        <input type="text" class="form-control" id="mejl" formControlName="mejl" required [class.greska]="greskaMejl != '' || (registracijaForm.get('mejl')?.hasError('required') && greska != '')">
                         <div class="form-text text-danger">{{greskaMejl}}</div>
                     </div>
                     <div class="mb-3">
                         <label for="profil" class="form-label">Profilna slika</label>
-                        <fajl-input formControlName="profil" id = "profil"></fajl-input>
+                        <fajl-input formControlName="profil" id = "profil" [greska]="greskaProfil != ''"></fajl-input>
                         <div class="form-text text-danger">{{greskaProfil}}</div>
                     </div>
                     <div class="mb-3">
-                        <div>Registrujem se kao *</div>
+                        <div [class.greska]="registracijaForm.get('tip')?.hasError('required') && greska != ''">Registrujem se kao *</div>
                         
                         <input type="radio" name = "tip" class="form-check-input" id="ucenik" formControlName="tip" value="Ucenik" (change)="promenaTipa()">
                         <label for="ucenik" class="form-label">Ucenik</label>
@@ -93,7 +93,7 @@
                         <label for="razred" class="form-label">Razred</label>
                         <input type="number" class = "form-control" id = "razred" formControlName="razred" min="1" max="8" required>
                     </div>
-                    <div class="form-text text-danger">{{greska}}</div>
+                    <p class="form-text text-danger">{{greska}}</p>
                     <button type="submit" class="btn btn-primary">Registruj se</button>
                 </form>
                 <form [formGroup]="korak2NastavnikForm" (ngSubmit)="registracijaNastavnik()" *ngIf="tip=='Nastavnik'">
@@ -118,7 +118,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="cv" class="form-label">CV *</label>
-                        <fajl-input formControlName="cv" id = "cv"></fajl-input>
+                        <fajl-input formControlName="cv" id = "cv" [greska]="greskaCV != ''"></fajl-input>
                         <div class="form-text text-danger">{{greskaCV}}</div>
                     </div>
                     <p class="form-text text-danger">{{greska}}</p>

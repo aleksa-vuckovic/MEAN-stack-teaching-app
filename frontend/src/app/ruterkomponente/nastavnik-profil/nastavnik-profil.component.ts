@@ -22,7 +22,18 @@ export class NastavnikProfilComponent {
     uzrasti: ["Osnovna 1-4"],
     ocena: 4.4,
     cv: "",
-    aktivan: true
+    aktivan: true,
+    komentari: [
+      {
+        ocena: 5,
+        komentar: "Komentar",
+        profil: "",
+        ime: "Ime",
+        prezime: "Prezime",
+        datumvreme: 0,
+        predmet: "Matematika"
+      }
+    ]
   }
   predmeti = ["Matematika", "Fizika"]
 
@@ -56,6 +67,7 @@ export class NastavnikProfilComponent {
     delete tmp.ocena;
     delete tmp.cv;
     delete tmp.aktivan;
+    delete tmp.komentari;
     tmp.drugiPredmet = "";
     this.azuriranjeForma.setValue(tmp);
     for (let elem of this.podaci.predmeti) {

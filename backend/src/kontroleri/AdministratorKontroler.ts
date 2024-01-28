@@ -1,6 +1,8 @@
 import express from 'express';
 import { DB } from "../db";
 import { DatumVreme } from '../DatumVreme';
+import { Validacija } from '../validacija';
+import { Utils } from '../utils';
 
 export class AdministratorKontroler {
 
@@ -32,10 +34,29 @@ export class AdministratorKontroler {
         if(!ret) { res.json({poruka: "Nastavnik ne postoji."}); return }
         let ocena = await DB.nastavnikOcena(kime)
         let komentari =await DB.nastavnikKomentari(kime)
-        delete ret.adresa;
         ret.komentari = komentari;
         ret.ocena = ocena;
         res.json({poruka: "ok", podaci: ret});
+    }
+
+    nastavnikAzuriranje = async (req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let kime = req.query.kime as string;
+        let ulaz = req.body;
+        let izlaz: any = {};
+        let nastavnik = await DB.korisnikPoKime(kime)
+        let ret = await Validacija.profilAzuriranjeValidacija(ulaz, izlaz, nastavnik)
+        if (ret != "ok") { res.json({poruka: ret}); return; }
+        let profil = req.file;
+        if (profil) {
+            ret = Validacija.profilValidacija(profil);
+            if (ret != "ok") { res.json({poruka: ret}); return; }
+            izlaz.profil = Utils.sacuvajFajl(profil);
+        }
+        ret = await DB.azurirajProfil(kime, izlaz)
+        if (ret != "ok") { res.json({poruka: ret}); return }
+        else this.nastavnikPodaci(req, res)
     }
 
     aktivacija = async(req: express.Request, res: express.Response) => {
@@ -194,6 +215,8 @@ export class AdministratorKontroler {
     }
 
     brojCasovaPoPredmetuPoPolu = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
         //let predmeti = ["Matematika", "Informatika", "Geografija", "Srpski jezik", "Engleski jezik", "Istorija", "Biologija", "Hemija", "Fizika"]
         let skupovi = [ ["Engleski jezik", "Francuski jezik", "Nemacki jezik", "Italijanski jezik", "Spanski jezik", "Kineski jezik"],
                         ["Srpski jezik"], ["Istorija"], ["Geografija"], ["Biologija"], ["Hemija"], ["Fizika"], ["Matematika"],
@@ -218,5 +241,20 @@ export class AdministratorKontroler {
             podaciM: podaciM,
             podaciZ: podaciZ
         }})
+    }
+
+    nastavniciOtkazivanjeOdbijanje = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let ret = await DB.nastavniciOtkazivanjeOdbijanje()
+        res.json({poruka: "ok", podaci: ret})
+    }
+
+    nastavnikOtkazivanja = async(req: express.Request, res: express.Response) => {
+        let kor = this.autorizacija(req, res);
+        if (!kor) return;
+        let kime = req.query.kime as string
+        let ret = await DB.nastavnikOtkazivanja(kime)
+        res.json({poruka: "ok", podaci: ret})
     }
 }

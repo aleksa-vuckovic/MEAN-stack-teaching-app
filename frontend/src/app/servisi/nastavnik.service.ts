@@ -21,9 +21,6 @@ export class NastavnikService {
   }
 
   profilAzuriranje(podaci: FormData) {
-    const headers = new HttpHeaders({
-      'enctype': 'multipart/form-data'
-    });
     return this.http.post(this.url+"profilazuriranje", podaci, this.opcijeMultipart);
   }
 

@@ -50,10 +50,8 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            let podaci = yield db_1.DB.nastavnikPodaci(kor.kime);
-            let ocena = yield db_1.DB.nastavnikOcena(kor.kime);
-            podaci.ocena = ocena;
-            res.json({ poruka: "ok", podaci: ret });
+            else
+                this.profilPodaci(req, res);
         });
         this.profilPodaci = (req, res) => __awaiter(this, void 0, void 0, function* () {
             let kor = this.autorizacija(req, res);
@@ -65,7 +63,9 @@ class NastavnikKontroler {
                 return;
             }
             let ocena = yield db_1.DB.nastavnikOcena(kor.kime);
+            let komentari = yield db_1.DB.nastavnikKomentari(kor.kime);
             podaci.ocena = ocena;
+            podaci.komentari = komentari;
             res.json({ poruka: "ok", podaci: podaci });
         });
         this.termini = (req, res) => __awaiter(this, void 0, void 0, function* () {

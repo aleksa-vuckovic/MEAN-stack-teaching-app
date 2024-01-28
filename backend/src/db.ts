@@ -117,8 +117,7 @@ export class DB {
     static async azurirajProfil(kime: string, podaci: any): Promise<string> {
         podaci = {$set: podaci};
         let ret = await korisnikModel.updateOne({kime: kime}, podaci)
-        if (ret.modifiedCount > 0) return "ok";
-        else return "Korisnik nije pronadjen u bazi."
+        return "ok"
     }
 
     static async ucenikPodaci(kime: string): Promise<any> {
@@ -1246,4 +1245,124 @@ export class DB {
         }])
         return "ok"
     }*/
+
+
+    static async nastavniciOtkazivanjeOdbijanje(): Promise<Array<any>> {
+        return await korisnikModel.aggregate([
+            {
+                $match: {
+                    tip: "Nastavnik",
+                    aktivan: true,
+                    odobren: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "casovi",
+                    let: {kime: "$kime"},
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {$eq: ["$nastavnik", "$$kime"]},
+                                        {$lt: ["$do", new Date()]}
+                                    ]
+                                    
+                                }
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: null,
+                                otkazano: {
+                                    $sum: {
+                                        $cond: {
+                                            if: {$ne: ["$otkazan", null]},
+                                            then: 1,
+                                            else: 0
+                                        }
+                                    }
+                                },
+                                odbijeno: {
+                                    $sum: {
+                                        $cond: {
+                                            if: {$ne: ["$odbijen", null]},
+                                            then: 1,
+                                            else: 0
+                                        }
+                                    }
+                                },
+                                odrzano: {
+                                    $sum: {
+                                        $cond: {
+                                            if: {$and: [
+                                                {$ne: ["$potvrdjen", null]},
+                                                {$eq: ["$otkazan", null]}
+                                            ]},
+                                            then: 1,
+                                            else: 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    as: "podaci"
+                }
+            },
+            {
+                $unwind: {path: "$podaci"}
+            },
+            {
+                $project: {
+                    kime: "$kime",
+                    ime: "$ime",
+                    prezime: "$prezime",
+                    otkazano: "$podaci.otkazano",
+                    odbijeno: "$podaci.odbijeno",
+                    odrzano: "$podaci.odrzano",
+                    procenat: {
+                        $divide: ["$podaci.otkazano", {$add: ["$podaci.otkazano", "$podaci.odrzano"]}]
+                    }
+                }
+            },
+            {
+                $sort: {
+                    procenat: -1
+                }
+            },
+            {
+                $limit: 5
+            }
+        ])
+    }
+
+    static async nastavnikOtkazivanja(kime: string) {
+        return await casModel.aggregate([
+            {
+                $match: {
+                    nastavnik: kime,
+                    otkazan: {$ne: null}
+                }
+            },
+            {
+                $project: {
+                    x: "$otkazan",
+                    y: {
+                        $dateDiff: {
+                            startDate: "$otkazan",
+                            endDate: "$od",
+                            unit: "minute"
+                        }
+                    }
+                }
+            },
+            {
+                $sort: {
+                    x: 1
+                }
+            }
+        ])
+    }
 }

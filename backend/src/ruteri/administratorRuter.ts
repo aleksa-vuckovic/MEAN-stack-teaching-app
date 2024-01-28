@@ -1,6 +1,15 @@
 import express from 'express';
 import { AdministratorKontroler } from '../kontroleri/AdministratorKontroler';
 import { Admin } from 'mongodb';
+import multer from 'multer';
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5*1024*1024,
+        files: 2
+    }
+});
 
 let administratorRuter = express.Router()
 
@@ -10,6 +19,10 @@ administratorRuter.route("/korisnicipretraga").post((req, res) => {
 
 administratorRuter.route("/nastavnikpodaci").get((req, res) => {
     new AdministratorKontroler().nastavnikPodaci(req, res)
+})
+
+administratorRuter.route("/nastavnikazuriranje").post(upload.single("profil"), (req, res) => {
+    new AdministratorKontroler().nastavnikAzuriranje(req, res)
 })
 
 administratorRuter.route("/aktivacija").get((req, res) => {
@@ -70,6 +83,14 @@ administratorRuter.route("/angazovanjenastavnika").get((req, res) => {
 
 administratorRuter.route("/brojcasovapopredmetupopolu").get((req, res) => {
     new AdministratorKontroler().brojCasovaPoPredmetuPoPolu(req, res)
+})
+
+administratorRuter.route("/nastavniciotkazivanjaodbijanja").get((req, res) => {
+    new AdministratorKontroler().nastavniciOtkazivanjeOdbijanje(req, res)
+})
+
+administratorRuter.route("/nastavnikotkazivanja").get((req, res) => {
+    new AdministratorKontroler().nastavnikOtkazivanja(req, res)
 })
 
 export default administratorRuter;

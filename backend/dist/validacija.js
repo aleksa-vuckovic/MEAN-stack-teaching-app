@@ -158,8 +158,6 @@ class Validacija {
                 else
                     izlaz.mejl = ulaz.mejl;
             }
-            else
-                izlaz.mejl = kor.mejl;
             if (kor.tip == "Ucenik") {
                 //skola, prelazak
                 if (ulaz.skola && ulaz.skola != "") {
@@ -184,13 +182,13 @@ class Validacija {
             if (kor.tip == "Nastavnik") {
                 //...
                 if (!ulaz.predmeti)
-                    izlaz.predmeti = [];
+                    delete izlaz.predmeti;
                 else if (!Array.isArray(ulaz.predmeti))
                     izlaz.predmeti = [ulaz.predmeti];
                 else
                     izlaz.predmeti = ulaz.predmeti;
                 if (!ulaz.uzrasti)
-                    izlaz.uzrasti = [];
+                    delete izlaz.uzrasti;
                 else if (!Array.isArray(ulaz.uzrasti))
                     izlaz.uzrasti = [ulaz.uzrasti];
                 else

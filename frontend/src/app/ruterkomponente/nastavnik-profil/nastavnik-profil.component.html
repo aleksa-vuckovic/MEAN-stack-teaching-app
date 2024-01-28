@@ -21,7 +21,7 @@
                 <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.adresa}} <br> {{podaci.telefon}}</p>
                 <i class="material-icons" (click)="azuriranje()">edit</i>
             </div>
-            <div class="col-12 col-md-4" *ngIf="prikaz2==true">
+            <div class="col-12 col-md-6 col-lg-4" *ngIf="prikaz2==true">
                 <form [formGroup]="azuriranjeForma" (ngSubmit)="azuriraj()">
                     <div class="mb-3">
                         <label for="ime" class="form-label">Ime</label>
@@ -62,9 +62,15 @@
                         <label for="profil" class="form-label">Profilna slika</label>
                         <fajl-input formControlName="profil" id = "profil"></fajl-input>
                     </div>
-                    <div class="form-text text-danger">{{greska}}</div>
+                    <p class="form-text text-danger">{{greska}}</p>
                     <button type="submit" class="btn btn-primary">Azuriraj</button> &nbsp; &nbsp; <button class = "btn btn-secondary" (click)="odustani()">Odustani</button>
                 </form>
+            </div>
+        </div>
+        <div class="row px-3 py-1">
+            <div class="col-12 col-md-10">
+                <komentar *ngFor="let elem of podaci.komentari" [slika]="elem.profil" [naslov]="elem.ime + ' ' + elem.prezime + ' (' + elem.predmet + ')'"
+                [ocena]="elem.ocena" [sadrzaj]="elem.komentar"></komentar>
             </div>
         </div>
     </div>

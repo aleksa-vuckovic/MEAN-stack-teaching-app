@@ -5,12 +5,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const AdministratorKontroler_1 = require("../kontroleri/AdministratorKontroler");
+const multer_1 = __importDefault(require("multer"));
+const upload = (0, multer_1.default)({
+    storage: multer_1.default.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+        files: 2
+    }
+});
 let administratorRuter = express_1.default.Router();
 administratorRuter.route("/korisnicipretraga").post((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().korisniciPretraga(req, res);
 });
 administratorRuter.route("/nastavnikpodaci").get((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().nastavnikPodaci(req, res);
+});
+administratorRuter.route("/nastavnikazuriranje").post(upload.single("profil"), (req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().nastavnikAzuriranje(req, res);
 });
 administratorRuter.route("/aktivacija").get((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().aktivacija(req, res);
@@ -56,5 +67,11 @@ administratorRuter.route("/angazovanjenastavnika").get((req, res) => {
 });
 administratorRuter.route("/brojcasovapopredmetupopolu").get((req, res) => {
     new AdministratorKontroler_1.AdministratorKontroler().brojCasovaPoPredmetuPoPolu(req, res);
+});
+administratorRuter.route("/nastavniciotkazivanjaodbijanja").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().nastavniciOtkazivanjeOdbijanje(req, res);
+});
+administratorRuter.route("/nastavnikotkazivanja").get((req, res) => {
+    new AdministratorKontroler_1.AdministratorKontroler().nastavnikOtkazivanja(req, res);
 });
 exports.default = administratorRuter;

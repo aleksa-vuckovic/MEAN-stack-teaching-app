@@ -132,10 +132,7 @@ class DB {
         return __awaiter(this, void 0, void 0, function* () {
             podaci = { $set: podaci };
             let ret = yield Korisnik_1.default.updateOne({ kime: kime }, podaci);
-            if (ret.modifiedCount > 0)
-                return "ok";
-            else
-                return "Korisnik nije pronadjen u bazi.";
+            return "ok";
         });
     }
     static ucenikPodaci(kime) {
@@ -1322,6 +1319,150 @@ class DB {
                 return ret[0].broj;
             else
                 return 0;
+        });
+    }
+    /*
+    static async fixDates(): Promise<string> {
+        await obavestenjeModel.updateMany({
+            datumvreme: {$ne: null}
+        },
+        [{
+            $set: {
+                datumvreme: {
+                    $dateAdd: {
+                        startDate: {
+                            $dateAdd: {
+                                startDate: new Date('2020-12-31T00:00+01:00'),
+                                amount: {$floor:{$divide:["$datumvreme", 4096]}},
+                                unit: 'day'
+                            }
+                        },
+                        amount: {$mod: ["$datumvreme", 4096]},
+                        unit: 'minute'
+                    }
+                }
+            }
+        }])
+        return "ok"
+    }*/
+    static nastavniciOtkazivanjeOdbijanje() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Korisnik_1.default.aggregate([
+                {
+                    $match: {
+                        tip: "Nastavnik",
+                        aktivan: true,
+                        odobren: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "casovi",
+                        let: { kime: "$kime" },
+                        pipeline: [
+                            {
+                                $match: {
+                                    $expr: {
+                                        $and: [
+                                            { $eq: ["$nastavnik", "$$kime"] },
+                                            { $lt: ["$do", new Date()] }
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                $group: {
+                                    _id: null,
+                                    otkazano: {
+                                        $sum: {
+                                            $cond: {
+                                                if: { $ne: ["$otkazan", null] },
+                                                then: 1,
+                                                else: 0
+                                            }
+                                        }
+                                    },
+                                    odbijeno: {
+                                        $sum: {
+                                            $cond: {
+                                                if: { $ne: ["$odbijen", null] },
+                                                then: 1,
+                                                else: 0
+                                            }
+                                        }
+                                    },
+                                    odrzano: {
+                                        $sum: {
+                                            $cond: {
+                                                if: { $and: [
+                                                        { $ne: ["$potvrdjen", null] },
+                                                        { $eq: ["$otkazan", null] }
+                                                    ] },
+                                                then: 1,
+                                                else: 0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        as: "podaci"
+                    }
+                },
+                {
+                    $unwind: { path: "$podaci" }
+                },
+                {
+                    $project: {
+                        kime: "$kime",
+                        ime: "$ime",
+                        prezime: "$prezime",
+                        otkazano: "$podaci.otkazano",
+                        odbijeno: "$podaci.odbijeno",
+                        odrzano: "$podaci.odrzano",
+                        procenat: {
+                            $divide: ["$podaci.otkazano", { $add: ["$podaci.otkazano", "$podaci.odrzano"] }]
+                        }
+                    }
+                },
+                {
+                    $sort: {
+                        procenat: -1
+                    }
+                },
+                {
+                    $limit: 5
+                }
+            ]);
+        });
+    }
+    static nastavnikOtkazivanja(kime) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Cas_1.default.aggregate([
+                {
+                    $match: {
+                        nastavnik: kime,
+                        otkazan: { $ne: null }
+                    }
+                },
+                {
+                    $project: {
+                        x: "$otkazan",
+                        y: {
+                            $dateDiff: {
+                                startDate: "$otkazan",
+                                endDate: "$od",
+                                unit: "minute"
+                            }
+                        }
+                    }
+                },
+                {
+                    $sort: {
+                        x: 1
+                    }
+                }
+            ]);
         });
     }
 }

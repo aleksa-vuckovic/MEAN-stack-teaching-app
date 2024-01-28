@@ -49,6 +49,7 @@ import { StatistikaPolComponent } from './ruterkomponente/statistika-pol/statist
 import { StatistikaBrojCasovaComponent } from './ruterkomponente/statistika-broj-casova/statistika-broj-casova.component';
 import { StatistikaAngazovanjeComponent } from './ruterkomponente/statistika-angazovanje/statistika-angazovanje.component';
 import { SastanakComponent } from './ruterkomponente/sastanak/sastanak.component';
+import { Chart } from 'chart.js';
 
 @NgModule({
   declarations: [

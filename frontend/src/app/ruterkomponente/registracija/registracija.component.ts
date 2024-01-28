@@ -122,7 +122,11 @@ export class RegistracijaComponent {
     if (this.registracijaForm.valid) {
       return true;
     }
-    else return false;
+    if (this.greskaLozinka!="") Utils.skrolDoId("lozinka")
+    else if (this.greskaTelefon != "") Utils.skrolDoId("telefon")
+    else if (this.greskaMejl != "") Utils.skrolDoId("mejl")
+    else if (this.greskaProfil != "") Utils.skrolDoId("profil")
+    return false;
   }
 
   registracijaUcenik() {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -12,6 +12,12 @@ export class AdministratorService {
   opcije = {
     withCredentials: true
   }
+  opcijeMultipart = {
+    withCredentials: true,
+    headers: new HttpHeaders({
+      'enctype': 'multipart/form-data'
+    })
+  }
 
   korisniciPretraga(pretraga: any) {
     return this.http.post(this.url + "korisnicipretraga", pretraga, this.opcije)
@@ -19,6 +25,10 @@ export class AdministratorService {
 
   nastavnikPodaci(kime: string) {
     return this.http.get(this.url + "nastavnikpodaci?kime=" + kime, this.opcije)
+  }
+  
+  nastavnikAzuriranje(kime: string, podaci: FormData) {
+    return this.http.post(this.url + "nastavnikazuriranje?kime=" + kime, podaci, this.opcijeMultipart)
   }
 
   aktivacija(kime: string) {
@@ -80,5 +90,13 @@ export class AdministratorService {
 
   brojCasovaPoPredmetuPoPolu() {
     return this.http.get(this.url + "brojcasovapopredmetupopolu", this.opcije)
+  }
+
+  nastavniciOtkazivanjaOdbijanja() {
+    return this.http.get(this.url + "nastavniciotkazivanjaodbijanja", this.opcije)
+  }
+
+  nastavnikOtkazivanja(kime: string) {
+    return this.http.get(this.url + "nastavnikotkazivanja?kime=" + kime, this.opcije)
   }
 }

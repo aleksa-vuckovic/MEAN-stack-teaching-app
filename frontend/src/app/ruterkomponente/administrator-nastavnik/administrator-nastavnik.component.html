@@ -8,19 +8,66 @@
                 <h2>Nastavnik</h2>
             </div>
         </div>
-        <div class="row px-3 py-1 border-bottom border-bottom-5 profile-info">
+        <div class="row px-3 py-1 border-bottom border-bottom-5">
             <div class="col-12 col-md-3">
                 <img [src]="podaci.profil" width="100%" class="rounded-1">
             </div>
-            <!--ime, prezime, profil, mejl, telefon, predmeti, ocene i komentari-->
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9" *ngIf="prikaz2==false">
                 <h2>{{podaci.ime}} {{podaci.prezime}}</h2>
                 <p>Predmeti: <span *ngFor="let elem of podaci.predmeti; let last = last">{{elem}}<span *ngIf="!last">, </span></span></p>
+                <p>Uzrast ucenika: <span *ngFor="let elem of podaci.uzrasti; let last = last">{{elem}}<span *ngIf="!last">, </span></span></p>
                 <zvezde [broj]="podaci.ocena" visina="40px" [disabled]="true"></zvezde> &nbsp; <span>{{podaci.ocena.toFixed(2)}}/5</span>
+                <br><br>
+                <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.adresa}} <br> {{podaci.telefon}}</p>
+                <i class="material-icons" (click)="azuriranje()">edit</i>
                 <br>
-                <p>Kontakt: <br> {{podaci.mejl}} <br> {{podaci.telefon}}</p>
                 <button *ngIf="!podaci.aktivan" class="btn btn-success m-1" (click)="aktiviraj()">Aktiviraj</button>
                 <button *ngIf="podaci.aktivan" class="btn btn-danger m-1" (click)="deaktiviraj()">Deaktiviraj</button>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4" *ngIf="prikaz2==true">
+                <form [formGroup]="azuriranjeForma" (ngSubmit)="azuriraj()">
+                    <div class="mb-3">
+                        <label for="ime" class="form-label">Ime</label>
+                        <input type="text" class="form-control" id="ime" formControlName="ime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prezime" class="form-label">Prezime</label>
+                        <input type="text" class="form-control" id="prezime" formControlName="prezime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mejl" class="form-label">Mejl</label>
+                        <input type="text" class="form-control" id="mejl" formControlName="mejl" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adresa" class="form-label">Adresa</label>
+                        <input type="text" class="form-control" id="adresa" formControlName="adresa" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefon" class="form-label">Telefon</label>
+                        <input type="text" class="form-control" id="telefon" formControlName="telefon" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="predmeti" class="form-label">Predmeti</label>
+                        <select id="predmeti" formControlName="predmeti" class="form-control" multiple>
+                            <option *ngFor="let elem of predmeti" [value]="elem">{{elem}}</option>
+                        </select>
+                        <span>Nesto drugo: <input type="text" class="form-control" formControlName="drugiPredmet"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uzrasti" class="form-label">Uzrast ucenika</label>
+                        <select id="uzrasti" formControlName="uzrasti" class="form-control" multiple>
+                            <option value="Osnovna 1-4" selected>Osnovna 1-4</option>
+                            <option value="Osnovna 5-8">Osnovna 5-8</option>
+                            <option value="Srednja">Srednja</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profil" class="form-label">Profilna slika</label>
+                        <fajl-input formControlName="profil" id = "profil"></fajl-input>
+                    </div>
+                    <p class="form-text text-danger">{{greska}}</p>
+                    <button type="submit" class="btn btn-primary">Azuriraj</button> &nbsp; &nbsp; <button class = "btn btn-secondary" (click)="odustani()">Odustani</button>
+                </form>
             </div>
         </div>
         <div class="row px-3 py-1">

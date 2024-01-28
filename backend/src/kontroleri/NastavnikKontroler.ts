@@ -30,10 +30,7 @@ export class NastavnikKontroler {
         }
         ret = await DB.azurirajProfil(kor.kime, izlaz)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let podaci = await DB.nastavnikPodaci(kor.kime)
-        let ocena = await DB.nastavnikOcena(kor.kime)
-        podaci.ocena = ocena;
-        res.json({poruka: "ok", podaci: ret})
+        else this.profilPodaci(req, res)
     }
 
     profilPodaci = async (req: express.Request, res: express.Response) => {
@@ -42,7 +39,9 @@ export class NastavnikKontroler {
         let podaci = await DB.nastavnikPodaci(kor.kime)
         if (!podaci) { res.json({poruka: "Greska u bazi."}); return }
         let ocena = await DB.nastavnikOcena(kor.kime)
+        let komentari = await DB.nastavnikKomentari(kor.kime)
         podaci.ocena = ocena;
+        podaci.komentari = komentari
         res.json({poruka: "ok", podaci: podaci})
     }
 

@@ -109,7 +109,7 @@ export class Validacija {
         if (ulaz.mejl && ulaz.mejl != "") {
             if (!mejlRegex.test(ulaz.mejl)) return mejlPoruka;
             else izlaz.mejl = ulaz.mejl;
-        } else izlaz.mejl = kor.mejl;
+        }
 
         if (kor.tip == "Ucenik") {
             //skola, prelazak
@@ -127,10 +127,10 @@ export class Validacija {
 
         if (kor.tip == "Nastavnik") {
             //...
-            if (!ulaz.predmeti) izlaz.predmeti = []
+            if (!ulaz.predmeti) delete izlaz.predmeti
             else if (!Array.isArray(ulaz.predmeti)) izlaz.predmeti = [ulaz.predmeti];
             else izlaz.predmeti = ulaz.predmeti;
-            if (!ulaz.uzrasti) izlaz.uzrasti = []
+            if (!ulaz.uzrasti) delete izlaz.uzrasti
             else if (!Array.isArray(ulaz.uzrasti)) izlaz.uzrasti = [ulaz.uzrasti];
             else izlaz.uzrasti = ulaz.uzrasti;
         }

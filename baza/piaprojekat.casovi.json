@@ -216,6 +216,30 @@
 },
 {
   "_id": {
+    "$oid": "65b5accc032cc459836f3c97"
+  },
+  "ucenik": "darko",
+  "nastavnik": "jana",
+  "opis": "Razmatramo geografske karakteristike Azije.",
+  "predmet": "Geografija",
+  "od": {
+    "$date": "2023-03-15T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-03-15T10:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-03-10T14:30:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51499032cc459836f3c21"
   },
   "ucenik": "darko",
@@ -237,6 +261,32 @@
   "komentarUcenik": "Fantastičan čas, uživao sam!",
   "ocenaNastavnik": 5,
   "komentarNastavnik": "Darko, tvoje znanje i interesovanje su izuzetni. Bravo!"
+},
+{
+  "_id": {
+    "$oid": "65b5ac5a032cc459836f3c91"
+  },
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Analiziramo Shakespeare-ove sonete.",
+  "predmet": "Engleski jezik",
+  "od": {
+    "$date": "2023-04-10T08:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-04-10T09:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-04-08T14:30:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-04-10T06:50:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -336,6 +386,80 @@
 },
 {
   "_id": {
+    "$oid": "65b5accc032cc459836f3c98"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "pavle",
+  "opis": "Vežbamo hemijske reakcije.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2023-04-20T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-04-20T16:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-04-15T11:45:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5accc032cc459836f3c99"
+  },
+  "ucenik": "sara",
+  "nastavnik": "lana",
+  "opis": "Učimo o periodima umetnosti.",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2023-05-10T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-05-10T11:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-05-05T15:20:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5ac5a032cc459836f3c92"
+  },
+  "ucenik": "danica",
+  "nastavnik": "pavle",
+  "opis": "Učimo o istorijskim događajima Prvog svetskog rata.",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2023-05-15T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-05-15T16:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-05-10T12:45:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-05-15T12:20:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b5155b032cc459836f3c26"
   },
   "ucenik": "lazar",
@@ -432,6 +556,56 @@
 },
 {
   "_id": {
+    "$oid": "65b5accc032cc459836f3c9a"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Analiziramo biološke procese u ljudskom organizmu.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2023-06-15T13:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-06-15T14:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-06-10T12:10:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5abf9032cc459836f3c85"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Vežbamo hemijske reakcije.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2023-06-15T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-06-15T16:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-06-10T08:45:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-06-14T10:00:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b5155b032cc459836f3c27"
   },
   "ucenik": "darko",
@@ -477,6 +651,32 @@
   "komentarUcenik": "Veče je bilo neinteresantno i nejasno.",
   "ocenaNastavnik": 2,
   "komentarNastavnik": "Darko, žao mi je ako niste uživali. Razgovaraćemo o tome kako da unapredimo sledeće predavanje."
+},
+{
+  "_id": {
+    "$oid": "65b5ac5a032cc459836f3c93"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "lana",
+  "opis": "Vežbamo konjugaciju glagola u francuskom jeziku.",
+  "predmet": "Francuski jezik",
+  "od": {
+    "$date": "2023-06-20T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-06-20T12:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-06-15T09:30:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-06-20T08:10:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -648,6 +848,82 @@
 },
 {
   "_id": {
+    "$oid": "65b5abf9032cc459836f3c86"
+  },
+  "ucenik": "sara",
+  "nastavnik": "lana",
+  "opis": "Analiziramo klasična književna dela.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2023-07-20T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-07-20T10:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-07-15T15:20:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-07-19T08:45:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5accc032cc459836f3c9b"
+  },
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Vežbamo programiranje u Python-u.",
+  "predmet": "Informatika",
+  "od": {
+    "$date": "2023-07-20T16:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-07-20T18:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-07-15T09:55:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5ac5a032cc459836f3c94"
+  },
+  "ucenik": "darko",
+  "nastavnik": "petar",
+  "opis": "Analiziramo biološke procese u biljnim ćelijama.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2023-07-25T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-07-25T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-07-20T08:45:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-07-25T09:50:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51c92032cc459836f3c57"
   },
   "ucenik": "lazar",
@@ -669,6 +945,56 @@
   "komentarUcenik": "Bilo je korisno, ali pretezak materijal.",
   "ocenaNastavnik": 3,
   "komentarNastavnik": "Važno je razumeti svet oko nas. Trudiću se da olakšam gradivo."
+},
+{
+  "_id": {
+    "$oid": "65b5ad16032cc459836f3c9d"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "jana",
+  "opis": "Diskutujemo o francuskim književnim delima.",
+  "predmet": "Francuski jezik",
+  "od": {
+    "$date": "2023-08-10T08:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-08-10T10:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-08-05T12:45:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5abf9032cc459836f3c87"
+  },
+  "ucenik": "danica",
+  "nastavnik": "jana",
+  "opis": "Učimo o svetskim geografskim činjenicama.",
+  "predmet": "Geografija",
+  "od": {
+    "$date": "2023-08-10T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-08-10T12:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-08-05T10:15:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-08-09T09:30:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -717,6 +1043,32 @@
   "komentarUcenik": "Cas je bio dobar, ali moglo je i bolje.",
   "ocenaNastavnik": 4,
   "komentarNastavnik": "Solidno si pratio gradivo. Radujem se sledecem casu."
+},
+{
+  "_id": {
+    "$oid": "65b5ac5a032cc459836f3c95"
+  },
+  "ucenik": "sara",
+  "nastavnik": "jana",
+  "opis": "Vežbamo kvadratne jednačine.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2023-08-15T15:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-08-15T16:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-08-10T14:20:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-08-15T13:50:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -840,6 +1192,32 @@
 },
 {
   "_id": {
+    "$oid": "65b5abf9032cc459836f3c88"
+  },
+  "ucenik": "darko",
+  "nastavnik": "tijana",
+  "opis": "Vezbamo programiranje u Pythonu.",
+  "predmet": "Informatika",
+  "od": {
+    "$date": "2023-09-05T15:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-09-05T16:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-09-01T12:30:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-09-04T14:30:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51c92032cc459836f3c58"
   },
   "ucenik": "paja",
@@ -909,6 +1287,32 @@
   "komentarUcenik": "Interesantno iskustvo, ali malo odvratno.",
   "ocenaNastavnik": 4,
   "komentarNastavnik": "Darko, razumem tvoje osećaje. Sledeći put ćemo se fokusirati na manje odvratne aktivnosti."
+},
+{
+  "_id": {
+    "$oid": "65b5ac0d032cc459836f3c8b"
+  },
+  "ucenik": "danica",
+  "nastavnik": "lana",
+  "opis": "Analiziramo istorijske događaje.",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2023-09-20T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-09-20T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-09-18T14:45:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-09-19T10:00:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -1032,6 +1436,56 @@
 },
 {
   "_id": {
+    "$oid": "65b5ad16032cc459836f3c9e"
+  },
+  "ucenik": "danica",
+  "nastavnik": "lana",
+  "opis": "Razmatramo fizikalne zakone.",
+  "predmet": "Fizika",
+  "od": {
+    "$date": "2023-09-25T15:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-09-25T17:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-09-20T13:30:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5ac0d032cc459836f3c8f"
+  },
+  "ucenik": "sara",
+  "nastavnik": "petar",
+  "opis": "Diskutujemo o književnim delima.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2023-09-25T16:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-09-25T18:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-09-20T12:40:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-09-22T15:30:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51dbc032cc459836f3c70"
   },
   "ucenik": "paja",
@@ -1053,6 +1507,32 @@
   "komentarUcenik": "Sjajno, razumem gramatiku bolje sada!",
   "ocenaNastavnik": 5,
   "komentarNastavnik": "Odlično! Ako imaš još nekih nedoumica, slobodno ih postavi."
+},
+{
+  "_id": {
+    "$oid": "65b5abf9032cc459836f3c89"
+  },
+  "ucenik": "paja",
+  "nastavnik": "pavle",
+  "opis": "Radimo na matematičkim problemima.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2023-10-01T10:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-10-01T12:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-09-26T13:45:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-09-30T08:00:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -1248,6 +1728,56 @@
 },
 {
   "_id": {
+    "$oid": "65b5ac0d032cc459836f3c8d"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "pavle",
+  "opis": "Vezbamo matematičke algoritme.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2023-10-15T08:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-10-15T10:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-10-10T13:15:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-10-12T09:45:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5ad16032cc459836f3c9f"
+  },
+  "ucenik": "sara",
+  "nastavnik": "pavle",
+  "opis": "Diskutujemo o književnim epohama.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2023-10-15T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-10-15T12:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-10-10T10:05:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51760032cc459836f3c3d"
   },
   "ucenik": "paja",
@@ -1416,6 +1946,32 @@
 },
 {
   "_id": {
+    "$oid": "65b5ac0d032cc459836f3c8c"
+  },
+  "ucenik": "paja",
+  "nastavnik": "jana",
+  "opis": "Vezbamo biološke procese.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2023-11-03T14:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-11-03T15:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-10-30T11:20:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-11-01T09:30:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
     "$oid": "65b51d75032cc459836f3c66"
   },
   "ucenik": "danica",
@@ -1489,30 +2045,6 @@
 {
   "_id": {
     "$oid": "65b51cdb032cc459836f3c5b"
-  },
-  "ucenik": "sara",
-  "nastavnik": "tijana",
-  "opis": "Diskutujemo o klimatskim promenama.",
-  "predmet": "Geografija",
-  "od": {
-    "$date": "2023-11-09T08:30:00.000Z"
-  },
-  "do": {
-    "$date": "2023-11-09T09:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2023-11-04T09:55:00.000Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": 5,
-  "komentarUcenik": "Veoma korisno i aktuelno!",
-  "ocenaNastavnik": 5,
-  "komentarNastavnik": "Važno je razumeti uticaj klimatskih promena. Spremna za sledeći čas?"
-},
-{
-  "_id": {
-    "$oid": "65b51d36032cc459836f3c61"
   },
   "ucenik": "sara",
   "nastavnik": "tijana",
@@ -1629,6 +2161,30 @@
   "komentarUcenik": "Interesantno iskustvo, želim još ovakvih časova!",
   "ocenaNastavnik": 4,
   "komentarNastavnik": "Danice, drago mi je da ti se svidelo. Radujem se budućim vežbama."
+},
+{
+  "_id": {
+    "$oid": "65b5ad16032cc459836f3ca0"
+  },
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Radimo vežbe iz matematike.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2023-11-20T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-11-20T10:00:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-11-15T08:15:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {
@@ -1797,6 +2353,56 @@
   "komentarUcenik": "Dobro je bilo, ali mislim da bih radije čitao moderna dela.",
   "ocenaNastavnik": 4,
   "komentarNastavnik": "Važno je razumeti različite književne periode. Sledeći put možemo razgovarati o modernim delima."
+},
+{
+  "_id": {
+    "$oid": "65b5ac0d032cc459836f3c8e"
+  },
+  "ucenik": "darko",
+  "nastavnik": "tijana",
+  "opis": "Učimo španski jezik.",
+  "predmet": "Spanski jezik",
+  "od": {
+    "$date": "2023-12-05T11:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-05T12:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-11-30T14:30:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": {
+    "$date": "2023-12-02T10:15:00.000Z"
+  },
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
+},
+{
+  "_id": {
+    "$oid": "65b5ad16032cc459836f3ca1"
+  },
+  "ucenik": "darko",
+  "nastavnik": "petar",
+  "opis": "Analiziramo biološke procese u biljkama.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2023-12-05T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2023-12-05T16:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": {
+    "$date": "2023-11-30T13:10:00.000Z"
+  },
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null
 },
 {
   "_id": {

@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdministratorKontroler = void 0;
 const db_1 = require("../db");
 const DatumVreme_1 = require("../DatumVreme");
+const validacija_1 = require("../validacija");
+const utils_1 = require("../utils");
 class AdministratorKontroler {
     constructor() {
         this.autorizacija = (req, res) => {
@@ -52,10 +54,39 @@ class AdministratorKontroler {
             }
             let ocena = yield db_1.DB.nastavnikOcena(kime);
             let komentari = yield db_1.DB.nastavnikKomentari(kime);
-            delete ret.adresa;
             ret.komentari = komentari;
             ret.ocena = ocena;
             res.json({ poruka: "ok", podaci: ret });
+        });
+        this.nastavnikAzuriranje = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let kime = req.query.kime;
+            let ulaz = req.body;
+            let izlaz = {};
+            let nastavnik = yield db_1.DB.korisnikPoKime(kime);
+            let ret = yield validacija_1.Validacija.profilAzuriranjeValidacija(ulaz, izlaz, nastavnik);
+            if (ret != "ok") {
+                res.json({ poruka: ret });
+                return;
+            }
+            let profil = req.file;
+            if (profil) {
+                ret = validacija_1.Validacija.profilValidacija(profil);
+                if (ret != "ok") {
+                    res.json({ poruka: ret });
+                    return;
+                }
+                izlaz.profil = utils_1.Utils.sacuvajFajl(profil);
+            }
+            ret = yield db_1.DB.azurirajProfil(kime, izlaz);
+            if (ret != "ok") {
+                res.json({ poruka: ret });
+                return;
+            }
+            else
+                this.nastavnikPodaci(req, res);
         });
         this.aktivacija = (req, res) => __awaiter(this, void 0, void 0, function* () {
             let kor = this.autorizacija(req, res);
@@ -239,6 +270,9 @@ class AdministratorKontroler {
             res.json({ poruka: "ok", podaci: result });
         });
         this.brojCasovaPoPredmetuPoPolu = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
             //let predmeti = ["Matematika", "Informatika", "Geografija", "Srpski jezik", "Engleski jezik", "Istorija", "Biologija", "Hemija", "Fizika"]
             let skupovi = [["Engleski jezik", "Francuski jezik", "Nemacki jezik", "Italijanski jezik", "Spanski jezik", "Kineski jezik"],
                 ["Srpski jezik"], ["Istorija"], ["Geografija"], ["Biologija"], ["Hemija"], ["Fizika"], ["Matematika"],
@@ -261,6 +295,21 @@ class AdministratorKontroler {
                     podaciM: podaciM,
                     podaciZ: podaciZ
                 } });
+        });
+        this.nastavniciOtkazivanjeOdbijanje = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let ret = yield db_1.DB.nastavniciOtkazivanjeOdbijanje();
+            res.json({ poruka: "ok", podaci: ret });
+        });
+        this.nastavnikOtkazivanja = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let kor = this.autorizacija(req, res);
+            if (!kor)
+                return;
+            let kime = req.query.kime;
+            let ret = yield db_1.DB.nastavnikOtkazivanja(kime);
+            res.json({ poruka: "ok", podaci: ret });
         });
     }
 }

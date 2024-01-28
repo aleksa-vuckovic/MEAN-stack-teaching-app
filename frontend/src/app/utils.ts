@@ -32,4 +32,7 @@ export class Utils {
     static skrolDoVrha(): void {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    static skrolDoId(id: string) {
+        document.getElementById(id)?.focus()
+    }
 }
