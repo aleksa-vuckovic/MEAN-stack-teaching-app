@@ -115,7 +115,7 @@ class PrijavaKontroler {
                 res.json({ poruka: "Nedostaju polja" });
             }
             let ret = yield db_1.DB.korisnikPoKime(req.body.kime);
-            if (ret == null)
+            if (ret == null || ret.aktivan == false || ret.odobren == false)
                 res.json({ poruka: "Neispravni kredencijali." });
             else if (!(yield bcrypt.compare(req.body.lozinka, ret.lozinka)))
                 res.json({ poruka: "Neispravni kredencijali." });

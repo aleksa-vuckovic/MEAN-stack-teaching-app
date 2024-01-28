@@ -75,6 +75,17 @@ export class DB {
                 $avg: '$casovi.ocenaUcenik'
               }
             }
+        },
+        {
+            $addFields: {
+                ocena: {
+                    $cond: {
+                        if: {$eq: ["$ocena", null]},
+                        then: 0,
+                        else: "$ocena"
+                    }
+                }
+            }
         }
     ];
     static async nastavniciPretraga(pretraga: any, ocene: boolean = false, kime: boolean = false): Promise<Array<any>> {

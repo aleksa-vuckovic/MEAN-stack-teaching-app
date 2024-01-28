@@ -125,6 +125,8 @@ class Validacija {
         let dimenzije = (0, image_size_1.default)(fajl.buffer);
         if (dimenzije.width && dimenzije.width > 300 || dimenzije.height && dimenzije.height > 300)
             return "Prevelika slika.";
+        else if (dimenzije.width && dimenzije.width < 100 || dimenzije.height && dimenzije.height < 100)
+            return "Premala slika.";
         return "ok";
     }
     static cvValidacija(fajl) {
@@ -160,6 +162,10 @@ class Validacija {
             }
             if (kor.tip == "Ucenik") {
                 //skola, prelazak
+                if (ulaz.prelazak && (ulaz.prelazak == true || ulaz.prelazak == "true"))
+                    ulaz.prelazak = true;
+                else
+                    ulaz.prelazak = false;
                 if (ulaz.skola && ulaz.skola != "") {
                     if (tipoviSkola.indexOf(ulaz.skola) == -1)
                         return "Tip skole ne postoji.";

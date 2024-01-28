@@ -53,7 +53,7 @@ export class UcenikProfilComponent {
       telefon: ["", [Validators.required, Validators.pattern(Utils.telefonRegex())]],
       skola: ["", Validators.required],
       prelazak: [false],
-      profil: [null, [ fajlTipValidator(Utils.profilFajlTipovi()) ], [fajlVisinaSirinaValidator(300, 300)]],
+      profil: [null, [ fajlTipValidator(Utils.profilFajlTipovi()) ], [fajlVisinaSirinaValidator(300, 300, 100, 100)]],
     })
   }
 
@@ -76,12 +76,12 @@ export class UcenikProfilComponent {
     if (this.azuriranjeForma.get('mejl')?.hasError('pattern')) this.greska = Utils.mejlZahtevi();
     else if (this.azuriranjeForma.get('telefon')?.hasError('pattern')) this.greska = Utils.telefonZahtevi();
     else if (this.azuriranjeForma.get('profil')?.hasError('fajlTip')) this.greska = "Tip fajl mora biti " + Utils.profilFajlTipovi().join(',')  + ".";
-    else if (this.azuriranjeForma.get('profil')?.hasError('fajlVisinaSirina')) this.greska = "Velicin fajl je je ogranicena na 300x300.";
+    else if (this.azuriranjeForma.get('profil')?.hasError('fajlVisinaSirina')) this.greska = Utils.profilVelicinaZahtevi();
     else if (this.azuriranjeForma.invalid) this.greska = "Sva polja su obavezna."
     else {
       let data = new FormData();
       Utils.dodajUFormu(data, this.azuriranjeForma.value);
-
+      console.log(data.get('prelazak'))
       this.servis.profilAzuriranje(data).subscribe((res: any) => {
         if (res.poruka != "ok") this.greska = res.poruka;
         else {

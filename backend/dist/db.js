@@ -1482,5 +1482,16 @@ DB.prosecnaOcenaPipeline = [
                 $avg: '$casovi.ocenaUcenik'
             }
         }
+    },
+    {
+        $addFields: {
+            ocena: {
+                $cond: {
+                    if: { $eq: ["$ocena", null] },
+                    then: 0,
+                    else: "$ocena"
+                }
+            }
+        }
     }
 ];

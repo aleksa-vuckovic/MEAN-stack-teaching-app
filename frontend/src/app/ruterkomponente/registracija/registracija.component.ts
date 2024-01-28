@@ -50,7 +50,7 @@ export class RegistracijaComponent {
         Validators.required,
         Validators.pattern(this.mejlRegex)
        ] ],
-      profil: [null, [ fajlTipValidator(this.profilFajlTipovi) ], [fajlVisinaSirinaValidator(300, 300)]],
+      profil: [null, [ fajlTipValidator(this.profilFajlTipovi) ], [fajlVisinaSirinaValidator(300, 300, 100, 100)]],
       tip: ['', Validators.required]
     });
     this.korak2UcenikForm = this.fb.group({
@@ -112,7 +112,7 @@ export class RegistracijaComponent {
       this.greskaProfil = 'Tip fajla mora biti jedan od seledecih ' + this.profilFajlTipovi.join(',') + ".";
     }
     else if (profil?.hasError('fajlVisinaSirina')) {
-      this.greskaProfil = 'Fajl moze imati maksimalnu sirinu i visinu od 300 piksela.';
+      this.greskaProfil = Utils.profilVelicinaZahtevi();
     }
 
     if (this.greskaLozinka + this.greskaMejl + this.greskaProfil + this.greskaTelefon == "" && this.registracijaForm.invalid) {
@@ -167,7 +167,7 @@ export class RegistracijaComponent {
         this.greskaCV = 'Tip fajl mora biti pdf.'
       }
       else if (cv?.hasError('fajlVelicina')) {
-        this.greskaCV = 'Velicina fajl je maksimalno 3MB.';
+        this.greskaCV = 'Velicina fajla je maksimalno 3MB.';
       }
       else {
         //submit data

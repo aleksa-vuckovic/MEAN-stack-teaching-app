@@ -27,7 +27,7 @@ export function fajlVelicinaValidator(max: number): ValidatorFn {
     };
   }
 
-  export function fajlVisinaSirinaValidator(maxVisina: number, maxSirina: number): AsyncValidatorFn {
+  export function fajlVisinaSirinaValidator(maxVisina: number, maxSirina: number, minVisina: number, minSirina: number): AsyncValidatorFn {
     return (control: AbstractControl): Promise<{[key:string]: any} | null> => {
       const fajl = control.value as File;
   
@@ -43,7 +43,7 @@ export function fajlVelicinaValidator(max: number): ValidatorFn {
 
         
         image.onload = () => {
-            if (image.width > maxSirina || image.height > maxVisina) {
+            if (image.width > maxSirina || image.height > maxVisina || image.width < minSirina || image.height < minVisina) {
             resolve({ 'fajlVisinaSirina': true });
             } else {
             resolve(null);

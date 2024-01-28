@@ -30,7 +30,12 @@ export class NastavnikKontroler {
         }
         ret = await DB.azurirajProfil(kor.kime, izlaz)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        else this.profilPodaci(req, res)
+        else {
+            let ret = await DB.korisnikPoKime(kor.kime)
+            let session = req.session as any
+            session.korisnik = ret;
+            this.profilPodaci(req, res)
+        }
     }
 
     profilPodaci = async (req: express.Request, res: express.Response) => {

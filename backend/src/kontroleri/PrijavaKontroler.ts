@@ -79,7 +79,7 @@ export class PrijavaKontroler {
         if (!req.body || !req.body.lozinka || !req.body.kime) { res.json({poruka: "Nedostaju polja"})}
 
         let ret = await DB.korisnikPoKime(req.body.kime)
-        if (ret == null) res.json({poruka: "Neispravni kredencijali."})
+        if (ret == null || ret.aktivan == false || ret.odobren == false) res.json({poruka: "Neispravni kredencijali."})
         else if (! await bcrypt.compare(req.body.lozinka, ret.lozinka)) res.json({poruka: "Neispravni kredencijali."})
         else {
             let session = req.session as any

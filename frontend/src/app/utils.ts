@@ -22,6 +22,9 @@ export class Utils {
     static profilFajlTipovi(): Array<string> {
         return ['png', 'jpg', 'jpeg'];
     }
+    static profilVelicinaZahtevi(): string {
+        return "Profilna slika mora imati sirinu i visinu izmedju 100 i 300 piksela."
+    }
     static dodajUFormu(forma: FormData, obj: any) {
         for (const key in obj) {
             if (obj.hasOwnProperty(key)) {

@@ -21,6 +21,7 @@ export class UcenikNastavniciComponent {
 
   osvezi() {
     this.servis.nastavniciPretraga(this.pretraga).subscribe((res: any) => {
+      console.log(res)
       if (res.poruka == "ok") this.nastavnici = res.podaci;
     })
   }

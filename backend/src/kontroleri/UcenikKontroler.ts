@@ -33,7 +33,10 @@ export class UcenikKontroler {
             res.json({poruka: ret})
         }
         else {
-            let ret = await DB.ucenikPodaci(kor.kime)
+            let ret = await DB.korisnikPoKime(kor.kime)
+            let session = req.session as any
+            session.korisnik = ret;
+            ret = await DB.ucenikPodaci(kor.kime)
             res.json({poruka: "ok", podaci: ret})
         }
     }

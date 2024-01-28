@@ -50,7 +50,10 @@ class UcenikKontroler {
                 res.json({ poruka: ret });
             }
             else {
-                let ret = yield db_1.DB.ucenikPodaci(kor.kime);
+                let ret = yield db_1.DB.korisnikPoKime(kor.kime);
+                let session = req.session;
+                session.korisnik = ret;
+                ret = yield db_1.DB.ucenikPodaci(kor.kime);
                 res.json({ poruka: "ok", podaci: ret });
             }
         });

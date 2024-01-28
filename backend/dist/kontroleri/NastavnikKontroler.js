@@ -50,8 +50,12 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            else
+            else {
+                let ret = yield db_1.DB.korisnikPoKime(kor.kime);
+                let session = req.session;
+                session.korisnik = ret;
                 this.profilPodaci(req, res);
+            }
         });
         this.profilPodaci = (req, res) => __awaiter(this, void 0, void 0, function* () {
             let kor = this.autorizacija(req, res);

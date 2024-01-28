@@ -50,7 +50,7 @@ export class NastavnikProfilComponent {
       mejl: ["", [Validators.required, Validators.pattern(Utils.mejlRegex())]],
       adresa: ["", Validators.required],
       telefon: ["", [Validators.required, Validators.pattern(Utils.telefonRegex())]],
-      profil: [null, [ fajlTipValidator(Utils.profilFajlTipovi()) ], [fajlVisinaSirinaValidator(300, 300)]],
+      profil: [null, [ fajlTipValidator(Utils.profilFajlTipovi()) ], [fajlVisinaSirinaValidator(300, 300, 100, 100)]],
       predmeti: [[]],
       drugiPredmet: [""],
       uzrasti: [[]]
@@ -82,7 +82,7 @@ export class NastavnikProfilComponent {
     if (this.azuriranjeForma.get('mejl')?.hasError('pattern')) this.greska = Utils.mejlZahtevi();
     else if (this.azuriranjeForma.get('telefon')?.hasError('pattern')) this.greska = Utils.telefonZahtevi();
     else if (this.azuriranjeForma.get('profil')?.hasError('fajlTip')) this.greska = "Tip fajl mora biti " + Utils.profilFajlTipovi().join(',')  + ".";
-    else if (this.azuriranjeForma.get('profil')?.hasError('fajlVisinaSirina')) this.greska = "Velicin fajl je je ogranicena na 300x300.";
+    else if (this.azuriranjeForma.get('profil')?.hasError('fajlVisinaSirina')) this.greska = Utils.profilVelicinaZahtevi();
     else if (this.azuriranjeForma.invalid) this.greska = "Popunite sve podatke."
     else {
       let forma = new FormData();
