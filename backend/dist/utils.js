@@ -75,5 +75,11 @@ class Utils {
             return hash;
         });
     }
+    static naSirini(broj, sirina) {
+        let res = broj.toString();
+        for (let i = res.length; i < sirina; i++)
+            res = "0" + res;
+        return res;
+    }
 }
 exports.Utils = Utils;

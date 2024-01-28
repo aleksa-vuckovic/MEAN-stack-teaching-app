@@ -151,9 +151,9 @@ class UcenikKontroler {
             ret = yield db_1.DB.nastavnikRadi(t.nastavnik, od, do_);
             if (ret) {
                 if (ret.od != ret.do) {
-                    let od = ret.od / (1000 * 60);
-                    let do_ = ret.do / (1000 * 60);
-                    res.json({ poruka: `Radno vreme nastavnika je od ${od / 60}:${od % 60} do ${do_ / 60}:${do_ % 60}.` });
+                    let od = (ret.od / (1000 * 60));
+                    let do_ = (ret.do / (1000 * 60));
+                    res.json({ poruka: `Radno vreme nastavnika je od ${utils_1.Utils.naSirini(od / 60, 2)}:${utils_1.Utils.naSirini(od % 60, 2)} do ${utils_1.Utils.naSirini(do_ / 60, 2)}:${utils_1.Utils.naSirini(do_ % 60, 2)}.` });
                 }
                 else
                     res.json({ poruka: "Odabrali ste neradan dan." });
@@ -161,7 +161,7 @@ class UcenikKontroler {
             }
             ret = yield db_1.DB.nastavnikImaCas(t.nastavnik, od, do_);
             if (ret) {
-                res.json({ poruka: "Nastavnik ima " + (ret.potvrdjen ? "potvrdjen" : "zakazan") + " cas u odabranom terminu." });
+                res.json({ poruka: "Nastavnik ima " + (ret.potvrdjen ? "potvrdjen" : "zakazan") + " cas od " + ret.od.vremeString() + " do " + ret.do.vremeString() + "." });
                 return;
             }
             let ret2 = yield db_1.DB.zakazi(t.nastavnik, kor.kime, od, do_, t.predmet, t.opis ? t.opis : "");
