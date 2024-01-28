@@ -47,7 +47,7 @@
                                 {{elem.predmet}}
                             </td>
                             <td *ngIf="elem.komentar || elem.ocena">
-                                <zvezde [broj]="elem.ocena" visina="30px" [disabled]="true"></zvezde>
+                                <zvezde [broj]="elem.ocena" *ngIf="elem.ocena" visina="30px" [disabled]="true"></zvezde>
                             </td>
                             <td *ngIf="elem.komentar || elem.ocena">
                                 <p>{{elem.komentar}}</p>

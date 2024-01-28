@@ -198,7 +198,7 @@ export class Validacija {
         else izlaz.ocena = null;
 
         if (ulaz.komentar) izlaz.komentar = ulaz.komentar;
-        else izlaz.komentar = "";
+        else izlaz.komentar = null;
         return "ok"
     }
 

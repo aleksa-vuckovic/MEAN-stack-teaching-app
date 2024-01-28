@@ -606,9 +606,7 @@ export class DB {
             _id: id,
             potvrdjen: {$ne: null},
             odbijen: null,
-            otkazan: null,
-            ocenaNastavnik: null,
-            komentarNastavnik: null
+            otkazan: null
         }, {
             $set: {
                 ocenaNastavnik: ocena,
