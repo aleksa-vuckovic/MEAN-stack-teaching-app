@@ -12,7 +12,7 @@ let lozinkaPoruka = "Lozinka ne ispunjava uslove.";
 let telefonPoruka = "Telefon ne ispunjava uslove.";
 let mejlPoruka = "Mejl ne ispunjava uslove.";
 
-let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja strucna", "Srednja umetnicka"]
+let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja stručna", "Srednja umetnička"]
 let uzrasti = ["Osnovna 1-4", "Osnovna 5-8", "Srednja"]
 
 export class Validacija {
@@ -53,8 +53,8 @@ export class Validacija {
             //Provera polja za ucenika
             ulaz.razred = parseInt(ulaz.razred);
             if (!ulaz.skola || ulaz.skola == "" ||
-            !ulaz.razred || isNaN(ulaz.razred)) return "Nedostaju podaci za ucenika.";
-            else if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip skole ne postoji.";
+            !ulaz.razred || isNaN(ulaz.razred)) return "Nedostaju podaci za učenika.";
+            else if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip škole ne postoji.";
             else if (ulaz.razred < 1 || ulaz.razred > 8 || ulaz.skola != "Osnovna" && ulaz.razred > 4) return "Razred izvan opsega.";
             
             izlaz.skola = ulaz.skola; izlaz.razred = ulaz.razred;
@@ -72,7 +72,7 @@ export class Validacija {
         }
 
         let ret = await DB.korisnikPoKime(izlaz.kime)
-        if (ret) return "Korisnicko ime vec postoji.";
+        if (ret) return "Korisničko ime vec postoji.";
         ret = await DB.korisnikPoMejlu(izlaz.mejl)
         if (ret) return "Mejl je zauzet.";
         else return "ok";
@@ -92,7 +92,7 @@ export class Validacija {
         if (!fajl) return "Fajl je obavezan.";
         let tip = fajl.mimetype.split("/")[1];
         if (tip != "pdf") return "Tip CV fajla mora biti pdf.";
-        if (fajl.size > 3*1024*1024) return "Velicina fajla je maksimalno 3MB.";
+        if (fajl.size > 3*1024*1024) return "Veličina fajla je maksimalno 3MB.";
         return "ok";
     }
 
@@ -117,14 +117,14 @@ export class Validacija {
             if (ulaz.prelazak && (ulaz.prelazak == true || ulaz.prelazak == "true")) ulaz.prelazak = true
             else ulaz.prelazak = false 
             if (ulaz.skola && ulaz.skola != "") {
-                if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip skole ne postoji."
+                if (tipoviSkola.indexOf(ulaz.skola) == -1) return "Tip škole ne postoji."
                 else izlaz.skola = ulaz.skola;
             } else izlaz.skola = kor.skola;
             if (izlaz.skola != kor.skola) {
-                if (izlaz.skola == "Osnovna") return "Nedozvoljena promena tipa skole.";
-                else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak)) return "Nedozvoljena promena tipa skole.";
+                if (izlaz.skola == "Osnovna") return "Nedozvoljena promena tipa škole.";
+                else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak)) return "Nedozvoljena promena tipa škole.";
             }
-            if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4) return "Nedozvoljen prelazak u sledeci razred.";
+            if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4) return "Nedozvoljen prelazak u sledeći razred.";
             if (ulaz.prelazak) izlaz.razred = kor.razred % 8 + 1;
         }
 
@@ -154,8 +154,8 @@ export class Validacija {
         let keys = ["0", "1", "2", "3", "4", "5", "6"];
         for (let key of keys) {
             if (!ulaz[key]) return "Fale podaci."
-            if (ulaz[key].od > ulaz[key].do) return "Pocetak radnog vremena ne moze biti posle kraja."
-            if (ulaz[key].od < 0) return "Nevalidan pocetak radnog vremena."
+            if (ulaz[key].od > ulaz[key].do) return "Početak radnog vremena ne moze biti posle kraja."
+            if (ulaz[key].od < 0) return "Nevalidan početak radnog vremena."
             if (ulaz[key].do > 24*60*60*1000) return "Nevalidan kraj radnog vremena."
             izlaz[key] = {
                 od: ulaz[key].od,
@@ -169,7 +169,7 @@ export class Validacija {
         if (!ulaz || !ulaz.od || !ulaz.do) return "Fale podaci."
         let od = new DatumVreme(ulaz.od);
         let do_ = new DatumVreme(ulaz.do);
-        if (od.date >= do_.date) return "Datum do mora biti veci od datuma od."
+        if (od.date >= do_.date) return "Datum do mora biti veći od datuma od."
         izlaz.od = od.date;
         izlaz.do = do_.date;
         return "ok";
@@ -178,22 +178,22 @@ export class Validacija {
     static async otkazivanjeValidacija(ulaz: any, izlaz: any): Promise<string> {
         if (!ulaz || !ulaz.id || !ulaz.obrazlozenje) return "Nedostaju podaci."
         let cas = await DB.cas(ulaz.id)
-        if (cas == null) return "Cas ne postoji."
+        if (cas == null) return "Čas ne postoji."
         izlaz.id = ulaz.id
         izlaz.obrazlozenje = ulaz.obrazlozenje
         let sada = DatumVreme.sada()
-        if (cas.od < sada.date) return "Ne mozete otkazati prosli cas."
-        else if (new DatumVreme(cas.od).razlikaUMinutima(sada) < 4*60) return "Ne mozete otkazati cas manje od 4 sata pre pocetka."
+        if (cas.od < sada.date) return "Ne možete otkazati prošli cas."
+        else if (new DatumVreme(cas.od).razlikaUMinutima(sada) < 4*60) return "Ne možete otkazati čas manje od 4 sata pre početka."
         else return "ok";
     }
 
     static async nastavnikRecenzijaValidacija(ulaz: any, izlaz: any, nastavnik: string): Promise<string> {
         if (!ulaz || !ulaz.id) return "Nema dovoljno podataka."
         let cas = await DB.cas(ulaz.id)
-        if (cas == null) return "Cas ne postoji u bazi ili je otkazan/odbijen."
+        if (cas == null) return "Čas ne postoji u bazi ili je otkazan/odbijen."
         izlaz.id = ulaz.id
-        if (cas.od >= DatumVreme.sada().date) return "Ne mozete oceniti cas koji se jos nije zavrsio."
-        else if (cas.ocenaNastavnik || cas.komentarNastavnik) return "Cas je vec ocenjen."
+        if (cas.od >= DatumVreme.sada().date) return "Ne možete oceniti cas koji se još nije završio."
+        else if (cas.ocenaNastavnik || cas.komentarNastavnik) return "Čas je već ocenjen."
         if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
         else izlaz.ocena = null;
 
@@ -205,11 +205,11 @@ export class Validacija {
     static async ucenikRecenzijaValidacija(ulaz: any, izlaz: any, ucenik: string): Promise<string> {
         if (!ulaz || !ulaz.id) return "Nema dovoljno podataka."
         let cas = await DB.cas(ulaz.id)
-        if (!cas) return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen."
+        if (!cas) return "Traženi čas ne postoji u bazi ili je otkazan/odbijen."
         izlaz.id = ulaz.id
-        if (cas.od >= DatumVreme.sada().date) return "Ne mozete oceniti cas koji se jos nije zavrsio."
-        else if (cas.ucenik != ucenik) return "Ne mozete oceniti cas koji nije odrzan vama."
-        else if (cas.ocenaUcenik || cas.komentarUcenik) return "Cas je vec ocenjen."
+        if (cas.od >= DatumVreme.sada().date) return "Ne možete oceniti čas koji se još nije završio."
+        else if (cas.ucenik != ucenik) return "Ne možete oceniti čas koji nije održan vama."
+        else if (cas.ocenaUcenik || cas.komentarUcenik) return "Čas je već ocenjen."
         
         if (ulaz.ocena) izlaz.ocena = ulaz.ocena;
         else izlaz.ocena = null;

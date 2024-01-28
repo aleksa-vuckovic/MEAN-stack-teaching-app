@@ -34,16 +34,12 @@ export class UcenikProfilComponent {
     if (!this.dozvoljenaOsnovna && odabranaSkola == "Osnovna") this.azuriranjeForma.get('skola')?.setValue("Gimnazija");
     if (!this.dozvoljenaSrednja && odabranaSkola != "Osnovna") this.azuriranjeForma.get('skola')?.setValue("Osnovna");
   }
-  postaviPodatke(podaci: any) {
-    this.podaci = podaci
-    this.azurirajDozvoljene();
-  }
 
   azuriranjeForma: FormGroup;
 
   constructor(private servis: UcenikService, private fb: FormBuilder) {
     this.servis.profilPodaci().subscribe((res: any) => {
-      if (res.poruka == "ok") this.postaviPodatke(res.podaci);
+      if (res.poruka == "ok") this.podaci = res.podaci;
     })
     this.azuriranjeForma = this.fb.group({
       ime: ["", Validators.required],
@@ -68,6 +64,7 @@ export class UcenikProfilComponent {
     delete tmp.aktivan;
     tmp.prelazak = false;
     this.azuriranjeForma.setValue(tmp);
+    this.azurirajDozvoljene()
 
     this.prikaz2 = true;
   }
@@ -75,7 +72,7 @@ export class UcenikProfilComponent {
     this.greska = "";
     if (this.azuriranjeForma.get('mejl')?.hasError('pattern')) this.greska = Utils.mejlZahtevi();
     else if (this.azuriranjeForma.get('telefon')?.hasError('pattern')) this.greska = Utils.telefonZahtevi();
-    else if (this.azuriranjeForma.get('profil')?.hasError('fajlTip')) this.greska = "Tip fajl mora biti " + Utils.profilFajlTipovi().join(',')  + ".";
+    else if (this.azuriranjeForma.get('profil')?.hasError('fajlTip')) this.greska = "Tip fajla mora biti " + Utils.profilFajlTipovi().join(',')  + ".";
     else if (this.azuriranjeForma.get('profil')?.hasError('fajlVisinaSirina')) this.greska = Utils.profilVelicinaZahtevi();
     else if (this.azuriranjeForma.invalid) this.greska = "Sva polja su obavezna."
     else {
@@ -85,7 +82,7 @@ export class UcenikProfilComponent {
       this.servis.profilAzuriranje(data).subscribe((res: any) => {
         if (res.poruka != "ok") this.greska = res.poruka;
         else {
-          this.postaviPodatke(res.podaci);
+          this.podaci = res.podaci
           this.prikaz2 = false;
         }
       })

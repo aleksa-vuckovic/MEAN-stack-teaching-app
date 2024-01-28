@@ -23,7 +23,7 @@ let mejlRegex = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@[a-zA-Z\d]+(\.[a-zA-Z\d]+)*$/;
 let lozinkaPoruka = "Lozinka ne ispunjava uslove.";
 let telefonPoruka = "Telefon ne ispunjava uslove.";
 let mejlPoruka = "Mejl ne ispunjava uslove.";
-let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja strucna", "Srednja umetnicka"];
+let tipoviSkola = ["Osnovna", "Gimnazija", "Srednja stručna", "Srednja umetnička"];
 let uzrasti = ["Osnovna 1-4", "Osnovna 5-8", "Srednja"];
 class Validacija {
     static lozinkaValidacija(lozinka) {
@@ -77,9 +77,9 @@ class Validacija {
                 ulaz.razred = parseInt(ulaz.razred);
                 if (!ulaz.skola || ulaz.skola == "" ||
                     !ulaz.razred || isNaN(ulaz.razred))
-                    return "Nedostaju podaci za ucenika.";
+                    return "Nedostaju podaci za učenika.";
                 else if (tipoviSkola.indexOf(ulaz.skola) == -1)
-                    return "Tip skole ne postoji.";
+                    return "Tip škole ne postoji.";
                 else if (ulaz.razred < 1 || ulaz.razred > 8 || ulaz.skola != "Osnovna" && ulaz.razred > 4)
                     return "Razred izvan opsega.";
                 izlaz.skola = ulaz.skola;
@@ -105,7 +105,7 @@ class Validacija {
             }
             let ret = yield db_1.DB.korisnikPoKime(izlaz.kime);
             if (ret)
-                return "Korisnicko ime vec postoji.";
+                return "Korisničko ime vec postoji.";
             ret = yield db_1.DB.korisnikPoMejlu(izlaz.mejl);
             if (ret)
                 return "Mejl je zauzet.";
@@ -136,7 +136,7 @@ class Validacija {
         if (tip != "pdf")
             return "Tip CV fajla mora biti pdf.";
         if (fajl.size > 3 * 1024 * 1024)
-            return "Velicina fajla je maksimalno 3MB.";
+            return "Veličina fajla je maksimalno 3MB.";
         return "ok";
     }
     static profilAzuriranjeValidacija(ulaz, izlaz, kor) {
@@ -168,7 +168,7 @@ class Validacija {
                     ulaz.prelazak = false;
                 if (ulaz.skola && ulaz.skola != "") {
                     if (tipoviSkola.indexOf(ulaz.skola) == -1)
-                        return "Tip skole ne postoji.";
+                        return "Tip škole ne postoji.";
                     else
                         izlaz.skola = ulaz.skola;
                 }
@@ -176,12 +176,12 @@ class Validacija {
                     izlaz.skola = kor.skola;
                 if (izlaz.skola != kor.skola) {
                     if (izlaz.skola == "Osnovna")
-                        return "Nedozvoljena promena tipa skole.";
+                        return "Nedozvoljena promena tipa škole.";
                     else if (kor.skola == "Osnovna" && (kor.razred != 8 || !ulaz.prelazak))
-                        return "Nedozvoljena promena tipa skole.";
+                        return "Nedozvoljena promena tipa škole.";
                 }
                 if (ulaz.prelazak && kor.skola != "Osnovna" && kor.razred == 4)
-                    return "Nedozvoljen prelazak u sledeci razred.";
+                    return "Nedozvoljen prelazak u sledeći razred.";
                 if (ulaz.prelazak)
                     izlaz.razred = kor.razred % 8 + 1;
             }
@@ -222,9 +222,9 @@ class Validacija {
             if (!ulaz[key])
                 return "Fale podaci.";
             if (ulaz[key].od > ulaz[key].do)
-                return "Pocetak radnog vremena ne moze biti posle kraja.";
+                return "Početak radnog vremena ne moze biti posle kraja.";
             if (ulaz[key].od < 0)
-                return "Nevalidan pocetak radnog vremena.";
+                return "Nevalidan početak radnog vremena.";
             if (ulaz[key].do > 24 * 60 * 60 * 1000)
                 return "Nevalidan kraj radnog vremena.";
             izlaz[key] = {
@@ -240,7 +240,7 @@ class Validacija {
         let od = new DatumVreme_1.DatumVreme(ulaz.od);
         let do_ = new DatumVreme_1.DatumVreme(ulaz.do);
         if (od.date >= do_.date)
-            return "Datum do mora biti veci od datuma od.";
+            return "Datum do mora biti veći od datuma od.";
         izlaz.od = od.date;
         izlaz.do = do_.date;
         return "ok";
@@ -251,14 +251,14 @@ class Validacija {
                 return "Nedostaju podaci.";
             let cas = yield db_1.DB.cas(ulaz.id);
             if (cas == null)
-                return "Cas ne postoji.";
+                return "Čas ne postoji.";
             izlaz.id = ulaz.id;
             izlaz.obrazlozenje = ulaz.obrazlozenje;
             let sada = DatumVreme_1.DatumVreme.sada();
             if (cas.od < sada.date)
-                return "Ne mozete otkazati prosli cas.";
+                return "Ne možete otkazati prošli cas.";
             else if (new DatumVreme_1.DatumVreme(cas.od).razlikaUMinutima(sada) < 4 * 60)
-                return "Ne mozete otkazati cas manje od 4 sata pre pocetka.";
+                return "Ne možete otkazati čas manje od 4 sata pre početka.";
             else
                 return "ok";
         });
@@ -269,12 +269,12 @@ class Validacija {
                 return "Nema dovoljno podataka.";
             let cas = yield db_1.DB.cas(ulaz.id);
             if (cas == null)
-                return "Cas ne postoji u bazi ili je otkazan/odbijen.";
+                return "Čas ne postoji u bazi ili je otkazan/odbijen.";
             izlaz.id = ulaz.id;
             if (cas.od >= DatumVreme_1.DatumVreme.sada().date)
-                return "Ne mozete oceniti cas koji se jos nije zavrsio.";
+                return "Ne možete oceniti cas koji se još nije završio.";
             else if (cas.ocenaNastavnik || cas.komentarNastavnik)
-                return "Cas je vec ocenjen.";
+                return "Čas je već ocenjen.";
             if (ulaz.ocena)
                 izlaz.ocena = ulaz.ocena;
             else
@@ -292,14 +292,14 @@ class Validacija {
                 return "Nema dovoljno podataka.";
             let cas = yield db_1.DB.cas(ulaz.id);
             if (!cas)
-                return "Trazeni cas ne postoji u bazi ili je otkazan/odbijen.";
+                return "Traženi čas ne postoji u bazi ili je otkazan/odbijen.";
             izlaz.id = ulaz.id;
             if (cas.od >= DatumVreme_1.DatumVreme.sada().date)
-                return "Ne mozete oceniti cas koji se jos nije zavrsio.";
+                return "Ne možete oceniti čas koji se još nije završio.";
             else if (cas.ucenik != ucenik)
-                return "Ne mozete oceniti cas koji nije odrzan vama.";
+                return "Ne možete oceniti čas koji nije održan vama.";
             else if (cas.ocenaUcenik || cas.komentarUcenik)
-                return "Cas je vec ocenjen.";
+                return "Čas je već ocenjen.";
             if (ulaz.ocena)
                 izlaz.ocena = ulaz.ocena;
             else

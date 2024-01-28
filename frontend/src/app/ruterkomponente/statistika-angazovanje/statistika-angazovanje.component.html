@@ -5,12 +5,12 @@
     <div class="col-lg-10 col-12 ">
         <div class = "row border-bottom px-3 py-1">
             <div class="col-12 my-3">
-                <h2>Statistika - Angazovanje nastavnika</h2>
+                <h2>Statistika - Angažovanje nastavnika</h2>
             </div>
         </div>
         <div class="row border-bottom px-3 py-1">
             <div class="col-12 col-lg-10">
-                <h3>Broj odrzanih casova po mesecima</h3>
+                <h3>Broj održanih casova po mesecima</h3>
                 <canvas baseChart
                 [labels]="labels"
                 [datasets]="datasets"
@@ -22,7 +22,7 @@
         </div>
         <div class="row px-3 py-1">
             <div class="col-12">
-                <h3>Nastavnici sa najvise otkazanih casova</h3>
+                <h3>Nastavnici sa najviše otkazanih časova</h3>
                 <select class="form-select" [(ngModel)]="odabran" (ngModelChange)="odabranNastavnik()">
                     <option *ngFor="let elem of nastavnici" [ngValue]="elem">{{elem.ime}} {{elem.prezime}}</option>
                 </select>

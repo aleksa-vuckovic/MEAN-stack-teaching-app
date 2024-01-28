@@ -72,13 +72,13 @@
         <h5 class="modal-title">Otkazivanje</h5>
     </div>
     <div class="modal-body">
-        <p>Otkazujete cas zakazan za {{odabran.od.datumVremeString()}}.</p>
-        <label for="obrazlozenje" class="form-label">Ovde mozete uneti obrazlozenje.</label>
+        <p>Otkazujete čas zakazan za {{odabran.od.datumVremeString()}}.</p>
+        <label for="obrazlozenje" class="form-label">Ovde možete uneti obrazloženje.</label>
         <textarea id="obrazlozenje" [(ngModel)]="obrazlozenje" class="form-control"></textarea>
         <div class="form-text text-danger">{{greska}}</div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" (click)="otkaziDefinitivno()">Otkazi</button>
+        <button class="btn btn-primary" (click)="otkaziDefinitivno()">Otkaži</button>
         &nbsp;
         <button class="btn btn-secondary" (click)="modalServis.dismissAll()">Odustani</button>
     </div>

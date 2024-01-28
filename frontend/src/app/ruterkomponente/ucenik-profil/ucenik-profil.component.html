@@ -43,24 +43,24 @@
                         <input type="text" class="form-control" id="telefon" formControlName="telefon" required>
                     </div>
                     <div class="mb-3">
-                        <label for="skola" class="form-label">Tip skole</label>
+                        <label for="skola" class="form-label">Tip škole</label>
                         <select id="skola" class="form-control" [disabled] = "dozvoljenaSrednja==false" formControlName="skola">
                             <option value="Osnovna" *ngIf="dozvoljenaOsnovna">Osnovna</option>
                             <option value="Gimnazija" *ngIf="dozvoljenaSrednja">Gimnazija</option>
-                            <option value="Srednja strucna" *ngIf="dozvoljenaSrednja">Srednja strucna</option>
-                            <option value="Srednja umetnicka" *ngIf="dozvoljenaSrednja">Srednja umetnicka</option>
+                            <option value="Srednja stručna" *ngIf="dozvoljenaSrednja">Srednja stručna</option>
+                            <option value="Srednja umetnička" *ngIf="dozvoljenaSrednja">Srednja umetnička</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <input type="checkbox" name = "razred" class="form-check-input" formControlName="prelazak" id="razred" (change)="azurirajDozvoljene()" [disabled]="!dozvoljenPrelazak">
-                        <label for="nastavnik" class="form-label">Prelazim u sledeci razred.</label>
+                        <label for="nastavnik" class="form-label">Prelazim u sledeći razred.</label>
                     </div>
                     <div class="mb-3">
                         <label for="profil" class="form-label">Profilna slika</label>
                         <fajl-input formControlName="profil" id = "profil"></fajl-input>
                     </div>
                     <p class="form-text text-danger">{{greska}}</p>
-                    <button type="submit" class="btn btn-primary">Azuriraj</button> &nbsp; &nbsp; <button class = "btn btn-secondary" (click)="odustani()">Odustani</button>
+                    <button type="submit" class="btn btn-primary">Ažuriraj</button> &nbsp; &nbsp; <button class = "btn btn-secondary" (click)="odustani()">Odustani</button>
                 </form>
             </div>
         </div>

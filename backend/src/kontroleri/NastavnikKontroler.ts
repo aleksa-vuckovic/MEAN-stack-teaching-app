@@ -99,16 +99,16 @@ export class NastavnikKontroler {
     otkazi = async (req: express.Request, res: express.Response) => {
         let kor = this.autorizacija(req, res);
         if (!kor) return;
-        if (!req.body || !req.body.od || !req.body.obrazlozenje) { res.json("Nedostaju podaci."); return; }
+        if (!req.body || !req.body.id || !req.body.obrazlozenje) { res.json("Nedostaju podaci."); return; }
         let izlaz: any = {}
         let ret = await Validacija.otkazivanjeValidacija(req.body, izlaz);
         if (ret != "ok") { res.json({poruka: ret}); return }
         let cas = await DB.cas(izlaz.id)
         ret = await  DB.otkaziCas(izlaz.id, izlaz.obrazlozenje)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
-        if (izlaz.obrazlozenje == "") sadrzaj += " bez obrazlozenja."
-        else sadrzaj += " uz obrazlozenje: '" + izlaz.obrazlozenje + "'."
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao čas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
+        if (izlaz.obrazlozenje == "") sadrzaj += " bez obrazloženja."
+        else sadrzaj += " uz obrazloženje: '" + izlaz.obrazlozenje + "'."
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
         res.json({poruka: "ok"})
     }
@@ -126,7 +126,7 @@ export class NastavnikKontroler {
         let ret = await DB.nastavnikOdgovor(req.body.id, null)
         if (ret != "ok") { res.json({poruka: ret}); return }
         let cas = await DB.cas(req.body.id)
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}.`
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio čas zakazan za ${new DatumVreme(cas.od).datumVremeString()}.`
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
         res.json({poruka: "ok"})
     }
@@ -139,9 +139,9 @@ export class NastavnikKontroler {
         let cas = await DB.cas(id)
         let ret = await DB.nastavnikOdgovor(id, obrazlozenje)
         if (ret != "ok") { res.json({poruka: ret}); return }
-        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
-        if (obrazlozenje == "") sadrzaj += " bez obrazlozenja."
-        else sadrzaj += " uz obrazlozenje: '" + obrazlozenje + "'."
+        let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio čas zakazan za ${new DatumVreme(cas.od).datumVremeString()}`
+        if (obrazlozenje == "") sadrzaj += " bez obrazloženja."
+        else sadrzaj += " uz obrazloženje: '" + obrazlozenje + "'."
         await DB.dodajObavestenje(cas.ucenik, sadrzaj)
         res.json({poruka: "ok"})
     }

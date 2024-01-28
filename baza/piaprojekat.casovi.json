@@ -1,30 +1,5 @@
 [{
   "_id": {
-    "$oid": "65b5e36e032cc459836f3cb7"
-  },
-  "ucenik": "darko",
-  "nastavnik": "marko",
-  "opis": "Muce me sistemi linearnih jednacina.",
-  "predmet": "Matematika",
-  "od": {
-    "$date": "1970-01-01T00:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-23T14:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T10:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "65b51499032cc459836f3c1f"
   },
   "ucenik": "paja",
@@ -801,30 +776,6 @@
 },
 {
   "_id": {
-    "$oid": "65b51644032cc459836f3c34"
-  },
-  "ucenik": "sara",
-  "nastavnik": "jana",
-  "opis": "Vežbe iz hemije - reakcije.",
-  "predmet": "Hemija",
-  "od": {
-    "$date": "2023-07-15T10:00:00.000Z"
-  },
-  "do": {
-    "$date": "2023-07-15T11:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2023-07-10T12:30:00.000Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": 4,
-  "komentarUcenik": "Dobar čas, ali trebalo je više vremena za vežbe.",
-  "ocenaNastavnik": 4,
-  "komentarNastavnik": "Saro, hvala na povratnoj informaciji. Sledeći put ćemo izdvojiti više vremena za vežbe."
-},
-{
-  "_id": {
     "$oid": "65b51b8c032cc459836f3c4e"
   },
   "ucenik": "darko",
@@ -846,6 +797,30 @@
   "komentarUcenik": "Interesantan čas, dobro smo proučili Hamletov monolog.",
   "ocenaNastavnik": 4,
   "komentarNastavnik": "Darko, odlično si pratio čas, radujem se nastavku."
+},
+{
+  "_id": {
+    "$oid": "65b51644032cc459836f3c34"
+  },
+  "ucenik": "sara",
+  "nastavnik": "jana",
+  "opis": "Vežbe iz hemije - reakcije.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2023-07-15T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2023-07-15T11:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2023-07-10T12:30:00.000Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 4,
+  "komentarUcenik": "Dobar čas, ali trebalo je više vremena za vežbe.",
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Saro, hvala na povratnoj informaciji. Sledeći put ćemo izdvojiti više vremena za vežbe."
 },
 {
   "_id": {
@@ -2953,456 +2928,6 @@
 },
 {
   "_id": {
-    "$oid": "65b5e6ea032cc459836f3ccf"
-  },
-  "ucenik": "danica",
-  "nastavnik": "pavle",
-  "opis": "Zelim da oslusam jedan cas cisto iz dosade.",
-  "predmet": "Svet oko nas",
-  "od": {
-    "$date": "2024-01-15T10:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-15T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-10T10:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e4ad032cc459836f3cbf"
-  },
-  "ucenik": "darko",
-  "nastavnik": "tijana",
-  "opis": "Mozemo li da vezbamo kubne jednacine?",
-  "predmet": "Java",
-  "od": {
-    "$date": "2024-01-16T11:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-16T13:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T17:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e471032cc459836f3cbd"
-  },
-  "ucenik": "darko",
-  "nastavnik": "lana",
-  "opis": "Da nastavnimo gde smo i stali.",
-  "predmet": "Hemija",
-  "od": {
-    "$date": "2024-01-18T08:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-18T10:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-16T16:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": 4,
-  "komentarNastavnik": "Svaka cast za dovitljivost, ali mora malo i da se uci!",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e420032cc459836f3cbb"
-  },
-  "ucenik": "darko",
-  "nastavnik": "jana",
-  "opis": "Imam psimeni iz oblasti 'Srbija u prvom svetskom ratu.'",
-  "predmet": "Istorija",
-  "od": {
-    "$date": "2024-01-19T10:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-19T11:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-18T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e29c032cc459836f3cb1"
-  },
-  "ucenik": "paja",
-  "nastavnik": "jana",
-  "opis": "Potrebna mi je priprema za test iz drugog svetskog rata.",
-  "predmet": "Istorija",
-  "od": {
-    "$date": "2024-01-20T10:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-20T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-19T13:20:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e4e9032cc459836f3cc1"
-  },
-  "ucenik": "lazar",
-  "nastavnik": "marko",
-  "opis": "Mozemo li da vezbamo kubne jednacine?",
-  "predmet": "Matematika",
-  "od": {
-    "$date": "2024-01-20T15:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-20T16:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-18T10:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e6a3032cc459836f3ccd"
-  },
-  "ucenik": "danica",
-  "nastavnik": "petar",
-  "opis": "Hajde da citamo sekspira!",
-  "predmet": "Engleski jezik",
-  "od": {
-    "$date": "2024-01-20T19:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-20T20:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-18T10:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e329032cc459836f3cb5"
-  },
-  "ucenik": "paja",
-  "nastavnik": "tijana",
-  "opis": "Hocu da naucim kako da napravim GUI u javi.",
-  "predmet": "Java",
-  "od": {
-    "$date": "2024-01-22T12:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-22T13:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e19f032cc459836f3cab"
-  },
-  "ucenik": "paja",
-  "nastavnik": "marko",
-  "opis": "Mozemo li da vezbamo kubne jednacine?",
-  "predmet": "Matematika",
-  "od": {
-    "$date": "2024-01-23T09:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-23T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e527032cc459836f3cc3"
-  },
-  "ucenik": "lazar",
-  "nastavnik": "petar",
-  "opis": "Bas bih da naucim kineski.",
-  "predmet": "Kineski jezik",
-  "od": {
-    "$date": "2024-01-23T14:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-23T15:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e2e8032cc459836f3cb3"
-  },
-  "ucenik": "paja",
-  "nastavnik": "lana",
-  "opis": "Imam pismeni zadatak iz kovalentnih veza pa mi znacilo malo obnavljanja.",
-  "predmet": "Hemija",
-  "od": {
-    "$date": "2024-01-24T09:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-24T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-21T13:00:34.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": 5,
-  "komentarUcenik": "Moram da priznam da je ovaj cas bio sjajan!",
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e5cd032cc459836f3cc7"
-  },
-  "ucenik": "sara",
-  "nastavnik": "petar",
-  "opis": "Zelela bih da analiziramo neku dramu Branislava Nusica.",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-01-24T16:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-24T18:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-23T13:20:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e203032cc459836f3cad"
-  },
-  "ucenik": "paja",
-  "nastavnik": "petar",
-  "opis": "Zelim da obnovim kondicionale",
-  "predmet": "Engleski jezik",
-  "od": {
-    "$date": "2024-01-25T13:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-25T15:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-22T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e3c9032cc459836f3cb9"
-  },
-  "ucenik": "darko",
-  "nastavnik": "petar",
-  "opis": "Interesuje me CNS (Centralni nervni sistem)",
-  "predmet": "Biologija",
-  "od": {
-    "$date": "2024-01-25T13:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-25T14:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-23T15:01:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e24d032cc459836f3caf"
-  },
-  "ucenik": "paja",
-  "nastavnik": "pavle",
-  "opis": "Zelim da naucim nesto o jezerima u vojvodini.",
-  "predmet": "Geografija",
-  "od": {
-    "$date": "2024-01-26T09:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-26T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-24T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e563032cc459836f3cc5"
-  },
-  "ucenik": "lazar",
-  "nastavnik": "tijana",
-  "opis": "Da li predajete Python?",
-  "predmet": "Programiranje",
-  "od": {
-    "$date": "2024-01-26T14:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-26T15:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-24T13:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5e610032cc459836f3cc9"
-  },
-  "ucenik": "sara",
-  "nastavnik": "pavle",
-  "opis": "Svet je tako lep!",
-  "predmet": "Svet oko nas",
-  "od": {
-    "$date": "2024-01-27T10:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-27T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-23T10:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5dd97c51dc06cd7ab283e"
-  },
-  "ucenik": "danica",
-  "nastavnik": "pavle",
-  "opis": "Imam test na temu ratarstva i povrtarstva, pa bih volela da mi pomognete u vezi sa tim!",
-  "predmet": "Svet oko nas",
-  "od": {
-    "$date": "2024-01-28T05:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-28T07:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:53:30.650Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "65b46ee45002f6bfd563e606"
   },
   "ucenik": "sara",
@@ -3453,56 +2978,6 @@
 },
 {
   "_id": {
-    "$oid": "65b5db10618ffa89b7036459"
-  },
-  "ucenik": "paja",
-  "nastavnik": "marko",
-  "opis": "Mozemo li da vezbamo njutnove zakone?",
-  "predmet": "Fizika",
-  "od": {
-    "$date": "2024-01-30T10:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-30T11:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:56:03.704Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5d9e7618ffa89b7035576"
-  },
-  "ucenik": "darko",
-  "nastavnik": "lana",
-  "opis": "Muce me jonske veze, bas bi mi znacila vasa pomoc.",
-  "predmet": "Hemija",
-  "od": {
-    "$date": "2024-01-30T12:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-30T13:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:57:48.656Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "65b46d965002f6bfd563d70a"
   },
   "ucenik": "darko",
@@ -3519,111 +2994,13 @@
     "$date": "2024-01-28T04:53:35.517Z"
   },
   "odbijen": null,
-  "otkazan": null,
+  "otkazan": {
+    "$date": "2024-01-28T14:44:41.638Z"
+  },
   "ocenaUcenik": null,
   "komentarUcenik": null,
   "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5dd4ac51dc06cd7ab2096"
-  },
-  "ucenik": "danica",
-  "nastavnik": "petar",
-  "opis": "Padezi, padezi, padezi",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-01-31T10:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-31T12:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:56:45.192Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5d72cf4c6a2e9954731ef"
-  },
-  "ucenik": "darko",
-  "nastavnik": "petar",
-  "opis": "Poterebno mi je obnavljanje gradiva iz past simple i past conditional, molim vas.",
-  "predmet": "Engleski jezik",
-  "od": {
-    "$date": "2024-01-31T12:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-31T14:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:56:39.458Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5db9e618ffa89b7036ffd"
-  },
-  "ucenik": "paja",
-  "nastavnik": "jana",
-  "opis": "Ja bih da mi ispricate sve sto znate o peloponeskom ratu.",
-  "predmet": "Istorija",
-  "od": {
-    "$date": "2024-01-31T12:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-01-31T13:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:57:27.940Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5d9ad618ffa89b7034da8"
-  },
-  "ucenik": "darko",
-  "nastavnik": "jana",
-  "opis": "Trenutno me zanimaju klisure u jugoistocnoj srbiji, pre svega njihova geneza i struktura.",
-  "predmet": "Geografija",
-  "od": {
-    "$date": "2024-02-01T09:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-01T10:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:57:26.900Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
+  "komentarNastavnik": "Darko, moracu nazalost da otkazem ovaj termin zbog nepredvidjenih okolnosti.",
   "__v": 0
 },
 {
@@ -3642,131 +3019,6 @@
   },
   "potvrdjen": {
     "$date": "2024-01-27T03:00:04.643Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5dabf618ffa89b7036076"
-  },
-  "ucenik": "sara",
-  "nastavnik": "pavle",
-  "opis": "4. februara imam test iz mejoze i mitoze, molim vas da mi pomognete, potrebna mi je makar cetvorka.",
-  "predmet": "Biologija",
-  "od": {
-    "$date": "2024-02-01T09:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-01T11:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:53:34.176Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5db39618ffa89b7036835"
-  },
-  "ucenik": "paja",
-  "nastavnik": "petar",
-  "opis": "Ja bih da nastavimo tamo gde smo stali proslog casa.",
-  "predmet": "Kineski jezik",
-  "od": {
-    "$date": "2024-02-01T11:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-01T13:30:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:56:43.630Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5dbc6618ffa89b703732d"
-  },
-  "ucenik": "paja",
-  "nastavnik": "tijana",
-  "opis": "Mozete da li da me poducite nekim osnovama Java programskog jezika?",
-  "predmet": "Java",
-  "od": {
-    "$date": "2024-02-01T13:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-01T14:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:58:08.859Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5d971618ffa89b70349b8"
-  },
-  "ucenik": "darko",
-  "nastavnik": "pavle",
-  "opis": "Hteo bih da malo razgovaramo o mitohondrijama.",
-  "predmet": "Biologija",
-  "od": {
-    "$date": "2024-02-01T15:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-01T17:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:53:33.136Z"
-  },
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5da75618ffa89b7035c92"
-  },
-  "ucenik": "sara",
-  "nastavnik": "petar",
-  "opis": "Volela bih da konacno shvatim sta se pise velikim, a sta malim pocetnim slovom",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-02-02T09:00:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-02T10:00:00.000Z"
-  },
-  "potvrdjen": {
-    "$date": "2024-01-28T04:56:42.306Z"
   },
   "odbijen": null,
   "otkazan": null,
@@ -3803,20 +3055,95 @@
 },
 {
   "_id": {
-    "$oid": "65b5db6f618ffa89b7036c11"
+    "$oid": "65b5d72cf4c6a2e9954731ef"
   },
-  "ucenik": "paja",
-  "nastavnik": "pavle",
-  "opis": "Dosadno mi je, spremite samo bilo kakvu prezentaciju.",
-  "predmet": "Biologija",
+  "ucenik": "darko",
+  "nastavnik": "petar",
+  "opis": "Poterebno mi je obnavljanje gradiva iz past simple i past conditional, molim vas.",
+  "predmet": "Engleski jezik",
   "od": {
-    "$date": "2024-02-02T12:30:00.000Z"
+    "$date": "2024-01-31T12:00:00.000Z"
   },
   "do": {
-    "$date": "2024-02-02T13:30:00.000Z"
+    "$date": "2024-01-31T14:00:00.000Z"
   },
   "potvrdjen": {
-    "$date": "2024-01-28T04:53:38.867Z"
+    "$date": "2024-01-28T04:56:39.458Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5d971618ffa89b70349b8"
+  },
+  "ucenik": "darko",
+  "nastavnik": "pavle",
+  "opis": "Hteo bih da malo razgovaramo o mitohondrijama.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2024-02-01T15:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T17:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:53:33.136Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5d9ad618ffa89b7034da8"
+  },
+  "ucenik": "darko",
+  "nastavnik": "jana",
+  "opis": "Trenutno me zanimaju klisure u jugoistocnoj srbiji, pre svega njihova geneza i struktura.",
+  "predmet": "Geografija",
+  "od": {
+    "$date": "2024-02-01T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T10:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:57:26.900Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5d9e7618ffa89b7035576"
+  },
+  "ucenik": "darko",
+  "nastavnik": "lana",
+  "opis": "Muce me jonske veze, bas bi mi znacila vasa pomoc.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2024-01-30T12:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-30T13:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:57:48.656Z"
   },
   "odbijen": null,
   "otkazan": null,
@@ -3853,6 +3180,681 @@
 },
 {
   "_id": {
+    "$oid": "65b5da75618ffa89b7035c92"
+  },
+  "ucenik": "sara",
+  "nastavnik": "petar",
+  "opis": "Volela bih da konacno shvatim sta se pise velikim, a sta malim pocetnim slovom",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-02-02T09:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-02T10:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:56:42.306Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5dabf618ffa89b7036076"
+  },
+  "ucenik": "sara",
+  "nastavnik": "pavle",
+  "opis": "4. februara imam test iz mejoze i mitoze, molim vas da mi pomognete, potrebna mi je makar cetvorka.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2024-02-01T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:53:34.176Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5db10618ffa89b7036459"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Mozemo li da vezbamo njutnove zakone?",
+  "predmet": "Fizika",
+  "od": {
+    "$date": "2024-01-30T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-30T11:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:56:03.704Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5db39618ffa89b7036835"
+  },
+  "ucenik": "paja",
+  "nastavnik": "petar",
+  "opis": "Ja bih da nastavimo tamo gde smo stali proslog casa.",
+  "predmet": "Kineski jezik",
+  "od": {
+    "$date": "2024-02-01T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:56:43.630Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5db6f618ffa89b7036c11"
+  },
+  "ucenik": "paja",
+  "nastavnik": "pavle",
+  "opis": "Dosadno mi je, spremite samo bilo kakvu prezentaciju.",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2024-02-02T12:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-02T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:53:38.867Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5db9e618ffa89b7036ffd"
+  },
+  "ucenik": "paja",
+  "nastavnik": "jana",
+  "opis": "Ja bih da mi ispricate sve sto znate o peloponeskom ratu.",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2024-01-31T12:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-31T13:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:57:27.940Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5dbc6618ffa89b703732d"
+  },
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Mozete da li da me poducite nekim osnovama Java programskog jezika?",
+  "predmet": "Java",
+  "od": {
+    "$date": "2024-02-01T13:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-01T14:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:58:08.859Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5dd4ac51dc06cd7ab2096"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Padezi, padezi, padezi",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-01-31T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-31T12:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:56:45.192Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5dd97c51dc06cd7ab283e"
+  },
+  "ucenik": "danica",
+  "nastavnik": "pavle",
+  "opis": "Imam test na temu ratarstva i povrtarstva, pa bih volela da mi pomognete u vezi sa tim!",
+  "predmet": "Svet oko nas",
+  "od": {
+    "$date": "2024-01-28T05:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-28T07:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T04:53:30.650Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e19f032cc459836f3cab"
+  },
+  "ucenik": "paja",
+  "nastavnik": "marko",
+  "opis": "Mozemo li da vezbamo kubne jednacine?",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2024-01-23T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-23T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e203032cc459836f3cad"
+  },
+  "ucenik": "paja",
+  "nastavnik": "petar",
+  "opis": "Zelim da obnovim kondicionale",
+  "predmet": "Engleski jezik",
+  "od": {
+    "$date": "2024-01-25T13:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-25T15:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-22T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e24d032cc459836f3caf"
+  },
+  "ucenik": "paja",
+  "nastavnik": "pavle",
+  "opis": "Zelim da naucim nesto o jezerima u vojvodini.",
+  "predmet": "Geografija",
+  "od": {
+    "$date": "2024-01-26T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-26T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-24T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e29c032cc459836f3cb1"
+  },
+  "ucenik": "paja",
+  "nastavnik": "jana",
+  "opis": "Potrebna mi je priprema za test iz drugog svetskog rata.",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2024-01-20T10:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-20T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-19T13:20:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e2e8032cc459836f3cb3"
+  },
+  "ucenik": "paja",
+  "nastavnik": "lana",
+  "opis": "Imam pismeni zadatak iz kovalentnih veza pa mi znacilo malo obnavljanja.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2024-01-24T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-24T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T13:00:34.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": 5,
+  "komentarUcenik": "Moram da priznam da je ovaj cas bio sjajan!",
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e329032cc459836f3cb5"
+  },
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Hocu da naucim kako da napravim GUI u javi.",
+  "predmet": "Java",
+  "od": {
+    "$date": "2024-01-22T12:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-22T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e36e032cc459836f3cb7"
+  },
+  "ucenik": "darko",
+  "nastavnik": "marko",
+  "opis": "Muce me sistemi linearnih jednacina.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "1970-01-01T00:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-23T14:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T10:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e3c9032cc459836f3cb9"
+  },
+  "ucenik": "darko",
+  "nastavnik": "petar",
+  "opis": "Interesuje me CNS (Centralni nervni sistem)",
+  "predmet": "Biologija",
+  "od": {
+    "$date": "2024-01-25T13:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-25T14:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-23T15:01:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e420032cc459836f3cbb"
+  },
+  "ucenik": "darko",
+  "nastavnik": "jana",
+  "opis": "Imam psimeni iz oblasti 'Srbija u prvom svetskom ratu.'",
+  "predmet": "Istorija",
+  "od": {
+    "$date": "2024-01-19T10:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-19T11:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-18T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e471032cc459836f3cbd"
+  },
+  "ucenik": "darko",
+  "nastavnik": "lana",
+  "opis": "Da nastavnimo gde smo i stali.",
+  "predmet": "Hemija",
+  "od": {
+    "$date": "2024-01-18T08:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-18T10:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-16T16:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": 4,
+  "komentarNastavnik": "Svaka cast za dovitljivost, ali mora malo i da se uci!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e4ad032cc459836f3cbf"
+  },
+  "ucenik": "darko",
+  "nastavnik": "tijana",
+  "opis": "Mozemo li da vezbamo kubne jednacine?",
+  "predmet": "Java",
+  "od": {
+    "$date": "2024-01-16T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-16T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T17:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e4e9032cc459836f3cc1"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "marko",
+  "opis": "Mozemo li da vezbamo kubne jednacine?",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2024-01-20T15:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-20T16:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-18T10:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e527032cc459836f3cc3"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Bas bih da naucim kineski.",
+  "predmet": "Kineski jezik",
+  "od": {
+    "$date": "2024-01-23T14:00:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-23T15:00:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-21T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e563032cc459836f3cc5"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "tijana",
+  "opis": "Da li predajete Python?",
+  "predmet": "Programiranje",
+  "od": {
+    "$date": "2024-01-26T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-26T15:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-24T13:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e5cd032cc459836f3cc7"
+  },
+  "ucenik": "sara",
+  "nastavnik": "petar",
+  "opis": "Zelela bih da analiziramo neku dramu Branislava Nusica.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-01-24T16:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-24T18:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-23T13:20:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e610032cc459836f3cc9"
+  },
+  "ucenik": "sara",
+  "nastavnik": "pavle",
+  "opis": "Svet je tako lep!",
+  "predmet": "Svet oko nas",
+  "od": {
+    "$date": "2024-01-27T10:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-27T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-23T10:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e6a3032cc459836f3ccd"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Hajde da citamo sekspira!",
+  "predmet": "Engleski jezik",
+  "od": {
+    "$date": "2024-01-20T19:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-20T20:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-18T10:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5e6ea032cc459836f3ccf"
+  },
+  "ucenik": "danica",
+  "nastavnik": "pavle",
+  "opis": "Zelim da oslusam jedan cas cisto iz dosade.",
+  "predmet": "Svet oko nas",
+  "od": {
+    "$date": "2024-01-15T10:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-01-15T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-10T10:00:04.643Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
     "$oid": "65b5e956c51dc06cd7ab3f29"
   },
   "ucenik": "paja",
@@ -3878,52 +3880,6 @@
 },
 {
   "_id": {
-    "$oid": "65b5eb20c51dc06cd7ab5c89"
-  },
-  "ucenik": "lazar",
-  "nastavnik": "tijana",
-  "opis": "Mozemo li da nastavimo sa c++?",
-  "predmet": "Informatika",
-  "od": {
-    "$date": "2024-02-05T11:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-05T12:30:00.000Z"
-  },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5ecedc51dc06cd7ab81b3"
-  },
-  "ucenik": "danica",
-  "nastavnik": "petar",
-  "opis": "Htela bih da vezbamo vrste reci.",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-02-06T10:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-06T11:30:00.000Z"
-  },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "65b5e977c51dc06cd7ab42f1"
   },
   "ucenik": "paja",
@@ -3936,31 +3892,8 @@
   "do": {
     "$date": "2024-02-06T12:30:00.000Z"
   },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5eb95c51dc06cd7ab6aa7"
-  },
-  "ucenik": "darko",
-  "nastavnik": "petar",
-  "opis": "Zelim konacno da naucim razliku izmedju zavisnih i nezavisnih recenica.",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-02-06T12:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-06T13:30:00.000Z"
-  },
   "potvrdjen": {
-    "$date": "2024-01-28T06:01:14.887Z"
+    "$date": "2024-01-28T14:38:42.534Z"
   },
   "odbijen": null,
   "otkazan": null,
@@ -3972,40 +3905,17 @@
 },
 {
   "_id": {
-    "$oid": "65b5ea56c51dc06cd7ab4dd0"
+    "$oid": "65b5e9e7c51dc06cd7ab46c1"
   },
   "ucenik": "paja",
-  "nastavnik": "tijana",
-  "opis": "Zelim da ucimo neki cudan i retko koriscen programski jezik",
-  "predmet": "Programiranje",
-  "od": {
-    "$date": "2024-02-07T09:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-07T11:30:00.000Z"
-  },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5ecb3c51dc06cd7ab7de8"
-  },
-  "ucenik": "sara",
   "nastavnik": "pavle",
-  "opis": "Hajde da pricamo o zivotnoj sredini?",
-  "predmet": "Svet oko nas",
+  "opis": "Zelim da naucim nesto o vulkanima.",
+  "predmet": "Geografija",
   "od": {
-    "$date": "2024-02-07T12:30:00.000Z"
+    "$date": "2024-03-06T10:30:00.000Z"
   },
   "do": {
-    "$date": "2024-02-07T13:30:00.000Z"
+    "$date": "2024-03-06T11:30:00.000Z"
   },
   "potvrdjen": null,
   "odbijen": null,
@@ -4041,17 +3951,17 @@
 },
 {
   "_id": {
-    "$oid": "65b5eb58c51dc06cd7ab66d8"
+    "$oid": "65b5ea56c51dc06cd7ab4dd0"
   },
-  "ucenik": "darko",
-  "nastavnik": "marko",
-  "opis": "Odaberite vi temu, samo neka bude nesto iz teorije brojeva.",
-  "predmet": "Matematika",
+  "ucenik": "paja",
+  "nastavnik": "tijana",
+  "opis": "Zelim da ucimo neki cudan i retko koriscen programski jezik",
+  "predmet": "Programiranje",
   "od": {
-    "$date": "2024-02-07T14:30:00.000Z"
+    "$date": "2024-02-07T09:30:00.000Z"
   },
   "do": {
-    "$date": "2024-02-07T15:30:00.000Z"
+    "$date": "2024-02-07T11:30:00.000Z"
   },
   "potvrdjen": null,
   "odbijen": null,
@@ -4064,17 +3974,17 @@
 },
 {
   "_id": {
-    "$oid": "65b5ed36c51dc06cd7ab8588"
+    "$oid": "65b5ea79c51dc06cd7ab51b8"
   },
-  "ucenik": "danica",
-  "nastavnik": "pavle",
-  "opis": "Da li biste mogli da me pripremiti za test 10.2?",
-  "predmet": "Svet oko nas",
+  "ucenik": "paja",
+  "nastavnik": "lana",
+  "opis": "I dalje mi nisu jasne kovalentne veze!",
+  "predmet": "Hemija",
   "od": {
-    "$date": "2024-02-07T15:30:00.000Z"
+    "$date": "2024-02-08T09:30:00.000Z"
   },
   "do": {
-    "$date": "2024-02-07T16:30:00.000Z"
+    "$date": "2024-02-08T10:30:00.000Z"
   },
   "potvrdjen": null,
   "odbijen": null,
@@ -4110,19 +4020,92 @@
 },
 {
   "_id": {
-    "$oid": "65b5ea79c51dc06cd7ab51b8"
+    "$oid": "65b5eaf7c51dc06cd7ab5961"
   },
-  "ucenik": "paja",
-  "nastavnik": "lana",
-  "opis": "I dalje mi nisu jasne kovalentne veze!",
-  "predmet": "Hemija",
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Engleski mi nikad nije isao od ruke, zelim konacno da nesto naucim.",
+  "predmet": "Engleski jezik",
   "od": {
-    "$date": "2024-02-08T09:30:00.000Z"
+    "$date": "2024-02-09T14:30:00.000Z"
   },
   "do": {
-    "$date": "2024-02-08T10:30:00.000Z"
+    "$date": "2024-02-09T15:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T14:38:44.672Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5eb20c51dc06cd7ab5c89"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "tijana",
+  "opis": "Mozemo li da nastavimo sa c++?",
+  "predmet": "Informatika",
+  "od": {
+    "$date": "2024-02-05T11:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-05T12:30:00.000Z"
   },
   "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5eb58c51dc06cd7ab66d8"
+  },
+  "ucenik": "darko",
+  "nastavnik": "marko",
+  "opis": "Odaberite vi temu, samo neka bude nesto iz teorije brojeva.",
+  "predmet": "Matematika",
+  "od": {
+    "$date": "2024-02-07T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-07T15:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5eb95c51dc06cd7ab6aa7"
+  },
+  "ucenik": "darko",
+  "nastavnik": "petar",
+  "opis": "Zelim konacno da naucim razliku izmedju zavisnih i nezavisnih recenica.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-02-06T12:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-06T13:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T06:01:14.887Z"
+  },
   "odbijen": null,
   "otkazan": null,
   "ocenaUcenik": null,
@@ -4181,52 +4164,6 @@
 },
 {
   "_id": {
-    "$oid": "65b5ec90c51dc06cd7ab7a15"
-  },
-  "ucenik": "sara",
-  "nastavnik": "petar",
-  "opis": "Htela bih da vezbam prepoznavanje subjekta i predikta.",
-  "predmet": "Srpski jezik",
-  "od": {
-    "$date": "2024-02-09T11:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-09T12:30:00.000Z"
-  },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "65b5eaf7c51dc06cd7ab5961"
-  },
-  "ucenik": "lazar",
-  "nastavnik": "petar",
-  "opis": "Engleski mi nikad nije isao od ruke, zelim konacno da nesto naucim.",
-  "predmet": "Engleski jezik",
-  "od": {
-    "$date": "2024-02-09T14:30:00.000Z"
-  },
-  "do": {
-    "$date": "2024-02-09T15:30:00.000Z"
-  },
-  "potvrdjen": null,
-  "odbijen": null,
-  "otkazan": null,
-  "ocenaUcenik": null,
-  "komentarUcenik": null,
-  "ocenaNastavnik": null,
-  "komentarNastavnik": null,
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "65b5ec56c51dc06cd7ab7646"
   },
   "ucenik": "darko",
@@ -4250,17 +4187,207 @@
 },
 {
   "_id": {
-    "$oid": "65b5e9e7c51dc06cd7ab46c1"
+    "$oid": "65b5ec90c51dc06cd7ab7a15"
   },
-  "ucenik": "paja",
-  "nastavnik": "pavle",
-  "opis": "Zelim da naucim nesto o vulkanima.",
-  "predmet": "Geografija",
+  "ucenik": "sara",
+  "nastavnik": "petar",
+  "opis": "Htela bih da vezbam prepoznavanje subjekta i predikta.",
+  "predmet": "Srpski jezik",
   "od": {
-    "$date": "2024-03-06T10:30:00.000Z"
+    "$date": "2024-02-09T11:30:00.000Z"
   },
   "do": {
-    "$date": "2024-03-06T11:30:00.000Z"
+    "$date": "2024-02-09T12:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T14:38:45.644Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5ecb3c51dc06cd7ab7de8"
+  },
+  "ucenik": "sara",
+  "nastavnik": "pavle",
+  "opis": "Hajde da pricamo o zivotnoj sredini?",
+  "predmet": "Svet oko nas",
+  "od": {
+    "$date": "2024-02-07T12:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-07T13:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5ecedc51dc06cd7ab81b3"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Htela bih da vezbamo vrste reci.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-02-06T10:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-06T11:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T14:38:46.430Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b5ed36c51dc06cd7ab8588"
+  },
+  "ucenik": "danica",
+  "nastavnik": "pavle",
+  "opis": "Da li biste mogli da me pripremiti za test 10.2?",
+  "predmet": "Svet oko nas",
+  "od": {
+    "$date": "2024-02-07T15:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-07T16:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b6656e9ba0b71cca060e1b"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "Mozemo da nastavimo gde smo stali na proslom casu.",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-02-09T15:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-09T16:30:00.000Z"
+  },
+  "potvrdjen": {
+    "$date": "2024-01-28T14:38:47.701Z"
+  },
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b665899ba0b71cca0611ba"
+  },
+  "ucenik": "danica",
+  "nastavnik": "petar",
+  "opis": "U ovom terminu bih htela da provezbamo konjugaciju",
+  "predmet": "Srpski jezik",
+  "od": {
+    "$date": "2024-02-12T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-12T15:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b665d79ba0b71cca061561"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Zeleo bih da nastavimo sa analizom sekspira.",
+  "predmet": "Engleski jezik",
+  "od": {
+    "$date": "2024-02-14T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-14T15:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b666519ba0b71cca061900"
+  },
+  "ucenik": "lazar",
+  "nastavnik": "petar",
+  "opis": "Hteo bih da dovrsimo pas continuous i ako stignemo da zapocnemo i present perfect continuous",
+  "predmet": "Engleski jezik",
+  "od": {
+    "$date": "2024-02-05T14:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-05T15:30:00.000Z"
+  },
+  "potvrdjen": null,
+  "odbijen": null,
+  "otkazan": null,
+  "ocenaUcenik": null,
+  "komentarUcenik": null,
+  "ocenaNastavnik": null,
+  "komentarNastavnik": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65b6669d9ba0b71cca061ca7"
+  },
+  "ucenik": "paja",
+  "nastavnik": "petar",
+  "opis": "Mozemo li da razgovaramo o kineskoj kulturi i obicajima?",
+  "predmet": "Kineski jezik",
+  "od": {
+    "$date": "2024-02-09T09:30:00.000Z"
+  },
+  "do": {
+    "$date": "2024-02-09T10:30:00.000Z"
   },
   "potvrdjen": null,
   "odbijen": null,
