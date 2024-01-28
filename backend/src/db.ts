@@ -1376,4 +1376,30 @@ export class DB {
             }
         ])
     }
+
+    /*
+    static async prepraviObavestenja(): Promise<string> {
+        await obavestenjeModel.updateMany({
+
+        },[
+        {
+            $addFields: {
+                sadrzaj: {
+                    $replaceAll: {
+                        input : {
+                            $replaceAll: {
+                                input: "$sadrzaj",
+                                find: " cas ",
+                                replacement: " čas "
+                            }
+                        },
+                        find: "obrazlozenje",
+                        replacement: "obrazloženje"
+                    } 
+                }
+            }
+        }])
+        return "ok"
+    }
+    */
 }

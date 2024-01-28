@@ -9,7 +9,7 @@ import { AdministratorService } from 'src/app/servisi/administrator.service';
 })
 export class StatistikaPolComponent {
 
-  labels = ["Z", "M"]
+  labels = ["Ž", "M"]
   nastavnikPodaci = [
     {
       data: [1, 2]
@@ -50,7 +50,7 @@ export class StatistikaPolComponent {
         console.log(res)
         this.predmetiLabele = res.podaci.predmeti
         this.predmetiPodaci.push({
-          label: "Z",
+          label: "Ž",
           data: res.podaci.podaciZ,
           fill: true
         })

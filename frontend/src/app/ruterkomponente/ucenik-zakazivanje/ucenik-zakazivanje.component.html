@@ -12,7 +12,7 @@
             <div class="col-12" *ngIf="kalendar==false">
                 <div class="mb-3">
                     <label for="datumvreme1" class="form-label">Odaberite datum i vreme</label>
-                    &nbsp; &nbsp;<button (click)="kalendar = true" class = "btn btn-secondary m-1">Predji na detaljan pregled</button>
+                    &nbsp; &nbsp;<button (click)="kalendar = true" class = "btn btn-secondary m-1">Pređi na detaljan pregled</button>
                     <datum-vreme-input id="datumvreme1" [(ngModel)]="datumvreme1"/>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="col-12 col-md-4">
                 <div class="mb-3">
                     <input type="checkbox" class="form-check-input" [(ngModel)]="duplicas" id="duplicas">
-                    &nbsp;<label for="duplicas" class="form-label">Zelim dupli cas.</label>
+                    &nbsp;<label for="duplicas" class="form-label">Želim dupli cas.</label>
                 </div>
                 <div class="mb-3">
                     <label for="predmet" class="form-label">Odaberite predmet</label>
@@ -37,11 +37,11 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="opis" class="form-label">Poruka ili dodatno pojasnjenje nastavniku</label>
+                    <label for="opis" class="form-label">Poruka ili dodatno pojašnjenje nastavniku</label>
                     <textarea id="opis" [(ngModel)]="opis" class="form-control"></textarea>
                 </div>
                 <div class="form-text text-danger mb-3">{{greska}}</div>
-                <button (click)="zakazi()" class="btn btn-primary">Zakazi</button>
+                <button (click)="zakazi()" class="btn btn-primary">Zakaži</button>
             </div>
         </div>
     </div>

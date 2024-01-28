@@ -46,11 +46,11 @@ export class PromenaLozinkeComponent {
             this.greska = res.poruka;
           }
           else {
-            this.alertUspeh = "Lozinka je uspesno promenjena. Preusmeravanje za 6.";
+            this.alertUspeh = "Lozinka je uspešno promenjena. Preusmeravanje za 6.";
             let cnt = 6;
             let id: any;
             id = setInterval(() => {
-              if (cnt > 0) this.alertUspeh = `Lozinka je uspesno promenjena. Preusmeravanje za ${--cnt}.`
+              if (cnt > 0) this.alertUspeh = `Lozinka je uspešno promenjena. Preusmeravanje za ${--cnt}.`
               else {
                 clearInterval(id);
                 this.ruter.navigate(["prijava"])

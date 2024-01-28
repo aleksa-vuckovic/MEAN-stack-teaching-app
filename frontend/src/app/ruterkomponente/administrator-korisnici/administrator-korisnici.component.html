@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let elem of korisnici" class="link" (click)="klik(elem)">
-                            <td> {{elem.tip}}</td>
+                            <td> {{elem.tip  == 'Ucenik' ? 'Učenik' : elem.tip}}</td>
                             <td> {{elem.ime}} </td>
                             <td> {{elem.prezime}} </td>
                             <td> {{elem.mejl}} </td>

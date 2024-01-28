@@ -90,9 +90,9 @@ export class RegistracijaComponent {
     //provera zajednickih polja
     const lozinka = this.registracijaForm.get('lozinka');
     if (lozinka?.hasError('minLength')) {
-      this.greskaLozinka = 'Lozinka mora biti najmanje duzine 6 karaktera.';
+      this.greskaLozinka = 'Lozinka mora biti najmanje dužine 6 karaktera.';
     } else if (lozinka?.hasError('maxLength')) {
-      this.greskaLozinka = 'Lozinka mora biti najvece duzine 10 karaktera.';
+      this.greskaLozinka = 'Lozinka mora biti najveće duzine 10 karaktera.';
     } else if (lozinka?.hasError('pattern')) {
       this.greskaLozinka = Utils.lozinkaZahtevi();
     }
@@ -109,14 +109,14 @@ export class RegistracijaComponent {
 
     const profil = this.registracijaForm.get('profil');
     if (profil?.hasError('fajlTip')) {
-      this.greskaProfil = 'Tip fajla mora biti jedan od seledecih ' + this.profilFajlTipovi.join(',') + ".";
+      this.greskaProfil = 'Tip fajla mora biti jedan od seledećih ' + this.profilFajlTipovi.join(',') + ".";
     }
     else if (profil?.hasError('fajlVisinaSirina')) {
       this.greskaProfil = Utils.profilVelicinaZahtevi();
     }
 
     if (this.greskaLozinka + this.greskaMejl + this.greskaProfil + this.greskaTelefon == "" && this.registracijaForm.invalid) {
-      this.greska = "Polja oznacena sa * su obavezna.";
+      this.greska = "Polja označena sa * su obavezna.";
     }
 
     if (this.registracijaForm.valid) {
@@ -132,14 +132,14 @@ export class RegistracijaComponent {
   registracijaUcenik() {
     if (this.registracija()) {
       if (this.korak2UcenikForm.invalid) {
-        this.greska = "Sva polja oznacena sa * su obavezna!"
+        this.greska = "Sva polja označena sa * su obavezna!"
       }
       else {
         let skola = this.korak2UcenikForm.get('skola')?.value
         let razred = this.korak2UcenikForm.get('razred')?.value
 
         if (skola != "Osnovna" && razred > 4) {
-          this.greska = "Razred za srednju skolu moze biti od 1 do 4."
+          this.greska = "Razred za srednju školu moze biti od 1 do 4."
         }
         else {
           //submit 
@@ -148,7 +148,7 @@ export class RegistracijaComponent {
           Utils.dodajUFormu(forma, this.korak2UcenikForm.value)
 
           this.servis.registracija(forma).subscribe((res: any) => {
-            if (res.poruka == "ok") this.alertUspeh = "Registracija je uspela! Mozete da se ulogujete."
+            if (res.poruka == "ok") this.alertUspeh = "Registracija je uspela! Možete da se ulogujete."
             else this.alertNeuspeh = res.poruka;
             Utils.skrolDoVrha();
           })
@@ -164,10 +164,10 @@ export class RegistracijaComponent {
         this.greskaCV = 'Biografija je obavezna.'
       }
       else if (cv?.hasError('fajlTip')) {
-        this.greskaCV = 'Tip fajl mora biti pdf.'
+        this.greskaCV = 'Tip fajla mora biti pdf.'
       }
       else if (cv?.hasError('fajlVelicina')) {
-        this.greskaCV = 'Velicina fajla je maksimalno 3MB.';
+        this.greskaCV = 'Veličina fajla je maksimalno 3MB.';
       }
       else {
         //submit data

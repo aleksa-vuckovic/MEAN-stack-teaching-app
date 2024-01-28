@@ -5,7 +5,7 @@ export class Utils {
         return /^(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[a-zA-Z].{5,9}$/;
     }
     static lozinkaZahtevi(): string {
-        return "Lozinka mora da ima 6-10 karaktera, 3 mala slova, 1 veliko, 1 broj i 1 specijalan karakter, i mora poceti slovom.";
+        return "Lozinka mora da ima 6-10 karaktera, 3 mala slova, 1 veliko, 1 broj i 1 specijalan karakter, i mora početi slovom.";
     }
     static telefonRegex(): RegExp {
         return /^\+381( *\d){8,9}$/;
@@ -23,7 +23,7 @@ export class Utils {
         return ['png', 'jpg', 'jpeg'];
     }
     static profilVelicinaZahtevi(): string {
-        return "Profilna slika mora imati sirinu i visinu izmedju 100 i 300 piksela."
+        return "Profilna slika mora imati širinu i visinu između 100 i 300 piksela."
     }
     static dodajUFormu(forma: FormData, obj: any) {
         for (const key in obj) {

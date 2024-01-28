@@ -135,7 +135,7 @@ class NastavnikKontroler {
             let kor = this.autorizacija(req, res);
             if (!kor)
                 return;
-            if (!req.body || !req.body.od || !req.body.obrazlozenje) {
+            if (!req.body || !req.body.id || !req.body.obrazlozenje) {
                 res.json("Nedostaju podaci.");
                 return;
             }
@@ -151,11 +151,11 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je otkazao čas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
             if (izlaz.obrazlozenje == "")
-                sadrzaj += " bez obrazlozenja.";
+                sadrzaj += " bez obrazloženja.";
             else
-                sadrzaj += " uz obrazlozenje: '" + izlaz.obrazlozenje + "'.";
+                sadrzaj += " uz obrazloženje: '" + izlaz.obrazlozenje + "'.";
             yield db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj);
             res.json({ poruka: "ok" });
         });
@@ -180,7 +180,7 @@ class NastavnikKontroler {
                 return;
             }
             let cas = yield db_1.DB.cas(req.body.id);
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}.`;
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je potvrdio čas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}.`;
             yield db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj);
             res.json({ poruka: "ok" });
         });
@@ -200,11 +200,11 @@ class NastavnikKontroler {
                 res.json({ poruka: ret });
                 return;
             }
-            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio cas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
+            let sadrzaj = `Nastavnik ${kor.ime} ${kor.prezime} je odbio čas zakazan za ${new DatumVreme_1.DatumVreme(cas.od).datumVremeString()}`;
             if (obrazlozenje == "")
-                sadrzaj += " bez obrazlozenja.";
+                sadrzaj += " bez obrazloženja.";
             else
-                sadrzaj += " uz obrazlozenje: '" + obrazlozenje + "'.";
+                sadrzaj += " uz obrazloženje: '" + obrazlozenje + "'.";
             yield db_1.DB.dodajObavestenje(cas.ucenik, sadrzaj);
             res.json({ poruka: "ok" });
         });

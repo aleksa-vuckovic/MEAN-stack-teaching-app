@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
                 <h4 *ngIf="casovi.length==0">
-                    Nema casova za prikaz.
+                    Nema časova za prikaz.
                 </h4>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <h5 class="modal-title">Recenzija</h5>
     </div>
     <div class="modal-body">
-        <p>Unesite ocenu i komentar za cas odrzan {{odabran.od.datumVremeString()}}.</p>
+        <p>Unesite ocenu i komentar za cas održan {{odabran.od.datumVremeString()}}.</p>
         <zvezde [(ngModel)]="ocena" visina="35px"></zvezde>
         <textarea [(ngModel)]="komentar" class="form-control mt-2"></textarea>
     </div>

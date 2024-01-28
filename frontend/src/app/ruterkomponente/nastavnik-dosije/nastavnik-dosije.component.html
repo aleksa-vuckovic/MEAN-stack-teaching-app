@@ -21,7 +21,7 @@
         </div>
         <div class="row px-3 py-1">
             <div class = "col-12 my-3">
-                <h3>Odrzani casovi</h3>
+                <h3>Održani casovi</h3>
             </div>
             <div class="col-12">
                 <table class="table table-striped border" *ngIf="casovi.length!=0">
@@ -59,7 +59,7 @@
                     </tbody>
                 </table>
                 <h4 *ngIf="casovi.length==0">
-                    Nemate odrzanih casova sa ovim ucenikom.
+                    Nemate održanih časova sa ovim učenikom.
                 </h4>
             </div>
         </div>
@@ -73,7 +73,7 @@
         <h5 class="modal-title">Recenzija</h5>
     </div>
     <div class="modal-body">
-        <p>Unesite ocenu i komentar za cas odrzan {{odabran.od.datumVremeString()}}.</p>
+        <p>Unesite ocenu i komentar za čas odrzan {{odabran.od.datumVremeString()}}.</p>
         <zvezde [(ngModel)]="ocena" visina="35px"></zvezde>
         <textarea [(ngModel)]="komentar" class="form-control mt-2"></textarea>
     </div>

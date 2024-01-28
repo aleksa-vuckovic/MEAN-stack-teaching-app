@@ -3,7 +3,7 @@
     "$oid": "6594218e6709789d0fdc42bc"
   },
   "prijava": {
-    "$date": "2024-01-27T02:54:22.489Z"
+    "$date": "2024-01-28T05:59:28.887Z"
   },
   "kime": "marko",
   "lozinka": "$2b$10$VixSMYnkI.Kn88AazRNqNOWyRpvoyEyEKxWoMrvIP941Y5qh3bHX2",
@@ -71,7 +71,7 @@
     "$oid": "659423f71254ae03e0c57f8d"
   },
   "prijava": {
-    "$date": "2024-01-27T03:03:29.550Z"
+    "$date": "2024-01-28T14:37:27.873Z"
   },
   "kime": "petar",
   "lozinka": "$2b$10$4ScWt9HgGy42cVHtBOzlc.7fUFish5nYA5SWnWgYFqzxRfKJBoSc.",
@@ -139,7 +139,7 @@
     "$oid": "6594248d1254ae03e0c57f91"
   },
   "prijava": {
-    "$date": "2024-01-14T19:56:00.000Z"
+    "$date": "2024-01-28T14:39:28.714Z"
   },
   "kime": "pavle",
   "lozinka": "$2b$10$nULhHNsuypffraTdRktH2uUjnnpBrJ1IXmr97jsbcD7h8jN5SqhJW",
@@ -194,11 +194,20 @@
       "do": 0
     },
     "6": {
-      "od": 36000000,
+      "od": 21600000,
       "do": 82800000
     }
   },
-  "nedostupnost": [],
+  "nedostupnost": [
+    {
+      "od": {
+        "$date": "2024-02-04T11:00:00.000Z"
+      },
+      "do": {
+        "$date": "2024-02-04T14:30:00.000Z"
+      }
+    }
+  ],
   "__v": 0
 },
 {
@@ -206,7 +215,7 @@
     "$oid": "659425381254ae03e0c57f97"
   },
   "prijava": {
-    "$date": "2024-01-01T14:01:00.000Z"
+    "$date": "2024-01-28T05:16:32.953Z"
   },
   "kime": "jana",
   "lozinka": "$2b$10$i/GtkDMu30Z5p3ah5sW64O836ynFSRlqhv9aB9hWdyBJcM1eIEF4y",
@@ -272,7 +281,7 @@
     "$oid": "659425b21254ae03e0c57f9b"
   },
   "prijava": {
-    "$date": "2024-01-01T14:01:00.000Z"
+    "$date": "2024-01-28T06:01:51.682Z"
   },
   "kime": "lana",
   "lozinka": "$2b$10$dY2jVsI2AItlpBEpcH8ugezTE1CCODDEoONkBji/6Xxzy99RVxUsC",
@@ -336,7 +345,7 @@
     "$oid": "6594261c1254ae03e0c57f9f"
   },
   "prijava": {
-    "$date": "2024-01-27T02:59:46.504Z"
+    "$date": "2024-01-28T06:00:35.946Z"
   },
   "kime": "tijana",
   "lozinka": "$2b$10$jRFVUsYTj6rnKzIUpXYIH.0iLAnqE1NDHKUPB5b4kJhu6eQCOhZTi",
@@ -412,7 +421,7 @@
     "$oid": "659426df1254ae03e0c57fa4"
   },
   "prijava": {
-    "$date": "2024-01-03T16:50:00.000Z"
+    "$date": "2024-01-28T14:36:13.314Z"
   },
   "kime": "paja",
   "lozinka": "$2b$10$IHgVxxBPGvNTttmBeAIiQeTrg36aiJBj/UgIAE0hcSHMIygR2Z2V6",
@@ -443,7 +452,7 @@
     "$oid": "659427de1254ae03e0c57fa9"
   },
   "prijava": {
-    "$date": "2024-01-27T03:02:13.266Z"
+    "$date": "2024-01-28T14:32:49.601Z"
   },
   "kime": "lazar",
   "lozinka": "$2b$10$eD7ajQD8SBl4gMEDfrzKj.SgZ0AnUbjmzCjDXILHwPyhSHAUG8cp2",
@@ -474,7 +483,7 @@
     "$oid": "659428501254ae03e0c57fad"
   },
   "prijava": {
-    "$date": "2024-01-27T02:35:33.739Z"
+    "$date": "2024-01-28T14:44:49.917Z"
   },
   "kime": "darko",
   "lozinka": "$2b$10$q4jkU6YInI5dFdB.jvS8nuJbZqL2V11eg.RkF3ORjn/1Ma41EWqnm",
@@ -505,7 +514,7 @@
     "$oid": "659428bc1254ae03e0c57fb1"
   },
   "prijava": {
-    "$date": "2024-01-27T02:45:12.595Z"
+    "$date": "2024-01-28T05:55:46.559Z"
   },
   "kime": "sara",
   "lozinka": "$2b$10$h5kig8uAodInMOgEXZpazuap7viRtS.qhfMg7gEJNAJKD6pZ59FV6",
@@ -536,7 +545,7 @@
     "$oid": "659429191254ae03e0c57fb5"
   },
   "prijava": {
-    "$date": "2024-01-14T20:16:00.000Z"
+    "$date": "2024-01-28T14:31:32.380Z"
   },
   "kime": "danica",
   "lozinka": "$2b$10$nyFkyDJBFpncEKPHsL7sd.RFdK2EWomsomzFsa54//GDKc/w9o0L2",
@@ -567,7 +576,7 @@
     "$oid": "65944fb4979100d9a64c50ea"
   },
   "prijava": {
-    "$date": "2024-01-27T02:21:17.924Z"
+    "$date": "2024-01-28T06:03:55.779Z"
   },
   "kime": "aleksa",
   "lozinka": "$2a$10$8Fx56SC5D2WgwM4j0GK0E.IQ5w53q12EWkDX0exLfUfF/wbjX2u7O",
